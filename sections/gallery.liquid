@@ -153,8 +153,12 @@
               <{% if content_has_link == false and block.settings.card_link != blank %}a href="{{ block.settings.card_link }}"{% else %}div{% endif %}
                 class="
                 w-full m-0
-                  responsive-card-padding overflow-hidden {% unless has_any_image %}h-full {% endunless %}flex flex-col content-container color-{{ block.settings.card_color_scheme }} gradient text-{{ block.settings.column_alignment }}
-                  {% if has_any_image %} vp-gallery-adapt relative{% endif %}
+                  responsive-card-padding overflow-hidden content-container color-{{ block.settings.card_color_scheme }} gradient text-{{ block.settings.column_alignment }}
+                  {% if has_any_image %}
+                    vp-gallery-adapt relative
+                  {% else %}
+                    h-full flex flex-col
+                  {% endif %}
                   {% if section.settings.full_width %} rounded-none{% endif %}
                   {% if content_has_link == false and block.settings.card_link != blank %} full-unstyled-link--foreground hover-zoom focus-this-inner-inset{% endif %}
                 "
@@ -229,16 +233,60 @@
                   </div>
                 {%- endif -%}
 
+                {%- liquid
+                  assign gallery_content_style = ''
+                  if has_any_image
+                    assign gallery_content_style = 'position:absolute;z-index:2;width:max-content;max-width:100%;height:max-content;margin:0;'
+
+                    case block.settings.text_vertical_alignment
+                      when 'justify-start'
+                        assign gallery_content_style = gallery_content_style | append: 'top:0;bottom:auto;'
+                      when 'justify-center'
+                        assign gallery_content_style = gallery_content_style | append: 'top:50%;bottom:auto;'
+                      else
+                        assign gallery_content_style = gallery_content_style | append: 'top:auto;bottom:0;'
+                    endcase
+
+                    case block.settings.column_alignment
+                      when 'center'
+                        assign gallery_content_style = gallery_content_style | append: 'left:50%;right:auto;'
+                      when 'right'
+                        assign gallery_content_style = gallery_content_style | append: 'left:auto;right:0;'
+                      else
+                        assign gallery_content_style = gallery_content_style | append: 'left:0;right:auto;'
+                    endcase
+
+                    if block.settings.text_vertical_alignment == 'justify-center' and block.settings.column_alignment == 'center'
+                      assign gallery_content_style = gallery_content_style | append: 'transform:translate(-50%,-50%);'
+                    elsif block.settings.text_vertical_alignment == 'justify-center'
+                      assign gallery_content_style = gallery_content_style | append: 'transform:translateY(-50%);'
+                    elsif block.settings.column_alignment == 'center'
+                      assign gallery_content_style = gallery_content_style | append: 'transform:translateX(-50%);'
+                    endif
+                  endif
+                -%}
                 <div
                   class="
                     card-padding block-when-empty
                     {% if has_any_image %}
-                      vp-gallery-content absolute inset z-2
+                      vp-gallery-content z-2
                     {% else %}
-                      relative grow section-height-responsive--mobile section-height-responsive--desktop
+                      relative grow section-height-responsive--mobile section-height-responsive--desktop w-full
                     {% endif %}
                     max-w-{{ block.settings.content_max_width }} flex flex-col {{ block.settings.text_vertical_alignment }} self-{{ block.settings.column_alignment }}
+                    {% if has_any_image %}
+                      {% if block.settings.column_alignment == 'center' %}
+                        items-center
+                      {% elsif block.settings.column_alignment == 'right' %}
+                        items-end
+                      {% else %}
+                        items-start
+                      {% endif %}
+                    {% endif %}
                   "
+                  {% if gallery_content_style != blank %}
+                    style="{{ gallery_content_style }}"
+                  {% endif %}
                 >
                   {%- if block.settings.icon != blank and block.settings.stat_number == blank -%}
                     {% render 'standard-blocks',
