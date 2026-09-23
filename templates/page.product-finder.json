@@ -1,0 +1,462 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+        "spacing": 0,
+        "color_scheme": "scheme-2",
+        "line_separator": "border-bottom",
+        "visibility": ""
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "page_width": "narrow",
+        "content_max_width": "xl",
+        "custom_page_header": false,
+        "title": "",
+        "italic_convert": "",
+        "heading_size": "h1",
+        "show_view_all_link": true,
+        "view_all_link": "",
+        "view_all_text": "",
+        "view_all_text_size": "t4",
+        "color_scheme": "",
+        "heading_tag": "h1"
+      }
+    },
+    "rich_text_3nzik9": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Kbp68T": {
+          "type": "heading",
+          "settings": {
+            "heading": "Select a category",
+            "heading_italic_convert": "",
+            "heading_size": "h1",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h1"
+          }
+        },
+        "spacer_N9mkCn": {
+          "type": "spacer",
+          "settings": {
+            "show_line_separator": false,
+            "spacing_top": 1.5,
+            "spacing_bottom": 1,
+            "spacer_visibility": "both",
+            "line_color": ""
+          }
+        },
+        "buttons_yCynxa": {
+          "type": "buttons",
+          "settings": {
+            "button_text_size": "t6",
+            "button_label_1": "Can't see it? Let us know",
+            "button_link_1": "/",
+            "button_style_1": "secondary",
+            "button_style_1_show_arrow": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_2": "secondary",
+            "button_style_2_show_arrow": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_Kbp68T",
+        "spacer_N9mkCn",
+        "buttons_yCynxa"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_max_width": "m",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "container_color_scheme": "",
+        "show_content_shadow": false,
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s05",
+        "visibility": "",
+        "hide_when_empty": false
+      }
+    },
+    "multicolumn_DyRrfE": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_standard_JQ4CF6": {
+          "type": "column_standard",
+          "settings": {
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-center",
+            "content_padding": 2.8,
+            "image_ratio": "adapt",
+            "image_width": 100,
+            "image_position": "top",
+            "icon": "",
+            "icon_container": "none",
+            "icon_size": 3.4,
+            "icon_color": "",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "title": "Category 1",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "text": "",
+            "text_size": "t3",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_standard_aiagxb": {
+          "type": "column_standard",
+          "settings": {
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-center",
+            "content_padding": 2.8,
+            "image_ratio": "adapt",
+            "image_width": 100,
+            "image_position": "top",
+            "icon": "",
+            "icon_container": "none",
+            "icon_size": 3.4,
+            "icon_color": "",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "title": "Category 2",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "text": "",
+            "text_size": "t3",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_standard_fMxwNL": {
+          "type": "column_standard",
+          "settings": {
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-center",
+            "content_padding": 2.8,
+            "image_ratio": "adapt",
+            "image_width": 100,
+            "image_position": "top",
+            "icon": "",
+            "icon_container": "none",
+            "icon_size": 3.4,
+            "icon_color": "",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "title": "Category 3",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "text": "",
+            "text_size": "t3",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_standard_FLBjEP": {
+          "type": "column_standard",
+          "settings": {
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-center",
+            "content_padding": 2.8,
+            "image_ratio": "adapt",
+            "image_width": 100,
+            "image_position": "top",
+            "icon": "",
+            "icon_container": "none",
+            "icon_size": 3.4,
+            "icon_color": "",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "title": "Category 4",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "text": "",
+            "text_size": "t3",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        }
+      },
+      "block_order": [
+        "column_standard_JQ4CF6",
+        "column_standard_aiagxb",
+        "column_standard_fMxwNL",
+        "column_standard_FLBjEP"
+      ],
+      "settings": {
+        "icon_bottom": false,
+        "desktop_section_height": 200,
+        "mobile_section_height": 200,
+        "desktop_layout": "grid",
+        "mobile_layout": "carousel",
+        "columns_desktop": "4",
+        "columns_desktop_scale": false,
+        "columns_mobile": "1",
+        "image_overlay_opacity": 0,
+        "content_max_width": "m",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "title": "",
+        "italic_convert": "",
+        "heading_size": "h2",
+        "text": "",
+        "text_size": "t3",
+        "view_all_link": "",
+        "view_all_text": "",
+        "view_all_text_size": "t3",
+        "color_scheme": "scheme-1",
+        "card_shadow": true,
+        "line_separator": "",
+        "top_padding": "pt-s05",
+        "bottom_padding": "pb-0",
+        "visibility": "",
+        "hide_when_empty": false,
+        "heading_tag": "h2"
+      }
+    },
+    "rich_text_zxxAGk": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_V4DYeA": {
+          "type": "heading",
+          "settings": {
+            "heading": "<em>or</em>",
+            "heading_italic_convert": "light",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_V4DYeA"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_max_width": "m",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "center",
+        "section_color_scheme": "",
+        "container_color_scheme": "",
+        "show_content_shadow": false,
+        "line_separator": "",
+        "top_padding": "pt-s05",
+        "bottom_padding": "pb-0",
+        "visibility": "",
+        "hide_when_empty": false
+      }
+    },
+    "rich_text_LKRaLV": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_HxYQxW": {
+          "type": "heading",
+          "settings": {
+            "heading": "Know exactly what you're after?",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h1"
+          }
+        },
+        "spacer_dq6ByH": {
+          "type": "spacer",
+          "settings": {
+            "show_line_separator": false,
+            "spacing_top": 1.5,
+            "spacing_bottom": 1,
+            "spacer_visibility": "both",
+            "line_color": ""
+          }
+        },
+        "quick_filter_VBE7WP": {
+          "type": "quick_filter",
+          "settings": {
+            "filter_menu": "main-menu",
+            "text_size": "t3",
+            "max_width": 1200,
+            "preselect": false,
+            "min_items_for_search": 9,
+            "auto_open_next_dropdown": true,
+            "select1_label": "",
+            "select2_label": "",
+            "select3_label": "",
+            "button_label": "Search",
+            "hide_label": true,
+            "button_icon": "search",
+            "icon_alignment": "left"
+          }
+        }
+      },
+      "block_order": [
+        "heading_HxYQxW",
+        "spacer_dq6ByH",
+        "quick_filter_VBE7WP"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_max_width": "m",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "center",
+        "section_color_scheme": "",
+        "container_color_scheme": "scheme-2",
+        "show_content_shadow": true,
+        "line_separator": "",
+        "top_padding": "pt-s05",
+        "bottom_padding": "pb-0",
+        "visibility": "",
+        "hide_when_empty": false
+      }
+    },
+    "rich_text_hTRAj8": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_pB9wVM": {
+          "type": "heading",
+          "settings": {
+            "heading": "<em>or</em>",
+            "heading_italic_convert": "light",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_pB9wVM"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_max_width": "m",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "center",
+        "section_color_scheme": "",
+        "container_color_scheme": "",
+        "show_content_shadow": false,
+        "line_separator": "",
+        "top_padding": "pt-s05",
+        "bottom_padding": "pb-0",
+        "visibility": "",
+        "hide_when_empty": false
+      }
+    },
+    "rich_text_rDXiXD": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_d4PKHg": {
+          "type": "heading",
+          "settings": {
+            "heading": "Shopping by a different criteria?",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h1"
+          }
+        },
+        "spacer_wfD7EY": {
+          "type": "spacer",
+          "settings": {
+            "show_line_separator": false,
+            "spacing_top": 1.5,
+            "spacing_bottom": 1,
+            "spacer_visibility": "both",
+            "line_color": ""
+          }
+        },
+        "quick_filter_xGQzfa": {
+          "type": "quick_filter",
+          "settings": {
+            "filter_menu": "main-menu",
+            "text_size": "t3",
+            "max_width": 1200,
+            "preselect": false,
+            "min_items_for_search": 9,
+            "auto_open_next_dropdown": true,
+            "select1_label": "",
+            "select2_label": "",
+            "select3_label": "",
+            "button_label": "Search",
+            "hide_label": true,
+            "button_icon": "search",
+            "icon_alignment": "left"
+          }
+        }
+      },
+      "block_order": [
+        "heading_d4PKHg",
+        "spacer_wfD7EY",
+        "quick_filter_xGQzfa"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_max_width": "m",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "center",
+        "section_color_scheme": "",
+        "container_color_scheme": "scheme-2",
+        "show_content_shadow": true,
+        "line_separator": "",
+        "top_padding": "pt-s05",
+        "bottom_padding": "pb-s15",
+        "visibility": "",
+        "hide_when_empty": false
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "main",
+    "rich_text_3nzik9",
+    "multicolumn_DyRrfE",
+    "rich_text_zxxAGk",
+    "rich_text_LKRaLV",
+    "rich_text_hTRAj8",
+    "rich_text_rDXiXD"
+  ]
+}

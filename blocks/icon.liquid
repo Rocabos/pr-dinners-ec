@@ -1,0 +1,960 @@
+{% render 'standard-blocks', type: 'icon' %}
+
+{% schema %}
+{
+  "name": "Icon",
+  "tag": null,
+  "settings": [
+    
+  {
+    "type": "select",
+    "id": "icon",
+    "options": [
+      
+  {
+    "label": "None",
+    "value": ""
+  },
+  {
+    "label": "Clothes & Beauty / Brush",
+    "value": "brush"
+  },
+  {
+    "label": "Clothes & Beauty / Dryer",
+    "value": "dryer"
+  },
+  {
+    "label": "Clothes & Beauty / Footsteps",
+    "value": "footsteps"
+  },
+  {
+    "label": "Clothes & Beauty / Glasses",
+    "value": "glasses"
+  },
+  {
+    "label": "Clothes & Beauty / Iron",
+    "value": "iron"
+  },
+  {
+    "label": "Clothes & Beauty / Leather",
+    "value": "leather"
+  },
+  {
+    "label": "Clothes & Beauty / Lipstick",
+    "value": "lipstick"
+  },
+  {
+    "label": "Clothes & Beauty / Pants",
+    "value": "pants"
+  },
+  {
+    "label": "Clothes & Beauty / Perfume",
+    "value": "perfume"
+  },
+  {
+    "label": "Clothes & Beauty / Ruler",
+    "value": "ruler"
+  },
+  {
+    "label": "Clothes & Beauty / Scissors",
+    "value": "scissors"
+  },
+  {
+    "label": "Clothes & Beauty / Shirt 1",
+    "value": "shirt"
+  },
+  {
+    "label": "Clothes & Beauty / Shirt 2",
+    "value": "shirt2"
+  },
+  {
+    "label": "Clothes & Beauty / Shoe",
+    "value": "shoe"
+  },
+  {
+    "label": "Clothes & Beauty / Washing",
+    "value": "washing"
+  },
+  {
+    "label": "Communication / Call",
+    "value": "call"
+  },
+  {
+    "label": "Communication / Chat bubble",
+    "value": "chat_bubble"
+  },
+  {
+    "label": "Communication / Chat bubbles",
+    "value": "chat_bubbles"
+  },
+  {
+    "label": "Communication / Ear",
+    "value": "ear"
+  },
+  {
+    "label": "Communication / Information",
+    "value": "information"
+  },
+  {
+    "label": "Communication / Information circle",
+    "value": "information_circle"
+  },
+  {
+    "label": "Communication / Mail",
+    "value": "mail"
+  },
+  {
+    "label": "Communication / @ symbol",
+    "value": "email-at"
+  },
+  {
+    "label": "Communication / Notification alert",
+    "value": "alert"
+  },
+  {
+    "label": "Communication / Question mark",
+    "value": "help"
+  },
+  {
+    "label": "Communication / Question mark circle",
+    "value": "question_mark"
+  },
+  {
+    "label": "Communication / Warning",
+    "value": "warning"
+  },
+  {
+    "label": "Digital / Apps",
+    "value": "apps"
+  },
+  {
+    "label": "Digital / Arrow right",
+    "value": "arrow_right"
+  },
+  {
+    "label": "Digital / Attach",
+    "value": "attach"
+  },
+  {
+    "label": "Digital / Calendar",
+    "value": "calendar"
+  },
+  {
+    "label": "Digital / Chart",
+    "value": "chart"
+  },
+  {
+    "label": "Digital / Chevron right",
+    "value": "chevron_right"
+  },
+  {
+    "label": "Digital / Clipboard",
+    "value": "clipboard"
+  },
+  {
+    "label": "Digital / Cloud",
+    "value": "cloud"
+  },
+  {
+    "label": "Digital / Cloud done",
+    "value": "cloud_done"
+  },
+  {
+    "label": "Digital / Cloud download",
+    "value": "cloud_download"
+  },
+  {
+    "label": "Digital / Cloud upload",
+    "value": "cloud_upload"
+  },
+  {
+    "label": "Digital / Code slash",
+    "value": "code_slash"
+  },
+  {
+    "label": "Digital / Documents",
+    "value": "documents"
+  },
+  {
+    "label": "Digital / Home",
+    "value": "home"
+  },
+  {
+    "label": "Digital / Images",
+    "value": "images"
+  },
+  {
+    "label": "Digital / Open in new window",
+    "value": "open"
+  },
+  {
+    "label": "Digital / Options",
+    "value": "options"
+  },
+  {
+    "label": "Digital / Plus",
+    "value": "plus"
+  },
+  {
+    "label": "Digital / Plus in circle",
+    "value": "add"
+  },
+  {
+    "label": "Digital / Repeat",
+    "value": "repeat"
+  },
+  {
+    "label": "Digital / Scan",
+    "value": "scan"
+  },
+  {
+    "label": "Digital / Search",
+    "value": "search"
+  },
+  {
+    "label": "Digital / Volume",
+    "value": "volume"
+  },
+
+  {
+    "label": "eCommerce / Bag add",
+    "value": "bag-add"
+  },
+  {
+    "label": "eCommerce / Bag with check mark",
+    "value": "bag-check"
+  },
+  {
+    "label": "eCommerce / Box",
+    "value": "box"
+  },
+  {
+    "label": "eCommerce / Card",
+    "value": "card"
+  },
+  {
+    "label": "eCommerce / Cart",
+    "value": "cart"
+  },
+  {
+    "label": "eCommerce / Clock",
+    "value": "clock"
+  },
+  {
+    "label": "eCommerce / Cash",
+    "value": "cash"
+  },
+  {
+    "label": "eCommerce / Gift",
+    "value": "gift"
+  },
+  {
+    "label": "eCommerce / Price tag",
+    "value": "price_tag"
+  },
+  {
+    "label": "eCommerce / Price tags",
+    "value": "price_tags"
+  },
+  {
+    "label": "eCommerce / Recycle",
+    "value": "recycle"
+  },
+  {
+    "label": "eCommerce / Return",
+    "value": "return"
+  },
+  {
+    "label": "eCommerce / Storefront",
+    "value": "storefront"
+  },
+  {
+    "label": "eCommerce / Truck",
+    "value": "truck"
+  },
+  {
+    "label": "eCommerce / Wallet",
+    "value": "wallet"
+  },
+  {
+    "label": "Food & Beverage / Apple",
+    "value": "apple"
+  },
+  {
+    "label": "Food & Beverage / Banana",
+    "value": "banana"
+  },
+  {
+    "label": "Food & Beverage / Beer",
+    "value": "beer"
+  },
+  {
+    "label": "Food & Beverage / Bottle",
+    "value": "bottle"
+  },
+  {
+    "label": "Food & Beverage / Carrot",
+    "value": "carrot"
+  },
+  {
+    "label": "Food & Beverage / Coffee",
+    "value": "cafe"
+  },
+  {
+    "label": "Food & Beverage / Cutlery",
+    "value": "restaurant"
+  },
+  {
+    "label": "Food & Beverage / Dairy",
+    "value": "dairy"
+  },
+  {
+    "label": "Food & Beverage / Dairy free",
+    "value": "dairy_free"
+  },
+  {
+    "label": "Food & Beverage / Drink",
+    "value": "pint"
+  },
+  {
+    "label": "Food & Beverage / Egg",
+    "value": "egg"
+  },
+  {
+    "label": "Food & Beverage / Fast food",
+    "value": "fast_food"
+  },
+  {
+    "label": "Food & Beverage / Fish",
+    "value": "fish"
+  },
+  {
+    "label": "Food & Beverage / Gluten free",
+    "value": "gluten_free"
+  },
+  {
+    "label": "Food & Beverage / Ice cream",
+    "value": "ice_cream"
+  },
+  {
+    "label": "Food & Beverage / Nut free",
+    "value": "nut_free"
+  },
+  {
+    "label": "Food & Beverage / Pepper",
+    "value": "pepper"
+  },
+  {
+    "label": "Food & Beverage / Pizza",
+    "value": "pizza"
+  },
+  {
+    "label": "Food & Beverage / Serving dish",
+    "value": "serving_dish"
+  },
+  {
+    "label": "Food & Beverage / Vegan",
+    "value": "plant"
+  },
+  {
+    "label": "Food & Beverage / Wine",
+    "value": "wine"
+  },
+  {
+    "label": "Hardware & Tools / Construction",
+    "value": "construction"
+  },
+  {
+    "label": "Hardware & Tools / Cog",
+    "value": "cog"
+  },
+  {
+    "label": "Hardware & Tools / Eyedropper",
+    "value": "eyedropper"
+  },
+  {
+    "label": "Hardware & Tools / Flashlight",
+    "value": "flashlight"
+  },
+  {
+    "label": "Hardware & Tools / Gear",
+    "value": "gear"
+  },
+  {
+    "label": "Hardware & Tools / Hammer",
+    "value": "hammer"
+  },
+  {
+    "label": "Hardware & Tools / Magnet",
+    "value": "magnet"
+  },
+  {
+    "label": "Hardware & Tools / Paint bucket",
+    "value": "paint"
+  },
+  {
+    "label": "Hardware & Tools / Thermometer",
+    "value": "thermometer"
+  },
+  {
+    "label": "Hardware & Tools / Wrench",
+    "value": "build"
+  },
+  {
+    "label": "Logo / Amazon",
+    "value": "logo_amazon"
+  },
+  {
+    "label": "Logo / Android",
+    "value": "logo_android"
+  },
+  {
+    "label": "Logo / Apple",
+    "value": "logo_apple"
+  },
+  {
+    "label": "Logo / Apple Appstore",
+    "value": "logo_apple_appstore"
+  },
+  {
+    "label": "Logo / Discord",
+    "value": "logo_discord"
+  },
+  {
+    "label": "Logo / Facebook",
+    "value": "logo_facebook"
+  },
+  {
+    "label": "Logo / Google",
+    "value": "logo_google"
+  },
+  {
+    "label": "Logo / Google Playstore",
+    "value": "logo_google_playstore"
+  },
+  {
+    "label": "Logo / Instagram",
+    "value": "logo_instagram"
+  },
+  {
+    "label": "Logo / Linkedin",
+    "value": "logo_linkedin"
+  },
+  {
+    "label": "Logo / Microsoft",
+    "value": "logo_microsoft"
+  },
+  {
+    "label": "Logo / Pinterest",
+    "value": "logo_pinterest"
+  },
+  {
+    "label": "Logo / Soundcloud",
+    "value": "logo_soundcloud"
+  },
+  {
+    "label": "Logo / Tiktok",
+    "value": "logo_tiktok"
+  },
+  {
+    "label": "Logo / Tumblr",
+    "value": "logo_tumblr"
+  },
+  {
+    "label": "Logo / Twitch",
+    "value": "logo_twitch"
+  },
+  {
+    "label": "Logo / Wechat",
+    "value": "logo_wechat"
+  },
+  {
+    "label": "Logo / Whatsapp",
+    "value": "logo_whatsapp"
+  },
+  {
+    "label": "Logo / X (aka Twitter)",
+    "value": "logo_x"
+  },
+  {
+    "label": "Logo / YouTube",
+    "value": "logo_youtube"
+  },
+  {
+    "label": "Nature / Bug",
+    "value": "bug"
+  },
+  {
+    "label": "Nature / Earth",
+    "value": "earth"
+  },
+  {
+    "label": "Nature / Fire",
+    "value": "fire"
+  },
+  {
+    "label": "Nature / Flower",
+    "value": "flower"
+  },
+  {
+    "label": "Nature / Globe",
+    "value": "globe"
+  },
+  {
+    "label": "Nature / Leaf",
+    "value": "leaf"
+  },
+  {
+    "label": "Nature / Lightning bolt",
+    "value": "lightning_bolt"
+  },
+  {
+    "label": "Nature / Partly sunny",
+    "value": "partly_sunny"
+  },
+  {
+    "label": "Nature / Paw print",
+    "value": "paw_print"
+  },
+  {
+    "label": "Nature / Rose",
+    "value": "rose"
+  },
+  {
+    "label": "Nature / Snowflake",
+    "value": "snowflake"
+  },
+  {
+    "label": "Nature / Sunny",
+    "value": "sunny"
+  },
+  {
+    "label": "Nature / Thunderstorm",
+    "value": "thunderstorm"
+  },
+  {
+    "label": "Nature / Umbrella",
+    "value": "umbrella"
+  },
+  {
+    "label": "Nature / Water",
+    "value": "water"
+  },
+  {
+    "label": "Other / Balloon",
+    "value": "balloon"
+  },
+  {
+    "label": "Other / Ban",
+    "value": "ban"
+  },
+  {
+    "label": "Other / Bed",
+    "value": "bed"
+  },
+  {
+    "label": "Other / Book",
+    "value": "book"
+  },
+  {
+    "label": "Other / Books",
+    "value": "books"
+  },
+  {
+    "label": "Other / Briefcase",
+    "value": "briefcase"
+  },
+  {
+    "label": "Other / Calculator",
+    "value": "calculator"
+  },
+  {
+    "label": "Other / Color palette",
+    "value": "color_palette"
+  },
+  {
+    "label": "Other / Cube",
+    "value": "cube"
+  },
+  {
+    "label": "Other / Eye",
+    "value": "eye"
+  },
+  {
+    "label": "Other / Film",
+    "value": "film"
+  },
+  {
+    "label": "Other / Horizontal line",
+    "value": "horizontal_line"
+  },
+  {
+    "label": "Other / Hourglass",
+    "value": "hourglass"
+  },
+  {
+    "label": "Other / Magic wand",
+    "value": "magic_wand"
+  },
+  {
+    "label": "Other / Medical",
+    "value": "medical"
+  },
+  {
+    "label": "Other / Puzzle piece",
+    "value": "puzzle"
+  },
+  {
+    "label": "Other / Rocket",
+    "value": "rocket"
+  },
+  {
+    "label": "Other / Ticket",
+    "value": "ticket"
+  },
+  {
+    "label": "People / Female figure",
+    "value": "woman"
+  },
+  {
+    "label": "People / Female symbol",
+    "value": "female"
+  },
+  {
+    "label": "People / Male figure",
+    "value": "man"
+  },
+  {
+    "label": "People / Male symbol",
+    "value": "male"
+  },
+  {
+    "label": "People / People silhouettes",
+    "value": "people"
+  },
+  {
+    "label": "People / Person happy",
+    "value": "person"
+  },
+  {
+    "label": "People / Silhouette",
+    "value": "silhouette"
+  },
+  {
+    "label": "People / Silhouette circle",
+    "value": "silhouette_circle"
+  },
+  {
+    "label": "People / Unisex symbol",
+    "value": "male_female"
+  },
+  {
+    "label": "Sports & Fitness / Barbell",
+    "value": "barbell"
+  },
+  {
+    "label": "Sports & Fitness / Baseball",
+    "value": "baseball"
+  },
+  {
+    "label": "Sports & Fitness / Basketball",
+    "value": "basketball"
+  },
+  {
+    "label": "Sports & Fitness / Heart rate",
+    "value": "fitness"
+  },
+  {
+    "label": "Sports & Fitness / Pulse",
+    "value": "pulse"
+  },
+  {
+    "label": "Sports & Fitness / Scales",
+    "value": "scale"
+  },
+  {
+    "label": "Sports & Fitness / Soccer ball",
+    "value": "soccer_ball"
+  },
+  {
+    "label": "Sports & Fitness / Stopwatch",
+    "value": "stopwatch"
+  },
+  {
+    "label": "Sports & Fitness / Tennis ball",
+    "value": "tennis_ball"
+  },
+  {
+    "label": "Technology / Battery charging",
+    "value": "battery_charging"
+  },
+  {
+    "label": "Technology / Battery empty",
+    "value": "battery_dead"
+  },
+  {
+    "label": "Technology / Battery full",
+    "value": "battery_full"
+  },
+  {
+    "label": "Technology / Battery half",
+    "value": "battery_half"
+  },
+  {
+    "label": "Technology / Bluetooth",
+    "value": "bluetooth"
+  },
+  {
+    "label": "Technology / Bulb",
+    "value": "bulb"
+  },
+  {
+    "label": "Technology / Camera",
+    "value": "camera"
+  },
+  {
+    "label": "Technology / Camera aperture",
+    "value": "camera_aperture"
+  },
+  {
+    "label": "Technology / Cellular",
+    "value": "cellular"
+  },
+  {
+    "label": "Technology / Computer",
+    "value": "computer"
+  },
+  {
+    "label": "Technology / Flash",
+    "value": "flash"
+  },
+  {
+    "label": "Technology / Game controller",
+    "value": "game_controller"
+  },
+  {
+    "label": "Technology / Hardware chip",
+    "value": "hardware_chip"
+  },
+  {
+    "label": "Technology / Headphones",
+    "value": "headset"
+  },
+  {
+    "label": "Technology / Infinite",
+    "value": "infinite"
+  },
+  {
+    "label": "Technology / Laptop",
+    "value": "laptop"
+  },
+  {
+    "label": "Technology / Layers",
+    "value": "layers"
+  },
+  {
+    "label": "Technology / Mic",
+    "value": "mic"
+  },
+  {
+    "label": "Technology / Phone landscape",
+    "value": "phone_landscape"
+  },
+  {
+    "label": "Technology / Phone portrait",
+    "value": "phone_portrait"
+  },
+  {
+    "label": "Technology / Television",
+    "value": "tv"
+  },
+  {
+    "label": "Technology / Timer",
+    "value": "timer"
+  },
+  {
+    "label": "Technology / Videocam",
+    "value": "videocam"
+  },
+  {
+    "label": "Technology / Watch",
+    "value": "watch"
+  },
+  {
+    "label": "Technology / Wifi",
+    "value": "wifi"
+  },
+  {
+    "label": "Technology / Power",
+    "value": "power"
+  },
+  {
+    "label": "Transport / Airplane",
+    "value": "airplane"
+  },
+  {
+    "label": "Transport / Bicycle",
+    "value": "bicycle"
+  },
+  {
+    "label": "Transport / Car",
+    "value": "car"
+  },
+  {
+    "label": "Transport / Map location",
+    "value": "map_pin"
+  },
+  {
+    "label": "Transport / Navigation",
+    "value": "navigation"
+  },
+  {
+    "label": "Transport / Speedometer",
+    "value": "speedometer"
+  },
+  {
+    "label": "Transport / Sports car",
+    "value": "sports_car"
+  },
+  {
+    "label": "Trust / Award",
+    "value": "ribbon"
+  },
+  {
+    "label": "Trust / Check mark",
+    "value": "check_mark_only"
+  },
+  {
+    "label": "Trust / Check mark in square",
+    "value": "check_mark"
+  },
+  {
+    "label": "Trust / Check mark in circle",
+    "value": "check_mark_circle"
+  },
+  {
+    "label": "Trust / Happy",
+    "value": "happy"
+  },
+  {
+    "label": "Trust / Heart",
+    "value": "heart"
+  },
+  {
+    "label": "Trust / Key",
+    "value": "key"
+  },
+  {
+    "label": "Trust / Lock",
+    "value": "lock"
+  },
+  {
+    "label": "Trust / Lock closed",
+    "value": "lock_closed"
+  },
+  {
+    "label": "Trust / Lock open",
+    "value": "lock_open"
+  },
+  {
+    "label": "Trust / Shield",
+    "value": "shield"
+  },
+  {
+    "label": "Trust / Shield checkmark",
+    "value": "shield_checkmark"
+  },
+  {
+    "label": "Trust / Star",
+    "value": "star_filled"
+  },
+  {
+    "label": "Trust / Star outline",
+    "value": "star"
+  },
+  {
+    "label": "Trust / Thumbs up",
+    "value": "thumbs_up"
+  },
+  {
+    "label": "Trust / Trophy",
+    "value": "trophy"
+  }
+
+    ],
+    "default": "heart",
+    "label": "Icon"
+  },
+  {
+    "type": "select",
+    "id": "icon_container",
+    "visible_if": "{{ block.settings.icon != '' }}",
+    "options": [
+      {
+        "value": "none",
+        "label": "None"
+      },
+      {
+        "value": "circle",
+        "label": "Circle"
+      },
+      {
+        "value": "rounded",
+        "label": "Rounded"
+      },
+      {
+        "value": "square",
+        "label": "Square"
+      }
+    ],
+    "default": "rounded",
+    "label": "Icon background"
+  },
+  {
+    "type": "range",
+    "id": "icon_size",
+    "visible_if": "{{ block.settings.icon != '' }}",
+    "min": 2.4,
+    "max": 10,
+    "step": 0.2,
+    "default": 3.4,
+    "unit": "rem",
+    "label": "Icon size"
+  },
+  {
+    "type": "color",
+    "id": "icon_color",
+    "visible_if": "{{ block.settings.icon != '' }}",
+    "label": "Icon color",
+    "default": "#ffffff",
+    "info": "Set to transparent to use text color."
+  },
+  {
+    "type": "color",
+    "id": "icon_background_color",
+    "visible_if": "{{ block.settings.icon != '' }}",
+    "default": "#44C3ED",
+    "label": "Background color"
+  },
+  {
+    "type": "color_background",
+    "id": "background_gradient",
+    "default": "linear-gradient(45deg, rgba(54, 149, 250, 1), rgba(68, 195, 237, 1) 100%)",
+    "visible_if": "{{ block.settings.icon != '' }}",
+    "label": "Background gradient",
+    "info": "Background gradient replaces background where possible."
+  }
+
+  ],
+  "presets": [
+    {
+      "name": "Icon",
+      "category": "Basic",
+      "settings": {
+        "icon_container": "rounded",
+        "icon_background_color": "#ffffff"
+      }
+    }
+  ]
+}
+{% endschema %}

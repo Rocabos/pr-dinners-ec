@@ -1,0 +1,104 @@
+{%- comment -%}
+  Parameters:
+  - class: {String} - CSS class to be applied to the countdown element
+  - end_date: {String} - End date.
+  - end_time: {String} - End time (optional, defaults to 00:00).
+  - end_action: {String} - Either 'hide', 'message' or 'zero'.
+  - end_message: {String} - If above is set to 'message' - this is the message to show.
+  - countdown_size: {Number} - A px value to represent the countdown size
+  - abbreviate_units: {Boolean} - Shows short time units when true
+  - separator: {String} - The character which separates the numbers.
+  - font_weight: {String} - Either 'bold' or 'standard'. Optional, defaults to standard.
+  - container: {String} - Type of container to display around numbers. Optional, defaults to 'none'
+  - color: {String} - Color of numbers. Optional, uses color scheme by default.
+  - background_color: {String} - Background color of numbers. Optional, uses color scheme by default.
+  - background_gradient: {String} - Background gradient of numbers. Optional.
+  - text_alignment: {String} - Left/Center/Right. Optional, defaults to center.
+
+  Usage:
+  {%- render 'countdown', end_date: block.settings.end_date, end_time: block.settings.end_time, end_action: block.settings.end_action -%}
+{%- endcomment -%}
+
+{%- liquid
+  assign date_format = '%Y-%m-%dT%H:%M%z'
+  assign todays_date = 'now' | date: date_format
+
+  if end_date != blank
+    if end_time != blank
+      assign end_date = end_date | append: 'T' | append: end_time
+    endif
+    assign end_date = end_date | date: date_format
+  else
+    if end_time != blank
+      # default the time
+      assign end_date = 'now' | date: '%s' | date: '%Y-%m-%dT' | append: end_time | date: date_format
+      if end_date <= todays_date
+        assign end_date = 'now' | date: '%s' | plus: 86400 | date: '%Y-%m-%dT' | append: end_time | date: date_format
+      endif
+    else
+      # default to tomorrow at midnight for onboarding
+      assign end_date = 'now' | date: '%s' | plus: 86400 | date: '%Y-%m-%dT00:00' | date: date_format
+    endif
+  endif
+-%}
+
+{%- if end_action == 'zero' or end_date > todays_date -%}
+  {%- if section.index < 3 -%}
+    <script src="{{ 'countdown.js' | asset_url }}" defer="defer"></script>
+  {%- else -%}
+    <lazy-script src="{{ 'countdown.js' | asset_url }}" defer="defer"></lazy-script>
+  {%- endif -%}
+
+  {%- if section.index < 3 or request.design_mode -%}
+    {{ 'component-countdown.css' | asset_url | stylesheet_tag }}
+  {%- else -%}
+    <link rel="stylesheet" href="{{ 'component-countdown.css' | asset_url }}" media="print" onload="this.media='all'">
+  {%- endif -%}
+
+  <custom-countdown role="timer"{% if end_date != blank %} data-end-date="{{ end_date }}"{% endif %}{% if section.index < 3 %} data-loading="eager"{% endif %}>
+    <div class="countdown flex text-center lh-1 no-js-hidden hidden-during-load
+      countdown-container countdown-container--{{ container | default: 'none' }}
+      {% if class %} {{ class }}{% endif %}
+      {% if abbreviate_units %} countdown--abbreviated{% endif %}
+      {% if container != 'none' %} countdown--has-container{% endif %}"
+         aria-hidden="true"
+         style="
+             --countdown-size-desktop: {{ countdown_size }}px;
+             --countdown-separator: '{{ separator }}';
+             --countdown-gap: {% if separator == '' %}{% if container == 'none' %}0.8{% else %}0.4{% endif %}{% else %}1{% endif %}em;
+             --countdown-separator-lh:{% if container == 'none' %}{% if separator == '.' %}0.4{% elsif separator == ':' %}0.8{% else %}0.9{% endif %}{% else %}{% if separator == '.' %}1.2{% elsif separator == ':' %}1.6{% else %}1.7{% endif %}{% endif %}em;
+             --countdown-background-color: {{ background_color.rgb }};
+             {% if color != blank and color.alpha != 0 %} --countdown-color: {{ color.rgb }};{% endif %}
+             {% if background_gradient != empty -%}--countdown-gradient-background: {{ background_gradient }};{% endif %}"
+    >
+      <div class="countdown__block relative">
+        <div class="countdown__number{% if font_weight == 'bold' %} font-bold{% endif %}"><span class="js-days">0</span>{%- if abbreviate_units -%}{{- 'sections.countdown.days_short' | t -}}{%- endif -%}</div>
+        <div class="countdown__unit caption-with-letter-spacing text-{{ text_alignment | default: 'center' }}">{% unless abbreviate_units %}{{ 'sections.countdown.days' | t }}{% endunless %}</div>
+      </div>
+
+      <div class="countdown__block relative">
+        <div class="countdown__number{% if font_weight == 'bold' %} font-bold{% endif %}"><span class="js-hours">0</span>{%- if abbreviate_units -%}{{- 'sections.countdown.hours_short' | t -}}{%- endif -%}</div>
+        <div class="countdown__unit caption-with-letter-spacing text-{{ text_alignment | default: 'center' }}">{% unless abbreviate_units %}{{ 'sections.countdown.hours' | t }}{% endunless %}</div>
+      </div>
+
+      <div class="countdown__block relative">
+        <div class="countdown__number{% if font_weight == 'bold' %} font-bold{% endif %}"><span class="js-minutes">0</span>{%- if abbreviate_units -%}{{- 'sections.countdown.minutes_short' | t -}}{%- endif -%}</div>
+        <div class="countdown__unit caption-with-letter-spacing text-{{ text_alignment | default: 'center' }}">{% unless abbreviate_units %}{{ 'sections.countdown.minutes' | t }}{% endunless %}</div>
+      </div>
+
+      <div class="countdown__block relative">
+        <div class="countdown__number{% if font_weight == 'bold' %} font-bold{% endif %}"><span class="js-seconds">0</span>{%- if abbreviate_units -%}{{- 'sections.countdown.seconds_short' | t -}}{%- endif -%}</div>
+        <div class="countdown__unit caption-with-letter-spacing text-{{ text_alignment | default: 'center' }}">{% unless abbreviate_units %}{{ 'sections.countdown.seconds' | t }}{% endunless %}</div>
+      </div>
+    </div>
+
+    <span class="js-hidden">
+      {{ 'sections.countdown.a11y_message' | t: date: a11y_end_date }}
+    </span>
+  </custom-countdown>
+
+{%- elsif end_action == 'message' and end_message != blank -%}
+  <div class="inline-richtext">
+    {{ end_message }}
+  </div>
+{%- endif -%}

@@ -1,0 +1,291 @@
+.section-social-video-reel .multicolumn-list__item--empty-live {
+    display: none;
+}
+
+.social-video-wrapper {
+    --color-foreground: 255, 255, 255;
+}
+
+.tab-active social-video > button:focus video {
+    border: 3px solid #000;
+}
+
+.content-container:has(.social-video-wrapper--circle) {
+    border-radius: 50%;
+}
+
+social-video {
+    position: relative;
+    container-type: size;
+}
+
+.social-video--gradient-top::before,
+.social-video--gradient-bottom::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.social-video--gradient-top::before {
+    background: linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 20%);
+}
+
+.social-video--gradient-bottom::after {
+    background: linear-gradient(rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+.social-video__header,
+.social-video__footer {
+    --color-link: 255, 255 255;
+    --alpha-link: 1;
+    color: #fff;
+    padding: 1.5rem;
+    padding: 9cqw 8cqw;
+    pointer-events: none;
+
+    .social-video-wrapper--circle & {
+        padding: 15cqw;
+    }
+
+    > * {
+        pointer-events: auto;
+    }
+}
+
+.social-video__header {
+    .social-video__volume {
+        top: -2cqw;
+        inset-inline-end: -1cqw;
+    }
+}
+
+.social-video__footer .card--card.card--card,
+.social-video__footer:has(.card--card) {
+    padding: 5cqw;
+    border-radius: var(--text-boxes-radius);
+}
+
+.social-video__footer {
+    .card--card.card--card {
+        flex-direction: row;
+        box-shadow: 0.5rem 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+
+        .card__media.card__media {
+            border-radius: 0;
+        }
+
+        .price-item.price-item {
+            font-size: clamp(11px, 3.8cqw, 14px);
+        }
+    }
+
+    product-card,
+    .product-card-wrapper {
+        width: 100%;
+    }
+
+    .card__heading a {
+        font-size: clamp(12px, 4.2cqw, 16px);
+    }
+
+    .unit-price {
+        display: none;
+    }
+
+    &.product-title-clamped .card__heading {
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.social-video__caption-image {
+    --media-radius: var(--social-caption-image-radius);
+    width: var(--social-caption-image-width, 30px);
+    height: auto;
+}
+
+.social-video__volume {
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    background-color: rgba(0, 0, 0, 0.25);
+    color: inherit;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+
+    .product &,
+    .grid--5-col-desktop &,
+    .grid--6-col-desktop & {
+        height: 36px;
+        width: 36px;
+
+        .icon {
+            width: 18px;
+            height: 18px;
+        }
+    }
+
+    @media screen and (max-width: 749.98px) {
+        .grid--2-col-tablet-down & {
+            height: 36px;
+            width: 36px;
+
+            .icon {
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+
+    .tab-active & {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &[data-volume="muted"] {
+        .icon-mute {
+            display: none;
+        }
+
+        .icon-unmute {
+            display: block;
+        }
+    }
+
+    &[data-volume="unmuted"] {
+        .icon-mute {
+            display: block;
+        }
+
+        .icon-unmute {
+            display: none;
+        }
+    }
+}
+
+.social-video:hover {
+    .social-video__volume {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.social-video__icon {
+    height: var(--icon-size);
+    width: var(--icon-size);
+}
+
+@media screen and (max-width: 749.98px) {
+    .slider--tablet:has(social-video) {
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: var(--px-mobile, 1.5rem);
+
+        .slider__slide {
+            scroll-snap-align: center;
+        }
+    }
+
+    .social-video__volume {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .social-video__volume {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.popup-modal--social-video.popup-modal--social-video {
+    .popup-modal__content {
+        border-radius: var(--media-radius);
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+    }
+
+    .section-content {
+        width: min(calc((100vh - 10rem) * var(--video-aspect-ratio,0.56)), (100vw - 5rem));
+        padding: 0 !important;
+    }
+
+    .social-video-wrapper {
+        margin-top: 0;
+        margin-bottom: 0;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+    }
+
+    .popup-modal-video-reel__toggle {
+        inset-inline-end: 2rem;
+        top: 2rem;
+    }
+
+    .social-video__volume {
+        display: none;
+    }
+
+    .popup-modal__pagination {
+        inset-inline-end: 2rem;
+        top: 50vh;
+        transform: translateY(-50%);
+    }
+
+    .popup-modal__pagination,
+    .popup-modal-video-reel__toggle {
+        .icon {
+            width: 2.4rem;
+            height: 2.4rem;
+        }
+    }
+
+    .popup-modal-video-reel__next,
+    .popup-modal-video-reel__previous {
+        transition: opacity var(--duration-medium);
+
+        &[disabled] {
+            opacity: 0.6;
+        }
+
+        .icon {
+            position: relative;
+            top: 1px;
+        }
+    }
+
+    .popup-modal-video-reel__previous .icon {
+        transform: rotate(180deg);
+        top: -1px;
+    }
+
+    .social-video > button {
+        pointer-events: none;
+    }
+
+    @media screen and (max-width: 749.98px) {
+        .social-video-wrapper {
+            scroll-snap-align: center;
+        }
+
+        .popup-modal-video-reel__toggle,
+        .popup-modal__pagination {
+            inset-inline-end: 0.5rem;
+        }
+
+        .social-video__footer {
+            display: block !important;
+        }
+    }
+}
+
+@media screen and (min-width: 750px) and (hover: none) and (pointer: coarse) {
+    .social-video__volume {
+        display: none;
+    }
+}

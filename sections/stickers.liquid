@@ -1,0 +1,1066 @@
+{%- assign show_on_product_page = false -%}
+{%- if section.blocks.size > 0 -%}
+  {% for sticker in section.blocks %}
+    {%- if sticker.settings.text != blank and sticker.settings.match_links != blank or sticker.settings.match_collections != blank or sticker.settings.match_products != blank -%}
+      <div
+          class="sticker-definition"
+          id="sticker-{{ sticker.id }}"
+          {% if sticker.settings.match_links %}data-match-links={{ sticker.settings.match_links | downcase | newline_to_br | strip_newlines | split: '<br />' | join: "||" | json }}{% endif %}
+          {% if sticker.settings.match_collections %}data-match-collections="{% for sticker_collection in sticker.settings.match_collections %}{{ sticker_collection.id }}{% unless forloop.last %}||{% endunless %}{% endfor %}"{% endif %}
+          {% if sticker.settings.match_products %}
+            data-match-products="{% for sticker_product in sticker.settings.match_products %}{{ sticker_product.id }}{% unless forloop.last %}||{% endunless %}{% endfor %}"
+            {% if show_on_product_page %}data-show-product-page="{{ show_on_product_page }}"{% endif %}
+          {% endif %}
+          data-type="{{ sticker.type }}"
+          data-placement="{{ sticker.settings.placement }}"
+          {{ sticker.shopify_attributes }}
+      ><span class="sticker sticker-{{ sticker.id }} sticker--{{ sticker.settings.shape }} sticker--{{ sticker.settings.placement }}{% if sticker.settings.visibility == "mobile" %} visible-xs{% elsif sticker.settings.visibility == "desktop" %} hidden-xs{% endif %} text-body">
+          <span>{{ sticker.settings.text }}</span>
+        </span></div>
+    {%- endif -%}
+  {% endfor %}
+
+  <style>
+    {% for sticker in section.blocks %}
+      {%- liquid
+        # Determine the font size
+        if sticker.settings.text_size == "xs"
+          assign font_size = "0.75rem"
+        elsif sticker.settings.text_size == "s"
+          assign font_size = "0.9rem"
+        elsif sticker.settings.text_size == "m"
+          assign font_size = "1rem"
+        elsif sticker.settings.text_size == "l"
+          assign font_size = "1.1rem"
+        elsif sticker.settings.text_size == "xl"
+          assign font_size = "1.25rem"
+        endif
+      -%}
+
+      .sticker-{{ sticker.id }} {
+        --sticker-text-color: {{ sticker.settings.foreground_color.rgb }};
+        --sticker-background: {% if sticker.settings.background_gradient != blank %}{{ sticker.settings.background_gradient }};{% else %}{{ sticker.settings.background_color }}{% endif %};
+        --sticker-border-color: {{ sticker.settings.border_color.rgba }};
+        --sticker-text-size: {{ font_size }};
+        --sticker-text-weight: {{ sticker.settings.text_weight }};
+        --sticker-border-width: {{ sticker.settings.border_thickness }};
+        --sticker-border-style: {{ sticker.settings.border_style }};
+      }
+    {% endfor %}
+  </style>
+
+  {{ 'stickers.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'stickers.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Stickers",
+  "class": "hidden",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Stickers are small labels which can show next to various elements of the theme, e.g. Mega menus links, Product cards etc."
+    },
+    {
+      "type": "paragraph",
+      "content": "Each block in this section represents one sticker on one element."
+    },
+    {
+      "type": "paragraph",
+      "content": "[Learn more](https://benchmarkthemes.com/help-center/ignite/sections/stickers/)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "header",
+      "name": "Header link sticker",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Applies to links within mega menus, dropdowns and the burger menu."
+        },
+        {
+          "type": "paragraph",
+          "content": "There should be only one sticker per link."
+        },
+        {
+          "type": "textarea",
+          "id": "match_links",
+          "label": "Link text to attach this sticker to",
+          "info": "One per line."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Sticker text",
+          "default": "NEW",
+          "info": "Keep sticker text short (e.g. under 10 characters) to ensure it fits."
+        },
+        {
+          "type": "select",
+          "id": "placement",
+          "options": [
+            {
+              "value": "below",
+              "label": "Below"
+            },
+            {
+              "value": "inline",
+              "label": "Inline"
+            }
+          ],
+          "default": "inline",
+          "label": "Sticker placement"
+        },
+        {
+          "type": "select",
+          "id": "visibility",
+          "options": [
+            {
+              "value": "mobile",
+              "label": "Mobile"
+            },
+            {
+              "value": "desktop",
+              "label": "Desktop"
+            },
+            {
+              "value": "both",
+              "label": "Both"
+            }
+          ],
+          "default": "both",
+          "label": "Show on"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "shape",
+          "options": [
+            {
+              "value": "sharp",
+              "label": "Sharp"
+            },
+            {
+              "value": "rounded",
+              "label": "Rounded"
+            },
+            {
+              "value": "pill",
+              "label": "Pill"
+            },
+            {
+              "value": "angled",
+              "label": "Angled"
+            }
+          ],
+          "default": "rounded",
+          "label": "Shape"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "xs",
+              "label": "XS"
+            },
+            {
+              "value": "s",
+              "label": "S"
+            },
+            {
+              "value": "m",
+              "label": "M"
+            },
+            {
+              "value": "l",
+              "label": "L"
+            }
+          ],
+          "default": "m",
+          "label": "Text size"
+        },
+        {
+          "type": "select",
+          "id": "text_weight",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Standard"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ],
+          "default": "500",
+          "label": "Text weight"
+        },
+        {
+          "type": "select",
+          "id": "border_thickness",
+          "options": [
+            {
+              "value": "0",
+              "label": "None"
+            },
+            {
+              "value": "1px",
+              "label": "Standard"
+            },
+            {
+              "value": "2px",
+              "label": "Thick"
+            }
+          ],
+          "default": "1px",
+          "label": "Border"
+        },
+        {
+          "type": "select",
+          "id": "border_style",
+          "options": [
+            {
+              "value": "dotted",
+              "label": "Dotted"
+            },
+            {
+              "value": "solid",
+              "label": "Solid"
+            },
+            {
+              "value": "dashed",
+              "label": "Dashed"
+            }
+          ],
+          "default": "solid",
+          "label": "Border line"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "color",
+          "id": "foreground_color",
+          "label": "Text",
+          "default": "#e00134"
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border",
+          "default": "#e00134"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background",
+          "default": "#fae9e6"
+        },
+        {
+          "type": "color_background",
+          "id": "background_gradient",
+          "label": "Background gradient",
+          "info": "Replaces the background color."
+        }
+      ]
+    },
+    {
+      "type": "footer",
+      "name": "Footer link sticker",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Applies to all links within the \"Menu\" blocks of the footer."
+        },
+        {
+          "type": "paragraph",
+          "content": "There should be only one sticker per link."
+        },
+        {
+          "type": "textarea",
+          "id": "match_links",
+          "label": "Link text to attach this sticker to",
+          "info": "One per line."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Sticker text",
+          "default": "NEW",
+          "info": "Keep sticker text short (e.g. under 10 characters) to ensure it fits."
+        },
+        {
+          "type": "select",
+          "id": "placement",
+          "options": [
+            {
+              "value": "below",
+              "label": "Below"
+            },
+            {
+              "value": "inline",
+              "label": "Inline"
+            }
+          ],
+          "default": "inline",
+          "label": "Sticker placement"
+        },
+        {
+          "type": "select",
+          "id": "visibility",
+          "options": [
+            {
+              "value": "mobile",
+              "label": "Mobile"
+            },
+            {
+              "value": "desktop",
+              "label": "Desktop"
+            },
+            {
+              "value": "both",
+              "label": "Both"
+            }
+          ],
+          "default": "both",
+          "label": "Show on"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "color",
+          "id": "foreground_color",
+          "label": "Text",
+          "default": "#e00134"
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border",
+          "default": "#e00134"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background",
+          "default": "#fae9e6"
+        },
+        {
+          "type": "color_background",
+          "id": "background_gradient",
+          "label": "Background gradient",
+          "info": "Replaces the background color."
+        },
+        {
+          "type": "select",
+          "id": "shape",
+          "options": [
+            {
+              "value": "sharp",
+              "label": "Sharp"
+            },
+            {
+              "value": "rounded",
+              "label": "Rounded"
+            },
+            {
+              "value": "pill",
+              "label": "Pill"
+            },
+            {
+              "value": "angled",
+              "label": "Angled"
+            }
+          ],
+          "default": "rounded",
+          "label": "Shape"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "xs",
+              "label": "XS"
+            },
+            {
+              "value": "s",
+              "label": "S"
+            },
+            {
+              "value": "m",
+              "label": "M"
+            },
+            {
+              "value": "l",
+              "label": "L"
+            }
+          ],
+          "default": "m",
+          "label": "Text size"
+        },
+        {
+          "type": "select",
+          "id": "text_weight",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Standard"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ],
+          "default": "500",
+          "label": "Text weight"
+        },
+        {
+          "type": "select",
+          "id": "border_thickness",
+          "options": [
+            {
+              "value": "0",
+              "label": "None"
+            },
+            {
+              "value": "1px",
+              "label": "Standard"
+            },
+            {
+              "value": "2px",
+              "label": "Thick"
+            }
+          ],
+          "default": "1px",
+          "label": "Border"
+        },
+        {
+          "type": "select",
+          "id": "border_style",
+          "options": [
+            {
+              "value": "dotted",
+              "label": "Dotted"
+            },
+            {
+              "value": "solid",
+              "label": "Solid"
+            },
+            {
+              "value": "dashed",
+              "label": "Dashed"
+            }
+          ],
+          "default": "solid",
+          "label": "Border line"
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "name": "Article card sticker",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Applies to article cards only."
+        },
+        {
+          "type": "textarea",
+          "id": "match_links",
+          "label": "Article titles to attach this sticker to",
+          "info": "One per line."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Sticker text",
+          "default": "Editor's Pick",
+          "info": "Keep sticker text short (e.g. under 10 characters) to ensure it fits."
+        },
+        {
+          "type": "select",
+          "id": "placement",
+          "options": [
+            {
+              "value": "above",
+              "label": "Above"
+            },
+            {
+              "value": "below",
+              "label": "Below"
+            },
+            {
+              "value": "inline",
+              "label": "Inline"
+            }
+          ],
+          "default": "below",
+          "label": "Sticker placement"
+        },
+        {
+          "type": "select",
+          "id": "visibility",
+          "options": [
+            {
+              "value": "mobile",
+              "label": "Mobile"
+            },
+            {
+              "value": "desktop",
+              "label": "Desktop"
+            },
+            {
+              "value": "both",
+              "label": "Both"
+            }
+          ],
+          "default": "both",
+          "label": "Show on"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "color",
+          "id": "foreground_color",
+          "label": "Text",
+          "default": "#e00134"
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border",
+          "default": "#e00134"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color_background",
+          "id": "background_gradient",
+          "label": "Background gradient",
+          "info": "Replaces the background color."
+        },
+        {
+          "type": "select",
+          "id": "shape",
+          "options": [
+            {
+              "value": "sharp",
+              "label": "Sharp"
+            },
+            {
+              "value": "rounded",
+              "label": "Rounded"
+            },
+            {
+              "value": "pill",
+              "label": "Pill"
+            },
+            {
+              "value": "angled",
+              "label": "Angled"
+            }
+          ],
+          "default": "rounded",
+          "label": "Shape"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "xs",
+              "label": "XS"
+            },
+            {
+              "value": "s",
+              "label": "S"
+            },
+            {
+              "value": "m",
+              "label": "M"
+            },
+            {
+              "value": "l",
+              "label": "L"
+            }
+          ],
+          "default": "l",
+          "label": "Text size"
+        },
+        {
+          "type": "select",
+          "id": "text_weight",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Standard"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ],
+          "default": "500",
+          "label": "Text weight"
+        },
+        {
+          "type": "select",
+          "id": "border_thickness",
+          "options": [
+            {
+              "value": "0",
+              "label": "None"
+            },
+            {
+              "value": "1px",
+              "label": "Standard"
+            },
+            {
+              "value": "2px",
+              "label": "Thick"
+            }
+          ],
+          "default": "1px",
+          "label": "Border"
+        },
+        {
+          "type": "select",
+          "id": "border_style",
+          "options": [
+            {
+              "value": "dotted",
+              "label": "Dotted"
+            },
+            {
+              "value": "solid",
+              "label": "Solid"
+            },
+            {
+              "value": "dashed",
+              "label": "Dashed"
+            }
+          ],
+          "default": "solid",
+          "label": "Border line"
+        }
+      ]
+    },
+    {
+      "type": "collection",
+      "name": "Collection card sticker",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Shows on Collection cards within the \"Collection list\" section or \"Collections list\" page."
+        },
+        {
+          "type": "collection_list",
+          "id": "match_collections",
+          "label": "Collections to attach this sticker to"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Sticker text",
+          "default": "NEW LINES ADDED",
+          "info": "Keep sticker text short (e.g. under 10 characters) to ensure it fits."
+        },
+        {
+          "type": "select",
+          "id": "placement",
+          "options": [
+            {
+              "value": "above",
+              "label": "Above"
+            },
+            {
+              "value": "below",
+              "label": "Below"
+            }
+          ],
+          "default": "below",
+          "label": "Sticker placement"
+        },
+        {
+          "type": "select",
+          "id": "visibility",
+          "options": [
+            {
+              "value": "mobile",
+              "label": "Mobile"
+            },
+            {
+              "value": "desktop",
+              "label": "Desktop"
+            },
+            {
+              "value": "both",
+              "label": "Both"
+            }
+          ],
+          "default": "both",
+          "label": "Show on"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "color",
+          "id": "foreground_color",
+          "label": "Text",
+          "default": "#e00134"
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border",
+          "default": "#e00134"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background",
+          "default": "#fae9e6"
+        },
+        {
+          "type": "color_background",
+          "id": "background_gradient",
+          "label": "Background gradient",
+          "info": "Replaces the background color."
+        },
+        {
+          "type": "select",
+          "id": "shape",
+          "options": [
+            {
+              "value": "sharp",
+              "label": "Sharp"
+            },
+            {
+              "value": "rounded",
+              "label": "Rounded"
+            },
+            {
+              "value": "pill",
+              "label": "Pill"
+            },
+            {
+              "value": "angled",
+              "label": "Angled"
+            }
+          ],
+          "default": "rounded",
+          "label": "Shape"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "xs",
+              "label": "XS"
+            },
+            {
+              "value": "s",
+              "label": "S"
+            },
+            {
+              "value": "m",
+              "label": "M"
+            },
+            {
+              "value": "l",
+              "label": "L"
+            }
+          ],
+          "default": "m",
+          "label": "Text size"
+        },
+        {
+          "type": "select",
+          "id": "text_weight",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Standard"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ],
+          "default": "500",
+          "label": "Text weight"
+        },
+        {
+          "type": "select",
+          "id": "border_thickness",
+          "options": [
+            {
+              "value": "0",
+              "label": "None"
+            },
+            {
+              "value": "1px",
+              "label": "Standard"
+            },
+            {
+              "value": "2px",
+              "label": "Thick"
+            }
+          ],
+          "default": "1px",
+          "label": "Border"
+        },
+        {
+          "type": "select",
+          "id": "border_style",
+          "options": [
+            {
+              "value": "dotted",
+              "label": "Dotted"
+            },
+            {
+              "value": "solid",
+              "label": "Solid"
+            },
+            {
+              "value": "dashed",
+              "label": "Dashed"
+            }
+          ],
+          "default": "solid",
+          "label": "Border line"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "Product card sticker",
+      "settings": [
+        {
+          "type": "product_list",
+          "id": "match_products",
+          "label": "Products to attach this sticker to"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Sticker text",
+          "default": "BEST SELLER",
+          "info": "Keep sticker text short (e.g. under 10 characters) to ensure it fits."
+        },
+        {
+          "type": "select",
+          "id": "placement",
+          "options": [
+            {
+              "value": "above",
+              "label": "Above"
+            },
+            {
+              "value": "below",
+              "label": "Below"
+            },
+            {
+              "value": "inline",
+              "label": "Inline"
+            }
+          ],
+          "default": "below",
+          "label": "Sticker placement"
+        },
+        {
+          "type": "select",
+          "id": "visibility",
+          "options": [
+            {
+              "value": "mobile",
+              "label": "Mobile"
+            },
+            {
+              "value": "desktop",
+              "label": "Desktop"
+            },
+            {
+              "value": "both",
+              "label": "Both"
+            }
+          ],
+          "default": "both",
+          "label": "Show on"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "color",
+          "id": "foreground_color",
+          "label": "Text",
+          "default": "#e00134"
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border",
+          "default": "#e00134"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background",
+          "default": "#fae9e6"
+        },
+        {
+          "type": "color_background",
+          "id": "background_gradient",
+          "label": "Background gradient",
+          "info": "Replaces the background color."
+        },
+        {
+          "type": "select",
+          "id": "shape",
+          "options": [
+            {
+              "value": "sharp",
+              "label": "Sharp"
+            },
+            {
+              "value": "rounded",
+              "label": "Rounded"
+            },
+            {
+              "value": "pill",
+              "label": "Pill"
+            },
+            {
+              "value": "angled",
+              "label": "Angled"
+            }
+          ],
+          "default": "rounded",
+          "label": "Shape"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "xs",
+              "label": "XS"
+            },
+            {
+              "value": "s",
+              "label": "S"
+            },
+            {
+              "value": "m",
+              "label": "M"
+            },
+            {
+              "value": "l",
+              "label": "L"
+            }
+          ],
+          "default": "m",
+          "label": "Text size"
+        },
+        {
+          "type": "select",
+          "id": "text_weight",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Standard"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ],
+          "default": "500",
+          "label": "Text weight"
+        },
+        {
+          "type": "select",
+          "id": "border_thickness",
+          "options": [
+            {
+              "value": "0",
+              "label": "None"
+            },
+            {
+              "value": "1px",
+              "label": "Standard"
+            },
+            {
+              "value": "2px",
+              "label": "Thick"
+            }
+          ],
+          "default": "1px",
+          "label": "Border"
+        },
+        {
+          "type": "select",
+          "id": "border_style",
+          "options": [
+            {
+              "value": "dotted",
+              "label": "Dotted"
+            },
+            {
+              "value": "solid",
+              "label": "Solid"
+            },
+            {
+              "value": "dashed",
+              "label": "Dashed"
+            }
+          ],
+          "default": "solid",
+          "label": "Border line"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

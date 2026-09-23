@@ -1,0 +1,346 @@
+{%- comment -%}theme-check-disable SchemaJsonFormat{%- endcomment -%}
+<div class="color-{{ section.settings.color_scheme }} isolate gradient">
+  {%- if section.settings.show_view_all_link and section.settings.view_all_text != blank -%}
+    {% capture view_all %}
+      <div class="section-view-all video__view-all{% if settings.animations_reveal_on_scroll and section.index > 1 %} scroll-trigger animate--fade-in{% endif %}">
+        <a
+            href="{{ section.settings.view_all_link }}"
+            class="link un-underlined-link button-with-icon button-with-icon--right {{ section.settings.view_all_text_size }}"
+        >
+          {{ section.settings.view_all_text }}
+          {% render 'icon-arrow' %}
+        </a>
+      </div>
+    {% endcapture %}
+  {%- endif -%}
+
+  {%- liquid
+    if section.settings.page_width == 'normal'
+      assign custom_class = 'page-width'
+    else
+      assign custom_class = 'page-width page-width--narrow flex justify-center'
+    endif
+
+    assign page_title = page.title
+    assign page_description = page.content
+  -%}
+
+  {% render 'standard-page-heading',
+      page__name: 'faq_page',
+      page_title: page_title,
+      page_description: page_description,
+      custom_class: custom_class,
+      section: section,
+      view_all: view_all
+  %}
+</div>
+
+{% schema %}
+{
+  "name": "FAQ page",
+  "tag": "section",
+  "class": "section section-main-faq",
+  "settings": [
+    {
+      "type": "select",
+      "id": "page_width",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Standard"
+        },
+        {
+          "value": "narrow",
+          "label": "Central"
+        }
+      ],
+      "default": "narrow",
+      "label": "Content alignment"
+    },
+    {
+      "type": "header",
+      "content": "Header layout"
+    },
+    
+  {
+    "type": "select",
+    "id": "content_max_width",
+    "options": [
+      {
+        "value": "xs",
+        "label": "XS"
+      },
+      {
+        "value": "s",
+        "label": "S"
+      },
+      {
+        "value": "m",
+        "label": "M"
+      },
+      {
+        "value": "l",
+        "label": "L"
+      },
+      {
+        "value": "xl",
+        "label": "XL"
+      }
+    ],
+    "default": "m",
+    "label": "Maximum heading width"
+  },
+  {
+    "type": "text_alignment",
+    "id": "desktop_heading_alignment",
+    "default": "left",
+    "label": "Heading alignment on desktop"
+  },
+  {
+    "type": "text_alignment",
+    "id": "mobile_heading_alignment",
+    "default": "left",
+    "label": "Heading alignment on mobile"
+  }
+,
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_page_header",
+      "label": "Use custom page header (set below)",
+      "info": "Shows the title of the page by default",
+      "default": false
+    },
+    
+  {
+    "type": "inline_richtext",
+    "id": "title",
+    "default": "Page header",
+    "info": "Enter ++ for a line break.",
+    "label": "Heading"
+  },
+  {
+    "type": "select",
+    "id": "italic_convert",
+    "visible_if": "{{ section.settings.title != blank }}",
+    "options": [
+      {
+        "value": "",
+        "label": "Off (keep as italics)"
+      },
+      {
+        "value": "light",
+        "label": "Lighter"
+      },
+      {
+        "value": "accent_color",
+        "label": "Accent color"
+      },
+      {
+        "value": "accent",
+        "label": "Accent gradient color"
+      },
+      {
+        "value": "outline",
+        "label": "Outline"
+      },
+      {
+        "value": "outline_accent",
+        "label": "Outline - Accent color"
+      },
+      {
+        "value": "glow",
+        "label": "Glow - Accent color"
+      },
+      {
+        "value": "glow_outline",
+        "label": "Glow with outline - Accent color"
+      }
+    ],
+    "info": "The colors above can be set in the color schemes. 'Outline' may not work with all fonts.",
+    "default": "",
+    "label": "Convert italic text to"
+  },
+  {
+    "type": "select",
+    "id": "heading_size",
+    "visible_if": "{{ section.settings.title != blank }}",
+    "options": [
+      {
+        "value": "h4",
+        "label": "XS"
+      },
+      {
+        "value": "h3",
+        "label": "S"
+      },
+      {
+        "value": "h2",
+        "label": "M"
+      },
+      {
+        "value": "h1",
+        "label": "L"
+      },
+      {
+        "value": "h0",
+        "label": "XL"
+      }
+    ],
+    "default": "h1",
+    "label": "Heading size"
+  }
+,
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_page_text",
+      "label": "Use custom page text",
+      "info": "Shows the page content by default",
+      "default": false
+    },
+    
+  {
+    "type": "richtext",
+    "id": "text",
+    "default": "<p>Add a brief introduction to the FAQ page.</p>",
+    "label": "Description"
+  },
+  {
+    "type": "select",
+    "id": "text_size",
+    "visible_if": "{{ section.settings.text != blank }}",
+    "options": [
+      {
+        "value": "t6",
+        "label": "2XS"
+      },
+      {
+        "value": "t5",
+        "label": "XS"
+      },
+      {
+        "value": "t4",
+        "label": "S"
+      },
+      {
+        "value": "t3",
+        "label": "M"
+      },
+      {
+        "value": "t2",
+        "label": "L"
+      },
+      {
+        "value": "t1",
+        "label": "XL"
+      },
+      {
+        "value": "t0",
+        "label": "2XL"
+      }
+    ],
+    "default": "t2",
+    "label": "Text size"
+  }
+,
+    {
+      "type": "header",
+      "content": "Learn more"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all_link",
+      "default": true,
+      "label": "Show \"Learn more\" link"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "Learn more link"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "Learn more text"
+    },
+    {
+      "type": "select",
+      "id": "view_all_text_size",
+      "options": [
+        {
+          "value": "t6",
+          "label": "2XS"
+        },
+        {
+          "value": "t5",
+          "label": "XS"
+        },
+        {
+          "value": "t4",
+          "label": "S"
+        },
+        {
+          "value": "t3",
+          "label": "M"
+        },
+        {
+          "value": "t2",
+          "label": "L"
+        },
+        {
+          "value": "t1",
+          "label": "XL"
+        },
+        {
+          "value": "t0",
+          "label": "2XL"
+        }
+      ],
+      "default": "t3",
+      "label": "Learn more link size"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h1",
+      "info": "For SEO purposes, there should only be one H1 tag on the page.",
+      "label": "Heading tag"
+    }
+  ]
+}
+{% endschema %}

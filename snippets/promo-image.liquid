@@ -1,0 +1,204 @@
+{% comment %}
+  Image promotion
+
+  Accepts:
+  - show_promo: {Boolean} Whether to show the promo or not. Defaults to true.
+  - class: {String} CSS class to add to the outer element (Optional)
+  - url: {String} URL of the promo (Required)
+  - heading: {String} Heading content of the promo (Optional)
+  - heading_size: {String} Heading size class. Optional, defaults to h2-size.
+  - text: {String} Text content of the promo (Required)
+  - image: {Object} The Shopfiy image object (Optional)
+  - media_aspect_ratio: {String} Size of the image. Optional, defaults to original image ratio.
+  - image_width: {Number} The width of the space where the image lives. Optional, defaults to 400.
+  - text_position: {String} Text position (e.g. 'justify-start items-start'). Refer to settings.cart_drawer_promo_text_position for full options. (Optional: default is 'justify-center items-center')
+  - text_style: {String} Either 'text-heading' (Heading font) or empty (body font)
+  - text_alignment: {String} Either 'center', 'left', or 'right'. Optional, defaults to 'center'.
+  - text_size: {String} E.g. 'h3-size'. Refer to settings.cart_drawer_promo_text_size for full options. (Optional: default is 'h3-size')
+  - text_color: {String} The text color. Required.
+  - text_padding: {String} Padding in ems. Optional, defaults to 1em.
+  - primary_button_label: {String} Primary button label (Optional)
+  - primary_button_url: {String} Primary button URL (Optional)
+  - secondary_button_label: {String} Secondary button label (Optional)
+  - secondary_button_url: {String} Secondary button URL (Optional)
+  - placeholder_image: {String} The default placeholder to render (if applicable). Optional, defaults to 'collection-3'.
+
+  Usage:
+  {%- render 'promo-image',
+        show_promo: true,
+        class: 'cart-drawer__promo mb-15',
+        url: settings.cart_drawer_promo_url,
+        heading: settings.cart_drawer_promo_heading,
+        heading_size: settings.cart_drawer_promo_heading_size,
+        text: settings.cart_drawer_promo_text,
+        image: settings.cart_drawer_promo_image,
+        media_aspect_ratio: settings.cart_drawer_promo_image_aspect_ratio,
+        image_width: 400,
+        text_position: settings.cart_drawer_promo_text_position,
+        text_style: settings.cart_drawer_promo_text_style,
+        text_alignment: settings.cart_drawer_promo_text_alignment,
+        text_size: settings.cart_drawer_promo_text_size,
+        text_color: settings.cart_drawer_promo_text_color,
+        text_padding: settings.cart_drawer_promo_text_padding,
+        primary_button_label: settings.cart_drawer_promo_primary_button_label,
+        primary_button_url: settings.cart_drawer_promo_primary_button_url,
+        secondary_button_label: settings.cart_drawer_promo_secondary_button_label,
+        secondary_button_url: settings.cart_drawer_promo_secondary_button_url
+  -%}
+{% endcomment %}
+
+{%- liquid
+  unless text_position
+    assign text_position = 'justify-center items-center'
+  endunless
+
+  unless text_alignment
+    assign text_alignment = 'center'
+  endunless
+
+  unless text_size
+    assign text_size = 'h3-size'
+  endunless
+
+  unless heading_size
+    assign heading_size = 'h2-size'
+  endunless
+
+  unless text_padding
+    assign text_padding = '1em'
+  endunless
+
+  unless placeholder_image
+    assign placeholder_image = 'collection-3'
+  endunless
+
+  if show_promo == null
+    assign show_promo = true
+  endif
+
+  assign has_primary_button = false
+  assign has_secondary_button = false
+
+  if primary_button_label != blank and primary_button_url != blank
+    assign has_primary_button = true
+  endif
+
+  if secondary_button_label != blank and secondary_button_url != blank
+    assign has_secondary_button = true
+  endif
+
+  assign ratio = 1
+  if media_aspect_ratio == 'portrait'
+    assign ratio = 0.8
+  elsif media_aspect_ratio == 'portrait_tall'
+    assign ratio = 0.66
+  elsif media_aspect_ratio == 'landscape_wide'
+    assign ratio = 1.77
+  elsif media_aspect_ratio == 'landscape_wider'
+    assign ratio = 2.33
+  elsif media_aspect_ratio == 'landscape_widest'
+    assign ratio = 3.55
+  elsif media_aspect_ratio == 'landscape'
+    assign ratio = 1.33
+  elsif media_aspect_ratio == 'square'
+    assign ratio = 1
+  elsif image and media_aspectpect_ratio == 'adapt'
+    assign ratio = image.aspect_ratio
+  endif
+  if ratio == 0 or ratio == null
+    assign ratio = 1
+  endif
+
+  unless image_width
+    assign image_width = 150
+  endunless
+  assign image_width_double = image_width | times: 2
+-%}
+
+{%- if show_promo -%}
+  {% if url == blank or text contains '<a' or has_primary_button or has_secondary_button %}
+    <div
+      class="promo-card  promo-card--image {{ class }} overflow-hidden flex flex-col md:flex-row relative {{ text_position }}"
+      style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+    >
+  {% else %}
+    <a
+      href="{{ url }}"
+      class="promo-card promo-card--image {{ class }} flex flex-col md:flex-row hover-zoom relative {{ text_position }}"
+      style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+    >
+  {% endif %}
+
+  <div
+    class="promo-image image-overlay overflow-hidden w-full relative{% if media_aspect_ratio != 'adapt' %} ratio{% endif %}"
+    {% if media_aspect_ratio == 'adapt' and image %}
+      style="padding-bottom: {{ 1 | divided_by: image.aspect_ratio | times: 100 }}%;"
+    {% elsif media_aspect_ratio == 'adapt' %}
+      style="padding-bottom: {{ 1 | divided_by: ratio | times: 100 }}%;"
+    {% endif %}
+  >
+    {%- if image == blank -%}
+      {{ placeholder_image | placeholder_svg_tag: 'placeholder-svg promo-image img-cover' }}
+    {%- else -%}
+      <img
+        class="promo-image img-cover"
+        {% if image.presentation %}
+          style="object-position: {{ image.presentation.focal_point }}"
+        {% endif -%}
+        srcset="{{ image | image_url: width: image_width_double }} {{ image_width_double }}w, {{ image | image_url: width: image_width }} {{ image_width }}w"
+        sizes="(max-width: 749.98px) {{ image_width | divided_by: 2 }}px, {{ image_width }}px"
+        src="{{ image | image_url: width: image_width_double }}"
+        alt="{{ image.alt | escape }}"
+        loading="lazy"
+        fetchpriority="low"
+        width="{{ image_width }}"
+        height="{{ image_width | divided_by: image.aspect_ratio | ceil }}"
+      >
+    {%- endif -%}
+  </div>
+
+  <div
+    class="z-2 lh-13{% if text_style != empty %} {{ text_style }}{% endif %} text-{{ text_alignment }} {{ text_size }} md-absolute"
+    style="{% if text_color != empty %}--color-foreground: {{ text_color.red }},{{ text_color.green }},{{ text_color.blue }};color: {{ text_color }};{% endif %}padding: {{ text_padding }}em"
+  >
+    {%- if heading != blank -%}
+      <h2 class="promo-card__heading m-0 {{ heading_size }}">
+        {{ heading | escape }}
+      </h2>
+    {%- endif -%}
+
+    {%- if text != blank -%}
+      <div class="promo-card__text">
+        {{ text }}
+      </div>
+    {%- endif -%}
+
+    {%- if has_primary_button or has_secondary_button -%}
+      <div class="promo-card__buttons flex gap-1 justify-center mt-2">
+        {%- if has_primary_button -%}
+          <a
+            href="{{ primary_button_url }}"
+            class="promo-card__button promo-card__button--primary button button--primary button--small"
+          >
+            {{ primary_button_label | escape }}
+          </a>
+        {%- endif -%}
+
+        {%- if has_secondary_button -%}
+          <a
+            href="{{ secondary_button_url }}"
+            class="promo-card__button promo-card__button--secondary button button--secondary button--small"
+          >
+            {{ secondary_button_label | escape }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {% if url == blank or text contains '<a' or has_primary_button or has_secondary_button %}
+    </div>
+  {% else %}
+    </a>
+  {% endif %}
+{%- endif -%}

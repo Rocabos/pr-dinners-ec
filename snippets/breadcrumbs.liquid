@@ -1,0 +1,285 @@
+{% comment %}
+  Renders a breacrumb for the page
+
+  Accepts:
+    is_product {Boolean}: Whether his is being rendered as part of the product information or not.
+    breadcrumb_truncate {String}: Number of words to truncate (as a string) the current page. Optional, defaults to settings.breadcrumb_truncate
+    breadcrumb_text_size {String}: The size of the text. Optional, defaults to settings.breadcrumb_text_size
+    breadcrumb_text_weight {String}: The weight of the tezxt. Optional, defaults to settings.breadcrumb_text_weight
+    breadcrumb_text_transform {String}: The transform to apply to the text. Optional, defaults to settings.breadcrumb_text_transform
+    breadcrumb_home_icon {Boolean}: Whether to show the home icon. Optional, defaults to settings.breadcrumb_home_icon
+
+  Usage:
+  {%- render 'breadcrumbs',
+      breadcrumb_truncate: block.settings.breadcrumb_truncate,
+      breadcrumb_text_size: block.settings.breadcrumb_text_size,
+      breadcrumb_text_weight: block.settings.breadcrumb_text_weight,
+      breadcrumb_text_transform: block.settings.breadcrumb_text_transform,
+      breadcrumb_home_icon: block.settings.breadcrumb_home_icon
+  -%}
+{% endcomment %}
+
+{%- liquid
+  if breadcrumb_truncate == blank
+    assign breadcrumb_truncate = settings.breadcrumb_truncate
+  endif
+
+  if breadcrumb_text_size == blank
+    assign breadcrumb_text_size = settings.breadcrumb_text_size
+  endif
+
+  if breadcrumb_text_weight == blank
+    assign breadcrumb_text_weight = settings.breadcrumb_text_weight
+  endif
+
+  if breadcrumb_text_transform == blank
+    assign breadcrumb_text_transform = settings.breadcrumb_text_transform
+  endif
+
+  unless breadcrumb_home_icon == true or breadcrumb_home_icon == false
+    assign breadcrumb_home_icon = settings.breadcrumb_home_icon
+  endunless
+
+  if settings.breadcrumb_show_custom_breadcrumbs and self[template.name].metafields.custom.breadcrumbs != blank
+    assign custom_breadcrumbs = self[template.name].metafields.custom.breadcrumbs
+  endif
+
+  case template.name
+    when 'blog', 'page'
+      assign item_title = self[template.name].title
+      assign item_url = self[template.name].url
+    when 'collection', 'product'
+      assign collections_label = 'breadcrumbs.collections' | t
+    when 'list-collections'
+      assign show_collection = true
+      assign item_title = 'breadcrumbs.collections' | t
+      assign item_url = routes.collections_url
+    when 'cart'
+      assign item_title = 'breadcrumbs.cart' | t
+      assign item_url = routes.cart_url
+    when 'search'
+      assign item_title = 'breadcrumbs.search' | t
+      assign item_url = routes.search_url
+  endcase
+
+  assign truncate_words = breadcrumb_truncate | plus: 0
+-%}
+
+{%- if template.name == 'blog' and current_tags -%}
+  {%- capture blog_url_with_tags -%}{{ blog.url }}/tagged/{{ current_tags | join: '+' }}{%- endcapture -%}
+{%- endif -%}
+
+
+
+<nav class="breadcrumbs{% unless is_product == true %} page-width{% endunless %} flex {{ breadcrumb_text_size }} font-{{ breadcrumb_text_weight }}
+   {% unless breadcrumb_text_transform == 'none' %} {{ breadcrumb_text_transform }}{% endunless %}"
+     aria-label={{ 'breadcrumbs.title' | t | json }}
+>
+  <ol class="pl-0 flex flex-wrap">
+    <li class="flex lh-15">
+      <a class="breadcrumb__link {% if breadcrumb_home_icon %}breadcrumb__link--icon tap-target--small flex items-center {% endif %} full-unstyled-link" href="{{ routes.root_url }}">
+        {%- liquid
+          if breadcrumb_home_icon
+            render 'icon', class: 'breadcrumb__icon', icon: 'home_sharp'
+          endif
+        -%}
+        {{ 'breadcrumbs.home' | t | escape }}
+      </a>
+      <span class="breadcrumb__separator" aria-hidden="true">/</span>
+    </li>
+
+    {%- if custom_breadcrumbs -%}
+      {%- for custom_breadcrumb in custom_breadcrumbs.value -%}
+        <li class="flex lh-15">
+          <a class="breadcrumb__link full-unstyled-link tap-target--small" href="{{ custom_breadcrumb.url }}">{{ custom_breadcrumb.title | escape }}</a>
+          <span class="breadcrumb__separator" aria-hidden="true">/</span>
+        </li>
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- if template.name == 'collection' and collection.handle -%}
+      {%- if show_collection -%}
+        <li class="flex lh-15">
+          <a class="breadcrumb__link full-unstyled-link tap-target--small" href="{{ routes.collections_url }}">{{ collections_label | escape }}</a>
+          <span class="breadcrumb__separator" aria-hidden="true">/</span>
+        </li>
+      {%- endif -%}
+
+      <li class="flex lh-15">
+        <a class="breadcrumb__link full-unstyled-link tap-target--small" href="{{ routes.collections_url }}/{{ collection.handle }}" aria-current="page">{{ collection.title | escape | truncatewords: truncate_words }}</a>
+      </li>
+
+    {%- elsif template.name == 'product' -%}
+      {%- if collection and custom_breadcrumbs == blank  -%}
+        {%- if show_collection -%}
+          <li class="flex lh-15">
+            <a class="breadcrumb__link full-unstyled-link tap-target--small" href="{{ routes.collections_url }}">{{ collections_label | escape }}</a>
+            <span class="breadcrumb__separator" aria-hidden="true">/</span>
+          </li>
+        {%- endif -%}
+
+        <li class="flex lh-15">
+          <a class="breadcrumb__link full-unstyled-link tap-target--small" href="{{ collection.url }}">{{ collection.title | escape }}</a>
+          {%- if is_product != true -%}<span class="breadcrumb__separator" aria-hidden="true">/</span>{%- endif -%}
+        </li>
+      {%- endif -%}
+
+      {%- if is_product != true -%}
+        <li class="flex lh-15">
+          <a class="breadcrumb__link full-unstyled-link tap-target--small" href="{{ product.url }}" aria-current="page">{{ product.title | escape | truncatewords: truncate_words }}</a>
+        </li>
+      {%- endif -%}
+
+    {%- elsif template.name == 'blog' and current_tags -%}
+      <li class="flex lh-15">
+        <a class="breadcrumb__link full-unstyled-link tap-target--small" href="{{ blog.url }}">{{ blog.title | escape }}</a>
+        <span class="breadcrumb__separator" aria-hidden="true">/</span>
+      </li>
+
+      <li class="flex lh-15">
+        <a class="breadcrumb__link full-unstyled-link tap-target--small" href="{{ blog_url_with_tags | downcase }}" aria-current="page">{{ current_tags | join: ", " | truncatewords: truncate_words }}</a>
+      </li>
+
+    {%- elsif template.name == 'article' -%}
+      <li class="flex lh-15">
+        <a class="breadcrumb__link full-unstyled-link tap-target--small" href="{{ blog.url }}">{{ blog.title | escape }}</a>
+        <span class="breadcrumb__separator" aria-hidden="true">/</span>
+      </li>
+
+      <li class="flex lh-15">
+        <a class="breadcrumb__link full-unstyled-link tap-target--small" href="{{ article.url }}" aria-current="page">{{ article.title | escape | truncatewords: truncate_words }}</a>
+      </li>
+
+    {%- else -%}
+      <li class="flex lh-15">
+        <a class="breadcrumb__link full-unstyled-link tap-target--small" href="{{ item_url }}" aria-current="page">{{ item_title | escape | truncatewords: truncate_words }}</a>
+      </li>
+
+    {%- endif -%}
+  </ol>
+</nav>
+
+{%- if settings.seo_schema_breadcrumb -%}
+  {%- unless template.name == 'cart' or template.name == 'search' -%}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": {{ 'breadcrumbs.home' | t | json }},
+            "item": {{ shop.url | append: routes.root_url | json }}
+          },
+
+          {%- if template.name == 'collection' and collection.handle -%}
+            {%- assign collection_index = 2 -%}
+            {%- if show_collection -%}
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": {{ collections_label | json }},
+                "item": {{ shop.url | append: routes.collections_url | json }}
+              },
+              {%- assign collection_index = 3 -%}
+            {%- endif -%}
+            {
+              "@type": "ListItem",
+              "position": {{ collection_index }},
+              "name": {{ collection.title | json }},
+              "item": {{ shop.url | append: collection.url | json }}
+            }
+
+          {%- elsif template.name == 'product' -%}
+            {%- assign product_index = 2 -%}
+            {%- if collection -%}
+              {%- if show_collection -%}
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": {{ collections_label | json }},
+                  "item": {{ shop.url | append: routes.collections_url | json }}
+                },
+                {%- assign product_index = 3 -%}
+              {%- endif -%}
+              {
+                "@type": "ListItem",
+                "position": {{ product_index }},
+                "name": {{ collection.title | json }},
+                "item": {{ shop.url | append: collection.url | json }}
+              },
+              {%- if show_collection -%}
+                {%- assign product_index = 4 -%}
+              {%- else -%}
+                {%- assign product_index = 3 -%}
+              {%- endif -%}
+            {%- endif -%}
+            {
+              "@type": "ListItem",
+              "position": {{ product_index }},
+              "name": {{ product.title | json }},
+              "item": {{ shop.url | append: product.url | json }}
+            }
+
+          {%- elsif template.name == 'blog' and current_tags -%}
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": {{ blog.title | json }},
+              "item": {{ shop.url | append: blog.url | json }}
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": {{ current_tags | join: ", " | json }},
+              "item": {{ shop.url | append: blog_url_with_tags | downcase | json }}
+            }
+
+          {%- elsif template.name == 'article' -%}
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": {{ blog.title | json }},
+              "item": {{ shop.url | append: blog.url | json }}
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": {{ article.title | json }},
+              "item": {{ shop.url | append: article.url | json }}
+            }
+
+          {%- else -%}
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": {{ item_title | json }},
+              "item": {{ shop.url | append: item_url | json }}
+            }
+          {%- endif -%}
+        ]
+      }
+    </script>
+  {%- endunless -%}
+{%- endif -%}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "  if settings.breadcrumb_show_custom_breadcrumbs and [template.name].metafields.custom.breadcrumbs
+    != blank"
+  to: "  if settings.breadcrumb_show_custom_breadcrumbs and self[template.name].metafields.custom.breadcrumbs
+    != blank"
+  position: 1789..1900
+- from: "    assign custom_breadcrumbs = [template.name].metafields.custom.breadcrumbs"
+  to: "    assign custom_breadcrumbs = self[template.name].metafields.custom.breadcrumbs"
+  position: 1901..1982
+- from: "      assign item_title = [template.name].title"
+  to: "      assign item_title = self[template.name].title"
+  position: 2037..2088
+- from: "      assign item_url = [template.name].url"
+  to: "      assign item_url = self[template.name].url"
+  position: 2089..2136
+{%- endcomment -%}

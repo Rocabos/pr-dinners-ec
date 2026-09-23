@@ -1,0 +1,7146 @@
+{%- comment -%}theme-check-disable NestedSnippet,SchemaJsonFormat{%- endcomment -%}
+
+{% unless section.index < 4 or request.design_mode -%}
+  <template class="deferred block lazy-template" data-observe-margin="2000px">
+{%- endunless %}
+
+<script src="{{ 'product-compare.js' | asset_url }}" defer="defer"></script>
+
+{{ 'component-compare.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+{%- if settings.swatch_enabled -%}
+  {{ 'component-swatch.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+<link rel="stylesheet" href="{{ 'quick-order-list.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'quantity-popover.css' | asset_url }}" media="print" onload="this.media='all'">
+<lazy-script src="{{ 'product-form.js' | asset_url }}" defer="defer"></lazy-script>
+<lazy-script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></lazy-script>
+<lazy-script src="{{ 'quick-add-bulk.js' | asset_url }}" defer="defer"></lazy-script>
+<lazy-script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></lazy-script>
+<lazy-script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></lazy-script>
+<lazy-script src="{{ 'quick-order-list.js' | asset_url }}" defer="defer"></lazy-script>
+
+<product-compare
+  class="{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %} {{ section.settings.visibility }} {%- render 'class-time-of-day-to-show' -%}"
+  data-search-url="{{ routes.search_url }}?section_id={{ section.id }}&type=product"
+  data-products="{{ section.settings.products | map: 'id' | join: ',' }}"
+  data-compare-is-loading="{% if request.design_mode and section.settings.products == empty %}false{% else %}true{% endif %}"
+>
+  {%- if request.design_mode or request.page_type == 'search' and search.performed and search.results_count > 0 -%}
+    {% render 'product-compare-grid',
+      products: search.results,
+      product_count: search.results_count,
+      show_onboarding: request.design_mode
+    %}
+  {%- endif -%}
+</product-compare>
+
+{% unless section.index < 4 or request.design_mode %}</template>{% endunless %}
+
+{%- comment -%}
+  LLM-friendly product comparison table
+{%- endcomment -%}
+{%- assign products = section.settings.products -%}
+{%- if products != blank -%}
+  <div class="visually-hidden" inert>
+    <table class="product-compare-table" role="table">
+      {%- if section.settings.title != blank or section.settings.ai_description != blank -%}
+        <caption class="rte">
+          {% if section.settings.title != blank -%}
+            {{- section.settings.title -}}
+            {%- if section.settings.ai_description != blank %}.{% endif -%}
+          {%- endif %}
+          {% if section.settings.ai_description != blank %}{{ section.settings.ai_description }}{% endif %}
+        </caption>
+      {%- endif -%}
+
+      <thead>
+        <tr>
+          <th scope="col">{{ 'sections.cart.headings.product' | t }}:</th>
+          {%- for product in products -%}
+            <th scope="col">
+              {{ product.title | escape }}
+            </th>
+          {%- endfor -%}
+        </tr>
+      </thead>
+
+      <tbody>
+        {%- for block in section.blocks -%}
+          {%- unless block.type == 'product_switcher' -%}
+            {%- liquid
+              assign row_label = block.settings.compare_label
+
+              if row_label == blank and block.type contains 'metafield'
+                assign row_label = block.settings.title
+              endif
+
+              if row_label == blank
+                assign row_label = block.type | replace: '_', ' ' | capitalize
+              endif
+            -%}
+
+            <tr>
+              <th scope="row">
+                {{ row_label | escape }}
+              </th>
+
+              {%- for product in products -%}
+                {%- liquid
+                  assign cell = ''
+                  capture cell
+                    unless block.type == 'product_switcher'
+                      if block.type == 'product_summary'
+                        echo product.title
+                        render 'price', is_product_card: false, product: product
+                      else
+                        if block.type == 'title' or block.type == 'product_price' or block.type == 'description' or block.type == 'rating' or block.type == 'product_badges' or block.type == 'vendor' or block.type == 'type' or block.type == 'weight' or block.type == 'variants_text' or block.type == 'product_summary' or block.type == 'metafield' or block.type == 'metafield_scale' or block.type == 'metafield_boolean' or block.type == 'variant_option_text'
+                          render 'product-block', section: section, block: block, product: product, products: products, section_name: 'product-compare-product', is_featured: true
+                        else
+                          render 'standard-blocks', section_name: 'product-compare', block: block, default_url: product.url
+                        endif
+                      endif
+                    endunless
+                  endcapture
+
+                  assign cell = cell | strip
+                -%}
+
+                <td>
+                  {%- if cell != blank -%}
+                    {{ cell }}
+                  {%- else -%}
+                    {{ block.settings.text_when_empty | default: section.settings.text_when_empty | escape }}
+                  {%- endif -%}
+                </td>
+              {%- endfor -%}
+            </tr>
+          {%- endunless -%}
+        {%- endfor -%}
+      </tbody>
+    </table>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product compare",
+  "tag": "section",
+  "class": "section section-product-compare",
+  "disabled_on": {
+    "groups": ["header", "footer", "aside"],
+    "templates": ["password"]
+  },
+  "settings": [
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Products to compare"
+    },
+    {
+      "type": "text",
+      "id": "text_when_empty",
+      "default": "-",
+      "label": "Text for empty values"
+    },
+    {
+      "type": "text_alignment",
+      "id": "compare_text_alignment",
+      "default": "center",
+      "label": "Text alignment"
+    },
+    {
+      "type": "header",
+      "content": "Labels"
+    },
+    {
+      "type": "select",
+      "id": "label_text_size",
+      "options": [
+        {
+          "value": "t7",
+          "label": "3XS"
+        },
+        {
+          "value": "t6",
+          "label": "2XS"
+        },
+        {
+          "value": "t5",
+          "label": "XS"
+        },
+        {
+          "value": "t4",
+          "label": "S"
+        },
+        {
+          "value": "t3",
+          "label": "M"
+        },
+        {
+          "value": "t2",
+          "label": "L"
+        },
+        {
+          "value": "t1",
+          "label": "XL"
+        },
+        {
+          "value": "t0",
+          "label": "2XL"
+        }
+      ],
+      "default": "t3",
+      "label": "Text size"
+    },
+    {
+      "type": "select",
+      "id": "label_text_weight",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Standard"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "bold",
+          "label": "Bold"
+        }
+      ],
+      "default": "bold",
+      "label": "Text weight"
+    },
+    {
+      "type": "select",
+      "id": "label_text_transform",
+      "default": "uppercase",
+      "label": "Text capitalization",
+      "options": [
+        {
+          "value": "",
+          "label": "As typed"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Carousel layout"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "options": [
+        {
+          "value": "5",
+          "label": "S"
+        },
+        {
+          "value": "4",
+          "label": "M"
+        },
+        {
+          "value": "3",
+          "label": "L"
+        }
+      ],
+      "default": "3",
+      "label": "Card size on desktop"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "1",
+      "label": "Number of columns on mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "carousel_width_desktop",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Page width"
+        },
+        {
+          "value": "normal",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "default": "normal",
+      "label": "Width on desktop"
+    },
+    {
+      "type": "checkbox",
+      "visible_if": "{{ section.settings.carousel_width_desktop == 'narrow' and settings.carousel_arrows == true }}",
+      "id": "always_show_arrows",
+      "default": true,
+      "label": "Always show arrows"
+    },
+    {
+      "type": "header",
+      "content": "Header layout"
+    },
+
+    {
+      "type": "select",
+      "id": "content_max_width",
+      "options": [
+        {
+          "value": "xs",
+          "label": "XS"
+        },
+        {
+          "value": "s",
+          "label": "S"
+        },
+        {
+          "value": "m",
+          "label": "M"
+        },
+        {
+          "value": "l",
+          "label": "L"
+        },
+        {
+          "value": "xl",
+          "label": "XL"
+        }
+      ],
+      "default": "m",
+      "label": "Maximum heading width"
+    },
+    {
+      "type": "text_alignment",
+      "id": "desktop_heading_alignment",
+      "default": "left",
+      "label": "Heading alignment on desktop"
+    },
+    {
+      "type": "text_alignment",
+      "id": "mobile_heading_alignment",
+      "default": "left",
+      "label": "Heading alignment on mobile"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Which is right for you?",
+      "info": "Enter ++ for a line break.",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "italic_convert",
+      "visible_if": "{{ section.settings.title != blank }}",
+      "options": [
+        {
+          "value": "",
+          "label": "Off (keep as italics)"
+        },
+        {
+          "value": "light",
+          "label": "Lighter"
+        },
+        {
+          "value": "accent_color",
+          "label": "Accent color"
+        },
+        {
+          "value": "accent",
+          "label": "Accent gradient color"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "outline_accent",
+          "label": "Outline - Accent color"
+        },
+        {
+          "value": "glow",
+          "label": "Glow - Accent color"
+        },
+        {
+          "value": "glow_outline",
+          "label": "Glow with outline - Accent color"
+        }
+      ],
+      "info": "The colors above can be set in the color schemes. 'Outline' may not work with all fonts.",
+      "default": "",
+      "label": "Convert italic text to"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "visible_if": "{{ section.settings.title != blank }}",
+      "options": [
+        {
+          "value": "h4",
+          "label": "XS"
+        },
+        {
+          "value": "h3",
+          "label": "S"
+        },
+        {
+          "value": "h2",
+          "label": "M"
+        },
+        {
+          "value": "h1",
+          "label": "L"
+        },
+        {
+          "value": "h0",
+          "label": "XL"
+        }
+      ],
+      "default": "h2",
+      "label": "Heading size"
+    },
+    {
+      "type": "header",
+      "content": "Description"
+    },
+
+    {
+      "type": "richtext",
+      "id": "text",
+
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "visible_if": "{{ section.settings.text != blank }}",
+      "options": [
+        {
+          "value": "t6",
+          "label": "2XS"
+        },
+        {
+          "value": "t5",
+          "label": "XS"
+        },
+        {
+          "value": "t4",
+          "label": "S"
+        },
+        {
+          "value": "t3",
+          "label": "M"
+        },
+        {
+          "value": "t2",
+          "label": "L"
+        },
+        {
+          "value": "t1",
+          "label": "XL"
+        },
+        {
+          "value": "t0",
+          "label": "2XL"
+        }
+      ],
+      "default": "t3",
+      "label": "Text size"
+    },
+    {
+      "type": "header",
+      "content": "View more"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all_link",
+      "default": false,
+      "label": "Show \"View more\" link"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "visible_if": "{{ section.settings.show_view_all_link }}",
+      "label": "View more link"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "visible_if": "{{ section.settings.show_view_all_link }}",
+      "default": "View more",
+      "label": "View more text"
+    },
+    {
+      "type": "select",
+      "id": "view_all_text_size",
+      "visible_if": "{{ section.settings.show_view_all_link }}",
+      "options": [
+        {
+          "value": "t6",
+          "label": "2XS"
+        },
+        {
+          "value": "t5",
+          "label": "XS"
+        },
+        {
+          "value": "t4",
+          "label": "S"
+        },
+        {
+          "value": "t3",
+          "label": "M"
+        },
+        {
+          "value": "t2",
+          "label": "L"
+        },
+        {
+          "value": "t1",
+          "label": "XL"
+        },
+        {
+          "value": "t0",
+          "label": "2XL"
+        }
+      ],
+      "default": "t3",
+      "label": "View more text size"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Section color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "card_color_scheme",
+      "label": "Compare card color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_shadow",
+      "default": true,
+      "label": "Show card shadow"
+    },
+    {
+      "type": "select",
+      "id": "line_separator",
+      "options": [
+        {
+          "value": "",
+          "label": "Off"
+        },
+        {
+          "value": "border-top",
+          "label": "Top"
+        },
+        {
+          "value": "border-bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "border-top border-bottom",
+          "label": "Both"
+        }
+      ],
+      "default": "",
+      "label": "Section line separator"
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "select",
+      "id": "top_padding",
+      "options": [
+        {
+          "value": "pt-0",
+          "label": "0"
+        },
+        {
+          "value": "pt-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pt-s",
+          "label": "1"
+        },
+        {
+          "value": "pt-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pt-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pt-s",
+      "label": "Top section spacing"
+    },
+    {
+      "type": "select",
+      "id": "bottom_padding",
+      "options": [
+        {
+          "value": "pb-0",
+          "label": "0"
+        },
+        {
+          "value": "pb-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pb-s",
+          "label": "1"
+        },
+        {
+          "value": "pb-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pb-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pb-s",
+      "label": "Bottom section spacing"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "options": [
+        {
+          "value": "visible-xs",
+          "label": "Mobile"
+        },
+        {
+          "value": "hidden-xs",
+          "label": "Desktop"
+        },
+        {
+          "value": "",
+          "label": "Both"
+        }
+      ],
+      "default": "",
+      "info": "Lots of hidden content could be harmful for SEO.",
+      "label": "Show on"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_at_specific_time_of_day",
+      "default": false,
+      "label": "Only show at specific times of the day",
+      "info": "Uses the customers' local time. Always shows in Theme Editor."
+    },
+    {
+      "type": "paragraph",
+      "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+      "content": "Lots of hidden content could be harmful for SEO. Don't overuse this."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_time_morning",
+      "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+      "default": true,
+      "label": "Show in the morning (5am - 12pm)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_time_afternoon",
+      "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+      "default": true,
+      "label": "Show in the afternoon (12pm - 5pm)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_time_evening",
+      "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+      "default": true,
+      "label": "Show in the evening (5pm - 9pm)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_time_night",
+      "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+      "default": true,
+      "label": "Show at night (9pm - 5am)"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h2",
+      "info": "For SEO purposes, there should only be one H1 tag on the page.",
+      "label": "Heading tag"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "ai_description",
+      "label": "Comparison table AI text",
+      "info": "Summarize the comparison table for LLMs/AI."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_summary",
+      "name": "Product summary",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Some settings within 'Theme Settings > Product cards' will also apply here."
+        },
+        {
+          "type": "header",
+          "content": "Image"
+        },
+        {
+          "type": "select",
+          "id": "card_image_ratio",
+          "options": [
+            {
+              "value": "adapt",
+              "label": "Original"
+            },
+            {
+              "value": "square",
+              "label": "Square (1:1)"
+            },
+            {
+              "value": "landscape",
+              "label": "Landscape (4:3)"
+            },
+            {
+              "value": "landscape_wide",
+              "label": "Landscape (16:9)"
+            },
+            {
+              "value": "portrait",
+              "label": "Portrait (4:5)"
+            },
+            {
+              "value": "portrait_tall",
+              "label": "Portrait (2:3)"
+            }
+          ],
+          "default": "square",
+          "label": "Image aspect ratio"
+        },
+        {
+          "type": "checkbox",
+          "id": "card_image_cover",
+          "default": false,
+          "label": "Image fills available space",
+          "info": "This may crop the image."
+        },
+        {
+          "type": "checkbox",
+          "id": "card_image_secondary_image",
+          "default": true,
+          "label": "Show second image on hover"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_product_labels",
+          "default": true,
+          "label": "Show product labels"
+        },
+        {
+          "type": "range",
+          "id": "card_image_scale",
+          "min": 50,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Image scale",
+          "default": 100
+        },
+        {
+          "type": "checkbox",
+          "id": "card_image_replace_background",
+          "default": false,
+          "label": "Replace white image backgrounds with the color below",
+          "info": "Don't use this setting unless the product images are on a white background."
+        },
+        {
+          "type": "color",
+          "id": "card_image_background",
+          "label": "Image background",
+          "info": "This should be a very light color."
+        },
+        {
+          "type": "header",
+          "content": "Swatches"
+        },
+        {
+          "type": "checkbox",
+          "id": "swatch_enabled",
+          "default": true,
+          "label": "Show swatches",
+          "info": "Swatches must first be set up in product page of the admin area. [Learn more](https://help.shopify.com/en/manual/custom-data/metafields/category-metafields/using-category-metafields)"
+        },
+        {
+          "type": "text_alignment",
+          "id": "swatch_alignment",
+          "default": "center",
+          "label": "Swatch alignment"
+        },
+        {
+          "type": "range",
+          "id": "swatch_size",
+          "min": 0.8,
+          "max": 2.4,
+          "step": 0.1,
+          "unit": "em",
+          "label": "Swatch size",
+          "default": 1.6
+        },
+        {
+          "type": "range",
+          "id": "swatch_limit",
+          "min": 3,
+          "max": 50,
+          "step": 1,
+          "label": "Swatch limit",
+          "default": 6
+        },
+        {
+          "type": "checkbox",
+          "id": "swatch_hide_singles",
+          "default": false,
+          "label": "Hide single swatches"
+        },
+        {
+          "type": "header",
+          "content": "Title and price"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_title",
+          "default": true,
+          "label": "Show title"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_price",
+          "default": true,
+          "label": "Show price"
+        },
+        {
+          "type": "select",
+          "id": "card_title_size",
+          "options": [
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            },
+            {
+              "value": "h5",
+              "label": "3XL"
+            },
+            {
+              "value": "h4",
+              "label": "4XL"
+            }
+          ],
+          "default": "t0",
+          "label": "Title size"
+        },
+        {
+          "type": "select",
+          "id": "card_title_weight",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Normal"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ],
+          "default": "bold",
+          "label": "Title weight"
+        },
+        {
+          "type": "select",
+          "id": "card_price_size",
+          "options": [
+            {
+              "value": "t7",
+              "label": "3XS"
+            },
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            },
+            {
+              "value": "h5",
+              "label": "3XL"
+            }
+          ],
+          "default": "t2",
+          "label": "Price size"
+        },
+        {
+          "type": "select",
+          "id": "card_title_transform",
+          "default": "none",
+          "label": "Title and price capitalization",
+          "options": [
+            {
+              "value": "none",
+              "label": "As typed"
+            },
+            {
+              "value": "uppercase",
+              "label": "Uppercase"
+            },
+            {
+              "value": "lowercase",
+              "label": "Lowercase"
+            },
+            {
+              "value": "capitalize",
+              "label": "Capitalize"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Buttons"
+        },
+        {
+          "type": "checkbox",
+          "id": "compare_enable_quick_add",
+          "default": true,
+          "label": "Show quick add button",
+          "info": "Quick add must also be enabled in Theme Settings > Product cards."
+        },
+        {
+          "type": "checkbox",
+          "id": "compare_enable_learn_more",
+          "default": true,
+          "label": "Show link to product page"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "Product title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "options": [
+            {
+              "value": "h1",
+              "label": "H1"
+            },
+            {
+              "value": "h2",
+              "label": "H2"
+            },
+            {
+              "value": "h3",
+              "label": "H3"
+            },
+            {
+              "value": "h4",
+              "label": "H4"
+            },
+            {
+              "value": "h5",
+              "label": "H4"
+            }
+          ],
+          "default": "h3",
+          "info": "For SEO purposes, there should only be one H1 tag on the page.",
+          "label": "Heading tag"
+        },
+        {
+          "type": "select",
+          "id": "heading_style",
+          "options": [
+            {
+              "value": "text-body",
+              "label": "Body"
+            },
+            {
+              "value": "text-heading",
+              "label": "Heading"
+            }
+          ],
+          "default": "text-heading",
+          "label": "Heading style"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "h6",
+              "label": "3XS"
+            },
+            {
+              "value": "h5",
+              "label": "2XS"
+            },
+            {
+              "value": "h4",
+              "label": "XS"
+            },
+            {
+              "value": "h3",
+              "label": "S"
+            },
+            {
+              "value": "h2",
+              "label": "M"
+            },
+            {
+              "value": "h1",
+              "label": "L"
+            },
+            {
+              "value": "h0",
+              "label": "XL"
+            }
+          ],
+          "default": "h3",
+          "label": "Heading size"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "product_price",
+      "name": "Product price",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color",
+          "id": "price_color",
+          "label": "Sale price",
+          "info": "Set to transparent to use text color.",
+          "default": "#EA0707"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "t7",
+              "label": "3XS"
+            },
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            }
+          ],
+          "default": "t3",
+          "label": "Text size"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "default": "Price",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "text_when_empty",
+          "info": "Defaults to the 'Text for empty values' section setting.",
+          "label": "Text for empty values"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Product description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "max_words",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "label": "Maximum words",
+          "info": "Setting a maximum word count will remove any HTML from the description. Set to 0 to show the entire description.",
+          "default": 0
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "Standard"
+            },
+            {
+              "value": "subtitle",
+              "label": "Subtitle"
+            },
+            {
+              "value": "uppercase",
+              "label": "Uppercase"
+            }
+          ],
+          "default": "body",
+          "label": "Text style"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "t7",
+              "label": "3XS"
+            },
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            }
+          ],
+          "default": "t4",
+          "label": "Text size"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "default": "Description",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "text_when_empty",
+          "info": "Defaults to the 'Text for empty values' section setting.",
+          "label": "Text for empty values"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "rating",
+      "name": "Product rating",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "To display a rating, add a product rating app. [Learn more](https://help.shopify.com/manual/online-store/themes/theme-structure/page-types#product-rating-block)"
+        },
+        {
+          "type": "select",
+          "id": "rating_size",
+          "options": [
+            {
+              "value": "1.5",
+              "label": "S"
+            },
+            {
+              "value": "1.7",
+              "label": "M"
+            },
+            {
+              "value": "2",
+              "label": "L"
+            }
+          ],
+          "default": "1.7",
+          "label": "Star size"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "default": "Rating",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "text_when_empty",
+          "info": "Defaults to the 'Text for empty values' section setting.",
+          "label": "Text for empty values"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "product_badges",
+      "name": "Product badges",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "These can be customized in [Product badges theme settings](/editor?context=theme&category=Product%2Bbadges)"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "text_when_empty",
+          "info": "Defaults to the 'Text for empty values' section setting.",
+          "label": "Text for empty values"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "vendor",
+      "limit": 1,
+      "name": "Product vendor",
+      "settings": [
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "Standard"
+            },
+            {
+              "value": "subtitle",
+              "label": "Subtitle"
+            },
+            {
+              "value": "uppercase",
+              "label": "Uppercase"
+            }
+          ],
+          "default": "uppercase",
+          "label": "Text style"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_link_color",
+          "label": "Use link color",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "t7",
+              "label": "3XS"
+            },
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            }
+          ],
+          "default": "t7",
+          "label": "Text size"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "default": "Vendor",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "text_when_empty",
+          "info": "Defaults to the 'Text for empty values' section setting.",
+          "label": "Text for empty values"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "type",
+      "limit": 1,
+      "name": "Product type",
+      "settings": [
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "Standard"
+            },
+            {
+              "value": "subtitle",
+              "label": "Subtitle"
+            },
+            {
+              "value": "uppercase",
+              "label": "Uppercase"
+            }
+          ],
+          "default": "body",
+          "label": "Text style"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "t7",
+              "label": "3XS"
+            },
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            }
+          ],
+          "default": "t4",
+          "label": "Text size"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "default": "Type",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "text_when_empty",
+          "info": "Defaults to the 'Text for empty values' section setting.",
+          "label": "Text for empty values"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "weight",
+      "limit": 1,
+      "name": "Product weight",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Shows only when all variants have the same weight."
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "Standard"
+            },
+            {
+              "value": "subtitle",
+              "label": "Subtitle"
+            },
+            {
+              "value": "uppercase",
+              "label": "Uppercase"
+            }
+          ],
+          "default": "body",
+          "label": "Text style"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "t7",
+              "label": "3XS"
+            },
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            }
+          ],
+          "default": "t4",
+          "label": "Text size"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "default": "Weight",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "text_when_empty",
+          "info": "Defaults to the 'Text for empty values' section setting.",
+          "label": "Text for empty values"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "variants_text",
+      "limit": 1,
+      "name": "Product variants",
+      "settings": [
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "Standard"
+            },
+            {
+              "value": "subtitle",
+              "label": "Subtitle"
+            },
+            {
+              "value": "uppercase",
+              "label": "Uppercase"
+            }
+          ],
+          "default": "body",
+          "label": "Text style"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "t7",
+              "label": "3XS"
+            },
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            }
+          ],
+          "default": "t4",
+          "label": "Text size"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "default": "Available in",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "text_when_empty",
+          "info": "Defaults to the 'Text for empty values' section setting.",
+          "label": "Text for empty values"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "variant_option_text",
+      "limit": 1,
+      "name": "Product variant option",
+      "settings": [
+        {
+          "type": "text",
+          "id": "variant_option",
+          "label": "Variant option name",
+          "info": "Enter the name of one of the options that a product can have, e.g. 'Size'. Separate multiple translations with a comma, e.g. Size,Tamaño"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "Standard"
+            },
+            {
+              "value": "subtitle",
+              "label": "Subtitle"
+            },
+            {
+              "value": "uppercase",
+              "label": "Uppercase"
+            }
+          ],
+          "default": "body",
+          "label": "Text style"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "t7",
+              "label": "3XS"
+            },
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            }
+          ],
+          "default": "t4",
+          "label": "Text size"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "default": "Available in",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "text_when_empty",
+          "info": "Defaults to the 'Text for empty values' section setting.",
+          "label": "Text for empty values"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "metafield",
+      "name": "Product metafield",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "This uses the [Shopify metafield_tag filter](https://shopify.dev/docs/api/liquid/filters/metafield_tag), which currently doesn't support list metafields other than a list of 'Single line text' values. Metaobjects are not currently supported."
+        },
+        {
+          "type": "text",
+          "id": "metafield_key",
+          "info": "For example: custom.storage_size",
+          "label": "Metafield namespace and key"
+        },
+        {
+          "type": "text",
+          "id": "metafield_prefix",
+          "label": "Prefix"
+        },
+        {
+          "type": "text",
+          "id": "metafield_suffix",
+          "label": "Suffix"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "Standard"
+            },
+            {
+              "value": "subtitle",
+              "label": "Subtitle"
+            },
+            {
+              "value": "uppercase",
+              "label": "Uppercase"
+            }
+          ],
+          "default": "body",
+          "label": "Text style"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "t7",
+              "label": "3XS"
+            },
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            }
+          ],
+          "default": "t4",
+          "label": "Text size"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "text_when_empty",
+          "info": "Defaults to the 'Text for empty values' section setting.",
+          "label": "Text for empty values"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "metafield_scale",
+      "name": "Product score metafield",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Only works with Integer metafield type."
+        },
+        {
+          "type": "text",
+          "id": "metafield_key",
+          "info": "For example: custom.rating_out_of_five",
+          "label": "Metafield namespace and key"
+        },
+        {
+          "type": "text",
+          "id": "metafield_max_integer",
+          "label": "Maximum score",
+          "default": "5",
+          "info": "Mandatory"
+        },
+        {
+          "type": "select",
+          "id": "metafield_icon",
+          "options": [
+            {
+              "label": "None",
+              "value": ""
+            },
+            {
+              "label": "Clothes & Beauty / Brush",
+              "value": "brush"
+            },
+            {
+              "label": "Clothes & Beauty / Dryer",
+              "value": "dryer"
+            },
+            {
+              "label": "Clothes & Beauty / Footsteps",
+              "value": "footsteps"
+            },
+            {
+              "label": "Clothes & Beauty / Glasses",
+              "value": "glasses"
+            },
+            {
+              "label": "Clothes & Beauty / Iron",
+              "value": "iron"
+            },
+            {
+              "label": "Clothes & Beauty / Leather",
+              "value": "leather"
+            },
+            {
+              "label": "Clothes & Beauty / Lipstick",
+              "value": "lipstick"
+            },
+            {
+              "label": "Clothes & Beauty / Pants",
+              "value": "pants"
+            },
+            {
+              "label": "Clothes & Beauty / Perfume",
+              "value": "perfume"
+            },
+            {
+              "label": "Clothes & Beauty / Ruler",
+              "value": "ruler"
+            },
+            {
+              "label": "Clothes & Beauty / Scissors",
+              "value": "scissors"
+            },
+            {
+              "label": "Clothes & Beauty / Shirt 1",
+              "value": "shirt"
+            },
+            {
+              "label": "Clothes & Beauty / Shirt 2",
+              "value": "shirt2"
+            },
+            {
+              "label": "Clothes & Beauty / Shoe",
+              "value": "shoe"
+            },
+            {
+              "label": "Clothes & Beauty / Washing",
+              "value": "washing"
+            },
+            {
+              "label": "Communication / Call",
+              "value": "call"
+            },
+            {
+              "label": "Communication / Chat bubble",
+              "value": "chat_bubble"
+            },
+            {
+              "label": "Communication / Chat bubbles",
+              "value": "chat_bubbles"
+            },
+            {
+              "label": "Communication / Ear",
+              "value": "ear"
+            },
+            {
+              "label": "Communication / Information",
+              "value": "information"
+            },
+            {
+              "label": "Communication / Information circle",
+              "value": "information_circle"
+            },
+            {
+              "label": "Communication / Mail",
+              "value": "mail"
+            },
+            {
+              "label": "Communication / @ symbol",
+              "value": "email-at"
+            },
+            {
+              "label": "Communication / Notification alert",
+              "value": "alert"
+            },
+            {
+              "label": "Communication / Question mark",
+              "value": "help"
+            },
+            {
+              "label": "Communication / Question mark circle",
+              "value": "question_mark"
+            },
+            {
+              "label": "Communication / Warning",
+              "value": "warning"
+            },
+            {
+              "label": "Digital / Apps",
+              "value": "apps"
+            },
+            {
+              "label": "Digital / Arrow right",
+              "value": "arrow_right"
+            },
+            {
+              "label": "Digital / Attach",
+              "value": "attach"
+            },
+            {
+              "label": "Digital / Calendar",
+              "value": "calendar"
+            },
+            {
+              "label": "Digital / Chart",
+              "value": "chart"
+            },
+            {
+              "label": "Digital / Chevron right",
+              "value": "chevron_right"
+            },
+            {
+              "label": "Digital / Clipboard",
+              "value": "clipboard"
+            },
+            {
+              "label": "Digital / Cloud",
+              "value": "cloud"
+            },
+            {
+              "label": "Digital / Cloud done",
+              "value": "cloud_done"
+            },
+            {
+              "label": "Digital / Cloud download",
+              "value": "cloud_download"
+            },
+            {
+              "label": "Digital / Cloud upload",
+              "value": "cloud_upload"
+            },
+            {
+              "label": "Digital / Code slash",
+              "value": "code_slash"
+            },
+            {
+              "label": "Digital / Documents",
+              "value": "documents"
+            },
+            {
+              "label": "Digital / Home",
+              "value": "home"
+            },
+            {
+              "label": "Digital / Images",
+              "value": "images"
+            },
+            {
+              "label": "Digital / Open in new window",
+              "value": "open"
+            },
+            {
+              "label": "Digital / Options",
+              "value": "options"
+            },
+            {
+              "label": "Digital / Plus",
+              "value": "plus"
+            },
+            {
+              "label": "Digital / Plus in circle",
+              "value": "add"
+            },
+            {
+              "label": "Digital / Repeat",
+              "value": "repeat"
+            },
+            {
+              "label": "Digital / Scan",
+              "value": "scan"
+            },
+            {
+              "label": "Digital / Search",
+              "value": "search"
+            },
+            {
+              "label": "Digital / Volume",
+              "value": "volume"
+            },
+
+            {
+              "label": "eCommerce / Bag add",
+              "value": "bag-add"
+            },
+            {
+              "label": "eCommerce / Bag with check mark",
+              "value": "bag-check"
+            },
+            {
+              "label": "eCommerce / Box",
+              "value": "box"
+            },
+            {
+              "label": "eCommerce / Card",
+              "value": "card"
+            },
+            {
+              "label": "eCommerce / Cart",
+              "value": "cart"
+            },
+            {
+              "label": "eCommerce / Clock",
+              "value": "clock"
+            },
+            {
+              "label": "eCommerce / Cash",
+              "value": "cash"
+            },
+            {
+              "label": "eCommerce / Gift",
+              "value": "gift"
+            },
+            {
+              "label": "eCommerce / Price tag",
+              "value": "price_tag"
+            },
+            {
+              "label": "eCommerce / Price tags",
+              "value": "price_tags"
+            },
+            {
+              "label": "eCommerce / Recycle",
+              "value": "recycle"
+            },
+            {
+              "label": "eCommerce / Return",
+              "value": "return"
+            },
+            {
+              "label": "eCommerce / Storefront",
+              "value": "storefront"
+            },
+            {
+              "label": "eCommerce / Truck",
+              "value": "truck"
+            },
+            {
+              "label": "eCommerce / Wallet",
+              "value": "wallet"
+            },
+            {
+              "label": "Food & Beverage / Apple",
+              "value": "apple"
+            },
+            {
+              "label": "Food & Beverage / Banana",
+              "value": "banana"
+            },
+            {
+              "label": "Food & Beverage / Beer",
+              "value": "beer"
+            },
+            {
+              "label": "Food & Beverage / Bottle",
+              "value": "bottle"
+            },
+            {
+              "label": "Food & Beverage / Carrot",
+              "value": "carrot"
+            },
+            {
+              "label": "Food & Beverage / Coffee",
+              "value": "cafe"
+            },
+            {
+              "label": "Food & Beverage / Cutlery",
+              "value": "restaurant"
+            },
+            {
+              "label": "Food & Beverage / Dairy",
+              "value": "dairy"
+            },
+            {
+              "label": "Food & Beverage / Dairy free",
+              "value": "dairy_free"
+            },
+            {
+              "label": "Food & Beverage / Drink",
+              "value": "pint"
+            },
+            {
+              "label": "Food & Beverage / Egg",
+              "value": "egg"
+            },
+            {
+              "label": "Food & Beverage / Fast food",
+              "value": "fast_food"
+            },
+            {
+              "label": "Food & Beverage / Fish",
+              "value": "fish"
+            },
+            {
+              "label": "Food & Beverage / Gluten free",
+              "value": "gluten_free"
+            },
+            {
+              "label": "Food & Beverage / Ice cream",
+              "value": "ice_cream"
+            },
+            {
+              "label": "Food & Beverage / Nut free",
+              "value": "nut_free"
+            },
+            {
+              "label": "Food & Beverage / Pepper",
+              "value": "pepper"
+            },
+            {
+              "label": "Food & Beverage / Pizza",
+              "value": "pizza"
+            },
+            {
+              "label": "Food & Beverage / Serving dish",
+              "value": "serving_dish"
+            },
+            {
+              "label": "Food & Beverage / Vegan",
+              "value": "plant"
+            },
+            {
+              "label": "Food & Beverage / Wine",
+              "value": "wine"
+            },
+            {
+              "label": "Hardware & Tools / Construction",
+              "value": "construction"
+            },
+            {
+              "label": "Hardware & Tools / Cog",
+              "value": "cog"
+            },
+            {
+              "label": "Hardware & Tools / Eyedropper",
+              "value": "eyedropper"
+            },
+            {
+              "label": "Hardware & Tools / Flashlight",
+              "value": "flashlight"
+            },
+            {
+              "label": "Hardware & Tools / Gear",
+              "value": "gear"
+            },
+            {
+              "label": "Hardware & Tools / Hammer",
+              "value": "hammer"
+            },
+            {
+              "label": "Hardware & Tools / Magnet",
+              "value": "magnet"
+            },
+            {
+              "label": "Hardware & Tools / Paint bucket",
+              "value": "paint"
+            },
+            {
+              "label": "Hardware & Tools / Thermometer",
+              "value": "thermometer"
+            },
+            {
+              "label": "Hardware & Tools / Wrench",
+              "value": "build"
+            },
+            {
+              "label": "Logo / Amazon",
+              "value": "logo_amazon"
+            },
+            {
+              "label": "Logo / Android",
+              "value": "logo_android"
+            },
+            {
+              "label": "Logo / Apple",
+              "value": "logo_apple"
+            },
+            {
+              "label": "Logo / Apple Appstore",
+              "value": "logo_apple_appstore"
+            },
+            {
+              "label": "Logo / Discord",
+              "value": "logo_discord"
+            },
+            {
+              "label": "Logo / Facebook",
+              "value": "logo_facebook"
+            },
+            {
+              "label": "Logo / Google",
+              "value": "logo_google"
+            },
+            {
+              "label": "Logo / Google Playstore",
+              "value": "logo_google_playstore"
+            },
+            {
+              "label": "Logo / Instagram",
+              "value": "logo_instagram"
+            },
+            {
+              "label": "Logo / Linkedin",
+              "value": "logo_linkedin"
+            },
+            {
+              "label": "Logo / Microsoft",
+              "value": "logo_microsoft"
+            },
+            {
+              "label": "Logo / Pinterest",
+              "value": "logo_pinterest"
+            },
+            {
+              "label": "Logo / Soundcloud",
+              "value": "logo_soundcloud"
+            },
+            {
+              "label": "Logo / Tiktok",
+              "value": "logo_tiktok"
+            },
+            {
+              "label": "Logo / Tumblr",
+              "value": "logo_tumblr"
+            },
+            {
+              "label": "Logo / Twitch",
+              "value": "logo_twitch"
+            },
+            {
+              "label": "Logo / Wechat",
+              "value": "logo_wechat"
+            },
+            {
+              "label": "Logo / Whatsapp",
+              "value": "logo_whatsapp"
+            },
+            {
+              "label": "Logo / X (aka Twitter)",
+              "value": "logo_x"
+            },
+            {
+              "label": "Logo / YouTube",
+              "value": "logo_youtube"
+            },
+            {
+              "label": "Nature / Bug",
+              "value": "bug"
+            },
+            {
+              "label": "Nature / Earth",
+              "value": "earth"
+            },
+            {
+              "label": "Nature / Fire",
+              "value": "fire"
+            },
+            {
+              "label": "Nature / Flower",
+              "value": "flower"
+            },
+            {
+              "label": "Nature / Globe",
+              "value": "globe"
+            },
+            {
+              "label": "Nature / Leaf",
+              "value": "leaf"
+            },
+            {
+              "label": "Nature / Lightning bolt",
+              "value": "lightning_bolt"
+            },
+            {
+              "label": "Nature / Partly sunny",
+              "value": "partly_sunny"
+            },
+            {
+              "label": "Nature / Paw print",
+              "value": "paw_print"
+            },
+            {
+              "label": "Nature / Rose",
+              "value": "rose"
+            },
+            {
+              "label": "Nature / Snowflake",
+              "value": "snowflake"
+            },
+            {
+              "label": "Nature / Sunny",
+              "value": "sunny"
+            },
+            {
+              "label": "Nature / Thunderstorm",
+              "value": "thunderstorm"
+            },
+            {
+              "label": "Nature / Umbrella",
+              "value": "umbrella"
+            },
+            {
+              "label": "Nature / Water",
+              "value": "water"
+            },
+            {
+              "label": "Other / Balloon",
+              "value": "balloon"
+            },
+            {
+              "label": "Other / Ban",
+              "value": "ban"
+            },
+            {
+              "label": "Other / Bed",
+              "value": "bed"
+            },
+            {
+              "label": "Other / Book",
+              "value": "book"
+            },
+            {
+              "label": "Other / Books",
+              "value": "books"
+            },
+            {
+              "label": "Other / Briefcase",
+              "value": "briefcase"
+            },
+            {
+              "label": "Other / Calculator",
+              "value": "calculator"
+            },
+            {
+              "label": "Other / Color palette",
+              "value": "color_palette"
+            },
+            {
+              "label": "Other / Cube",
+              "value": "cube"
+            },
+            {
+              "label": "Other / Eye",
+              "value": "eye"
+            },
+            {
+              "label": "Other / Film",
+              "value": "film"
+            },
+            {
+              "label": "Other / Horizontal line",
+              "value": "horizontal_line"
+            },
+            {
+              "label": "Other / Hourglass",
+              "value": "hourglass"
+            },
+            {
+              "label": "Other / Magic wand",
+              "value": "magic_wand"
+            },
+            {
+              "label": "Other / Medical",
+              "value": "medical"
+            },
+            {
+              "label": "Other / Puzzle piece",
+              "value": "puzzle"
+            },
+            {
+              "label": "Other / Rocket",
+              "value": "rocket"
+            },
+            {
+              "label": "Other / Ticket",
+              "value": "ticket"
+            },
+            {
+              "label": "People / Female figure",
+              "value": "woman"
+            },
+            {
+              "label": "People / Female symbol",
+              "value": "female"
+            },
+            {
+              "label": "People / Male figure",
+              "value": "man"
+            },
+            {
+              "label": "People / Male symbol",
+              "value": "male"
+            },
+            {
+              "label": "People / People silhouettes",
+              "value": "people"
+            },
+            {
+              "label": "People / Person happy",
+              "value": "person"
+            },
+            {
+              "label": "People / Silhouette",
+              "value": "silhouette"
+            },
+            {
+              "label": "People / Silhouette circle",
+              "value": "silhouette_circle"
+            },
+            {
+              "label": "People / Unisex symbol",
+              "value": "male_female"
+            },
+            {
+              "label": "Sports & Fitness / Barbell",
+              "value": "barbell"
+            },
+            {
+              "label": "Sports & Fitness / Baseball",
+              "value": "baseball"
+            },
+            {
+              "label": "Sports & Fitness / Basketball",
+              "value": "basketball"
+            },
+            {
+              "label": "Sports & Fitness / Heart rate",
+              "value": "fitness"
+            },
+            {
+              "label": "Sports & Fitness / Pulse",
+              "value": "pulse"
+            },
+            {
+              "label": "Sports & Fitness / Scales",
+              "value": "scale"
+            },
+            {
+              "label": "Sports & Fitness / Soccer ball",
+              "value": "soccer_ball"
+            },
+            {
+              "label": "Sports & Fitness / Stopwatch",
+              "value": "stopwatch"
+            },
+            {
+              "label": "Sports & Fitness / Tennis ball",
+              "value": "tennis_ball"
+            },
+            {
+              "label": "Technology / Battery charging",
+              "value": "battery_charging"
+            },
+            {
+              "label": "Technology / Battery empty",
+              "value": "battery_dead"
+            },
+            {
+              "label": "Technology / Battery full",
+              "value": "battery_full"
+            },
+            {
+              "label": "Technology / Battery half",
+              "value": "battery_half"
+            },
+            {
+              "label": "Technology / Bluetooth",
+              "value": "bluetooth"
+            },
+            {
+              "label": "Technology / Bulb",
+              "value": "bulb"
+            },
+            {
+              "label": "Technology / Camera",
+              "value": "camera"
+            },
+            {
+              "label": "Technology / Camera aperture",
+              "value": "camera_aperture"
+            },
+            {
+              "label": "Technology / Cellular",
+              "value": "cellular"
+            },
+            {
+              "label": "Technology / Computer",
+              "value": "computer"
+            },
+            {
+              "label": "Technology / Flash",
+              "value": "flash"
+            },
+            {
+              "label": "Technology / Game controller",
+              "value": "game_controller"
+            },
+            {
+              "label": "Technology / Hardware chip",
+              "value": "hardware_chip"
+            },
+            {
+              "label": "Technology / Headphones",
+              "value": "headset"
+            },
+            {
+              "label": "Technology / Infinite",
+              "value": "infinite"
+            },
+            {
+              "label": "Technology / Laptop",
+              "value": "laptop"
+            },
+            {
+              "label": "Technology / Layers",
+              "value": "layers"
+            },
+            {
+              "label": "Technology / Mic",
+              "value": "mic"
+            },
+            {
+              "label": "Technology / Phone landscape",
+              "value": "phone_landscape"
+            },
+            {
+              "label": "Technology / Phone portrait",
+              "value": "phone_portrait"
+            },
+            {
+              "label": "Technology / Television",
+              "value": "tv"
+            },
+            {
+              "label": "Technology / Timer",
+              "value": "timer"
+            },
+            {
+              "label": "Technology / Videocam",
+              "value": "videocam"
+            },
+            {
+              "label": "Technology / Watch",
+              "value": "watch"
+            },
+            {
+              "label": "Technology / Wifi",
+              "value": "wifi"
+            },
+            {
+              "label": "Technology / Power",
+              "value": "power"
+            },
+            {
+              "label": "Transport / Airplane",
+              "value": "airplane"
+            },
+            {
+              "label": "Transport / Bicycle",
+              "value": "bicycle"
+            },
+            {
+              "label": "Transport / Car",
+              "value": "car"
+            },
+            {
+              "label": "Transport / Map location",
+              "value": "map_pin"
+            },
+            {
+              "label": "Transport / Navigation",
+              "value": "navigation"
+            },
+            {
+              "label": "Transport / Speedometer",
+              "value": "speedometer"
+            },
+            {
+              "label": "Transport / Sports car",
+              "value": "sports_car"
+            },
+            {
+              "label": "Trust / Award",
+              "value": "ribbon"
+            },
+            {
+              "label": "Trust / Check mark",
+              "value": "check_mark_only"
+            },
+            {
+              "label": "Trust / Check mark in square",
+              "value": "check_mark"
+            },
+            {
+              "label": "Trust / Check mark in circle",
+              "value": "check_mark_circle"
+            },
+            {
+              "label": "Trust / Happy",
+              "value": "happy"
+            },
+            {
+              "label": "Trust / Heart",
+              "value": "heart"
+            },
+            {
+              "label": "Trust / Key",
+              "value": "key"
+            },
+            {
+              "label": "Trust / Lock",
+              "value": "lock"
+            },
+            {
+              "label": "Trust / Lock closed",
+              "value": "lock_closed"
+            },
+            {
+              "label": "Trust / Lock open",
+              "value": "lock_open"
+            },
+            {
+              "label": "Trust / Shield",
+              "value": "shield"
+            },
+            {
+              "label": "Trust / Shield checkmark",
+              "value": "shield_checkmark"
+            },
+            {
+              "label": "Trust / Star",
+              "value": "star_filled"
+            },
+            {
+              "label": "Trust / Star outline",
+              "value": "star"
+            },
+            {
+              "label": "Trust / Thumbs up",
+              "value": "thumbs_up"
+            },
+            {
+              "label": "Trust / Trophy",
+              "value": "trophy"
+            }
+          ],
+          "default": "star_filled",
+          "label": "Icon"
+        },
+        {
+          "type": "color",
+          "id": "metafield_icon_color",
+          "label": "Icon color",
+          "default": "#FDB022"
+        },
+        {
+          "type": "range",
+          "id": "metafield_icon_size",
+          "min": 14,
+          "max": 50,
+          "step": 1,
+          "default": 18,
+          "unit": "px",
+          "label": "Icon size"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "text_when_empty",
+          "info": "Defaults to the 'Text for empty values' section setting.",
+          "label": "Text for empty values"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "metafield_boolean",
+      "name": "Product yes/no metafield",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Only works with 'True or false' metafield type."
+        },
+        {
+          "type": "text",
+          "id": "metafield_key",
+          "info": "For example: custom.comes_with_warranty",
+          "label": "Metafield namespace and key"
+        },
+        {
+          "type": "select",
+          "id": "metafield_icon_true",
+          "options": [
+            {
+              "label": "Check mark",
+              "value": "check_mark_solo"
+            },
+            {
+              "label": "Check mark in square",
+              "value": "check_mark"
+            },
+            {
+              "label": "Check mark in circle",
+              "value": "check_mark_circle"
+            },
+            {
+              "label": "Bag check",
+              "value": "bag-check"
+            },
+            {
+              "label": "Happy",
+              "value": "happy"
+            },
+            {
+              "label": "Shield",
+              "value": "shield"
+            },
+            {
+              "label": "Shield checkmark",
+              "value": "shield_checkmark"
+            },
+            {
+              "label": "Thumbs up",
+              "value": "thumbs_up"
+            },
+            {
+              "label": "Trophy",
+              "value": "trophy"
+            },
+            {
+              "label": "Lock",
+              "value": "lock"
+            },
+            {
+              "label": "Lock closed",
+              "value": "lock_closed"
+            },
+            {
+              "label": "Lock open",
+              "value": "lock_open"
+            },
+            {
+              "label": "Rocket",
+              "value": "rocket"
+            },
+            {
+              "label": "Battery full",
+              "value": "battery_full"
+            }
+          ],
+          "default": "check_mark_circle",
+          "label": "Icon when true"
+        },
+        {
+          "type": "color",
+          "id": "metafield_icon_true_color",
+          "label": "Color when true",
+          "default": "#157631"
+        },
+        {
+          "type": "select",
+          "id": "metafield_icon_false",
+          "options": [
+            {
+              "label": "X",
+              "value": "close"
+            },
+            {
+              "label": "X in circle",
+              "value": "close_circle"
+            },
+            {
+              "label": "Warning",
+              "value": "warning"
+            },
+            {
+              "label": "Ban",
+              "value": "ban"
+            },
+            {
+              "label": "Battery empty",
+              "value": "battery_dead"
+            },
+            {
+              "label": "Lock",
+              "value": "lock"
+            },
+            {
+              "label": "Lock closed",
+              "value": "lock_closed"
+            },
+            {
+              "label": "Lock open",
+              "value": "lock_open"
+            }
+          ],
+          "default": "close_circle",
+          "label": "Icon when false"
+        },
+        {
+          "type": "color",
+          "id": "metafield_icon_false_color",
+          "label": "Color when false",
+          "default": "#EA0707"
+        },
+        {
+          "type": "range",
+          "id": "metafield_icon_size",
+          "min": 14,
+          "max": 60,
+          "step": 1,
+          "default": 40,
+          "unit": "px",
+          "label": "Icon size"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "text_when_empty",
+          "info": "Defaults to the 'Text for empty values' section setting.",
+          "label": "Text for empty values"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+
+    {
+      "type": "product_switcher",
+      "limit": 1,
+      "name": "Product switcher",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "This allows your customers to change the selected product to one defined in the list below."
+        },
+        {
+          "type": "product_list",
+          "id": "candidate_products",
+          "label": "Possible products"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "label": "Label"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Product compare",
+          "info": "Enter ++ for a line break. To animate between words enter them in the format: 'We deliver exceptional [products|service|value]'. Ensure [ | and ] characters aren't bold or italic. Keep animated words short and similar in length.",
+          "label": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "heading_italic_convert",
+          "options": [
+            {
+              "value": "",
+              "label": "Off (keep as italics)"
+            },
+            {
+              "value": "light",
+              "label": "Lighter"
+            },
+            {
+              "value": "accent_color",
+              "label": "Accent color"
+            },
+            {
+              "value": "accent",
+              "label": "Accent gradient color"
+            },
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "outline_accent",
+              "label": "Outline - Accent color"
+            },
+            {
+              "value": "glow",
+              "label": "Glow - Accent color"
+            },
+            {
+              "value": "glow_outline",
+              "label": "Glow with outline - Accent color"
+            }
+          ],
+          "info": "The colors above can be set in the color schemes. 'Outline' may not work with all fonts.",
+          "default": "",
+          "label": "Convert italic text to"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "h6",
+              "label": "3XS"
+            },
+            {
+              "value": "h5",
+              "label": "2XS"
+            },
+            {
+              "value": "h4",
+              "label": "XS"
+            },
+            {
+              "value": "h3",
+              "label": "S"
+            },
+            {
+              "value": "h2",
+              "label": "M"
+            },
+            {
+              "value": "h1",
+              "label": "L"
+            },
+            {
+              "value": "h0",
+              "label": "XL"
+            },
+            {
+              "value": "hxl",
+              "label": "2XL"
+            },
+            {
+              "value": "custom",
+              "label": "Custom"
+            }
+          ],
+          "default": "h3",
+          "label": "Heading size"
+        },
+        {
+          "type": "range",
+          "id": "heading_size_custom",
+          "visible_if": "{{ block.settings.heading_size == 'custom' }}",
+          "min": 1,
+          "max": 9,
+          "step": 0.2,
+          "unit": "rem",
+          "default": 2.4,
+          "label": "Custom heading size"
+        },
+        {
+          "type": "range",
+          "id": "heading_line_height_custom",
+          "visible_if": "{{ block.settings.heading_size == 'custom' }}",
+          "min": 0.4,
+          "max": 2,
+          "step": 0.1,
+          "unit": "em",
+          "default": 1.2,
+          "label": "Custom line height"
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "options": [
+            {
+              "value": "h1",
+              "label": "H1"
+            },
+            {
+              "value": "h2",
+              "label": "H2"
+            },
+            {
+              "value": "h3",
+              "label": "H3"
+            },
+            {
+              "value": "h4",
+              "label": "H4"
+            }
+          ],
+          "default": "h2",
+          "info": "For SEO purposes, there should only be one H1 tag on the page.",
+          "label": "Heading tag"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "label": "Label"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "caption",
+      "name": "Caption",
+      "settings": [
+        {
+          "type": "text",
+          "id": "caption",
+          "default": "Add a tagline",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "caption_text_style",
+          "options": [
+            {
+              "value": "subtitle",
+              "label": "Subtitle"
+            },
+            {
+              "value": "caption-with-letter-spacing",
+              "label": "Uppercase"
+            }
+          ],
+          "default": "caption-with-letter-spacing",
+          "label": "Text style"
+        },
+        {
+          "type": "select",
+          "id": "caption_text_size",
+          "options": [
+            {
+              "value": "t7",
+              "label": "3XS"
+            },
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            }
+          ],
+          "default": "t6",
+          "label": "Text size"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "label": "Label"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>",
+          "label": "Description"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            }
+          ],
+          "default": "t3",
+          "label": "Text size"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "label": "Label"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "buttons",
+      "name": "Buttons",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "select",
+          "id": "button_text_size",
+          "options": [
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            }
+          ],
+          "default": "t3",
+          "label": "Button size"
+        },
+        {
+          "type": "header",
+          "content": "First button"
+        },
+        {
+          "type": "text",
+          "id": "button_label_1",
+          "default": "Button label",
+          "label": "Button label",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "type": "url",
+          "id": "button_link_1",
+          "info": "Defaults to the product url when empty.",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_style_1",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "link",
+              "label": "Link"
+            }
+          ],
+          "default": "primary",
+          "label": "Button style"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_1_show_arrow",
+          "default": false,
+          "label": "Show arrow"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_1_show_gradient_border",
+          "visible_if": "{{ block.settings.button_style_1 == 'secondary' }}",
+          "default": false,
+          "label": "Show border gradient"
+        },
+        {
+          "type": "color_background",
+          "id": "button_1_border_gradient",
+          "visible_if": "{{ block.settings.button_style_1_show_gradient_border and block.settings.button_style_1 == 'secondary' }}",
+          "default": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+          "label": "Border gradient"
+        },
+        {
+          "type": "header",
+          "content": "Second button"
+        },
+        {
+          "type": "text",
+          "id": "button_label_2",
+          "label": "Button label",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "type": "url",
+          "id": "button_link_2",
+          "info": "Defaults to the product url when empty.",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_style_2",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "link",
+              "label": "Link"
+            }
+          ],
+          "default": "secondary",
+          "label": "Button style"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_2_show_arrow",
+          "default": false,
+          "label": "Show arrow"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_2_show_gradient_border",
+          "visible_if": "{{ block.settings.button_style_2 == 'secondary' }}",
+          "default": false,
+          "label": "Show border gradient"
+        },
+        {
+          "type": "color_background",
+          "id": "button_2_border_gradient",
+          "visible_if": "{{ block.settings.button_style_2_show_gradient_border and block.settings.button_style_2 == 'secondary' }}",
+          "default": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+          "label": "Border gradient"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "label": "Label"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Custom Liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Liquid code",
+          "info": "Add app snippets or other code to create advanced customizations. [Learn more](https://shopify.dev/docs/api/liquid)"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "label": "Label"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Images",
+      "settings": [
+        {
+          "type": "select",
+          "id": "image_ratio",
+          "options": [
+            {
+              "value": "adapt",
+              "label": "Original"
+            },
+            {
+              "value": "circle",
+              "label": "Circle"
+            },
+            {
+              "value": "square",
+              "label": "Square (1:1)"
+            },
+            {
+              "value": "landscape",
+              "label": "Landscape (4:3)"
+            },
+            {
+              "value": "landscape_wide",
+              "label": "Landscape (16:9)"
+            },
+            {
+              "value": "portrait",
+              "label": "Portrait (4:5)"
+            },
+            {
+              "value": "portrait_tall",
+              "label": "Portrait (2:3)"
+            }
+          ],
+          "default": "adapt",
+          "label": "Image aspect ratio"
+        },
+        {
+          "type": "range",
+          "id": "desktop_image_width",
+          "min": 20,
+          "max": 300,
+          "step": 5,
+          "default": 100,
+          "unit": "px",
+          "label": "Image width on desktop"
+        },
+        {
+          "type": "range",
+          "id": "mobile_image_width",
+          "min": 20,
+          "max": 270,
+          "step": 5,
+          "default": 60,
+          "unit": "px",
+          "label": "Image width on mobile"
+        },
+        {
+          "type": "range",
+          "id": "image_corner_radius",
+          "min": 0,
+          "max": 40,
+          "step": 2,
+          "unit": "px",
+          "label": "Corner rounding",
+          "default": 0
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Image 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Image 4"
+        },
+        {
+          "type": "url",
+          "id": "image_1_link",
+          "label": "Image 1 link"
+        },
+        {
+          "type": "url",
+          "id": "image_2_link",
+          "label": "Image 2 link"
+        },
+        {
+          "type": "url",
+          "id": "image_3_link",
+          "label": "Image 3 link"
+        },
+        {
+          "type": "url",
+          "id": "image_4_link",
+          "label": "Image 4 link"
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "label": "Label"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "icon",
+      "name": "Icon",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            {
+              "label": "None",
+              "value": ""
+            },
+            {
+              "label": "Clothes & Beauty / Brush",
+              "value": "brush"
+            },
+            {
+              "label": "Clothes & Beauty / Dryer",
+              "value": "dryer"
+            },
+            {
+              "label": "Clothes & Beauty / Footsteps",
+              "value": "footsteps"
+            },
+            {
+              "label": "Clothes & Beauty / Glasses",
+              "value": "glasses"
+            },
+            {
+              "label": "Clothes & Beauty / Iron",
+              "value": "iron"
+            },
+            {
+              "label": "Clothes & Beauty / Leather",
+              "value": "leather"
+            },
+            {
+              "label": "Clothes & Beauty / Lipstick",
+              "value": "lipstick"
+            },
+            {
+              "label": "Clothes & Beauty / Pants",
+              "value": "pants"
+            },
+            {
+              "label": "Clothes & Beauty / Perfume",
+              "value": "perfume"
+            },
+            {
+              "label": "Clothes & Beauty / Ruler",
+              "value": "ruler"
+            },
+            {
+              "label": "Clothes & Beauty / Scissors",
+              "value": "scissors"
+            },
+            {
+              "label": "Clothes & Beauty / Shirt 1",
+              "value": "shirt"
+            },
+            {
+              "label": "Clothes & Beauty / Shirt 2",
+              "value": "shirt2"
+            },
+            {
+              "label": "Clothes & Beauty / Shoe",
+              "value": "shoe"
+            },
+            {
+              "label": "Clothes & Beauty / Washing",
+              "value": "washing"
+            },
+            {
+              "label": "Communication / Call",
+              "value": "call"
+            },
+            {
+              "label": "Communication / Chat bubble",
+              "value": "chat_bubble"
+            },
+            {
+              "label": "Communication / Chat bubbles",
+              "value": "chat_bubbles"
+            },
+            {
+              "label": "Communication / Ear",
+              "value": "ear"
+            },
+            {
+              "label": "Communication / Information",
+              "value": "information"
+            },
+            {
+              "label": "Communication / Information circle",
+              "value": "information_circle"
+            },
+            {
+              "label": "Communication / Mail",
+              "value": "mail"
+            },
+            {
+              "label": "Communication / @ symbol",
+              "value": "email-at"
+            },
+            {
+              "label": "Communication / Notification alert",
+              "value": "alert"
+            },
+            {
+              "label": "Communication / Question mark",
+              "value": "help"
+            },
+            {
+              "label": "Communication / Question mark circle",
+              "value": "question_mark"
+            },
+            {
+              "label": "Communication / Warning",
+              "value": "warning"
+            },
+            {
+              "label": "Digital / Apps",
+              "value": "apps"
+            },
+            {
+              "label": "Digital / Arrow right",
+              "value": "arrow_right"
+            },
+            {
+              "label": "Digital / Attach",
+              "value": "attach"
+            },
+            {
+              "label": "Digital / Calendar",
+              "value": "calendar"
+            },
+            {
+              "label": "Digital / Chart",
+              "value": "chart"
+            },
+            {
+              "label": "Digital / Chevron right",
+              "value": "chevron_right"
+            },
+            {
+              "label": "Digital / Clipboard",
+              "value": "clipboard"
+            },
+            {
+              "label": "Digital / Cloud",
+              "value": "cloud"
+            },
+            {
+              "label": "Digital / Cloud done",
+              "value": "cloud_done"
+            },
+            {
+              "label": "Digital / Cloud download",
+              "value": "cloud_download"
+            },
+            {
+              "label": "Digital / Cloud upload",
+              "value": "cloud_upload"
+            },
+            {
+              "label": "Digital / Code slash",
+              "value": "code_slash"
+            },
+            {
+              "label": "Digital / Documents",
+              "value": "documents"
+            },
+            {
+              "label": "Digital / Home",
+              "value": "home"
+            },
+            {
+              "label": "Digital / Images",
+              "value": "images"
+            },
+            {
+              "label": "Digital / Open in new window",
+              "value": "open"
+            },
+            {
+              "label": "Digital / Options",
+              "value": "options"
+            },
+            {
+              "label": "Digital / Plus",
+              "value": "plus"
+            },
+            {
+              "label": "Digital / Plus in circle",
+              "value": "add"
+            },
+            {
+              "label": "Digital / Repeat",
+              "value": "repeat"
+            },
+            {
+              "label": "Digital / Scan",
+              "value": "scan"
+            },
+            {
+              "label": "Digital / Search",
+              "value": "search"
+            },
+            {
+              "label": "Digital / Volume",
+              "value": "volume"
+            },
+
+            {
+              "label": "eCommerce / Bag add",
+              "value": "bag-add"
+            },
+            {
+              "label": "eCommerce / Bag with check mark",
+              "value": "bag-check"
+            },
+            {
+              "label": "eCommerce / Box",
+              "value": "box"
+            },
+            {
+              "label": "eCommerce / Card",
+              "value": "card"
+            },
+            {
+              "label": "eCommerce / Cart",
+              "value": "cart"
+            },
+            {
+              "label": "eCommerce / Clock",
+              "value": "clock"
+            },
+            {
+              "label": "eCommerce / Cash",
+              "value": "cash"
+            },
+            {
+              "label": "eCommerce / Gift",
+              "value": "gift"
+            },
+            {
+              "label": "eCommerce / Price tag",
+              "value": "price_tag"
+            },
+            {
+              "label": "eCommerce / Price tags",
+              "value": "price_tags"
+            },
+            {
+              "label": "eCommerce / Recycle",
+              "value": "recycle"
+            },
+            {
+              "label": "eCommerce / Return",
+              "value": "return"
+            },
+            {
+              "label": "eCommerce / Storefront",
+              "value": "storefront"
+            },
+            {
+              "label": "eCommerce / Truck",
+              "value": "truck"
+            },
+            {
+              "label": "eCommerce / Wallet",
+              "value": "wallet"
+            },
+            {
+              "label": "Food & Beverage / Apple",
+              "value": "apple"
+            },
+            {
+              "label": "Food & Beverage / Banana",
+              "value": "banana"
+            },
+            {
+              "label": "Food & Beverage / Beer",
+              "value": "beer"
+            },
+            {
+              "label": "Food & Beverage / Bottle",
+              "value": "bottle"
+            },
+            {
+              "label": "Food & Beverage / Carrot",
+              "value": "carrot"
+            },
+            {
+              "label": "Food & Beverage / Coffee",
+              "value": "cafe"
+            },
+            {
+              "label": "Food & Beverage / Cutlery",
+              "value": "restaurant"
+            },
+            {
+              "label": "Food & Beverage / Dairy",
+              "value": "dairy"
+            },
+            {
+              "label": "Food & Beverage / Dairy free",
+              "value": "dairy_free"
+            },
+            {
+              "label": "Food & Beverage / Drink",
+              "value": "pint"
+            },
+            {
+              "label": "Food & Beverage / Egg",
+              "value": "egg"
+            },
+            {
+              "label": "Food & Beverage / Fast food",
+              "value": "fast_food"
+            },
+            {
+              "label": "Food & Beverage / Fish",
+              "value": "fish"
+            },
+            {
+              "label": "Food & Beverage / Gluten free",
+              "value": "gluten_free"
+            },
+            {
+              "label": "Food & Beverage / Ice cream",
+              "value": "ice_cream"
+            },
+            {
+              "label": "Food & Beverage / Nut free",
+              "value": "nut_free"
+            },
+            {
+              "label": "Food & Beverage / Pepper",
+              "value": "pepper"
+            },
+            {
+              "label": "Food & Beverage / Pizza",
+              "value": "pizza"
+            },
+            {
+              "label": "Food & Beverage / Serving dish",
+              "value": "serving_dish"
+            },
+            {
+              "label": "Food & Beverage / Vegan",
+              "value": "plant"
+            },
+            {
+              "label": "Food & Beverage / Wine",
+              "value": "wine"
+            },
+            {
+              "label": "Hardware & Tools / Construction",
+              "value": "construction"
+            },
+            {
+              "label": "Hardware & Tools / Cog",
+              "value": "cog"
+            },
+            {
+              "label": "Hardware & Tools / Eyedropper",
+              "value": "eyedropper"
+            },
+            {
+              "label": "Hardware & Tools / Flashlight",
+              "value": "flashlight"
+            },
+            {
+              "label": "Hardware & Tools / Gear",
+              "value": "gear"
+            },
+            {
+              "label": "Hardware & Tools / Hammer",
+              "value": "hammer"
+            },
+            {
+              "label": "Hardware & Tools / Magnet",
+              "value": "magnet"
+            },
+            {
+              "label": "Hardware & Tools / Paint bucket",
+              "value": "paint"
+            },
+            {
+              "label": "Hardware & Tools / Thermometer",
+              "value": "thermometer"
+            },
+            {
+              "label": "Hardware & Tools / Wrench",
+              "value": "build"
+            },
+            {
+              "label": "Logo / Amazon",
+              "value": "logo_amazon"
+            },
+            {
+              "label": "Logo / Android",
+              "value": "logo_android"
+            },
+            {
+              "label": "Logo / Apple",
+              "value": "logo_apple"
+            },
+            {
+              "label": "Logo / Apple Appstore",
+              "value": "logo_apple_appstore"
+            },
+            {
+              "label": "Logo / Discord",
+              "value": "logo_discord"
+            },
+            {
+              "label": "Logo / Facebook",
+              "value": "logo_facebook"
+            },
+            {
+              "label": "Logo / Google",
+              "value": "logo_google"
+            },
+            {
+              "label": "Logo / Google Playstore",
+              "value": "logo_google_playstore"
+            },
+            {
+              "label": "Logo / Instagram",
+              "value": "logo_instagram"
+            },
+            {
+              "label": "Logo / Linkedin",
+              "value": "logo_linkedin"
+            },
+            {
+              "label": "Logo / Microsoft",
+              "value": "logo_microsoft"
+            },
+            {
+              "label": "Logo / Pinterest",
+              "value": "logo_pinterest"
+            },
+            {
+              "label": "Logo / Soundcloud",
+              "value": "logo_soundcloud"
+            },
+            {
+              "label": "Logo / Tiktok",
+              "value": "logo_tiktok"
+            },
+            {
+              "label": "Logo / Tumblr",
+              "value": "logo_tumblr"
+            },
+            {
+              "label": "Logo / Twitch",
+              "value": "logo_twitch"
+            },
+            {
+              "label": "Logo / Wechat",
+              "value": "logo_wechat"
+            },
+            {
+              "label": "Logo / Whatsapp",
+              "value": "logo_whatsapp"
+            },
+            {
+              "label": "Logo / X (aka Twitter)",
+              "value": "logo_x"
+            },
+            {
+              "label": "Logo / YouTube",
+              "value": "logo_youtube"
+            },
+            {
+              "label": "Nature / Bug",
+              "value": "bug"
+            },
+            {
+              "label": "Nature / Earth",
+              "value": "earth"
+            },
+            {
+              "label": "Nature / Fire",
+              "value": "fire"
+            },
+            {
+              "label": "Nature / Flower",
+              "value": "flower"
+            },
+            {
+              "label": "Nature / Globe",
+              "value": "globe"
+            },
+            {
+              "label": "Nature / Leaf",
+              "value": "leaf"
+            },
+            {
+              "label": "Nature / Lightning bolt",
+              "value": "lightning_bolt"
+            },
+            {
+              "label": "Nature / Partly sunny",
+              "value": "partly_sunny"
+            },
+            {
+              "label": "Nature / Paw print",
+              "value": "paw_print"
+            },
+            {
+              "label": "Nature / Rose",
+              "value": "rose"
+            },
+            {
+              "label": "Nature / Snowflake",
+              "value": "snowflake"
+            },
+            {
+              "label": "Nature / Sunny",
+              "value": "sunny"
+            },
+            {
+              "label": "Nature / Thunderstorm",
+              "value": "thunderstorm"
+            },
+            {
+              "label": "Nature / Umbrella",
+              "value": "umbrella"
+            },
+            {
+              "label": "Nature / Water",
+              "value": "water"
+            },
+            {
+              "label": "Other / Balloon",
+              "value": "balloon"
+            },
+            {
+              "label": "Other / Ban",
+              "value": "ban"
+            },
+            {
+              "label": "Other / Bed",
+              "value": "bed"
+            },
+            {
+              "label": "Other / Book",
+              "value": "book"
+            },
+            {
+              "label": "Other / Books",
+              "value": "books"
+            },
+            {
+              "label": "Other / Briefcase",
+              "value": "briefcase"
+            },
+            {
+              "label": "Other / Calculator",
+              "value": "calculator"
+            },
+            {
+              "label": "Other / Color palette",
+              "value": "color_palette"
+            },
+            {
+              "label": "Other / Cube",
+              "value": "cube"
+            },
+            {
+              "label": "Other / Eye",
+              "value": "eye"
+            },
+            {
+              "label": "Other / Film",
+              "value": "film"
+            },
+            {
+              "label": "Other / Horizontal line",
+              "value": "horizontal_line"
+            },
+            {
+              "label": "Other / Hourglass",
+              "value": "hourglass"
+            },
+            {
+              "label": "Other / Magic wand",
+              "value": "magic_wand"
+            },
+            {
+              "label": "Other / Medical",
+              "value": "medical"
+            },
+            {
+              "label": "Other / Puzzle piece",
+              "value": "puzzle"
+            },
+            {
+              "label": "Other / Rocket",
+              "value": "rocket"
+            },
+            {
+              "label": "Other / Ticket",
+              "value": "ticket"
+            },
+            {
+              "label": "People / Female figure",
+              "value": "woman"
+            },
+            {
+              "label": "People / Female symbol",
+              "value": "female"
+            },
+            {
+              "label": "People / Male figure",
+              "value": "man"
+            },
+            {
+              "label": "People / Male symbol",
+              "value": "male"
+            },
+            {
+              "label": "People / People silhouettes",
+              "value": "people"
+            },
+            {
+              "label": "People / Person happy",
+              "value": "person"
+            },
+            {
+              "label": "People / Silhouette",
+              "value": "silhouette"
+            },
+            {
+              "label": "People / Silhouette circle",
+              "value": "silhouette_circle"
+            },
+            {
+              "label": "People / Unisex symbol",
+              "value": "male_female"
+            },
+            {
+              "label": "Sports & Fitness / Barbell",
+              "value": "barbell"
+            },
+            {
+              "label": "Sports & Fitness / Baseball",
+              "value": "baseball"
+            },
+            {
+              "label": "Sports & Fitness / Basketball",
+              "value": "basketball"
+            },
+            {
+              "label": "Sports & Fitness / Heart rate",
+              "value": "fitness"
+            },
+            {
+              "label": "Sports & Fitness / Pulse",
+              "value": "pulse"
+            },
+            {
+              "label": "Sports & Fitness / Scales",
+              "value": "scale"
+            },
+            {
+              "label": "Sports & Fitness / Soccer ball",
+              "value": "soccer_ball"
+            },
+            {
+              "label": "Sports & Fitness / Stopwatch",
+              "value": "stopwatch"
+            },
+            {
+              "label": "Sports & Fitness / Tennis ball",
+              "value": "tennis_ball"
+            },
+            {
+              "label": "Technology / Battery charging",
+              "value": "battery_charging"
+            },
+            {
+              "label": "Technology / Battery empty",
+              "value": "battery_dead"
+            },
+            {
+              "label": "Technology / Battery full",
+              "value": "battery_full"
+            },
+            {
+              "label": "Technology / Battery half",
+              "value": "battery_half"
+            },
+            {
+              "label": "Technology / Bluetooth",
+              "value": "bluetooth"
+            },
+            {
+              "label": "Technology / Bulb",
+              "value": "bulb"
+            },
+            {
+              "label": "Technology / Camera",
+              "value": "camera"
+            },
+            {
+              "label": "Technology / Camera aperture",
+              "value": "camera_aperture"
+            },
+            {
+              "label": "Technology / Cellular",
+              "value": "cellular"
+            },
+            {
+              "label": "Technology / Computer",
+              "value": "computer"
+            },
+            {
+              "label": "Technology / Flash",
+              "value": "flash"
+            },
+            {
+              "label": "Technology / Game controller",
+              "value": "game_controller"
+            },
+            {
+              "label": "Technology / Hardware chip",
+              "value": "hardware_chip"
+            },
+            {
+              "label": "Technology / Headphones",
+              "value": "headset"
+            },
+            {
+              "label": "Technology / Infinite",
+              "value": "infinite"
+            },
+            {
+              "label": "Technology / Laptop",
+              "value": "laptop"
+            },
+            {
+              "label": "Technology / Layers",
+              "value": "layers"
+            },
+            {
+              "label": "Technology / Mic",
+              "value": "mic"
+            },
+            {
+              "label": "Technology / Phone landscape",
+              "value": "phone_landscape"
+            },
+            {
+              "label": "Technology / Phone portrait",
+              "value": "phone_portrait"
+            },
+            {
+              "label": "Technology / Television",
+              "value": "tv"
+            },
+            {
+              "label": "Technology / Timer",
+              "value": "timer"
+            },
+            {
+              "label": "Technology / Videocam",
+              "value": "videocam"
+            },
+            {
+              "label": "Technology / Watch",
+              "value": "watch"
+            },
+            {
+              "label": "Technology / Wifi",
+              "value": "wifi"
+            },
+            {
+              "label": "Technology / Power",
+              "value": "power"
+            },
+            {
+              "label": "Transport / Airplane",
+              "value": "airplane"
+            },
+            {
+              "label": "Transport / Bicycle",
+              "value": "bicycle"
+            },
+            {
+              "label": "Transport / Car",
+              "value": "car"
+            },
+            {
+              "label": "Transport / Map location",
+              "value": "map_pin"
+            },
+            {
+              "label": "Transport / Navigation",
+              "value": "navigation"
+            },
+            {
+              "label": "Transport / Speedometer",
+              "value": "speedometer"
+            },
+            {
+              "label": "Transport / Sports car",
+              "value": "sports_car"
+            },
+            {
+              "label": "Trust / Award",
+              "value": "ribbon"
+            },
+            {
+              "label": "Trust / Check mark",
+              "value": "check_mark_only"
+            },
+            {
+              "label": "Trust / Check mark in square",
+              "value": "check_mark"
+            },
+            {
+              "label": "Trust / Check mark in circle",
+              "value": "check_mark_circle"
+            },
+            {
+              "label": "Trust / Happy",
+              "value": "happy"
+            },
+            {
+              "label": "Trust / Heart",
+              "value": "heart"
+            },
+            {
+              "label": "Trust / Key",
+              "value": "key"
+            },
+            {
+              "label": "Trust / Lock",
+              "value": "lock"
+            },
+            {
+              "label": "Trust / Lock closed",
+              "value": "lock_closed"
+            },
+            {
+              "label": "Trust / Lock open",
+              "value": "lock_open"
+            },
+            {
+              "label": "Trust / Shield",
+              "value": "shield"
+            },
+            {
+              "label": "Trust / Shield checkmark",
+              "value": "shield_checkmark"
+            },
+            {
+              "label": "Trust / Star",
+              "value": "star_filled"
+            },
+            {
+              "label": "Trust / Star outline",
+              "value": "star"
+            },
+            {
+              "label": "Trust / Thumbs up",
+              "value": "thumbs_up"
+            },
+            {
+              "label": "Trust / Trophy",
+              "value": "trophy"
+            }
+          ],
+          "default": "heart",
+          "label": "Icon"
+        },
+        {
+          "type": "select",
+          "id": "icon_container",
+          "visible_if": "{{ block.settings.icon != '' }}",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "circle",
+              "label": "Circle"
+            },
+            {
+              "value": "rounded",
+              "label": "Rounded"
+            },
+            {
+              "value": "square",
+              "label": "Square"
+            }
+          ],
+          "default": "rounded",
+          "label": "Icon background"
+        },
+        {
+          "type": "range",
+          "id": "icon_size",
+          "visible_if": "{{ block.settings.icon != '' }}",
+          "min": 2.4,
+          "max": 10,
+          "step": 0.2,
+          "default": 3.4,
+          "unit": "rem",
+          "label": "Icon size"
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "visible_if": "{{ block.settings.icon != '' }}",
+          "label": "Icon color",
+          "default": "#ffffff",
+          "info": "Set to transparent to use text color."
+        },
+        {
+          "type": "color",
+          "id": "icon_background_color",
+          "visible_if": "{{ block.settings.icon != '' }}",
+          "default": "#44C3ED",
+          "label": "Background color"
+        },
+        {
+          "type": "color_background",
+          "id": "background_gradient",
+          "default": "linear-gradient(45deg, rgba(54, 149, 250, 1), rgba(68, 195, 237, 1) 100%)",
+          "visible_if": "{{ block.settings.icon != '' }}",
+          "label": "Background gradient",
+          "info": "Background gradient replaces background where possible."
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "label": "Label"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Stat counter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "stat_caption",
+          "default": "Over",
+          "label": "Caption"
+        },
+        {
+          "type": "text",
+          "id": "stat_number",
+          "default": "123k",
+          "label": "Stat counter"
+        },
+        {
+          "type": "richtext",
+          "id": "stat_subheading",
+          "default": "<p>products sold</p>",
+          "label": "Subheading"
+        },
+        {
+          "type": "header",
+          "content": "Stat appearance"
+        },
+        {
+          "type": "checkbox",
+          "id": "stat_animate",
+          "default": true,
+          "label": "Animate numbers"
+        },
+        {
+          "type": "select",
+          "id": "stat_caption_style",
+          "options": [
+            {
+              "value": "",
+              "label": "Standard"
+            },
+            {
+              "value": "subtitle",
+              "label": "Subtitle"
+            },
+            {
+              "value": "caption-with-letter-spacing",
+              "label": "Uppercase"
+            }
+          ],
+          "default": "caption-with-letter-spacing",
+          "label": "Caption style"
+        },
+        {
+          "type": "select",
+          "id": "stat_style",
+          "options": [
+            {
+              "value": "text-body",
+              "label": "Body"
+            },
+            {
+              "value": "text-heading",
+              "label": "Heading"
+            }
+          ],
+          "default": "text-body",
+          "label": "Stat style"
+        },
+        {
+          "type": "select",
+          "id": "stat_size",
+          "options": [
+            {
+              "value": "h4",
+              "label": "XS"
+            },
+            {
+              "value": "h3",
+              "label": "S"
+            },
+            {
+              "value": "h2",
+              "label": "M"
+            },
+            {
+              "value": "h1",
+              "label": "L"
+            },
+            {
+              "value": "h0",
+              "label": "XL"
+            },
+            {
+              "value": "hxl",
+              "label": "2XL"
+            },
+            {
+              "value": "custom",
+              "label": "Custom"
+            }
+          ],
+          "default": "h0",
+          "label": "Stat size"
+        },
+        {
+          "type": "range",
+          "id": "stat_size_custom",
+          "visible_if": "{{ block.settings.stat_size == 'custom' }}",
+          "min": 1,
+          "max": 13,
+          "step": 0.2,
+          "unit": "rem",
+          "default": 2.4,
+          "info": "Check your stats on smaller screens to ensure they don't get cut off.",
+          "label": "Custom stat size"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "color",
+          "id": "stat_color",
+          "label": "Stat color",
+          "info": "Set to transparent to use text color."
+        },
+        {
+          "type": "color_background",
+          "id": "stat_text_gradient",
+          "label": "Text gradient",
+          "info": "Replaces the stat color."
+        },
+        {
+          "type": "header",
+          "content": "Compare settings"
+        },
+        {
+          "type": "text",
+          "id": "compare_label",
+          "label": "Label"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "select",
+          "id": "line_separator",
+          "options": [
+            {
+              "value": "",
+              "label": "Off"
+            },
+            {
+              "value": "border-top",
+              "label": "Top"
+            },
+            {
+              "value": "border-bottom",
+              "label": "Bottom"
+            },
+            {
+              "value": "border-top border-bottom",
+              "label": "Both"
+            }
+          ],
+          "default": "border-bottom",
+          "label": "Line separator"
+        },
+        {
+          "type": "select",
+          "id": "top_padding",
+          "options": [
+            {
+              "value": "pt-0",
+              "label": "0"
+            },
+            {
+              "value": "pt-1",
+              "label": "S"
+            },
+            {
+              "value": "pt-2",
+              "label": "M"
+            },
+            {
+              "value": "pt-3",
+              "label": "L"
+            },
+            {
+              "value": "pt-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pt-2",
+          "label": "Top spacing"
+        },
+        {
+          "type": "select",
+          "id": "bottom_padding",
+          "options": [
+            {
+              "value": "pb-0",
+              "label": "0"
+            },
+            {
+              "value": "pb-1",
+              "label": "S"
+            },
+            {
+              "value": "pb-2",
+              "label": "M"
+            },
+            {
+              "value": "pb-3",
+              "label": "L"
+            },
+            {
+              "value": "pb-4",
+              "label": "XL"
+            }
+          ],
+          "default": "pb-2",
+          "label": "Bottom spacing"
+        },
+        {
+          "type": "select",
+          "id": "cell_visibility",
+          "options": [
+            {
+              "value": "visible-xs",
+              "label": "Mobile"
+            },
+            {
+              "value": "hidden-xs",
+              "label": "Desktop"
+            },
+            {
+              "value": "",
+              "label": "Both"
+            }
+          ],
+          "default": "",
+          "label": "Show on"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product compare",
+      "settings": {
+        "desktop_heading_alignment": "center",
+        "mobile_heading_alignment": "center"
+      },
+      "blocks": [
+        {
+          "type": "product_switcher",
+          "settings": {
+            "top_padding": "pt-0",
+            "line_separator": ""
+          }
+        },
+        {
+          "type": "product_summary"
+        },
+        {
+          "type": "variants_text"
+        },
+        {
+          "type": "type"
+        },
+        {
+          "type": "vendor"
+        },
+        {
+          "type": "description"
+        },
+        {
+          "type": "icon",
+          "settings": {
+            "icon": "price_tags",
+            "line_separator": "",
+            "top_padding": "pt-2",
+            "bottom_padding": "pb-1",
+            "icon_color": "#000000",
+            "icon_container": "none"
+          }
+        },
+        {
+          "type": "product_price",
+          "settings": {
+            "compare_label": "",
+            "line_separator": "border-bottom",
+            "top_padding": "pt-0",
+            "bottom_padding": "pb-2"
+          }
+        },
+        {
+          "type": "buttons",
+          "settings": {
+            "button_text_size": "t3",
+            "button_label_1": "Learn more",
+            "button_link_1": "",
+            "button_style_1": "link",
+            "button_style_1_show_arrow": true,
+            "line_separator": "",
+            "top_padding": "pt-2",
+            "bottom_padding": "pb-0"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

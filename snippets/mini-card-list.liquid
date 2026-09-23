@@ -1,0 +1,178 @@
+{%- comment -%}theme-check-disable NestedSnippet{%- endcomment -%}
+{% comment %}
+  Renders a a list of mini product cards.
+
+  Accepts:
+  - mode: {String} - Can be one of the following 'complementary', 'related'.
+  - product_id: {String} - The product ID to show related content for
+  - section_id: {String} - The section ID
+  - layout: {String} - Either 'carousel' or 'stack'. Defaults to 'carousel'
+  - make_collapsible_row: {Boolean} - {NOT CURRENTLY SUPPORTED} Whether the row shows as collapsible content (Default: false, optional)
+  - enable_quick_add: {Boolean} - Whether to enable quick search (Default: false, optional)
+  - product_list_limit: {Number} - Number of products to retrieve
+  - icon: {String} - Icon to show
+  - block_heading: {Stirng} - Heading
+  - heading_class: {Stirng} - Heading classes
+  - products_per_page: {Number} - Numebr of products to show per page
+  - color_scheme: {String} - The color scheme to use. Optioanl, defaults to the standard product card color scheme.
+  - line_color_scheme: {String} - The color scheme to use for the line separator.
+  - border_radius_class: {String} - The CSS class to use for the border radius. Optional, defaults to panel border radius.
+
+ Usage:
+   {%- render 'mini-card-list',
+      mode: 'related',
+      product_id: cart.items.last.product_id,
+      section_id: 'cart-drawer',
+      make_collapsible_row: false,
+      enable_quick_add: settings.enable_quick_add,
+      product_list_limit: 8,
+      block_heading: settings.cart_related_heading,
+      products_per_page: 1
+  -%}
+{% endcomment %}
+
+{%- liquid
+  unless section_id
+    assign section_id = section.id
+  endunless
+
+  unless layout
+    assign layout = 'carousel'
+  endunless
+
+  unless product_id
+    assign product_id = cart.items.first.product_id
+  endunless
+-%}
+
+<product-recommendations class="complementary-products quick-add-hidden relative no-js-hidden{% if make_collapsible_row %} is-accordion{% endif %}{% if enable_quick_add %} complementary-products-contains-quick-add{% endif %}"
+                         data-url="{{ routes.product_recommendations_url }}?limit={{ product_list_limit }}&intent={{ mode }}"
+                         data-section-id="{{ section_id }}"
+                         data-product-id="{{ product_id }}"
+>
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    <aside aria-label="{{ 'accessibility.complementary_products' | t }}" {{ block.shopify_attributes }}{% if make_collapsible_row %} class="product__accordion accordion"{% endif %}>
+      <div class="complementary-products__container{% if section_id == 'cart-drawer' %} mt-1{% endif %}">
+      {%- if make_collapsible_row -%}
+        <custom-accordion>
+          <details id="Details-{{ block.id }}-{{ section_id }}" open>
+            <summary>
+      {%- endif %}
+              <div class="summary__title flex justify-between">
+                {%- if make_collapsible_row -%}
+                  {% if icon != 'none' %}
+                    <div class="accordion__image">
+                      {% render 'icon', class: 'icon-accordion', icon: icon %}
+                    </div>
+                  {% endif %}
+                  <h2 class="h4 accordion__title">{{ block_heading }}</h2>
+                {%- else -%}
+                  {%- if block_heading != blank -%}
+                    <h2 class="{% if heading_class %}{{ heading_class }}{% else %}t2 text-body mb-0 mt-0 font-bold{% endif %}">{{ block_heading }}</h2>
+                  {%- else -%}
+                    &nbsp;
+                  {%- endif -%}
+                {%- endif -%}
+                <div class="carousel-buttons"></div>
+              </div>
+      {%- if make_collapsible_row -%}
+              {% render 'icon-caret' %}
+            </summary>
+            <div class="custom-accordion__panel custom-scrollbar">
+      {%- endif -%}
+
+          {%- if layout == 'carousel' -%}
+            <slideshow-component class="has-complementary-products slider-mobile-gutter">
+              {%- assign number_of_slides = recommendations.products_count | plus: 0.0 | divided_by: products_per_page | ceil -%}
+              <div id="Slider-{{ block.id }}" class="contains-card contains-card--product complementary-slider grid grid--1-col slider slider--everywhere mb-0" role="list"{% if number_of_slides > 1 %} aria-label="{{ 'general.slider.name' | t }}"{% endif %}>
+                {%- for i in (1..number_of_slides) -%}
+                  <div id="Slide-{{ block.id }}-{{ forloop.index }}" class="complementary-slide complementary-slide--{{ settings.card_style }} grid__item slider__slide slideshow__slide" tabindex="-1" role="listitem"{% if number_of_slides > 1 %} aria-roledescription="{{ 'sections.slideshow.slide' | t }}" aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"{% endif %}>
+                    <ul class="list-unstyled" role="list">
+                      {%- for product in recommendations.products limit: products_per_page offset: continue -%}
+                        <li>
+                          {% render 'card-product',
+                              card_product: product,
+                              show_secondary_image: false,
+                              show_vendor: false,
+                              show_rating: false,
+                              section_id: section_id,
+                              horizontal_class: true,
+                              horizontal_quick_add: true,
+                              media_aspect_ratio: 'adapt',
+                              color_scheme: color_scheme,
+                              show_border: true
+                          %}
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                {%- endfor -%}
+              </div>
+              {%- if number_of_slides > 1 -%}
+                <div class="slider-buttons no-js-hidden">
+                  <button type="button" class="slider-button button-control tap-target slider-button--prev" name="previous" aria-label="{{ 'general.slider.previous_slide' | t }}">{% render 'icon-caret' %}</button>
+                  <button type="button" class="slider-button button-control tap-target slider-button--next" name="next" aria-label="{{ 'general.slider.next_slide' | t }}">{% render 'icon-caret' %}</button>
+
+                  <div class="slider-scrollbar__track" style="--num-slides: {{ number_of_slides }}" data-num-slides="{{ number_of_slides }}">
+                    <div class="slider-scrollbar__indicator"></div>
+                  </div>
+                </div>
+              {%- endif -%}
+            </slideshow-component>
+          {%- else -%}
+            {% if recommendations.products %}
+              <ul class="has-complementary-products mini-card-list gradient color-{{ color_scheme }} flex flex-col {% if border_radius_class %}{{ border_radius_class }}{% else %}border-radius-panel border{% endif %} overflow-hidden list-unstyled{% if block.settings.card_shadow %} card--shadow{% endif %}"
+                  {% if line_color_scheme %}style="--spacer-color:{{ line_color_scheme.settings.background.red }},{{ line_color_scheme.settings.background.green }},{{ line_color_scheme.settings.background.blue }}{% endif %}">
+                {%- for product in recommendations.products -%}
+                  <li{% unless line_color_scheme %} class="use-foreground-color"{% endunless %}>
+                    {% render 'card-product',
+                        card_product: product,
+                        show_secondary_image: false,
+                        show_vendor: false,
+                        show_rating: false,
+                        section_id: section_id,
+                        horizontal_class: true,
+                        horizontal_mini: true,
+                        horizontal_quick_add: true,
+                        media_aspect_ratio: 'adapt',
+                        color_scheme: color_scheme
+                    %}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {% endif %}
+          {%- endif -%}
+      {%- if make_collapsible_row -%}
+            </div>
+          </details>
+        </custom-accordion>
+      {%- endif -%}
+      </div>
+    </aside>
+  {%- endif -%}
+</product-recommendations>
+
+{%- if layout == 'carousel' -%}
+  <link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="{{ 'component-slideshow.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endif -%}
+
+<link rel="stylesheet" href="{{ 'component-card.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-complementary-products.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<lazy-script src="{{ 'product-form.js' | asset_url }}" defer="defer"></lazy-script>
+
+{%- if settings.quick_add == 'standard' or settings.quick_add_popup == 'standard' -%}
+  <lazy-script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></lazy-script>
+{%- endif -%}
+
+{%- if settings.quick_add == 'bulk' or settings.quick_add_popup == 'bulk' -%}
+  <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="{{ 'quick-order-list.css' | asset_url }}" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="{{ 'quantity-popover.css' | asset_url }}" media="print" onload="this.media='all'">
+
+  <lazy-script src="{{ 'quick-add-bulk.js' | asset_url }}" defer="defer"></lazy-script>
+  <lazy-script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></lazy-script>
+  <lazy-script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></lazy-script>
+  <lazy-script src="{{ 'quick-order-list.js' | asset_url }}" defer="defer"></lazy-script>
+{%- endif -%}

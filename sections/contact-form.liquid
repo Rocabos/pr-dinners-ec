@@ -1,0 +1,1993 @@
+{%- comment -%}theme-check-disable SchemaJsonFormat{%- endcomment -%}
+{%- if section.index < 3 or request.design_mode -%}
+  {{ 'section-contact-form.css' | asset_url | stylesheet_tag }}
+  {{ 'component-image-with-text.css' | asset_url | stylesheet_tag }}
+{%- else -%}
+  <link rel="stylesheet" href="{{ 'section-contact-form.css' | asset_url }}" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="{{ 'component-image-with-text.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endif -%}
+
+{%- liquid
+  assign fetch_priority = 'auto'
+  if section.index == 1 or request.design_mode
+    assign fetch_priority = 'high'
+  endif
+
+  if section.settings.color_scheme == section.settings.section_color_scheme and section.settings.content_layout contains 'no-overlap'
+    assign remove_color_classes = true
+  endif
+
+  assign contact_form_id = section.id | append: '-contact'
+-%}
+
+<div class="section__inner {{ section.settings.line_separator }} {{ section.settings.top_padding }} {{ section.settings.bottom_padding }} gradient color-{{ section.settings.section_color_scheme }} {{ section.settings.visibility }} {%- render 'class-time-of-day-to-show' -%}">
+  {% capture header_content %}
+    {%- if section.settings.button_label != blank -%}
+      {% capture additional_button %}
+        <div
+            class="{% if section.settings.button_style == 'link' %}mt-1{% else %}mt-2{% endif %}
+            justify-{{ section.settings.mobile_heading_alignment | default: section.settings.mobile_heading_alignment }}
+            md:justify-{{ section.settings.desktop_heading_alignment | default: section.settings.desktop_heading_alignment }}
+            {% if section.settings.button_label != blank %} banner__buttons--multiple{% endif %}
+            {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--fade-in{% endif %}"
+        >
+          {%- if section.settings.button_label != blank -%}
+            <a
+              {% if section.settings.button_link == blank %}
+                role="link" aria-disabled="true"
+              {% else %}
+                href="{{ section.settings.button_link }}"
+              {% endif %}
+              class="{{ section.settings.button_text_size }} {% if section.settings.button_style == 'link' %}link un-underlined-link{% else %}button button--{{ section.settings.button_style }}{% endif %}{% if section.settings.button_style_show_arrow %} button-with-icon button-with-icon--right{% endif %}{% if section.settings.button_style == 'secondary' and section.settings.button_style_show_gradient_border and section.settings.button_border_gradient != blank %} button--secondary-gradient{% endif %}"
+              {% if section.settings.button_style == 'secondary' and section.settings.button_style_show_gradient_border and section.settings.button_border_gradient != blank %} style="--color-secondary-button-border-gradient: {{ section.settings.button_border_gradient }}"{% endif %}
+            >
+              {{- section.settings.button_label | escape -}}
+              {% if section.settings.button_style_show_arrow %}
+                {% render 'icon-arrow' %}
+              {% endif %}
+            </a>
+          {%- endif -%}
+        </div>
+      {% endcapture %}
+    {%- endif -%}
+
+    {%- liquid
+      if section.settings.show_header_beside
+        assign custom_class = "banner__box section-content " | append: section.settings.mobile_content_position | append: ' ' | append: section.settings.desktop_content_position
+      elsif section.settings.image == blank
+        assign custom_class = "title-wrapper page-width page-width--narrow mb-3"
+      else
+        assign custom_class = "title-wrapper page-width mb-3"
+      endif
+    %}
+
+    {% render 'standard-section-heading',
+        section_name: 'contact-form',
+        section: section,
+        custom_class: custom_class,
+        view_all: additional_button
+    %}
+  {% endcapture %}
+
+  {%- unless section.settings.show_header_beside -%}
+    {{ header_content }}
+  {%- endunless -%}
+
+  <div class="contact page-width{% if section.settings.image == blank and section.settings.show_header_beside == false %} page-width--narrow{% endif %}">
+    <div class="image-with-text isolate
+        {% if section.settings.image == blank and section.settings.show_header_beside == false %} image-with-text--without-image{% endif %}
+        {% unless section.settings.color_scheme == section.settings.section_color_scheme %} image-with-text--{{ section.settings.content_layout }}{% endunless %}
+        {% unless section.settings.color_scheme == section.settings.section_color_scheme or section.settings.content_layout == 'no-overlap-separate' or section.settings.image == blank and section.settings.show_header_beside == false %} collapse-corners{% endunless %}
+        {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--fade-in{% endif %}"
+     style="--image-width: {{ section.settings.desktop_media_width }}%;"
+    >
+      <div class="image-with-text__container flex {% if section.settings.layout == 'text_first' %} image-with-text__container--reverse{% endif %}"
+         style="--mobile-height: {{ section.settings.mobile_section_height }}px;--desktop-height: {{ section.settings.desktop_section_height }}px;"
+      >
+        {% if section.settings.image != blank or section.settings.show_header_beside %}
+          <div class="image-with-text__media-item flex__item">
+            <div
+                class="image-with-text__media image-overlay global-media-settings media section-height-responsive--mobile
+                {% if section.settings.show_header_beside %} color-{{ section.settings.image_overlay_color_scheme }}{% endif %}"
+              style="--overlay-opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};"
+            >
+              {% if section.settings.image != blank %}
+                {%- assign widths = '535, 750, 1070, 1500' -%}
+                {%- capture sizes -%}
+                  (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
+                  (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
+                {%- endcapture -%}
+                {{
+                  section.settings.image
+                  | image_url: width: 1500
+                  | image_tag: sizes: sizes, widths: widths, fetchpriority: fetch_priority
+                }}
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+              {% endif %}
+
+              {% if section.settings.show_header_beside %}
+                {{ header_content }}
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="image-with-text__text-item flex__item{% if section.settings.desktop_section_height > 0 %} section-height-responsive--desktop{% endif %}">
+          <div
+              id="ImageWithText--{{ section.id }}"
+              class="image-with-text__content{% if section.settings.show_content_shadow and remove_color_classes != true %} card--shadow{% endif %} content-container{% unless remove_color_classes %} gradient color-{{ section.settings.color_scheme }}{% else %} background-transparent{% endunless %}"
+          >
+            <div class="section-content lg:p-0">
+              {%- liquid
+                assign contact_form_class = 'isolate w-full'
+                if settings.animations_reveal_on_scroll and section.index > 2
+                  assign contact_form_class = 'isolate w-full scroll-trigger animate--fade-in'
+                endif
+              -%}
+
+              {%- form 'contact', id: contact_form_id, class: contact_form_class -%}
+              {%- if form.errors -%}
+                <div class="form__message">
+                  <h3 class="form-status caption-large text-body" role="alert" tabindex="-1" autofocus>
+                    {% render 'icon-error' %}
+                    {{ 'templates.contact.form.error_heading' | t }}
+                  </h3>
+                </div>
+                <ul class="form-status-list caption-large" role="list">
+                  <li>
+                    <a href="#{{ contact_form_id }}-email" class="link no-scroll">
+                      {{ form.errors.translated_fields.email | capitalize }}
+                      {{ form.errors.messages.email }}
+                    </a>
+                  </li>
+                </ul>
+              {%- endif -%}
+
+              {%- liquid
+                if request.design_mode
+                  assign preview_success = section.settings.preview_success
+                else
+                  assign preview_success = false
+                endif
+              -%}
+
+              <div class="grid-2">
+                {%- for block in section.blocks -%}
+                  {%- assign field_name = block.settings.title | escape -%}
+
+                  {%- if block.type == 'hidden' -%}
+                    <input type="hidden" name="contact[{{ field_name }}]" value="{{ block.settings.value | escape }}"/>
+
+                  {%- elsif block.type == 'text' or block.type == 'heading' or block.type == 'spacer' -%}
+
+                    <div class="grid-span-2">
+                      {%- liquid
+                        assign show_block = false
+                        if block.settings.visibility == "always" or block.settings.visibility == blank
+                          assign show_block = true
+                        elsif block.settings.visibility == "success" and form.posted_successfully? or preview_success
+                          assign show_block = true
+                        elsif block.settings.visibility == "before" and form.posted_successfully? == false and preview_success == false
+                          assign show_block = true
+                        endif
+
+                        if show_block
+                          render 'standard-blocks', section_name: 'contact-form', block: block, form: form, preview_success: preview_success
+                        endif
+                      -%}
+                    </div>
+                  {%- else -%}
+                    <div class="grid-span-2{% if block.settings.half_width_on_desktop %} grid-span-1-large{% endif %}">
+                      <div class="{% unless block.type == 'checkbox' %}field{% endunless %}{% if block.type == 'dropdown' %} select relative{% endif %}" {{ block.shopify_attributes }}>
+                        {%- case block.type -%}
+                          {%- when 'name' -%}
+                            <input type="text"
+                                   id="{{ contact_form_id }}-{{ block.id }}"
+                                   class="field__input"
+                                   name="contact[{{ field_name }}]"
+                                   autocomplete="name"
+                                   value="{% if form[field_name] %}{{ form[field_name] }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                                   placeholder="{{ field_name }}"
+                                {%- if block.settings.required %}
+                                  required
+                                  aria-required="true"
+                                {%- endif %}
+                            >
+                            <label class="field__label" for="{{ contact_form_id }}-{{ block.id }}">
+                              {{ field_name }}
+                              {%- if block.settings.required -%}
+                                <span aria-hidden="true">*</span>
+                              {%- endif -%}
+                            </label>
+
+                          {%- when 'email' -%}
+                            <input type="email"
+                                   id="{{ contact_form_id }}-email"
+                                   class="field__input"
+                                   name="contact[email]"
+                                   autocomplete="email"
+                                   spellcheck="false"
+                                   autocapitalize="off"
+                                   value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                                   required
+                                   aria-required="true"
+                                   placeholder="{{ field_name }}"
+                            >
+                            <label class="field__label" for="{{ contact_form_id }}-email">
+                              {{ field_name }}
+                              <span aria-hidden="true">*</span>
+                            </label>
+
+                          {%- when 'phone' -%}
+                            <input type="tel"
+                                   id="{{ contact_form_id }}-{{ block.id }}"
+                                   class="field__input"
+                                   name="contact[{{ field_name }}]"
+                                   pattern="[0-9\-]*"
+                                   autocomplete="tel"
+                                   value="{{ form[field_name] }}"
+                                {%- if block.settings.required %}
+                                  required
+                                  aria-required="true"
+                                {%- endif %}
+                                   placeholder="{{ field_name }}"
+                            >
+                            <label class="field__label" for="{{ contact_form_id }}-{{ block.id }}">
+                              {{ field_name }}
+                              {%- if block.settings.required -%}
+                                <span aria-hidden="true">*</span>
+                              {%- endif -%}
+                            </label>
+
+                          {%- when 'url' -%}
+                            <input type="url"
+                                   id="{{ contact_form_id }}-{{ block.id }}"
+                                   class="field__input"
+                                   name="contact[{{ field_name }}]"
+                                   value="{{ form[field_name] }}"
+                                {%- if block.settings.required %}
+                                  required
+                                  aria-required="true"
+                                {%- endif %}
+                                   placeholder="{{ field_name }}"
+                            >
+                            <label class="field__label" for="{{ contact_form_id }}-{{ block.id }}">
+                              {{ field_name }}
+                              {%- if block.settings.required -%}
+                                <span aria-hidden="true">*</span>
+                              {%- endif -%}
+                            </label>
+
+                          {%- when 'date' -%}
+                            {%- liquid
+                              assign allowed_dates = ''
+                              assign error_messages_json = ''
+
+                              if block.settings.enable_validation
+                                if block.settings.can_pick_past == false
+                                  assign allowed_dates = allowed_dates | append: ',future_only'
+                                  assign message = 'sections.contact.date_is_in_past' | t
+                                  assign error_messages_json = error_messages_json | append: ',"future_only": "' | append: message | append: '"'
+                                endif
+                                if block.settings.validation_monday
+                                  assign allowed_dates = allowed_dates | append: ',monday'
+                                else
+                                  assign message = block.settings.validation_monday_error | escape
+                                  assign error_messages_json = error_messages_json | append: ',"monday": "' | append: message | append: '"'
+                                endif
+                                if block.settings.validation_tuesday
+                                  assign allowed_dates = allowed_dates | append: ',tuesday'
+                                else
+                                  assign message = block.settings.validation_tuesday_error | escape
+                                  assign error_messages_json = error_messages_json | append: ',"tuesday": "' | append: message | append: '"'
+                                endif
+                                if block.settings.validation_wednesday
+                                  assign allowed_dates = allowed_dates | append: ',wednesday'
+                                else
+                                  assign message = block.settings.validation_wednesday_error | escape
+                                  assign error_messages_json = error_messages_json | append: ',"wednesday": "' | append: message | append: '"'
+                                endif
+                                if block.settings.validation_thursday
+                                  assign allowed_dates = allowed_dates | append: ',thursday'
+                                else
+                                  assign message = block.settings.validation_thursday_error | escape
+                                  assign error_messages_json = error_messages_json | append: ',"thursday": "' | append: message | append: '"'
+                                endif
+                                if block.settings.validation_friday
+                                  assign allowed_dates = allowed_dates | append: ',friday'
+                                else
+                                  assign message = block.settings.validation_friday_error | escape
+                                  assign error_messages_json = error_messages_json | append: ',"friday": "' | append: message | append: '"'
+                                endif
+                                if block.settings.validation_saturday
+                                  assign allowed_dates = allowed_dates | append: ',saturday'
+                                else
+                                  assign message = block.settings.validation_saturday_error | escape
+                                  assign error_messages_json = error_messages_json | append: ',"saturday": "' | append: message | append: '"'
+                                endif
+                                if block.settings.validation_sunday
+                                  assign allowed_dates = allowed_dates | append: ',sunday'
+                                else
+                                  assign message = block.settings.validation_sunday_error | escape
+                                  assign error_messages_json = error_messages_json | append: ',"sunday": "' | append: message | append: '"'
+                                endif
+
+                                assign allowed_dates = allowed_dates | replace_first: ',', ''
+                                assign error_messages_json = error_messages_json | replace_first: ',', ''
+                              endif
+                            -%}
+
+                            <input type="date{% if block.settings.show_time %}time-local{% endif %}"
+                                   id="{{ contact_form_id }}-{{ block.id }}"
+                                   aria-describedby="{{ contact_form_id }}-{{ block.id }}_error"
+                                   class="field__input"
+                                   name="contact[{{ field_name }}]"
+                                   value="{{ form[field_name] }}"
+                                   {% if block.settings.can_pick_past == false and block.settings.enable_validation == true %}min="{{ 'now' | date: '%Y-%m-%d' }}"{% endif %}
+                                   {% unless allowed_dates == blank %}data-allowed-dates="{{ allowed_dates }}"{% endunless %}
+                                   {% unless allowed_dates == blank %}data-json-error-messages='{ {{ error_messages_json }} }'{% endunless %}
+                                {%- if block.settings.required %}
+                                  required
+                                  aria-required="true"
+                                {%- endif %}
+                                   placeholder="{{ field_name }}"
+                            >
+                            <label class="field__label" for="{{ contact_form_id }}-{{ block.id }}">
+                              {{ field_name }}
+                              {%- if block.settings.required -%}
+                                <span aria-hidden="true">*</span>
+                              {%- endif -%}
+                            </label>
+                            <lazy-script src="{{ 'date-validation.js' | asset_url }}" defer="defer"></lazy-script>
+
+                          {%- when 'textarea' -%}
+                            <textarea id="{{ contact_form_id }}-{{ block.id }}"
+                                  class="text-area field__input"
+                                  name="contact[{{ field_name }}]"
+                                  rows="10"
+                                  placeholder="{{ field_name }}"
+                                {%- if block.settings.required %}
+                                  aria-required="true"
+                                  required
+                                {%- endif %}>
+                            {{- form[field_name] -}}
+                          </textarea>
+                          <label class="form__label field__label" for="{{ contact_form_id }}-{{ block.id }}">
+                            {{ field_name }}
+                            {%- if block.settings.required -%}
+                              <span aria-hidden="true">*</span>
+                            {%- endif -%}
+                          </label>
+
+                          {%- when 'custom_text' -%}
+                            {%- if block.settings.title != blank -%}
+                              <input type="text"
+                                     id="{{ contact_form_id }}-{{ block.id }}"
+                                     class="field__input"
+                                     name="contact[{{ field_name }}]"
+                                     value="{{ form[field_name] }}"
+                                  {%- if block.settings.required %}
+                                    aria-required="true"
+                                    required
+                                  {%- endif %}
+                                     placeholder="{{ field_name }}"
+                              >
+                              <label class="field__label" for="{{ contact_form_id }}-{{ block.id }}">
+                                {{- field_name -}}
+                                {%- if block.settings.required -%}
+                                  <span aria-hidden="true">*</span>
+                                {%- endif -%}
+                              </label>
+                            {%- endif -%}
+
+                          {%- when 'dropdown' -%}
+                            {%- if block.settings.title != blank -%}
+                              {%- assign options = block.settings.options | newline_to_br | strip_newlines | split: '<br />' -%}
+                              <select class="styled-select select__select"
+                                      name="contact[{{ field_name }}]"
+                                      id="{{ contact_form_id }}-{{ block.id }}"
+                                  {%- if block.settings.required %}
+                                    aria-required="true"
+                                    required
+                                  {%- endif %}
+                                  placeholder="{{ block.settings.title | escape }}{% if block.settings.required %} *{% endif %}"
+                              >
+                                <option value="" selected>
+                                  {{ block.settings.title | escape }}{% if block.settings.required %} *{% endif %}
+                                </option>
+
+                                {% for option in options %}
+                                  <option value="{{ option | escape }}"{% if option == form[field_name] %} selected{% endif %}>
+                                    {{ option }}
+                                  </option>
+                                {% endfor %}
+                              </select>
+                              {% render 'icon-caret' %}
+
+                              <label class="visually-hidden" for="{{ contact_form_id }}-{{ block.id }}">
+                                {{- field_name -}}
+                              </label>
+                            {%- endif -%}
+
+                          {%- when 'checkbox' -%}
+                            {% if block.settings.required == false %}
+                              <input type="hidden" name="contact[{{ field_name }}]" value="{{ block.settings.false_value | escape }}">
+                            {% endif %}
+                            <input type="checkbox" id="{{ contact_form_id }}-{{ block.id }}" class="field__checkbox" name="contact[{{ field_name }}]" value="{{ block.settings.true_value | escape }}"
+                              {% if block.settings.required %} required {% if block.settings.error_message != blank %}oninvalid='this.setCustomValidity("{{ block.settings.error_message }}")' onchange="this.setCustomValidity('')"{% endif %}{% endif %}>
+                            <label for="{{ contact_form_id }}-{{ block.id }}" class="flex items-center">
+                              {{- field_name -}}
+                            </label>
+
+                        {%- endcase -%}
+                      </div>
+
+                      {%- if block.settings.tip != blank -%}
+                        <div class="flex items-center gap-05 t6 mt-05">
+                          <p class="m-0 opacity-60 rte">{{ block.settings.tip }}</p>
+                        </div>
+                      {%- endif -%}
+
+                      {%- if block.type == 'date' and block.settings.enable_validation -%}
+                        <div class="mt-1 form__error hidden" id="{{ contact_form_id }}-{{ block.id }}_error" role="alert">
+                          <p class="form__message gap-05 m-0">
+                            {% render 'icon-error' %}
+                            <span></span>
+                          </p>
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+
+                <div class="grid-span-2">
+                  <button type="submit" class="button">
+                    {% if section.settings.submit_button_text != blank %}{{ section.settings.submit_button_text }}{% else %}{{ 'templates.contact.form.send' | t }}{% endif %}
+                  </button>
+
+                  {% if section.settings.show_standard_success_message and form.posted_successfully? or preview_success %}
+                    <div>
+                      <p class="form-status form-status-list form__message lh-15 mb-0" tabindex="-1" autofocus>
+                        {% render 'icon-success' %}
+                        {{ 'templates.contact.form.post_success' | t }}
+                      </p>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+
+            {%- endform -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact form",
+  "tag": "section",
+  "class": "section section-contact-form",
+  "disabled_on": {
+    "groups": ["header", "footer", "aside"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "preview_success",
+      "default": false,
+      "label": "Preview successful contact form submission",
+      "info": "Shows what users will see when they submit the contact form."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_standard_success_message",
+      "default": true,
+      "label": "Show standard success message",
+      "info": "You can add custom success messages by adding \"Heading\" or \"Text\" blocks, and choosing to show them only once the form has been submitted."
+    },
+    {
+      "type": "text",
+      "id": "submit_button_text",
+      "label": "Submit button text",
+      "info": "Leave empty to use the standard theme translation."
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "info": "1200 x 1200 pixels jpg recommended. [Learn more](https://benchmarkthemes.com/help-center/ignite/guides/image-faq/)",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "label": "Image overlay opacity",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desktop_section_height",
+      "min": 200,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum height on desktop",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "mobile_section_height",
+      "min": 100,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "label": "Minimum height on mobile",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "desktop_media_width",
+      "min": 25,
+      "max": 55,
+      "step": 1,
+      "default": 50,
+      "unit": "%",
+      "label": "Image width on desktop"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "media_first",
+          "label": "Left"
+        },
+        {
+          "value": "text_first",
+          "label": "Right"
+        }
+      ],
+      "default": "media_first",
+      "label": "Image placement on desktop"
+    },
+    {
+      "type": "select",
+      "id": "content_layout",
+      "options": [
+        {
+          "value": "no-overlap-separate",
+          "label": "Separate"
+        },
+        {
+          "value": "no-overlap",
+          "label": "Joined"
+        },
+        {
+          "value": "overlap",
+          "label": "Overlap"
+        }
+      ],
+      "default": "no-overlap",
+      "info": "Only applies when an image is chosen and when the color schemes below are different from one another.",
+      "label": "Content/image layout"
+    },
+    {
+      "type": "header",
+      "content": "Header layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header_beside",
+      "default": true,
+      "label": "Show over image"
+    },
+    
+  {
+    "type": "select",
+    "id": "content_max_width",
+    "options": [
+      {
+        "value": "xs",
+        "label": "XS"
+      },
+      {
+        "value": "s",
+        "label": "S"
+      },
+      {
+        "value": "m",
+        "label": "M"
+      },
+      {
+        "value": "l",
+        "label": "L"
+      },
+      {
+        "value": "xl",
+        "label": "XL"
+      }
+    ],
+    "default": "m",
+    "label": "Maximum heading width"
+  },
+  {
+    "type": "text_alignment",
+    "id": "desktop_heading_alignment",
+    "default": "left",
+    "label": "Heading alignment on desktop"
+  },
+  {
+    "type": "text_alignment",
+    "id": "mobile_heading_alignment",
+    "default": "left",
+    "label": "Heading alignment on mobile"
+  }
+,
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "options": [
+        {
+          "value": "md:justify-start md:items-start",
+          "label": "Top left"
+        },
+        {
+          "value": "md:justify-center md:items-start",
+          "label": "Top center"
+        },
+        {
+          "value": "md:justify-end md:items-start",
+          "label": "Top right"
+        },
+        {
+          "value": "md:justify-start md:items-center",
+          "label": "Middle left"
+        },
+        {
+          "value": "md:justify-center md:items-center",
+          "label": "Middle center"
+        },
+        {
+          "value": "md:justify-end md:items-center",
+          "label": "Middle right"
+        },
+        {
+          "value": "md:justify-start md:items-end",
+          "label": "Bottom left"
+        },
+        {
+          "value": "md:justify-center md:items-end",
+          "label": "Bottom center"
+        },
+        {
+          "value": "md:justify-end md:items-end",
+          "label": "Bottom right"
+        }
+      ],
+      "default": "md:justify-start md:items-end",
+      "info": "Applies only when showing over the image.",
+      "label": "Text position on desktop"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_position",
+      "options": [
+        {
+          "value": "justify-start items-start",
+          "label": "Top left"
+        },
+        {
+          "value": "justify-center items-start",
+          "label": "Top center"
+        },
+        {
+          "value": "justify-end items-start",
+          "label": "Top right"
+        },
+        {
+          "value": "justify-start items-center",
+          "label": "Middle left"
+        },
+        {
+          "value": "justify-center items-center",
+          "label": "Middle center"
+        },
+        {
+          "value": "justify-end items-center",
+          "label": "Middle right"
+        },
+        {
+          "value": "justify-start items-end",
+          "label": "Bottom left"
+        },
+        {
+          "value": "justify-center items-end",
+          "label": "Bottom center"
+        },
+        {
+          "value": "justify-end items-end",
+          "label": "Bottom right"
+        }
+      ],
+      "default": "justify-center items-center",
+      "info": "Applies only when showing over the image.",
+      "label": "Text position on mobile"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    
+  {
+    "type": "inline_richtext",
+    "id": "title",
+    "default": "Need support?",
+    "info": "Enter ++ for a line break.",
+    "label": "Heading"
+  },
+  {
+    "type": "select",
+    "id": "italic_convert",
+    "visible_if": "{{ section.settings.title != blank }}",
+    "options": [
+      {
+        "value": "",
+        "label": "Off (keep as italics)"
+      },
+      {
+        "value": "light",
+        "label": "Lighter"
+      },
+      {
+        "value": "accent_color",
+        "label": "Accent color"
+      },
+      {
+        "value": "accent",
+        "label": "Accent gradient color"
+      },
+      {
+        "value": "outline",
+        "label": "Outline"
+      },
+      {
+        "value": "outline_accent",
+        "label": "Outline - Accent color"
+      },
+      {
+        "value": "glow",
+        "label": "Glow - Accent color"
+      },
+      {
+        "value": "glow_outline",
+        "label": "Glow with outline - Accent color"
+      }
+    ],
+    "info": "The colors above can be set in the color schemes. 'Outline' may not work with all fonts.",
+    "default": "",
+    "label": "Convert italic text to"
+  },
+  {
+    "type": "select",
+    "id": "heading_size",
+    "visible_if": "{{ section.settings.title != blank }}",
+    "options": [
+      {
+        "value": "h4",
+        "label": "XS"
+      },
+      {
+        "value": "h3",
+        "label": "S"
+      },
+      {
+        "value": "h2",
+        "label": "M"
+      },
+      {
+        "value": "h1",
+        "label": "L"
+      },
+      {
+        "value": "h0",
+        "label": "XL"
+      }
+    ],
+    "default": "h2",
+    "label": "Heading size"
+  }
+,
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    
+  {
+    "type": "richtext",
+    "id": "text",
+    "default": "<p>Check out our support guides first.</p>",
+    "label": "Description"
+  },
+  {
+    "type": "select",
+    "id": "text_size",
+    "visible_if": "{{ section.settings.text != blank }}",
+    "options": [
+      {
+        "value": "t6",
+        "label": "2XS"
+      },
+      {
+        "value": "t5",
+        "label": "XS"
+      },
+      {
+        "value": "t4",
+        "label": "S"
+      },
+      {
+        "value": "t3",
+        "label": "M"
+      },
+      {
+        "value": "t2",
+        "label": "L"
+      },
+      {
+        "value": "t1",
+        "label": "XL"
+      },
+      {
+        "value": "t0",
+        "label": "2XL"
+      }
+    ],
+    "default": "t3",
+    "label": "Text size"
+  }
+,
+    {
+      "type": "header",
+      "content": "Header button"
+    },
+    {
+      "type": "select",
+      "id": "button_text_size",
+      "options": [
+        {
+          "value": "t6",
+          "label": "2XS"
+        },
+        {
+          "value": "t5",
+          "label": "XS"
+        },
+        {
+          "value": "t4",
+          "label": "S"
+        },
+        {
+          "value": "t3",
+          "label": "M"
+        },
+        {
+          "value": "t2",
+          "label": "L"
+        },
+        {
+          "value": "t1",
+          "label": "XL"
+        },
+        {
+          "value": "t0",
+          "label": "2XL"
+        }
+      ],
+      "default": "t5",
+      "label": "Button size"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Support FAQs",
+      "info": "Leave the label blank to hide the button."
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "/"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "link",
+          "label": "Link"
+        }
+      ],
+      "default": "secondary",
+      "label": "Button style"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_show_arrow",
+      "default": true,
+      "label": "Show arrow"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_show_gradient_border",
+      "visible_if": "{{ section.settings.button_style == 'secondary' }}",
+      "default": false,
+      "label": "Show border gradient"
+    },
+    {
+      "type": "color_background",
+      "id": "button_border_gradient",
+      "visible_if": "{{ section.settings.button_style_show_gradient_border and section.settings.button_style == 'secondary' }}",
+      "default": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+      "label": "Border gradient"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "label": "Section color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Form color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "color_scheme",
+      "id": "image_overlay_color_scheme",
+      "label": "Header color scheme when over image",
+      "default": "scheme-6"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_content_shadow",
+      "label": "Show form shadow",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "line_separator",
+      "options": [
+        {
+          "value": "",
+          "label": "Off"
+        },
+        {
+          "value": "border-top",
+          "label": "Top"
+        },
+        {
+          "value": "border-bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "border-top border-bottom",
+          "label": "Both"
+        }
+      ],
+      "default": "",
+      "label": "Line separator"
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "select",
+      "id": "top_padding",
+      "options": [
+        {
+          "value": "pt-0",
+          "label": "0"
+        },
+        {
+          "value": "pt-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pt-s",
+          "label": "1"
+        },
+        {
+          "value": "pt-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pt-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pt-s",
+      "label": "Top section spacing"
+    },
+    {
+      "type": "select",
+      "id": "bottom_padding",
+      "options": [
+        {
+          "value": "pb-0",
+          "label": "0"
+        },
+        {
+          "value": "pb-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pb-s",
+          "label": "1"
+        },
+        {
+          "value": "pb-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pb-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pb-s",
+      "label": "Bottom section spacing"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "options": [
+        {
+          "value": "visible-xs",
+          "label": "Mobile"
+        },
+        {
+          "value": "hidden-xs",
+          "label": "Desktop"
+        },
+        {
+          "value": "",
+          "label": "Both"
+        }
+      ],
+      "default": "",
+      "info": "Lots of hidden content could be harmful for SEO.",
+      "label": "Show on"
+    },
+    
+  {
+    "type": "checkbox",
+    "id": "show_at_specific_time_of_day",
+    "default": false,
+    "label": "Only show at specific times of the day",
+    "info": "Uses the customers' local time. Always shows in Theme Editor."
+  },
+  {
+    "type": "paragraph",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "content": "Lots of hidden content could be harmful for SEO. Don't overuse this."
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_morning",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show in the morning (5am - 12pm)"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_afternoon",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show in the afternoon (12pm - 5pm)"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_evening",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show in the evening (5pm - 9pm)"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_night",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show at night (9pm - 5am)"
+  }
+,
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h3",
+      "info": "For SEO purposes, there should only be one H1 tag on the page.",
+      "label": "Heading tag"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "name",
+      "name": "Name field",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label",
+          "info": "Mandatory. Must not be the same as any other form labels.",
+          "default": "Name"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "tip",
+          "label": "Tip"
+        },
+        {
+          "type": "checkbox",
+          "id": "half_width_on_desktop",
+          "label": "Half width on desktop",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Mandatory",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "email",
+      "name": "Email field",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "This block is mandatory."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label",
+          "info": "Mandatory. Must not be the same as any other form labels.",
+          "default": "Email"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "tip",
+          "label": "Tip"
+        },
+        {
+          "type": "checkbox",
+          "id": "half_width_on_desktop",
+          "label": "Half width on desktop",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "phone",
+      "name": "Phone field",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label",
+          "info": "Mandatory. Must not be the same as any other form labels.",
+          "default": "Phone"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "tip",
+          "label": "Tip"
+        },
+        {
+          "type": "checkbox",
+          "id": "half_width_on_desktop",
+          "label": "Half width on desktop",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Mandatory",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "url",
+      "name": "URL field",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label",
+          "info": "Mandatory. Must not be the same as any other form labels.",
+          "default": "URL"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "tip",
+          "label": "Tip"
+        },
+        {
+          "type": "checkbox",
+          "id": "half_width_on_desktop",
+          "label": "Half width on desktop",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Mandatory",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "date",
+      "name": "Date field",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label",
+          "info": "Mandatory. Must not be the same as any other form labels.",
+          "default": "Date"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "tip",
+          "label": "Tip"
+        },
+        {
+          "type": "checkbox",
+          "id": "half_width_on_desktop",
+          "label": "Half width on desktop",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Validation"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Mandatory",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_time",
+          "label": "Allow time to be selected",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_validation",
+          "label": "Only allow certain days to be picked",
+          "info": "The built-in browser date picker doesn't support disabling specific days. Validation will occur after the user selects a date.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "can_pick_past",
+          "visible_if": "{{ block.settings.enable_validation }}",
+          "label": "Days in the past can be picked",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Validation - Mondays"
+        },
+        {
+          "type": "checkbox",
+          "id": "validation_monday",
+          "visible_if": "{{ block.settings.enable_validation }}",
+          "label": "Mondays can be picked",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "validation_monday_error",
+          "visible_if": "{{ block.settings.validation_monday == false and block.settings.enable_validation }}",
+          "label": "Error message",
+          "default": "Sorry, you can't pick Mondays."
+        },
+        {
+          "type": "header",
+          "content": "Validation - Tuesdays"
+        },
+        {
+          "type": "checkbox",
+          "id": "validation_tuesday",
+          "visible_if": "{{ block.settings.enable_validation }}",
+          "label": "Tuesdays can be picked",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "validation_tuesday_error",
+          "visible_if": "{{ block.settings.validation_tuesday == false and block.settings.enable_validation }}",
+          "label": "Error message",
+          "default": "Sorry, you can't pick Tuesdays."
+        },
+        {
+          "type": "header",
+          "content": "Validation - Wednesdays"
+        },
+        {
+          "type": "checkbox",
+          "id": "validation_wednesday",
+          "visible_if": "{{ block.settings.enable_validation }}",
+          "label": "Wednesdays can be picked",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "validation_wednesday_error",
+          "visible_if": "{{ block.settings.validation_wednesday == false and block.settings.enable_validation }}",
+          "label": "Error message",
+          "default": "Sorry, you can't pick Wednesdays."
+        },
+        {
+          "type": "header",
+          "content": "Validation - Thursdays"
+        },
+        {
+          "type": "checkbox",
+          "id": "validation_thursday",
+          "visible_if": "{{ block.settings.enable_validation }}",
+          "label": "Thursdays can be picked",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "validation_thursday_error",
+          "visible_if": "{{ block.settings.validation_thursday == false and block.settings.enable_validation }}",
+          "label": "Error message",
+          "default": "Sorry, you can't pick Thursdays."
+        },
+        {
+          "type": "header",
+          "content": "Validation - Fridays"
+        },
+        {
+          "type": "checkbox",
+          "id": "validation_friday",
+          "visible_if": "{{ block.settings.enable_validation }}",
+          "label": "Fridays can be picked",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "validation_friday_error",
+          "visible_if": "{{ block.settings.validation_friday == false and block.settings.enable_validation }}",
+          "label": "Error message",
+          "default": "Sorry, you can't pick Fridays."
+        },
+        {
+          "type": "header",
+          "content": "Validation - Saturdays"
+        },
+        {
+          "type": "checkbox",
+          "id": "validation_saturday",
+          "visible_if": "{{ block.settings.enable_validation }}",
+          "label": "Saturdays can be picked",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "validation_saturday_error",
+          "visible_if": "{{ block.settings.validation_saturday == false and block.settings.enable_validation }}",
+          "label": "Error message",
+          "default": "Sorry, you can't pick Saturdays."
+        },
+        {
+          "type": "header",
+          "content": "Validation - Sundays"
+        },
+        {
+          "type": "checkbox",
+          "id": "validation_sunday",
+          "visible_if": "{{ block.settings.enable_validation }}",
+          "label": "Sundays can be picked",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "validation_sunday_error",
+          "visible_if": "{{ block.settings.validation_sunday == false and block.settings.enable_validation }}",
+          "label": "Error message",
+          "default": "Sorry, you can't pick Sundays."
+        }
+      ]
+    },
+    {
+      "type": "textarea",
+      "name": "Long text field",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label",
+          "info": "Mandatory. Must not be the same as any other form labels.",
+          "default": "Message"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "tip",
+          "label": "Tip"
+        },
+        {
+          "type": "checkbox",
+          "id": "half_width_on_desktop",
+          "label": "Half width on desktop",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Mandatory",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "custom_text",
+      "name": "Custom text field",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label",
+          "info": "Mandatory. Must not be the same as any other form labels.",
+          "default": "Text input"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "tip",
+          "label": "Tip"
+        },
+        {
+          "type": "checkbox",
+          "id": "half_width_on_desktop",
+          "label": "Half width on desktop",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Mandatory",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "dropdown",
+      "name": "Dropdown field",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label",
+          "info": "Mandatory. Must not be the same as any other form labels.",
+          "default": "Dropdown"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "tip",
+          "label": "Tip"
+        },
+        {
+          "type": "textarea",
+          "id": "options",
+          "label": "Options",
+          "info": "One option per line.",
+          "default": "Option 1\nOption 2\nOption 3"
+        },
+        {
+          "type": "checkbox",
+          "id": "half_width_on_desktop",
+          "label": "Half width on desktop",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Mandatory",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "name": "Checkbox",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label",
+          "info": "Mandatory. Must not be the same as any other form labels.",
+          "default": "Checkbox"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "tip",
+          "label": "Tip"
+        },
+        {
+          "type": "text",
+          "id": "true_value",
+          "label": "Checked value",
+          "default": "Yes"
+        },
+        {
+          "type": "text",
+          "id": "false_value",
+          "label": "Unchecked value",
+          "default": "No"
+        },
+        {
+          "type": "checkbox",
+          "id": "half_width_on_desktop",
+          "label": "Half width on desktop",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Mandatory",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "error_message",
+          "label": "Custom error message",
+          "info": "Shows when the checkbox is mandatory and hasn't been filled in."
+        }
+      ]
+    },
+    {
+      "type": "hidden",
+      "name": "Hidden field",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Your customers will not see this field."
+        },
+        {
+          "type": "paragraph",
+          "content": "Hidden fields can be useful for recording information that you may need to know when receiving contact form submissions. E.g. a product title (using a metafield), context of which page the contact form was on, etc."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label",
+          "info": "Mandatory. Must not be the same as any other form labels.",
+          "default": "Hidden field"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        {
+          "type": "select",
+          "id": "visibility",
+          "default": "always",
+          "label": "Show this block",
+          "info": "Use the \"Preview successful contact form submission\" option in the section settings to preview what customers see when they submit the form.",
+          "options": [
+            {
+              "value": "before",
+              "label": "Before they submit the form"
+            },
+            {
+              "value": "success",
+              "label": "After they submit the form"
+            },
+            {
+              "value": "always",
+              "label": "Always"
+            }
+          ]
+        },
+        
+  {
+    "type": "inline_richtext",
+    "id": "heading",
+    "default": "Get in touch",
+    "info": "Enter ++ for a line break. To animate between words enter them in the format: 'We deliver exceptional [products|service|value]'. Ensure [ | and ] characters aren't bold or italic. Keep animated words short and similar in length.",
+    "label": "Heading"
+  },
+  {
+    "type": "select",
+    "id": "heading_italic_convert",
+    "options": [
+      {
+        "value": "",
+        "label": "Off (keep as italics)"
+      },
+      {
+        "value": "light",
+        "label": "Lighter"
+      },
+      {
+        "value": "accent_color",
+        "label": "Accent color"
+      },
+      {
+        "value": "accent",
+        "label": "Accent gradient color"
+      },
+      {
+        "value": "outline",
+        "label": "Outline"
+      },
+      {
+        "value": "outline_accent",
+        "label": "Outline - Accent color"
+      },
+      {
+        "value": "glow",
+        "label": "Glow - Accent color"
+      },
+      {
+        "value": "glow_outline",
+        "label": "Glow with outline - Accent color"
+      }
+    ],
+    "info": "The colors above can be set in the color schemes. 'Outline' may not work with all fonts.",
+    "default": "",
+    "label": "Convert italic text to"
+  },
+  {
+    "type": "select",
+    "id": "heading_size",
+    "options": [
+      {
+        "value": "h6",
+        "label": "3XS"
+      },
+      {
+        "value": "h5",
+        "label": "2XS"
+      },
+      {
+        "value": "h4",
+        "label": "XS"
+      },
+      {
+        "value": "h3",
+        "label": "S"
+      },
+      {
+        "value": "h2",
+        "label": "M"
+      },
+      {
+        "value": "h1",
+        "label": "L"
+      },
+      {
+        "value": "h0",
+        "label": "XL"
+      },
+      {
+        "value": "hxl",
+        "label": "2XL"
+      },
+      {
+        "value": "custom",
+        "label": "Custom"
+      }
+    ],
+    "default": "h3",
+    "label": "Heading size"
+  },
+  {
+    "type": "range",
+    "id": "heading_size_custom",
+    "visible_if": "{{ block.settings.heading_size == 'custom' }}",
+    "min": 1,
+    "max": 9,
+    "step": 0.2,
+    "unit": "rem",
+    "default": 2.4,
+    "label": "Custom heading size"
+  },
+  {
+    "type": "range",
+    "id": "heading_line_height_custom",
+    "visible_if": "{{ block.settings.heading_size == 'custom' }}",
+    "min": 0.4,
+    "max": 2,
+    "step": 0.1,
+    "unit": "em",
+    "default": 1.2,
+    "label": "Custom line height"
+  },
+  {
+    "type": "select",
+    "id": "heading_tag",
+    "options": [
+      {
+        "value": "h1",
+        "label": "H1"
+      },
+      {
+        "value": "h2",
+        "label": "H2"
+      },
+      {
+        "value": "h3",
+        "label": "H3"
+      },
+      {
+        "value": "h4",
+        "label": "H4"
+      }
+    ],
+    "default": "h2",
+    "info": "For SEO purposes, there should only be one H1 tag on the page.",
+    "label": "Heading tag"
+  }
+
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "select",
+          "id": "visibility",
+          "default": "always",
+          "label": "Show this block",
+          "info": "Use the \"Preview successful contact form submission\" option in the section settings to preview what customers see when they submit the form.",
+          "options": [
+            {
+              "value": "before",
+              "label": "Before they submit the form"
+            },
+            {
+              "value": "success",
+              "label": "After they submit the form"
+            },
+            {
+              "value": "always",
+              "label": "Always"
+            }
+          ]
+        },
+        
+  {
+    "type": "richtext",
+    "id": "text",
+    "default": "<p>We're available 24/7 to assist. Just let us know what we can help you with.</p>",
+    "label": "Description"
+  },
+  {
+    "type": "select",
+    "id": "text_size",
+    "options": [
+      {
+        "value": "t6",
+        "label": "2XS"
+      },
+      {
+        "value": "t5",
+        "label": "XS"
+      },
+      {
+        "value": "t4",
+        "label": "S"
+      },
+      {
+        "value": "t3",
+        "label": "M"
+      },
+      {
+        "value": "t2",
+        "label": "L"
+      },
+      {
+        "value": "t1",
+        "label": "XL"
+      },
+      {
+        "value": "t0",
+        "label": "2XL"
+      }
+    ],
+    "default": "t3",
+    "label": "Text size"
+  }
+
+      ]
+    },
+    {
+      "type": "spacer",
+      "name": "Spacer",
+      "settings": [
+        
+  {
+    "type": "checkbox",
+    "id": "show_line_separator",
+    "default": true,
+    "label": "Show separator line"
+  },
+  {
+    "type": "range",
+    "id": "spacing_top",
+    "min": 0,
+    "max": 10,
+    "step": 0.1,
+    "unit": "rem",
+    "default": 2.4,
+    "label": "Spacing top"
+  },
+  {
+    "type": "range",
+    "id": "spacing_bottom",
+    "min": 0,
+    "max": 10,
+    "step": 0.1,
+    "unit": "rem",
+    "default": 2.4,
+    "label": "Spacing bottom"
+  },
+  {
+    "type": "select",
+    "id": "spacer_visibility",
+    "options": [
+      {
+        "value": "mobile",
+        "label": "Mobile"
+      },
+      {
+        "value": "desktop",
+        "label": "Desktop"
+      },
+      {
+        "value": "both",
+        "label": "Both"
+      }
+    ],
+    "default": "both",
+    "label": "Show on"
+  },
+  {
+    "type": "color",
+    "id": "line_color",
+    "label": "Line color",
+    "info": "Set to transparent to use standard line color."
+  }
+
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact form",
+      "blocks": [
+        {
+          "type": "heading",
+          "settings": {
+            "visibility": "always",
+            "heading": "Get in touch",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_tag": "h2"
+          }
+        },
+        {
+          "type": "text",
+          "settings": {
+            "visibility": "always",
+            "text": "<p>We're available 24\/7 to assist. Just let us know what we can help you with and we'll do our best.<\/p>",
+            "text_size": "t3"
+          }
+        },
+        {
+          "type": "custom_text",
+          "settings": {
+            "title": "First name",
+            "half_width_on_desktop": true,
+            "required": false
+          }
+        },
+        {
+          "type": "custom_text",
+          "settings": {
+            "title": "Last name",
+            "half_width_on_desktop": true,
+            "required": false
+          }
+        },
+        {
+          "type": "email",
+          "settings": {
+            "title": "Email",
+            "half_width_on_desktop": false
+          }
+        },
+        {
+          "type": "textarea",
+          "settings": {
+            "title": "Message",
+            "half_width_on_desktop": false,
+            "required": true
+          }
+        },
+        {
+          "type": "text",
+          "settings": {
+            "visibility": "always",
+            "text": "<p>We'll aim to get back to you within 24 hours.<\/p>",
+            "text_size": "t6"
+          }
+        }
+      ],
+      "settings": {
+        "desktop_heading_alignment": "left",
+        "heading_size": "h3",
+        "text_size": "t4",
+        "button_text_size": "t5"
+      }
+    }
+  ]
+}
+{% endschema %}

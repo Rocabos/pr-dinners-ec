@@ -1,0 +1,123 @@
+.share-button__discount {
+  position: static !important;
+}
+
+.share-button--discount {
+ --border-radius: var(--inputs-radius-outset);
+  transform: translateZ(0px);
+}
+
+.share-button--discount .field__input {
+  width: calc(var(--character-count, 14ch) * var(--character-scale, 1.4ch) + 1.25em);
+  min-width: 50px;
+  max-width: min(calc(100vw - 7rem - 45px), 400px);
+  letter-spacing: 0;
+  padding: 1.25em 0 1.25em 1.25em!important;
+  height: 2.8em;
+  line-height: 2.8em;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.4s;
+}
+
+.banner__content .share-button--discount .field__input {
+  max-width: min(calc(100vw - 13rem - 45px), 400px);
+}
+
+.share-button--discount button {
+  width: 2.8em;
+  height: 2.8em;
+}
+
+.share-button--discount .icon {
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.share-button__message--discount {
+  display: flex !important;
+  padding: 0 0 0.2em 1.25em !important;
+  gap: 0.5em;
+  transition: transform 0.4s;
+  transform: translate3d(0, 100%, 0);
+}
+
+.discount-copied .share-button__message--discount {
+  transform: translate3d(0, 0, 0);
+}
+
+.discount-copied .field__input {
+  transform: translate3d(0, -100%, 0);
+}
+
+.discount-gated .share-button__copy {
+  display: none;
+}
+
+.discount-gated .discount-gated__message {
+  background-color: rgb(var(--color-peel-background));
+  color: rgb(var(--color-peel-foreground));
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+  gap: 0.5em;
+  margin-inline-end: 50px;
+  position: relative;
+  padding: 0.7em 0.7em 0.7em 1.3em;
+}
+
+.discount-gated .field {
+  position: absolute;
+  inset: 0;
+}
+
+.discount-gated .discount-gated__message::after {
+  content: "";
+  background-color: rgb(var(--color-peel-background));
+  inset-inline-end: -19px;
+  width: 29px;
+  bottom: 0;
+  top: 0;
+  display: inline-block;
+  position: absolute;
+  transform: skew(17deg);
+  transition: right .25s;
+}
+
+.discount-gated .discount-gated__reveal,
+.discount-gated .discount-gated__message::before {
+  background-color: rgb(var(--color-peel-background));
+  inset-inline-end: 0;
+  width: 50px;
+  bottom: 0;
+  top: -5px;
+  border-radius: 0 0 0 var(--border-radius);
+  display: inline-block;
+  transition: transform .25s,background-position .25s;
+  transform: translate3d(0,-2px,0) rotate(23deg) scaleX(.9);
+  background: linear-gradient(40deg, rgb(var(--color-peel-background-light)), rgb(var(--color-peel-background-lighter)) 49%, hsla(0,0%,100%,0) 50%) 0 5px no-repeat;
+}
+
+.discount-gated .discount-gated__message::before {
+  content: "";
+  position: absolute;
+  inset-inline-end: -50px;
+  box-shadow: -7px 5px 8px 0 rgba(0, 0, 0, 0.03);
+  z-index: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .discount-gated:hover .discount-gated__reveal,
+  .discount-gated:hover .discount-gated__message::before {
+    background-position: 0 0;
+    transform: translate3d(-6px, 2px, 0) rotate(18deg) scaleX(1);
+  }
+
+  .discount-gated:hover .discount-gated__message::after {
+    inset-inline-end: -9px;
+  }
+}
+
+.discount-snippet {
+  position: absolute;
+  inset-inline-end: 1em;
+  top: 0;
+  bottom: 0;
+}

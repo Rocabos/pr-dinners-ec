@@ -1,0 +1,157 @@
+{% render 'standard-blocks', type: 'heading' %}
+
+{% schema %}
+{
+  "name": "Heading",
+  "tag": null,
+  "settings": [
+    
+  {
+    "type": "inline_richtext",
+    "id": "heading",
+    "default": "Talk about your brand",
+    "info": "Enter ++ for a line break. To animate between words enter them in the format: 'We deliver exceptional [products|service|value]'. Ensure [ | and ] characters aren't bold or italic. Keep animated words short and similar in length.",
+    "label": "Heading"
+  },
+  {
+    "type": "select",
+    "id": "heading_italic_convert",
+    "options": [
+      {
+        "value": "",
+        "label": "Off (keep as italics)"
+      },
+      {
+        "value": "light",
+        "label": "Lighter"
+      },
+      {
+        "value": "accent_color",
+        "label": "Accent color"
+      },
+      {
+        "value": "accent",
+        "label": "Accent gradient color"
+      },
+      {
+        "value": "outline",
+        "label": "Outline"
+      },
+      {
+        "value": "outline_accent",
+        "label": "Outline - Accent color"
+      },
+      {
+        "value": "glow",
+        "label": "Glow - Accent color"
+      },
+      {
+        "value": "glow_outline",
+        "label": "Glow with outline - Accent color"
+      }
+    ],
+    "info": "The colors above can be set in the color schemes. 'Outline' may not work with all fonts.",
+    "default": "",
+    "label": "Convert italic text to"
+  },
+  {
+    "type": "select",
+    "id": "heading_size",
+    "options": [
+      {
+        "value": "h6",
+        "label": "3XS"
+      },
+      {
+        "value": "h5",
+        "label": "2XS"
+      },
+      {
+        "value": "h4",
+        "label": "XS"
+      },
+      {
+        "value": "h3",
+        "label": "S"
+      },
+      {
+        "value": "h2",
+        "label": "M"
+      },
+      {
+        "value": "h1",
+        "label": "L"
+      },
+      {
+        "value": "h0",
+        "label": "XL"
+      },
+      {
+        "value": "hxl",
+        "label": "2XL"
+      },
+      {
+        "value": "custom",
+        "label": "Custom"
+      }
+    ],
+    "default": "h3",
+    "label": "Heading size"
+  },
+  {
+    "type": "range",
+    "id": "heading_size_custom",
+    "visible_if": "{{ block.settings.heading_size == 'custom' }}",
+    "min": 1,
+    "max": 9,
+    "step": 0.2,
+    "unit": "rem",
+    "default": 2.4,
+    "label": "Custom heading size"
+  },
+  {
+    "type": "range",
+    "id": "heading_line_height_custom",
+    "visible_if": "{{ block.settings.heading_size == 'custom' }}",
+    "min": 0.4,
+    "max": 2,
+    "step": 0.1,
+    "unit": "em",
+    "default": 1.2,
+    "label": "Custom line height"
+  },
+  {
+    "type": "select",
+    "id": "heading_tag",
+    "options": [
+      {
+        "value": "h1",
+        "label": "H1"
+      },
+      {
+        "value": "h2",
+        "label": "H2"
+      },
+      {
+        "value": "h3",
+        "label": "H3"
+      },
+      {
+        "value": "h4",
+        "label": "H4"
+      }
+    ],
+    "default": "h2",
+    "info": "For SEO purposes, there should only be one H1 tag on the page.",
+    "label": "Heading tag"
+  }
+
+  ],
+  "presets": [
+    {
+      "name": "Heading",
+      "category": "Basic"
+    }
+  ]
+}
+{% endschema %}

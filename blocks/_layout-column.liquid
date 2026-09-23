@@ -1,0 +1,384 @@
+<div class="block-grid-item flex m-0 w-full block-content-{{ block.id }}
+  {% if block.settings.use_color_scheme and  block.settings.round_corners %} border-radius-text-box{% endif %}
+  {% if block.settings.use_color_scheme %}color-{{ block.settings.color_scheme }} gradient isolate{% endif %}
+  {{ block.settings.content_vertical_alignment }}
+  {{ block.settings.content_horizontal_alignment }}
+  text-{{ block.settings.mobile_content_alignment }}
+  md:text-{{ block.settings.desktop_content_alignment }}
+  {% if block.settings.padding_desktop_only and section.settings.section_max_width == 'full' %}xs:p-mobile{% endif %}
+  {% if block.settings.height_mode == 'browser_full' %}md:min-h-browser-full{% endif %}
+  {% if block.settings.padding == 'custom' %}{% if block.settings.padding_desktop_only %}md:{% endif %}responsive-padding-y-extreme {% if block.settings.padding_desktop_only %}md:{% endif %}responsive-padding-x-extreme{% else %}{% if block.settings.padding_desktop_only %}md:{% endif %}{{ block.settings.padding }}{% endif %}
+  {% unless block.settings.height_mode == 'full' %}{{ block.settings.vertical_alignment }}{% endunless %}
+  {% if block.settings.sticky and block.settings.height_mode != 'full' %}md:sticky{% endif %}
+  {% if block.settings.use_color_scheme and block.settings.card_shadow %}card--shadow{% endif %}"
+     style="
+      --p-justify: {% if block.settings.mobile_content_alignment == 'left' %}flex-start{% elsif block.settings.mobile_content_alignment == 'center' %}center{% elsif block.settings.mobile_content_alignment == 'right' %}flex-end{% endif %};
+      --p-md-justify: {% if block.settings.desktop_content_alignment == 'left' %}flex-start{% elsif block.settings.desktop_content_alignment == 'center' %}center{% elsif block.settings.desktop_content_alignment == 'right' %}flex-end{% endif %};
+      --p-text-align: {% if block.settings.mobile_content_alignment == 'left' %}start{% elsif block.settings.mobile_content_alignment == 'right' %}end{% else %}{{ block.settings.mobile_content_alignment }}{% endif %};
+      --p-md-text-align: {% if block.settings.desktop_content_alignment == 'left' %}start{% elsif block.settings.desktop_content_alignment == 'right' %}end{% else %}{{ block.settings.desktop_content_alignment }}{% endif %};
+      flex-basis: {% if block.settings.width == 100 %}100%{% else %}calc((100% - ((var(--num-blocks, 1) - 1) * var(--block-grid-gap))) * {{ block.settings.width }} / 100){% endif %};
+      {% if block.settings.padding == 'custom' %}--responsive-padding-y: {{ block.settings.custom_padding }}rem;--responsive-padding-x: {{ block.settings.custom_padding }}rem;{% endif %}
+      {% if block.settings.height_mode == 'custom' %}min-height: {{ block.settings.min_height }}px;{% endif %}
+      {% if block.settings.image != blank %}--overlay-opacity: {{ block.settings.image_overlay_opacity | divided_by: 100.0 }};{% endif %}"
+    {{ block.shopify_attributes }}
+>
+    {%- style -%}
+      @media screen and (max-width: {% if section.settings.use_breakpoints %}{{ section.settings.small_breakpoint_custom | replace: 'px', '' }}px{% else %}549px{% endif %}) {
+        {% if request.visual_design_mode %}.block-grid-item{% else %}.block-content-{{ block.id }}{% endif %} {
+          flex-basis: {% if block.settings.small_breakpoint_width == 100 %}100%{% else %}calc((100% - ((var(--num-blocks, 1) - 1) * var(--block-grid-gap))) * {{ block.settings.small_breakpoint_width }} / 100){% endif %} !important;
+        }
+      }
+
+      @media screen and (min-width: {% if section.settings.use_breakpoints %}{{ section.settings.small_breakpoint_custom | replace: 'px', '' | plus: 1 }}px{% else %}550px{% endif %}) and (max-width: {% if section.settings.use_breakpoints %}{{ section.settings.medium_breakpoint_custom | replace: 'px', '' }}px{% else %}750px{% endif %}) {
+        {% if request.visual_design_mode %}.block-grid-item{% else %}.block-content-{{ block.id }}{% endif %} {
+          flex-basis: {% if block.settings.medium_breakpoint_width == 100 %}100%{% else %}calc((100% - ((var(--num-blocks, 1) - 1) * var(--block-grid-gap))) * {{ block.settings.medium_breakpoint_width }} / 100){% endif %} !important;
+        }
+      }
+    {%- endstyle -%}
+
+  {%- if block.settings.image != blank -%}
+    <div class="banner__media z-0 media{% if block.settings.round_corners %} border-radius-text-box{% endif %}
+          {% if block.settings.image != blank %} image-overlay{% endif %}"
+    >
+      {%- liquid
+        assign image_height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio
+        assign fetch_priority = 'auto'
+        if section.index < 3 or request.design_mode
+          assign fetch_priority = 'high'
+        endif
+      -%}
+      {{
+      block.settings.image
+      | image_url: width: 3840
+      | image_tag:
+      width: block.settings.image.width,
+      height: image_height,
+      sizes: '100vw',
+      widths: '375, 500, 1100, 1500, 1780, 2000, 3000, 3840',
+      fetchpriority: fetch_priority
+      }}
+    </div>
+  {%- endif -%}
+
+  <div class="block-grid-item__inner{% unless block.settings.content_max_width == 0 %} w-full{% endunless %} last-child-inner:mb-0 relative"{% unless block.settings.content_max_width == 0 %} style="max-width: {{ block.settings.content_max_width }}px"{% endunless %}>
+    {% content_for 'blocks' %}
+  </div>
+
+  {% if block.settings.column_link != blank %}
+    <a href="{{ block.settings.column_link }}" class="absolute inset">
+      <span class="visually-hidden">
+        {{ block.settings.column_link_text }}
+      </span>
+    </a>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Column",
+  "tag": null,
+  "settings": [
+    {
+      "type": "url",
+      "id": "column_link",
+      "label": "Column link",
+      "info": "Makes the entire column a link. Don't use this if your column content contains links or anything clickable."
+    },
+    {
+      "type": "text",
+      "id": "column_link_text",
+      "visible_if": "{{ block.settings.column_link != blank }}",
+      "label": "Link text for SEO"
+    },
+    {
+      "type": "header",
+      "content": "Column widths"
+    },
+    {
+      "type": "range",
+      "id": "small_breakpoint_width",
+      "visible_if": "{{ section.settings.use_breakpoints }}",
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "default": 100,
+      "unit": "%",
+      "label": "Width on small screens"
+    },
+    {
+      "type": "range",
+      "id": "medium_breakpoint_width",
+      "visible_if": "{{ section.settings.use_breakpoints }}",
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "default": 100,
+      "unit": "%",
+      "label": "Width on medium screens"
+    },
+    {
+      "type": "range",
+      "id": "width",
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "default": 50,
+      "unit": "%",
+      "label": "Width on large screens"
+    },
+    {
+      "type": "header",
+      "content": "Column layout"
+    },
+    {
+      "type": "select",
+      "id": "height_mode",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto"
+        },
+        {
+          "value": "full",
+          "label": "Stretch"
+        },
+        {
+          "value": "browser_full",
+          "label": "Browser height (desktop only)"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "auto",
+      "label": "Height"
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "visible_if": "{{ block.settings.height_mode == 'custom' }}",
+      "min": 100,
+      "max": 1000,
+      "step": 20,
+      "default": 500,
+      "unit": "px",
+      "label": "Custom height"
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "visible_if": "{{ block.settings.height_mode == 'auto' or block.settings.height_mode == 'custom' }}",
+      "options": [
+        {
+          "value": "self-start",
+          "label": "Top"
+        },
+        {
+          "value": "self-center",
+          "label": "Middle"
+        },
+        {
+          "value": "self-end",
+          "label": "Bottom"
+        }
+      ],
+      "default": "self-start",
+      "label": "Column vertical alignment"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "visible_if": "{{ block.settings.height_mode != 'full' }}",
+      "default": false,
+      "label": "Stick when scrolling on desktop",
+      "info": "Other columns must be taller than this one."
+    },
+    {
+      "type": "header",
+      "content": "Text layout"
+    },
+    {
+      "type": "text_alignment",
+      "id": "desktop_content_alignment",
+      "default": "left",
+      "label": "Text alignment on desktop"
+    },
+    {
+      "type": "text_alignment",
+      "id": "mobile_content_alignment",
+      "default": "left",
+      "label": "Text alignment on mobile"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 0,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "label": "Maximum text width",
+      "info": "Set to 0 to have no maximum width.",
+      "default": 1000
+    },
+    {
+      "type": "select",
+      "id": "content_vertical_alignment",
+      "default": "items-center",
+      "label": "Vertical alignment",
+      "options": [
+        {
+          "value": "items-start",
+          "label": "Top"
+        },
+        {
+          "value": "items-center",
+          "label": "Middle"
+        },
+        {
+          "value": "items-end",
+          "label": "Bottom"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "content_horizontal_alignment",
+      "default": "justify-center",
+      "label": "Horizontal alignment",
+      "options": [
+        {
+          "value": "justify-start",
+          "label": "Left"
+        },
+        {
+          "value": "justify-center",
+          "label": "Center"
+        },
+        {
+          "value": "justify-end",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "info": "2500 x 1000 pixels jpg recommended. [Learn more](https://benchmarkthemes.com/help-center/ignite/guides/image-faq/)",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "image_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "label": "Image overlay opacity",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_color_scheme",
+      "default": false,
+      "label": "Use a color scheme"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "visible_if": "{{ block.settings.use_color_scheme }}",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_shadow",
+      "visible_if": "{{ block.settings.use_color_scheme }}",
+      "default": true,
+      "default": true,
+      "label": "Show column shadow"
+    },
+    {
+      "type": "checkbox",
+      "id": "round_corners",
+      "visible_if": "{{ block.settings.use_color_scheme }}",
+      "label": "Rounded corners",
+      "info": "As set in [Theme Settings > Appearance](/editor?context=theme&category=appearance).",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "padding",
+      "options": [
+        {
+          "value": "p-0",
+          "label": "None"
+        },
+        {
+          "value": "p-1",
+          "label": "S"
+        },
+        {
+          "value": "p-2",
+          "label": "M"
+        },
+        {
+          "value": "p-3",
+          "label": "L"
+        },
+        {
+          "value": "p-4",
+          "label": "XL"
+        },
+        {
+          "value": "p-5",
+          "label": "2XL"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "p-2",
+      "label": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "custom_padding",
+      "visible_if": "{{ block.settings.padding == 'custom' }}",
+      "min": 0,
+      "max": 15,
+      "step": 0.2,
+      "unit": "rem",
+      "label": "Custom padding",
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "padding_desktop_only",
+      "visible_if": "{{ block.settings.padding != 'p-0' }}",
+      "default": false,
+      "label": "Padding applies to desktop only"
+    }
+  ],
+  "blocks": [
+    { "type": "_layout-row" },
+    { "type": "@theme" },
+    { "type": "@app" }
+  ],
+  "presets": [
+    {
+      "name": "Column",
+      "category": " Layout"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,222 @@
+{{ 'component-sticky-cta.css' | asset_url | stylesheet_tag }}
+<script
+  src="{{ 'component-sticky-cta.js' | asset_url }}"
+  defer="defer"
+></script>
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign installment_price = current_variant.price | divided_by: 12.0 | round
+
+  assign quantity_min = current_variant.quantity_rule.min | default: 1
+  assign quantity_increment = current_variant.quantity_rule.increment | default: 1
+  assign quantity_max = current_variant.quantity_rule.max
+
+  assign is_on_sale = false
+
+  if current_variant.compare_at_price > current_variant.price
+    assign is_on_sale = true
+  endif
+
+  assign is_preorder = false
+
+  if product.template_suffix contains 'preorder'
+    assign is_preorder = true
+  endif
+-%}
+
+<sticky-product-cta
+  id="sticky-cta-{{ section.id }}"
+  class="
+    sticky-cta
+    hidden-during-load
+    quick-add-hidden
+    color-{{ section.settings.cta_color_scheme }}
+    gradient
+    card--shadow
+    border-radius-panel
+    {{ section.settings.sticky_panel }}
+  "
+  data-section-id="{{ section.id }}"
+  data-product-form-id="{{ product_form_id }}"
+  hidden
+>
+  <div class="sticky-cta__info">
+    <div class="sticky-cta__badges">
+      {%- render 'product-badge', product: product, card_product: product, current_variant: current_variant -%}
+    </div>
+
+    <strong class="sticky-cta__title t3">
+      {{ product.title }}
+    </strong>
+  </div>
+
+  <div class="sticky-cta__pricing">
+    <s
+      class="sticky-cta__compare-price"
+      data-sticky-compare-price
+      {% unless is_on_sale %}
+        hidden
+      {% endunless %}
+    >
+      {{ current_variant.compare_at_price | money }}
+    </s>
+
+    <div class="sticky-cta__pricing-row">
+      <strong
+        class="sticky-cta__price"
+        data-sticky-price
+      >
+        {{ current_variant.price | money }}
+      </strong>
+
+      {% render 'product-installment-info', product: product %}
+    </div>
+  </div>
+
+  <div class="sticky-cta__actions">
+    <div class="sticky-cta__quantity">
+      <input
+        class="sticky-cta__quantity-input"
+        type="number"
+        value="{{ quantity_min }}"
+        min="{{ quantity_min }}"
+        step="{{ quantity_increment }}"
+        {% if quantity_max != blank %}
+          max="{{ quantity_max }}"
+        {% endif %}
+        aria-label="{{ 'products.product.quantity.label' | t }}"
+        data-sticky-quantity
+      >
+
+      <div class="sticky-cta__quantity-buttons">
+        <button
+          type="button"
+          aria-label="Aumentar cantidad"
+          data-sticky-quantity-plus
+        >
+          <svg viewBox="0 0 10 6" aria-hidden="true">
+            <path
+              d="M1 5 5 1l4 4"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          aria-label="Disminuir cantidad"
+          data-sticky-quantity-minus
+        >
+          <svg viewBox="0 0 10 6" aria-hidden="true">
+            <path
+              d="m1 1 4 4 4-4"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <button
+      type="{% if product_form_id != blank %}submit{% else %}button{% endif %}"
+      {% if product_form_id != blank %}
+        form="{{ product_form_id }}"
+        name="add"
+      {% else %}
+        data-anchor="#MainProduct-{{ section.id }}"
+      {% endif %}
+      class="
+        sticky-cta__submit-button
+        sticky-cta__button
+        button
+        button--primary
+        button--small
+        button--full-width
+        {% if buy_buttons_block.settings.button_text_font_weight == 'bold' %}
+          font-bold
+        {% endif %}
+        {% if buy_buttons_block.settings.icon != blank %}
+          button-with-icon
+        {% endif %}
+        {% if buy_buttons_block.settings.icon != blank
+          and buy_buttons_block.settings.icon_position == 'right'
+        %}
+          button--full-width-icon-right
+        {% endif %}
+      "
+      data-sticky-submit
+      {% if current_variant.available == false or quantity_rule_soldout or current_variant == null %}
+        disabled
+      {% endif %}
+      style="
+        --font-button-case:
+          {{ buy_buttons_block.settings.button_text_transform }};
+        --font-button-font-weight:
+          {{ buy_buttons_block.settings.button_text_font_weight }};
+      "
+    >
+      {%- if buy_buttons_block.settings.icon != blank and buy_buttons_block.settings.icon_position == 'left' -%}
+        {%- render 'icon', icon: buy_buttons_block.settings.icon, class: 'relative' -%}
+      {%- endif -%}
+
+      <span data-sticky-button-text>
+        {%- if current_variant == null -%}
+          {{ 'products.product.unavailable' | t }}
+        {%- elsif current_variant.available == false or quantity_rule_soldout -%}
+          {{ 'products.product.sold_out' | t }}
+        {%- elsif is_preorder -%}
+          {{ 'products.product.preorder' | t }}
+        {%- else -%}
+          {{ 'products.product.add_to_cart' | t }}
+        {%- endif -%}
+      </span>
+
+      {%- if buy_buttons_block.settings.icon != blank and buy_buttons_block.settings.icon_position == 'right' -%}
+        {%- render 'icon', icon: buy_buttons_block.settings.icon, class: 'relative' -%}
+      {%- endif -%}
+
+      {%- render 'loading-spinner' -%}
+    </button>
+  </div>
+
+  <script type="application/json" data-sticky-variant-data>
+    {
+      "texts": {
+        "addToCart": {{ 'products.product.add_to_cart' | t | json }},
+        "soldOut": {{ 'products.product.sold_out' | t | json }},
+        "unavailable": {{ 'products.product.unavailable' | t | json }},
+        "preorder": {{ 'products.product.preorder' | t | json }}
+      },
+      "isPreorder": {{ is_preorder | json }},
+      "variants": [
+        {%- for variant in product.variants -%}
+          {%- liquid
+            assign variant_installment = variant.price | divided_by: 12.0 | round
+            assign variant_min = variant.quantity_rule.min | default: 1
+            assign variant_increment = variant.quantity_rule.increment | default: 1
+          -%}
+
+          {
+            "id": {{ variant.id | json }},
+            "available": {{ variant.available | json }},
+            "priceValue": {{ variant.price | json }},
+            "price": {{ variant.price | money | json }},
+            "compareAtPriceValue": {{ variant.compare_at_price | default: 0 | json }},
+            "compareAtPrice": {% if variant.compare_at_price != blank %}{{ variant.compare_at_price | money | json }}{% else %}null{% endif %},
+            "installmentPrice": {{ variant_installment | money | json }},
+            "minimum": {{ variant_min | json }},
+            "increment": {{ variant_increment | json }},
+            "maximum": {% if variant.quantity_rule.max != blank %}{{ variant.quantity_rule.max | json }}{% else %}null{% endif %}
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+</sticky-product-cta>

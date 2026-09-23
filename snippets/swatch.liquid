@@ -1,0 +1,47 @@
+{% comment %}
+  Renders a swatch component.
+
+  Accepts:
+  - swatch: {Object} a swatch object
+  - size: {Float} swatch size in em's (optional)
+  - interactive: {Boolean} Renders a <button> when true (optional)
+  - swatch_object: {Drop} The option value of the swatch. Only needed if interactive (optional)
+  - swatch_product: {Drop} The product option. Only needed if interactive (optional)
+
+  Usage:
+  {% render 'swatch',
+    swatch: value.swatch
+    shape: 'square',
+    size: 1.6
+  %}
+{% endcomment %}
+
+{%- liquid
+  assign swatch_size = 80
+  if size > 4
+    assign swatch_size = 180
+  elsif size > 3
+    assign swatch_size = 120
+  elsif size < 1.6
+    assign swatch_size = 50
+  endif
+
+  assign swatch_value = null
+  if swatch.image
+    assign image_url = swatch.image | image_url: width: swatch_size
+    assign swatch_value = 'url(' | append: image_url | append: ')'
+    assign swatch_focal_point = swatch.image.presentation.focal_point
+  elsif swatch.color
+    assign swatch_value = 'rgb(' | append: swatch.color.rgb | append: ')'
+  endif
+-%}
+
+<{% if interactive %}button{% else %}span{% endif %}
+  {% if interactive and swatch_object.variant.featured_media %}data-variant-media="{{ swatch_object.variant.featured_media.preview_image | image_url: width: 400 }}" title={{ swatch_object | json }}{% endif %}
+  {% if swatch_value %}
+    class="swatch{% if swatch.image %} swatch--image{% elsif swatch.color %} swatch--color{% endif %} {% if shape == 'square' %} swatch--square{% endif %}"
+    style="--swatch--background: {{ swatch_value }};{% if swatch_focal_point %} --swatch-focal-point: {{ swatch_focal_point }};{% endif %}"
+  {% else %}
+    class="swatch swatch--unavailable"
+  {% endif %}
+>{% if interactive %}<span class="visually-hidden">{{ 'products.product.change_color' | t }} {{ swatch_object | escape }}</span>{% endif %}</{% if interactive %}button{% else %}span{% endif %}>

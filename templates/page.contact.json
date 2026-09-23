@@ -1,0 +1,622 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+        "spacing": 0,
+        "color_scheme": "scheme-2",
+        "line_separator": ""
+      }
+    },
+    "main": {
+      "type": "main-contact",
+      "settings": {
+        "page_width": "normal",
+        "content_max_width": "m",
+        "desktop_heading_alignment": "center",
+        "mobile_heading_alignment": "left",
+        "custom_page_header": true,
+        "title": "Contact us",
+        "italic_convert": "",
+        "heading_size": "h1",
+        "custom_page_text": false,
+        "text": "<p>Add a brief introduction to the Contact page.</p>",
+        "text_size": "t2",
+        "show_view_all_link": true,
+        "view_all_link": "",
+        "view_all_text": "",
+        "view_all_text_size": "t3",
+        "color_scheme": "scheme-2",
+        "heading_tag": "h1"
+      }
+    },
+    "multicolumn_YGQgDi": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_standard_kpNeXy": {
+          "type": "column_standard",
+          "settings": {
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-center",
+            "content_padding": 4,
+            "image_ratio": "adapt",
+            "image_width": 100,
+            "image_position": "top",
+            "icon": "chat_bubbles",
+            "icon_container": "none",
+            "icon_size": 7,
+            "icon_color": "#9822cc",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "title": "Support",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "text": "<p>Already purchased and have a question about your product? Try our FAQs.</p>",
+            "text_size": "t2",
+            "button_text_size": "t3",
+            "button_label": "FAQs",
+            "button_style": "primary",
+            "button_style_show_arrow": true,
+            "card_link": "",
+            "card_color_scheme": "scheme-1",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_standard_xyzR6t": {
+          "type": "column_standard",
+          "settings": {
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-center",
+            "content_padding": 4,
+            "image_ratio": "adapt",
+            "image_width": 100,
+            "image_position": "top",
+            "icon": "box",
+            "icon_container": "none",
+            "icon_size": 7,
+            "icon_color": "#9822cc",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "title": "Returns",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "text": "<p>We understand things don't always work out. Visit our returns pages for more.</p>",
+            "text_size": "t2",
+            "button_text_size": "t3",
+            "button_label": "Returns",
+            "button_style": "primary",
+            "button_style_show_arrow": true,
+            "card_link": "",
+            "card_color_scheme": "scheme-1",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_standard_ni7xhe": {
+          "type": "column_standard",
+          "settings": {
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-center",
+            "content_padding": 4,
+            "image_ratio": "adapt",
+            "image_width": 100,
+            "image_position": "top",
+            "icon": "truck",
+            "icon_container": "none",
+            "icon_size": 7,
+            "icon_color": "#9822cc",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "title": "Shipping",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "text": "<p>Want to track your order, or get an idea how long delivery may take or see our policy?</p>",
+            "text_size": "t2",
+            "button_text_size": "t3",
+            "button_label": "Shipping",
+            "button_style": "primary",
+            "button_style_show_arrow": true,
+            "card_link": "",
+            "card_color_scheme": "scheme-1",
+            "color_scheme_bg_fix": false
+          }
+        }
+      },
+      "block_order": [
+        "column_standard_kpNeXy",
+        "column_standard_xyzR6t",
+        "column_standard_ni7xhe"
+      ],
+      "settings": {
+        "icon_bottom": false,
+        "desktop_section_height": 200,
+        "mobile_section_height": 200,
+        "desktop_layout": "grid",
+        "mobile_layout": "grid",
+        "columns_desktop": "3",
+        "columns_desktop_scale": true,
+        "columns_mobile": "1",
+        "image_overlay_opacity": 0,
+        "content_max_width": "m",
+        "desktop_heading_alignment": "center",
+        "mobile_heading_alignment": "left",
+        "title": "",
+        "italic_convert": "",
+        "heading_size": "h2",
+        "text": "",
+        "text_size": "t3",
+        "view_all_link": "",
+        "view_all_text": "",
+        "view_all_text_size": "t3",
+        "color_scheme": "scheme-2",
+        "card_shadow": false,
+        "line_separator": "",
+        "top_padding": "pt-0",
+        "bottom_padding": "pb-s",
+        "hide_when_empty": false,
+        "heading_tag": "h1"
+      }
+    },
+    "contact_form_QkxQTX": {
+      "type": "contact-form",
+      "blocks": {
+        "heading_cdtUGJ": {
+          "type": "heading",
+          "settings": {
+            "visibility": "always",
+            "heading": "Get in touch",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h2"
+          }
+        },
+        "text_fnrQgU": {
+          "type": "text",
+          "settings": {
+            "visibility": "always",
+            "text": "<p>We're available 24/7 to assist. Just let us know what we can help you with and we'll do our best.</p>",
+            "text_size": "t3"
+          }
+        },
+        "custom_text_jwjaKd": {
+          "type": "custom_text",
+          "settings": {
+            "title": "First name",
+            "tip": "",
+            "half_width_on_desktop": true,
+            "required": false
+          }
+        },
+        "custom_text_JRhyfF": {
+          "type": "custom_text",
+          "settings": {
+            "title": "Last name",
+            "tip": "",
+            "half_width_on_desktop": true,
+            "required": false
+          }
+        },
+        "dropdown_P4adDJ": {
+          "type": "dropdown",
+          "settings": {
+            "title": "Enquiry",
+            "tip": "",
+            "options": "I want a refund\nWhere's my order?\nHelp\nQuestion\nOther",
+            "half_width_on_desktop": false,
+            "required": true
+          }
+        },
+        "email_FtqGFF": {
+          "type": "email",
+          "settings": {
+            "title": "Email",
+            "tip": "",
+            "half_width_on_desktop": false
+          }
+        },
+        "textarea_jpK9X7": {
+          "type": "textarea",
+          "settings": {
+            "title": "Message",
+            "tip": "",
+            "half_width_on_desktop": false,
+            "required": true
+          }
+        },
+        "text_KrBJiK": {
+          "type": "text",
+          "settings": {
+            "visibility": "always",
+            "text": "<p>We'll aim to get back to you within 24 hours.</p>",
+            "text_size": "t6"
+          }
+        }
+      },
+      "block_order": [
+        "heading_cdtUGJ",
+        "text_fnrQgU",
+        "custom_text_jwjaKd",
+        "custom_text_JRhyfF",
+        "dropdown_P4adDJ",
+        "email_FtqGFF",
+        "textarea_jpK9X7",
+        "text_KrBJiK"
+      ],
+      "settings": {
+        "preview_success": false,
+        "show_standard_success_message": true,
+        "image_overlay_opacity": 20,
+        "desktop_section_height": 500,
+        "mobile_section_height": 400,
+        "desktop_media_width": 50,
+        "layout": "media_first",
+        "content_layout": "no-overlap",
+        "show_header_beside": true,
+        "content_max_width": "m",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "desktop_content_position": "md:justify-start md:items-end",
+        "mobile_content_position": "justify-center items-center",
+        "title": "Need support?",
+        "italic_convert": "",
+        "heading_size": "h2",
+        "text": "<p>Check out our support guides first.</p>",
+        "text_size": "t3",
+        "button_text_size": "t5",
+        "button_label": "FAQs",
+        "button_link": "/",
+        "button_style": "secondary",
+        "button_style_show_arrow": true,
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image_overlay_color_scheme": "scheme-6",
+        "show_content_shadow": true,
+        "line_separator": "border-top",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "heading_tag": "h3"
+      }
+    },
+    "spacer_3fgGzE": {
+      "type": "spacer",
+      "settings": {
+        "full_width": false,
+        "show_line_separator": true,
+        "visibility": "",
+        "line_width": 100,
+        "spacing_top": 0,
+        "spacing_bottom": 0,
+        "color_scheme": "",
+        "line_color": ""
+      }
+    },
+    "image_with_collapsible_content_cRgcML": {
+      "type": "image-with-collapsible-content",
+      "blocks": {
+        "collapsible_row_GACw97": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Office 1",
+            "icon": "",
+            "image_width": 20,
+            "row_content": "<p>250 Innovation Way<br/>Suite 300<br/>San Francisco, CA 94107<br/>USA</p>",
+            "page": "",
+            "button_text_size": "t6",
+            "button_label_1": "Get directions",
+            "button_link_1": "https://www.google.com/maps/dir//Shopify,+620+King+St+W,+Toronto,+ON+M5V+1M7,+Canada/@43.6446531,-79.4033124,17z/data=!4m9!4m8!1m0!1m5!1m1!1s0x882b3536229849ff:0xc35f5826d7229445!2m2!1d-79.4007628!2d43.6447152!3e0?entry=ttu",
+            "button_style_1": "secondary",
+            "button_style_1_show_arrow": true
+          }
+        },
+        "collapsible_row_EqzGTt": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Office 2",
+            "icon": "",
+            "image_width": 20,
+            "row_content": "<p>480 Tech Ridge Blvd<br/>Building B<br/>Austin, TX 78753<br/>USA</p>",
+            "page": "",
+            "button_text_size": "t6",
+            "button_label_1": "Get directions",
+            "button_link_1": "https://www.google.com/maps/dir//Shopify,+620+King+St+W,+Toronto,+ON+M5V+1M7,+Canada/@43.6446531,-79.4033124,17z/data=!4m9!4m8!1m0!1m5!1m1!1s0x882b3536229849ff:0xc35f5826d7229445!2m2!1d-79.4007628!2d43.6447152!3e0?entry=ttu",
+            "button_style_1": "secondary",
+            "button_style_1_show_arrow": true
+          }
+        },
+        "collapsible_row_wbNiEf": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Office 3",
+            "icon": "",
+            "image_width": 20,
+            "row_content": "<p>100 Tech Park Drive<br/>15th Floor<br/>New York, NY 10013<br/>USA</p>",
+            "page": "",
+            "button_text_size": "t6",
+            "button_label_1": "Get directions",
+            "button_link_1": "https://www.google.com/maps/dir//Shopify,+620+King+St+W,+Toronto,+ON+M5V+1M7,+Canada/@43.6446531,-79.4033124,17z/data=!4m9!4m8!1m0!1m5!1m1!1s0x882b3536229849ff:0xc35f5826d7229445!2m2!1d-79.4007628!2d43.6447152!3e0?entry=ttu",
+            "button_style_1": "secondary",
+            "button_style_1_show_arrow": true
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_GACw97",
+        "collapsible_row_EqzGTt",
+        "collapsible_row_wbNiEf"
+      ],
+      "settings": {
+        "show_line_separator": false,
+        "row_heading_size": "t0",
+        "row_text_size": "t4",
+        "image_overlay_opacity": 0,
+        "desktop_section_height": 520,
+        "mobile_section_height": 280,
+        "desktop_media_width": 55,
+        "layout": "text_first",
+        "content_layout": "no-overlap-separate",
+        "show_header_beside": false,
+        "content_max_width": "s",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "desktop_content_position": "md:justify-start md:items-end",
+        "mobile_content_position": "justify-center items-center",
+        "title": "Where are we?",
+        "italic_convert": "",
+        "heading_size": "h2",
+        "text": "<p>Although most of our trade is online via our website, we do have three outlets across the US to make returns that bit easier for you.</p>",
+        "text_size": "t3",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "secondary",
+        "button_text_size": "t5",
+        "button_style_show_arrow": true,
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image_overlay_color_scheme": "",
+        "show_content_shadow": true,
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "heading_tag": "h3",
+        "hide_when_empty": false
+      }
+    },
+    "spacer_qWBT7U": {
+      "type": "spacer",
+      "settings": {
+        "full_width": false,
+        "show_line_separator": true,
+        "visibility": "",
+        "line_width": 100,
+        "spacing_top": 0,
+        "spacing_bottom": 0,
+        "color_scheme": "",
+        "line_color": ""
+      }
+    },
+    "gallery_zLLKp8": {
+      "type": "gallery",
+      "blocks": {
+        "gallery_item_dmMmT8": {
+          "type": "gallery_item",
+          "settings": {
+            "tall": false,
+            "wide": false,
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-center",
+            "content_max_width": "l",
+            "image_overlay_opacity": 0,
+            "icon": "",
+            "icon_container": "none",
+            "icon_size": 3.4,
+            "icon_color": "",
+            "icon_background_color": "#EDEDED",
+            "background_gradient": "",
+            "title": "Card 1",
+            "heading_size": "h3",
+            "heading_size_custom": 2.4,
+            "text": "",
+            "text_size": "t3",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "scheme-3"
+          }
+        },
+        "gallery_item_fG9CCX": {
+          "type": "gallery_item",
+          "settings": {
+            "tall": false,
+            "wide": false,
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-center",
+            "content_max_width": "l",
+            "image_overlay_opacity": 0,
+            "icon": "",
+            "icon_container": "none",
+            "icon_size": 3.4,
+            "icon_color": "",
+            "icon_background_color": "#EDEDED",
+            "background_gradient": "",
+            "title": "Card 2",
+            "heading_size": "h3",
+            "heading_size_custom": 2.4,
+            "text": "",
+            "text_size": "t3",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "scheme-3"
+          }
+        },
+        "gallery_item_T6hLwm": {
+          "type": "gallery_item",
+          "settings": {
+            "tall": false,
+            "wide": false,
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-center",
+            "content_max_width": "l",
+            "image_overlay_opacity": 0,
+            "icon": "",
+            "icon_container": "none",
+            "icon_size": 3.4,
+            "icon_color": "",
+            "icon_background_color": "#EDEDED",
+            "background_gradient": "",
+            "title": "Card 3",
+            "heading_size": "h3",
+            "heading_size_custom": 2.4,
+            "text": "",
+            "text_size": "t3",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "scheme-3"
+          }
+        }
+      },
+      "block_order": [
+        "gallery_item_dmMmT8",
+        "gallery_item_fG9CCX",
+        "gallery_item_T6hLwm"
+      ],
+      "settings": {
+        "columns_desktop": 3,
+        "spacing_grid": 16,
+        "corner_rounding": "inner",
+        "content_padding": 3,
+        "desktop_section_height": 320,
+        "mobile_section_height": 190,
+        "mobile_layout": "grid",
+        "content_max_width": "m",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "title": "",
+        "italic_convert": "",
+        "heading_size": "h2",
+        "text": "",
+        "text_size": "t3",
+        "view_all_link": "",
+        "view_all_text": "",
+        "view_all_text_size": "t3",
+        "section_color_scheme": "",
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "hide_when_empty": false
+      }
+    },
+    "icons_with_text_Wqxckf": {
+      "type": "icons-with-text",
+      "blocks": {
+        "icon_with_text_6LQzK4": {
+          "type": "icon_with_text",
+          "settings": {
+            "icon": "shield_checkmark",
+            "icon_container": "none",
+            "icon_color": "",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "image_width": 40,
+            "title": "<strong>WELL TRUSTED</strong>",
+            "text": "Over 100k customers",
+            "card_link": ""
+          }
+        },
+        "icon_with_text_4ef7CA": {
+          "type": "icon_with_text",
+          "settings": {
+            "icon": "truck",
+            "icon_container": "none",
+            "icon_color": "",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "image_width": 40,
+            "title": "<strong>SUPER FAST</strong>",
+            "text": "With Express delivery",
+            "card_link": ""
+          }
+        },
+        "icon_with_text_nGzfRe": {
+          "type": "icon_with_text",
+          "settings": {
+            "icon": "chat_bubbles",
+            "icon_container": "none",
+            "icon_color": "",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "image_width": 40,
+            "title": "<strong>EXPERT HELP</strong>",
+            "text": "Seven days a week",
+            "card_link": ""
+          }
+        },
+        "icon_with_text_xn8Win": {
+          "type": "icon_with_text",
+          "settings": {
+            "icon": "price_tags",
+            "icon_container": "none",
+            "icon_color": "",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "image_width": 40,
+            "title": "<strong>BEST PRICES</strong>",
+            "text": "Unbeatable value",
+            "card_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_with_text_6LQzK4",
+        "icon_with_text_4ef7CA",
+        "icon_with_text_nGzfRe",
+        "icon_with_text_xn8Win"
+      ],
+      "settings": {
+        "placement": "beside",
+        "content_vertical_alignment": "items-start",
+        "column_alignment": "left",
+        "vertical_padding": 2,
+        "icon_size": 2.8,
+        "heading_size": "t6",
+        "text_size": "t6",
+        "mobile_layout": "carousel",
+        "columns_mobile": "2",
+        "color_scheme": "scheme-5",
+        "line_separator": "",
+        "hide_when_empty": false
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "main",
+    "multicolumn_YGQgDi",
+    "contact_form_QkxQTX",
+    "spacer_3fgGzE",
+    "image_with_collapsible_content_cRgcML",
+    "spacer_qWBT7U",
+    "gallery_zLLKp8",
+    "icons_with_text_Wqxckf"
+  ]
+}

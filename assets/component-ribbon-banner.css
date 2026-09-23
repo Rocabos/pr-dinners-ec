@@ -1,0 +1,37 @@
+.ribbon-banner__heading {
+  margin: 0;
+}
+
+.ribbon-banner__icon {
+  display: flex;
+}
+
+.ribbon-banner__child-right > * {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.ribbon-banner .button {
+  white-space: nowrap;
+}
+
+.ribbon-banner .button svg {
+  height: 1.5em;
+  width: 1.5em;
+}
+
+.ribbon-banner__text p:not(:first-child) {
+  margin-top: 0.75rem;
+}
+
+@media screen and (max-width: 749.98px) {
+  .ribbon-banner__stat .stat {
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  closable-element .ribbon-banner__child-right > * {
+    margin-inline-end: 1rem;
+  }
+}

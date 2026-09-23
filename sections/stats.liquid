@@ -1,0 +1,1983 @@
+{%- comment -%}theme-check-disable SchemaJsonFormat{%- endcomment -%}
+{%- if section.index < 3 or request.design_mode -%}
+  {{ 'component-stats.css' | asset_url | stylesheet_tag }}
+{%- else -%}
+  <link rel="stylesheet" href="{{ 'component-stats.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endif -%}
+
+{%- style -%}
+  #Slider-{{ section.id }} {
+    --grid-mobile-vertical-spacing: {{ section.settings.spacing_grid | times: 0.6 | at_least: 20 }}px;
+    --grid-mobile-horizontal-spacing: {{ section.settings.spacing_grid | times: 0.6 | at_least: 20 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    #Slider-{{ section.id }} {
+      --grid-desktop-vertical-spacing: {{ section.settings.spacing_grid }}px;
+      --grid-desktop-horizontal-spacing: {{ section.settings.spacing_grid }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% unless section.settings.full_width_section %}
+<div class="isolate {{ section.settings.line_separator }} page-width section__inner {{ section.settings.top_padding }} {{ section.settings.bottom_padding }} {{ section.settings.visibility }} {%- render 'class-time-of-day-to-show' -%}">
+  <div class="content-container overflow-hidden">
+{% endunless %}
+
+{%- render 'multicolumn' -%}
+
+{% unless section.settings.full_width_section %}
+  </div>
+</div>
+{% endunless %}
+
+{% schema %}
+{
+  "name": "Stats counter",
+  "class": "section section-stats",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer", "aside"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "stat_animate",
+      "default": true,
+      "label": "Animate numbers"
+    },
+    {
+      "type": "select",
+      "id": "stat_caption_style",
+      "options": [
+        {
+          "value": "",
+          "label": "Standard"
+        },
+        {
+          "value": "subtitle",
+          "label": "Subtitle"
+        },
+        {
+          "value": "caption-with-letter-spacing",
+          "label": "Uppercase"
+        }
+      ],
+      "default": "caption-with-letter-spacing",
+      "label": "Caption style"
+    },
+    {
+      "type": "select",
+      "id": "stat_style",
+      "options": [
+        {
+          "value": "text-body",
+          "label": "Body"
+        },
+        {
+          "value": "text-heading",
+          "label": "Heading"
+        }
+      ],
+      "default": "text-body",
+      "label": "Stat style"
+    },
+    {
+      "type": "select",
+      "id": "heading_style",
+      "options": [
+        {
+          "value": "text-body",
+          "label": "Body"
+        },
+        {
+          "value": "",
+          "label": "Heading"
+        }
+      ],
+      "default": "text-body",
+      "label": "Stats heading style"
+    },
+    {
+      "type": "select",
+      "id": "stat_size",
+      "options": [
+        {
+          "value": "h4",
+          "label": "XS"
+        },
+        {
+          "value": "h3",
+          "label": "S"
+        },
+        {
+          "value": "h2",
+          "label": "M"
+        },
+        {
+          "value": "h1",
+          "label": "L"
+        },
+        {
+          "value": "h0",
+          "label": "XL"
+        },
+        {
+          "value": "hxl",
+          "label": "2XL"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "custom",
+      "label": "Stat size"
+    },
+    {
+      "type": "range",
+      "id": "stat_size_custom",
+      "visible_if": "{{ section.settings.stat_size == 'custom' }}",
+      "min": 1,
+      "max": 9,
+      "step": 0.2,
+      "unit": "rem",
+      "default": 5,
+      "info": "Check stats on smaller screens to ensure they don't get cut off. Use larger font sizes for added impact only when one or two stats are shown per row.",
+      "label": "Custom stat size"
+    },
+    {
+      "type": "header",
+      "content": "Card layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_section_height",
+      "min": 0,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum height on desktop",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "mobile_section_height",
+      "min": 0,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "label": "Minimum height on mobile",
+      "default": 0
+    },
+    {
+      "type": "text_alignment",
+      "id": "column_alignment",
+      "default": "center",
+      "label": "Text alignment"
+    },
+    {
+      "type": "select",
+      "id": "text_vertical_alignment",
+      "default": "justify-center",
+      "label": "Content vertical alignment",
+      "options": [
+        {
+          "value": "justify-start",
+          "label": "Top"
+        },
+        {
+          "value": "justify-center",
+          "label": "Middle"
+        },
+        {
+          "value": "justify-end",
+          "label": "Bottom"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "spacing_grid",
+      "min": 4,
+      "max": 100,
+      "step": 1,
+      "default": 28,
+      "unit": "px",
+      "label": "Gap between stats on desktop"
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "min": 0,
+      "max": 10,
+      "step": 0.1,
+      "default": 2,
+      "unit": "rem",
+      "info": "This will scale according to screen size.",
+      "label": "Content padding"
+    },
+    {
+      "type": "header",
+      "content": "Grid"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Number of columns on desktop",
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "columns_desktop_scale",
+      "label": "Reduce the number of cards shown as the screen gets narrower",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width_section",
+      "default": true,
+      "label": "Full width"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "info": "2500 x 1000 pixels jpg recommended. [Learn more](https://benchmarkthemes.com/help-center/ignite/guides/image-faq/)",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "image_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "label": "Image overlay opacity",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Header layout"
+    },
+    
+  {
+    "type": "select",
+    "id": "content_max_width",
+    "options": [
+      {
+        "value": "xs",
+        "label": "XS"
+      },
+      {
+        "value": "s",
+        "label": "S"
+      },
+      {
+        "value": "m",
+        "label": "M"
+      },
+      {
+        "value": "l",
+        "label": "L"
+      },
+      {
+        "value": "xl",
+        "label": "XL"
+      }
+    ],
+    "default": "m",
+    "label": "Maximum heading width"
+  },
+  {
+    "type": "text_alignment",
+    "id": "desktop_heading_alignment",
+    "default": "left",
+    "label": "Heading alignment on desktop"
+  },
+  {
+    "type": "text_alignment",
+    "id": "mobile_heading_alignment",
+    "default": "left",
+    "label": "Heading alignment on mobile"
+  }
+,
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    
+  {
+    "type": "inline_richtext",
+    "id": "title",
+    
+    "info": "Enter ++ for a line break.",
+    "label": "Heading"
+  },
+  {
+    "type": "select",
+    "id": "italic_convert",
+    "visible_if": "{{ section.settings.title != blank }}",
+    "options": [
+      {
+        "value": "",
+        "label": "Off (keep as italics)"
+      },
+      {
+        "value": "light",
+        "label": "Lighter"
+      },
+      {
+        "value": "accent_color",
+        "label": "Accent color"
+      },
+      {
+        "value": "accent",
+        "label": "Accent gradient color"
+      },
+      {
+        "value": "outline",
+        "label": "Outline"
+      },
+      {
+        "value": "outline_accent",
+        "label": "Outline - Accent color"
+      },
+      {
+        "value": "glow",
+        "label": "Glow - Accent color"
+      },
+      {
+        "value": "glow_outline",
+        "label": "Glow with outline - Accent color"
+      }
+    ],
+    "info": "The colors above can be set in the color schemes. 'Outline' may not work with all fonts.",
+    "default": "",
+    "label": "Convert italic text to"
+  },
+  {
+    "type": "select",
+    "id": "heading_size",
+    "visible_if": "{{ section.settings.title != blank }}",
+    "options": [
+      {
+        "value": "h4",
+        "label": "XS"
+      },
+      {
+        "value": "h3",
+        "label": "S"
+      },
+      {
+        "value": "h2",
+        "label": "M"
+      },
+      {
+        "value": "h1",
+        "label": "L"
+      },
+      {
+        "value": "h0",
+        "label": "XL"
+      }
+    ],
+    "default": "h2",
+    "label": "Heading size"
+  }
+,
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    
+  {
+    "type": "richtext",
+    "id": "text",
+    
+    "label": "Description"
+  },
+  {
+    "type": "select",
+    "id": "text_size",
+    "visible_if": "{{ section.settings.text != blank }}",
+    "options": [
+      {
+        "value": "t6",
+        "label": "2XS"
+      },
+      {
+        "value": "t5",
+        "label": "XS"
+      },
+      {
+        "value": "t4",
+        "label": "S"
+      },
+      {
+        "value": "t3",
+        "label": "M"
+      },
+      {
+        "value": "t2",
+        "label": "L"
+      },
+      {
+        "value": "t1",
+        "label": "XL"
+      },
+      {
+        "value": "t0",
+        "label": "2XL"
+      }
+    ],
+    "default": "t3",
+    "label": "Text size"
+  }
+,
+    {
+      "type": "header",
+      "content": "View more"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View more link"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View more link text"
+    },
+    {
+      "type": "select",
+      "id": "view_all_text_size",
+      "options": [
+        {
+          "value": "t6",
+          "label": "2XS"
+        },
+        {
+          "value": "t5",
+          "label": "XS"
+        },
+        {
+          "value": "t4",
+          "label": "S"
+        },
+        {
+          "value": "t3",
+          "label": "M"
+        },
+        {
+          "value": "t2",
+          "label": "L"
+        },
+        {
+          "value": "t1",
+          "label": "XL"
+        },
+        {
+          "value": "t0",
+          "label": "2XL"
+        }
+      ],
+      "default": "t3",
+      "label": "View more link size"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_shadow",
+      "default": false,
+      "label": "Show card shadow"
+    },
+    {
+      "type": "select",
+      "id": "line_separator",
+      "options": [
+        {
+          "value": "",
+          "label": "Off"
+        },
+        {
+          "value": "border-top",
+          "label": "Top"
+        },
+        {
+          "value": "border-bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "border-top border-bottom",
+          "label": "Both"
+        }
+      ],
+      "default": "",
+      "label": "Line separator"
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "select",
+      "id": "top_padding",
+      "options": [
+        {
+          "value": "pt-0",
+          "label": "0"
+        },
+        {
+          "value": "pt-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pt-s",
+          "label": "1"
+        },
+        {
+          "value": "pt-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pt-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pt-s",
+      "label": "Top section spacing"
+    },
+    {
+      "type": "select",
+      "id": "bottom_padding",
+      "options": [
+        {
+          "value": "pb-0",
+          "label": "0"
+        },
+        {
+          "value": "pb-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pb-s",
+          "label": "1"
+        },
+        {
+          "value": "pb-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pb-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pb-s",
+      "label": "Bottom section spacing"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "options": [
+        {
+          "value": "visible-xs",
+          "label": "Mobile"
+        },
+        {
+          "value": "hidden-xs",
+          "label": "Desktop"
+        },
+        {
+          "value": "",
+          "label": "Both"
+        }
+      ],
+      "default": "",
+      "info": "Lots of hidden content could be harmful for SEO.",
+      "label": "Show on"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_when_empty",
+      "default": false,
+      "label": "Hide this section when there's no card content to show",
+      "info": "This allows metafields to selectively show this section. Always shows in the Theme Editor."
+    },
+    
+  {
+    "type": "checkbox",
+    "id": "show_at_specific_time_of_day",
+    "default": false,
+    "label": "Only show at specific times of the day",
+    "info": "Uses the customers' local time. Always shows in Theme Editor."
+  },
+  {
+    "type": "paragraph",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "content": "Lots of hidden content could be harmful for SEO. Don't overuse this."
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_morning",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show in the morning (5am - 12pm)"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_afternoon",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show in the afternoon (12pm - 5pm)"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_evening",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show in the evening (5pm - 9pm)"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_night",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show at night (9pm - 5am)"
+  }
+,
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h2",
+      "info": "For SEO purposes, there should only be one H1 tag on the page.",
+      "label": "Heading tag"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column_standard",
+      "name": "Stat counter",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Stat"
+        },
+        {
+          "type": "text",
+          "id": "stat_caption",
+          "default": "Over",
+          "label": "Caption"
+        },
+        {
+          "type": "text",
+          "id": "stat_number",
+          "default": "123%",
+          "label": "Stat counter"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "default": "subheading",
+          "label": "Subheading",
+          "info": "To animate between words enter them in the format: 'We deliver exceptional [products|service|value]'. Ensure [ | and ] characters aren't bold or italic. Keep animated words short and similar in length."
+        },
+        {
+          "type": "header",
+          "content": "Stat appearance"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "h4",
+              "label": "XS"
+            },
+            {
+              "value": "h3",
+              "label": "S"
+            },
+            {
+              "value": "h2",
+              "label": "M"
+            },
+            {
+              "value": "h1",
+              "label": "L"
+            },
+            {
+              "value": "h0",
+              "label": "XL"
+            },
+            {
+              "value": "hxl",
+              "label": "2XL"
+            }
+          ],
+          "default": "h4",
+          "label": "Subheading size"
+        },
+        {
+          "type": "color",
+          "id": "stat_color",
+          "label": "Stat color",
+          "default": "#F00"
+        },
+        {
+          "type": "color_background",
+          "id": "stat_text_gradient",
+          "label": "Text gradient",
+          "info": "Replaces the stat color."
+        },
+        {
+          "type": "header",
+          "content": "Icon"
+        },
+        
+  {
+    "type": "select",
+    "id": "icon",
+    "options": [
+      
+  {
+    "label": "None",
+    "value": ""
+  },
+  {
+    "label": "Clothes & Beauty / Brush",
+    "value": "brush"
+  },
+  {
+    "label": "Clothes & Beauty / Dryer",
+    "value": "dryer"
+  },
+  {
+    "label": "Clothes & Beauty / Footsteps",
+    "value": "footsteps"
+  },
+  {
+    "label": "Clothes & Beauty / Glasses",
+    "value": "glasses"
+  },
+  {
+    "label": "Clothes & Beauty / Iron",
+    "value": "iron"
+  },
+  {
+    "label": "Clothes & Beauty / Leather",
+    "value": "leather"
+  },
+  {
+    "label": "Clothes & Beauty / Lipstick",
+    "value": "lipstick"
+  },
+  {
+    "label": "Clothes & Beauty / Pants",
+    "value": "pants"
+  },
+  {
+    "label": "Clothes & Beauty / Perfume",
+    "value": "perfume"
+  },
+  {
+    "label": "Clothes & Beauty / Ruler",
+    "value": "ruler"
+  },
+  {
+    "label": "Clothes & Beauty / Scissors",
+    "value": "scissors"
+  },
+  {
+    "label": "Clothes & Beauty / Shirt 1",
+    "value": "shirt"
+  },
+  {
+    "label": "Clothes & Beauty / Shirt 2",
+    "value": "shirt2"
+  },
+  {
+    "label": "Clothes & Beauty / Shoe",
+    "value": "shoe"
+  },
+  {
+    "label": "Clothes & Beauty / Washing",
+    "value": "washing"
+  },
+  {
+    "label": "Communication / Call",
+    "value": "call"
+  },
+  {
+    "label": "Communication / Chat bubble",
+    "value": "chat_bubble"
+  },
+  {
+    "label": "Communication / Chat bubbles",
+    "value": "chat_bubbles"
+  },
+  {
+    "label": "Communication / Ear",
+    "value": "ear"
+  },
+  {
+    "label": "Communication / Information",
+    "value": "information"
+  },
+  {
+    "label": "Communication / Information circle",
+    "value": "information_circle"
+  },
+  {
+    "label": "Communication / Mail",
+    "value": "mail"
+  },
+  {
+    "label": "Communication / @ symbol",
+    "value": "email-at"
+  },
+  {
+    "label": "Communication / Notification alert",
+    "value": "alert"
+  },
+  {
+    "label": "Communication / Question mark",
+    "value": "help"
+  },
+  {
+    "label": "Communication / Question mark circle",
+    "value": "question_mark"
+  },
+  {
+    "label": "Communication / Warning",
+    "value": "warning"
+  },
+  {
+    "label": "Digital / Apps",
+    "value": "apps"
+  },
+  {
+    "label": "Digital / Arrow right",
+    "value": "arrow_right"
+  },
+  {
+    "label": "Digital / Attach",
+    "value": "attach"
+  },
+  {
+    "label": "Digital / Calendar",
+    "value": "calendar"
+  },
+  {
+    "label": "Digital / Chart",
+    "value": "chart"
+  },
+  {
+    "label": "Digital / Chevron right",
+    "value": "chevron_right"
+  },
+  {
+    "label": "Digital / Clipboard",
+    "value": "clipboard"
+  },
+  {
+    "label": "Digital / Cloud",
+    "value": "cloud"
+  },
+  {
+    "label": "Digital / Cloud done",
+    "value": "cloud_done"
+  },
+  {
+    "label": "Digital / Cloud download",
+    "value": "cloud_download"
+  },
+  {
+    "label": "Digital / Cloud upload",
+    "value": "cloud_upload"
+  },
+  {
+    "label": "Digital / Code slash",
+    "value": "code_slash"
+  },
+  {
+    "label": "Digital / Documents",
+    "value": "documents"
+  },
+  {
+    "label": "Digital / Home",
+    "value": "home"
+  },
+  {
+    "label": "Digital / Images",
+    "value": "images"
+  },
+  {
+    "label": "Digital / Open in new window",
+    "value": "open"
+  },
+  {
+    "label": "Digital / Options",
+    "value": "options"
+  },
+  {
+    "label": "Digital / Plus",
+    "value": "plus"
+  },
+  {
+    "label": "Digital / Plus in circle",
+    "value": "add"
+  },
+  {
+    "label": "Digital / Repeat",
+    "value": "repeat"
+  },
+  {
+    "label": "Digital / Scan",
+    "value": "scan"
+  },
+  {
+    "label": "Digital / Search",
+    "value": "search"
+  },
+  {
+    "label": "Digital / Volume",
+    "value": "volume"
+  },
+
+  {
+    "label": "eCommerce / Bag add",
+    "value": "bag-add"
+  },
+  {
+    "label": "eCommerce / Bag with check mark",
+    "value": "bag-check"
+  },
+  {
+    "label": "eCommerce / Box",
+    "value": "box"
+  },
+  {
+    "label": "eCommerce / Card",
+    "value": "card"
+  },
+  {
+    "label": "eCommerce / Cart",
+    "value": "cart"
+  },
+  {
+    "label": "eCommerce / Clock",
+    "value": "clock"
+  },
+  {
+    "label": "eCommerce / Cash",
+    "value": "cash"
+  },
+  {
+    "label": "eCommerce / Gift",
+    "value": "gift"
+  },
+  {
+    "label": "eCommerce / Price tag",
+    "value": "price_tag"
+  },
+  {
+    "label": "eCommerce / Price tags",
+    "value": "price_tags"
+  },
+  {
+    "label": "eCommerce / Recycle",
+    "value": "recycle"
+  },
+  {
+    "label": "eCommerce / Return",
+    "value": "return"
+  },
+  {
+    "label": "eCommerce / Storefront",
+    "value": "storefront"
+  },
+  {
+    "label": "eCommerce / Truck",
+    "value": "truck"
+  },
+  {
+    "label": "eCommerce / Wallet",
+    "value": "wallet"
+  },
+  {
+    "label": "Food & Beverage / Apple",
+    "value": "apple"
+  },
+  {
+    "label": "Food & Beverage / Banana",
+    "value": "banana"
+  },
+  {
+    "label": "Food & Beverage / Beer",
+    "value": "beer"
+  },
+  {
+    "label": "Food & Beverage / Bottle",
+    "value": "bottle"
+  },
+  {
+    "label": "Food & Beverage / Carrot",
+    "value": "carrot"
+  },
+  {
+    "label": "Food & Beverage / Coffee",
+    "value": "cafe"
+  },
+  {
+    "label": "Food & Beverage / Cutlery",
+    "value": "restaurant"
+  },
+  {
+    "label": "Food & Beverage / Dairy",
+    "value": "dairy"
+  },
+  {
+    "label": "Food & Beverage / Dairy free",
+    "value": "dairy_free"
+  },
+  {
+    "label": "Food & Beverage / Drink",
+    "value": "pint"
+  },
+  {
+    "label": "Food & Beverage / Egg",
+    "value": "egg"
+  },
+  {
+    "label": "Food & Beverage / Fast food",
+    "value": "fast_food"
+  },
+  {
+    "label": "Food & Beverage / Fish",
+    "value": "fish"
+  },
+  {
+    "label": "Food & Beverage / Gluten free",
+    "value": "gluten_free"
+  },
+  {
+    "label": "Food & Beverage / Ice cream",
+    "value": "ice_cream"
+  },
+  {
+    "label": "Food & Beverage / Nut free",
+    "value": "nut_free"
+  },
+  {
+    "label": "Food & Beverage / Pepper",
+    "value": "pepper"
+  },
+  {
+    "label": "Food & Beverage / Pizza",
+    "value": "pizza"
+  },
+  {
+    "label": "Food & Beverage / Serving dish",
+    "value": "serving_dish"
+  },
+  {
+    "label": "Food & Beverage / Vegan",
+    "value": "plant"
+  },
+  {
+    "label": "Food & Beverage / Wine",
+    "value": "wine"
+  },
+  {
+    "label": "Hardware & Tools / Construction",
+    "value": "construction"
+  },
+  {
+    "label": "Hardware & Tools / Cog",
+    "value": "cog"
+  },
+  {
+    "label": "Hardware & Tools / Eyedropper",
+    "value": "eyedropper"
+  },
+  {
+    "label": "Hardware & Tools / Flashlight",
+    "value": "flashlight"
+  },
+  {
+    "label": "Hardware & Tools / Gear",
+    "value": "gear"
+  },
+  {
+    "label": "Hardware & Tools / Hammer",
+    "value": "hammer"
+  },
+  {
+    "label": "Hardware & Tools / Magnet",
+    "value": "magnet"
+  },
+  {
+    "label": "Hardware & Tools / Paint bucket",
+    "value": "paint"
+  },
+  {
+    "label": "Hardware & Tools / Thermometer",
+    "value": "thermometer"
+  },
+  {
+    "label": "Hardware & Tools / Wrench",
+    "value": "build"
+  },
+  {
+    "label": "Logo / Amazon",
+    "value": "logo_amazon"
+  },
+  {
+    "label": "Logo / Android",
+    "value": "logo_android"
+  },
+  {
+    "label": "Logo / Apple",
+    "value": "logo_apple"
+  },
+  {
+    "label": "Logo / Apple Appstore",
+    "value": "logo_apple_appstore"
+  },
+  {
+    "label": "Logo / Discord",
+    "value": "logo_discord"
+  },
+  {
+    "label": "Logo / Facebook",
+    "value": "logo_facebook"
+  },
+  {
+    "label": "Logo / Google",
+    "value": "logo_google"
+  },
+  {
+    "label": "Logo / Google Playstore",
+    "value": "logo_google_playstore"
+  },
+  {
+    "label": "Logo / Instagram",
+    "value": "logo_instagram"
+  },
+  {
+    "label": "Logo / Linkedin",
+    "value": "logo_linkedin"
+  },
+  {
+    "label": "Logo / Microsoft",
+    "value": "logo_microsoft"
+  },
+  {
+    "label": "Logo / Pinterest",
+    "value": "logo_pinterest"
+  },
+  {
+    "label": "Logo / Soundcloud",
+    "value": "logo_soundcloud"
+  },
+  {
+    "label": "Logo / Tiktok",
+    "value": "logo_tiktok"
+  },
+  {
+    "label": "Logo / Tumblr",
+    "value": "logo_tumblr"
+  },
+  {
+    "label": "Logo / Twitch",
+    "value": "logo_twitch"
+  },
+  {
+    "label": "Logo / Wechat",
+    "value": "logo_wechat"
+  },
+  {
+    "label": "Logo / Whatsapp",
+    "value": "logo_whatsapp"
+  },
+  {
+    "label": "Logo / X (aka Twitter)",
+    "value": "logo_x"
+  },
+  {
+    "label": "Logo / YouTube",
+    "value": "logo_youtube"
+  },
+  {
+    "label": "Nature / Bug",
+    "value": "bug"
+  },
+  {
+    "label": "Nature / Earth",
+    "value": "earth"
+  },
+  {
+    "label": "Nature / Fire",
+    "value": "fire"
+  },
+  {
+    "label": "Nature / Flower",
+    "value": "flower"
+  },
+  {
+    "label": "Nature / Globe",
+    "value": "globe"
+  },
+  {
+    "label": "Nature / Leaf",
+    "value": "leaf"
+  },
+  {
+    "label": "Nature / Lightning bolt",
+    "value": "lightning_bolt"
+  },
+  {
+    "label": "Nature / Partly sunny",
+    "value": "partly_sunny"
+  },
+  {
+    "label": "Nature / Paw print",
+    "value": "paw_print"
+  },
+  {
+    "label": "Nature / Rose",
+    "value": "rose"
+  },
+  {
+    "label": "Nature / Snowflake",
+    "value": "snowflake"
+  },
+  {
+    "label": "Nature / Sunny",
+    "value": "sunny"
+  },
+  {
+    "label": "Nature / Thunderstorm",
+    "value": "thunderstorm"
+  },
+  {
+    "label": "Nature / Umbrella",
+    "value": "umbrella"
+  },
+  {
+    "label": "Nature / Water",
+    "value": "water"
+  },
+  {
+    "label": "Other / Balloon",
+    "value": "balloon"
+  },
+  {
+    "label": "Other / Ban",
+    "value": "ban"
+  },
+  {
+    "label": "Other / Bed",
+    "value": "bed"
+  },
+  {
+    "label": "Other / Book",
+    "value": "book"
+  },
+  {
+    "label": "Other / Books",
+    "value": "books"
+  },
+  {
+    "label": "Other / Briefcase",
+    "value": "briefcase"
+  },
+  {
+    "label": "Other / Calculator",
+    "value": "calculator"
+  },
+  {
+    "label": "Other / Color palette",
+    "value": "color_palette"
+  },
+  {
+    "label": "Other / Cube",
+    "value": "cube"
+  },
+  {
+    "label": "Other / Eye",
+    "value": "eye"
+  },
+  {
+    "label": "Other / Film",
+    "value": "film"
+  },
+  {
+    "label": "Other / Horizontal line",
+    "value": "horizontal_line"
+  },
+  {
+    "label": "Other / Hourglass",
+    "value": "hourglass"
+  },
+  {
+    "label": "Other / Magic wand",
+    "value": "magic_wand"
+  },
+  {
+    "label": "Other / Medical",
+    "value": "medical"
+  },
+  {
+    "label": "Other / Puzzle piece",
+    "value": "puzzle"
+  },
+  {
+    "label": "Other / Rocket",
+    "value": "rocket"
+  },
+  {
+    "label": "Other / Ticket",
+    "value": "ticket"
+  },
+  {
+    "label": "People / Female figure",
+    "value": "woman"
+  },
+  {
+    "label": "People / Female symbol",
+    "value": "female"
+  },
+  {
+    "label": "People / Male figure",
+    "value": "man"
+  },
+  {
+    "label": "People / Male symbol",
+    "value": "male"
+  },
+  {
+    "label": "People / People silhouettes",
+    "value": "people"
+  },
+  {
+    "label": "People / Person happy",
+    "value": "person"
+  },
+  {
+    "label": "People / Silhouette",
+    "value": "silhouette"
+  },
+  {
+    "label": "People / Silhouette circle",
+    "value": "silhouette_circle"
+  },
+  {
+    "label": "People / Unisex symbol",
+    "value": "male_female"
+  },
+  {
+    "label": "Sports & Fitness / Barbell",
+    "value": "barbell"
+  },
+  {
+    "label": "Sports & Fitness / Baseball",
+    "value": "baseball"
+  },
+  {
+    "label": "Sports & Fitness / Basketball",
+    "value": "basketball"
+  },
+  {
+    "label": "Sports & Fitness / Heart rate",
+    "value": "fitness"
+  },
+  {
+    "label": "Sports & Fitness / Pulse",
+    "value": "pulse"
+  },
+  {
+    "label": "Sports & Fitness / Scales",
+    "value": "scale"
+  },
+  {
+    "label": "Sports & Fitness / Soccer ball",
+    "value": "soccer_ball"
+  },
+  {
+    "label": "Sports & Fitness / Stopwatch",
+    "value": "stopwatch"
+  },
+  {
+    "label": "Sports & Fitness / Tennis ball",
+    "value": "tennis_ball"
+  },
+  {
+    "label": "Technology / Battery charging",
+    "value": "battery_charging"
+  },
+  {
+    "label": "Technology / Battery empty",
+    "value": "battery_dead"
+  },
+  {
+    "label": "Technology / Battery full",
+    "value": "battery_full"
+  },
+  {
+    "label": "Technology / Battery half",
+    "value": "battery_half"
+  },
+  {
+    "label": "Technology / Bluetooth",
+    "value": "bluetooth"
+  },
+  {
+    "label": "Technology / Bulb",
+    "value": "bulb"
+  },
+  {
+    "label": "Technology / Camera",
+    "value": "camera"
+  },
+  {
+    "label": "Technology / Camera aperture",
+    "value": "camera_aperture"
+  },
+  {
+    "label": "Technology / Cellular",
+    "value": "cellular"
+  },
+  {
+    "label": "Technology / Computer",
+    "value": "computer"
+  },
+  {
+    "label": "Technology / Flash",
+    "value": "flash"
+  },
+  {
+    "label": "Technology / Game controller",
+    "value": "game_controller"
+  },
+  {
+    "label": "Technology / Hardware chip",
+    "value": "hardware_chip"
+  },
+  {
+    "label": "Technology / Headphones",
+    "value": "headset"
+  },
+  {
+    "label": "Technology / Infinite",
+    "value": "infinite"
+  },
+  {
+    "label": "Technology / Laptop",
+    "value": "laptop"
+  },
+  {
+    "label": "Technology / Layers",
+    "value": "layers"
+  },
+  {
+    "label": "Technology / Mic",
+    "value": "mic"
+  },
+  {
+    "label": "Technology / Phone landscape",
+    "value": "phone_landscape"
+  },
+  {
+    "label": "Technology / Phone portrait",
+    "value": "phone_portrait"
+  },
+  {
+    "label": "Technology / Television",
+    "value": "tv"
+  },
+  {
+    "label": "Technology / Timer",
+    "value": "timer"
+  },
+  {
+    "label": "Technology / Videocam",
+    "value": "videocam"
+  },
+  {
+    "label": "Technology / Watch",
+    "value": "watch"
+  },
+  {
+    "label": "Technology / Wifi",
+    "value": "wifi"
+  },
+  {
+    "label": "Technology / Power",
+    "value": "power"
+  },
+  {
+    "label": "Transport / Airplane",
+    "value": "airplane"
+  },
+  {
+    "label": "Transport / Bicycle",
+    "value": "bicycle"
+  },
+  {
+    "label": "Transport / Car",
+    "value": "car"
+  },
+  {
+    "label": "Transport / Map location",
+    "value": "map_pin"
+  },
+  {
+    "label": "Transport / Navigation",
+    "value": "navigation"
+  },
+  {
+    "label": "Transport / Speedometer",
+    "value": "speedometer"
+  },
+  {
+    "label": "Transport / Sports car",
+    "value": "sports_car"
+  },
+  {
+    "label": "Trust / Award",
+    "value": "ribbon"
+  },
+  {
+    "label": "Trust / Check mark",
+    "value": "check_mark_only"
+  },
+  {
+    "label": "Trust / Check mark in square",
+    "value": "check_mark"
+  },
+  {
+    "label": "Trust / Check mark in circle",
+    "value": "check_mark_circle"
+  },
+  {
+    "label": "Trust / Happy",
+    "value": "happy"
+  },
+  {
+    "label": "Trust / Heart",
+    "value": "heart"
+  },
+  {
+    "label": "Trust / Key",
+    "value": "key"
+  },
+  {
+    "label": "Trust / Lock",
+    "value": "lock"
+  },
+  {
+    "label": "Trust / Lock closed",
+    "value": "lock_closed"
+  },
+  {
+    "label": "Trust / Lock open",
+    "value": "lock_open"
+  },
+  {
+    "label": "Trust / Shield",
+    "value": "shield"
+  },
+  {
+    "label": "Trust / Shield checkmark",
+    "value": "shield_checkmark"
+  },
+  {
+    "label": "Trust / Star",
+    "value": "star_filled"
+  },
+  {
+    "label": "Trust / Star outline",
+    "value": "star"
+  },
+  {
+    "label": "Trust / Thumbs up",
+    "value": "thumbs_up"
+  },
+  {
+    "label": "Trust / Trophy",
+    "value": "trophy"
+  }
+
+    ],
+    "default": "",
+    "label": "Icon"
+  },
+  {
+    "type": "select",
+    "id": "icon_container",
+    "visible_if": "{{ block.settings.icon != '' }}",
+    "options": [
+      {
+        "value": "none",
+        "label": "None"
+      },
+      {
+        "value": "circle",
+        "label": "Circle"
+      },
+      {
+        "value": "rounded",
+        "label": "Rounded"
+      },
+      {
+        "value": "square",
+        "label": "Square"
+      }
+    ],
+    "default": "rounded",
+    "label": "Icon background"
+  },
+  {
+    "type": "range",
+    "id": "icon_size",
+    "visible_if": "{{ block.settings.icon != '' }}",
+    "min": 2.4,
+    "max": 10,
+    "step": 0.2,
+    "default": 3.4,
+    "unit": "rem",
+    "label": "Icon size"
+  },
+  {
+    "type": "color",
+    "id": "icon_color",
+    "visible_if": "{{ block.settings.icon != '' }}",
+    "label": "Icon color",
+    "default": "#ffffff",
+    "info": "Set to transparent to use text color."
+  },
+  {
+    "type": "color",
+    "id": "icon_background_color",
+    "visible_if": "{{ block.settings.icon != '' }}",
+    "default": "#44C3ED",
+    "label": "Background color"
+  },
+  {
+    "type": "color_background",
+    "id": "background_gradient",
+    "default": "linear-gradient(45deg, rgba(54, 149, 250, 1), rgba(68, 195, 237, 1) 100%)",
+    "visible_if": "{{ block.settings.icon != '' }}",
+    "label": "Background gradient",
+    "info": "Background gradient replaces background where possible."
+  }
+,
+        {
+          "type": "header",
+          "content": "Text"
+        },
+        
+  {
+    "type": "richtext",
+    "id": "text",
+    
+    "label": "Description"
+  },
+  {
+    "type": "select",
+    "id": "text_size",
+    "options": [
+      {
+        "value": "t6",
+        "label": "2XS"
+      },
+      {
+        "value": "t5",
+        "label": "XS"
+      },
+      {
+        "value": "t4",
+        "label": "S"
+      },
+      {
+        "value": "t3",
+        "label": "M"
+      },
+      {
+        "value": "t2",
+        "label": "L"
+      },
+      {
+        "value": "t1",
+        "label": "XL"
+      },
+      {
+        "value": "t0",
+        "label": "2XL"
+      }
+    ],
+    "default": "t3",
+    "label": "Text size"
+  }
+,
+        {
+          "type": "header",
+          "content": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "image_ratio",
+          "options": [
+            {
+              "value": "adapt",
+              "label": "Original"
+            },
+            {
+              "value": "circle",
+              "label": "Circle"
+            },
+            {
+              "value": "square",
+              "label": "Square (1:1)"
+            },
+            {
+              "value": "landscape",
+              "label": "Landscape (4:3)"
+            },
+            {
+              "value": "landscape_wide",
+              "label": "Landscape (16:9)"
+            },
+            {
+              "value": "portrait",
+              "label": "Portrait (4:5)"
+            },
+            {
+              "value": "portrait_tall",
+              "label": "Portrait (2:3)"
+            }
+          ],
+          "default": "adapt",
+          "label": "Image aspect ratio"
+        },
+        {
+          "type": "range",
+          "id": "image_width",
+          "min": 5,
+          "max": 100,
+          "step": 1,
+          "default": 100,
+          "unit": "%",
+          "label": "Image width"
+        },
+        {
+          "type": "select",
+          "id": "image_position",
+          "options": [
+            {
+              "value": "below_heading",
+              "label": "Above text"
+            },
+            {
+              "value": "below_text",
+              "label": "Below text"
+            }
+          ],
+          "default": "below_text",
+          "label": "Image position"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "select",
+          "id": "button_text_size",
+          "options": [
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            }
+          ],
+          "default": "t3",
+          "label": "Button size"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "link",
+              "label": "Link"
+            }
+          ],
+          "default": "primary",
+          "label": "Button style"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_show_arrow",
+          "default": false,
+          "label": "Show arrow"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_show_gradient_border",
+          "visible_if": "{{ block.settings.button_style == 'secondary' }}",
+          "default": false,
+          "label": "Show border gradient"
+        },
+        {
+          "type": "color_background",
+          "id": "button_border_gradient",
+          "visible_if": "{{ block.settings.button_style_show_gradient_border and block.settings.button_style == 'secondary' }}",
+          "default": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+          "label": "Border gradient"
+        },
+        {
+          "type": "header",
+          "content": "Link"
+        },
+        {
+          "type": "url",
+          "id": "card_link",
+          "info": "Turns the entire card into a link. Doesn't apply when a button is added or when the text contains a link.",
+          "label": "Card link"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "color_scheme",
+          "id": "card_color_scheme",
+          "label": "Card color scheme",
+          "default": "scheme-3"
+        },
+        {
+          "type": "checkbox",
+          "id": "color_scheme_bg_fix",
+          "default": false,
+          "label": "Fix background gradient on desktop"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stats counter",
+      "blocks": [
+        {
+          "type": "column_standard",
+          "settings": {
+            "stat_caption": "Over",
+            "stat_number": "142k",
+            "stat_color": "#f1b726",
+            "stat_text_gradient": "linear-gradient(276deg, rgba(255, 228, 49, 1), rgba(249, 149, 32, 1) 59%)",
+            "title": "products sold"
+          }
+        },
+        {
+          "type": "column_standard",
+          "settings": {
+            "stat_caption": "With",
+            "stat_number": "95%",
+            "stat_color": "#e937d6",
+            "stat_text_gradient": "linear-gradient(238deg, rgba(249, 119, 255, 1) 8%, rgba(186, 54, 255, 1) 69%)",
+            "title": "positive reviews"
+          }
+        },
+        {
+          "type": "column_standard",
+          "settings": {
+            "stat_caption": "Selling in",
+            "stat_number": "12",
+            "stat_color": "#00ffff",
+            "stat_text_gradient": "linear-gradient(106deg, rgba(87, 247, 255, 1) 6%, rgba(33, 249, 239, 1) 68%)",
+            "title": "territories"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

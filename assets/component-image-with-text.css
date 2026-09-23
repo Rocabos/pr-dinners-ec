@@ -1,0 +1,325 @@
+.image-with-text .grid {
+  margin-bottom: 0;
+}
+
+.image-with-text .flex__item {
+  position: relative;
+}
+
+.image-with-text__container {
+  flex-direction: column;
+}
+
+.image-with-text--no-overlap-separate .image-with-text__container {
+  gap: var(--grid-desktop-horizontal-spacing);
+}
+
+.image-with-text__media {
+  overflow: visible;
+}
+
+.section-image-with-collapsible-content .placeholder-svg.image-1 > g > path:first-of-type { fill: #fdd290; }
+.section-image-with-collapsible-content .placeholder-svg.image-2 > g > path:first-of-type { fill: #b9ece9; }
+.section-image-with-collapsible-content .placeholder-svg.image-3 > g > path:first-of-type { fill: #fec3b7; }
+.section-image-with-collapsible-content .placeholder-svg.image-4 > g > path:first-of-type { fill: #ffcfaa; }
+
+.image-with-text__container accordion-search {
+  margin-bottom: var(--inputs-border-width);
+}
+
+@media screen and (max-width: 749.98px) {
+  .xs\:image-with-text__container--reverse {
+    flex-direction: column-reverse;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .image-with-text__container {
+    flex-direction: row;
+  }
+
+  .image-with-text__container--reverse {
+    flex-direction: row-reverse;
+  }
+
+  .image-with-text__media-item {
+    flex: 1 1 var(--image-width);
+    transform: scale(var(--image-scale));
+  }
+
+  .image-with-text__text-item {
+    flex: 1 1 calc(100% - var(--image-width));
+  }
+
+  .image-with-text__media:not(.section-height-responsive--desktop):not(.min-h-0) {
+    min-height: 100%;
+  }
+}
+
+
+.image-with-text__media--placeholder {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-with-text__media--placeholder:after {
+  content: '';
+  position: absolute;
+  background: rgba(var(--color-foreground), 0.04);
+}
+
+.image-with-text__media--placeholder > svg {
+  position: absolute;
+  inset-inline-start: 50%;
+  top: 50%;
+  transform: translate(calc(-50% * var(--direction-multiplier)), -50%);
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.image-with-text__content {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-self: center;
+  position: relative;
+  z-index: 1;
+}
+
+.image-with-text .flex__item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.image-with-text:not(.image-with-text--overlap) .image-with-text__media-item:after {
+  border-radius: var(--media-radius);
+  box-shadow: var(--media-shadow-horizontal-offset) var(--media-shadow-vertical-offset) var(--media-shadow-blur-radius)
+    rgba(var(--color-shadow), var(--media-shadow-opacity));
+}
+
+.image-with-text:not(.image-with-text--overlap) .image-with-text__text-item:after {
+  border-radius: var(--text-boxes-radius);
+  box-shadow: var(--text-boxes-shadow-horizontal-offset) var(--text-boxes-shadow-vertical-offset)
+    var(--text-boxes-shadow-blur-radius) rgba(var(--color-shadow), var(--text-boxes-shadow-opacity));
+}
+
+.image-with-text .image-with-text__media-item > * {
+  border-radius: var(--media-radius);
+  overflow: hidden;
+  box-shadow: var(--media-shadow-horizontal-offset) var(--media-shadow-vertical-offset) var(--media-shadow-blur-radius)
+    rgba(var(--color-shadow), var(--media-shadow-opacity));
+  border: 0;
+}
+
+.image-with-text .global-media-settings {
+  overflow: hidden !important;
+}
+
+.image-with-text .deferred-media__poster {
+  border-radius: 0;
+}
+
+.image-with-text .image-with-text__text-item > * {
+  border-radius: var(--text-boxes-radius);
+  overflow: hidden;
+  border: 0;
+}
+
+.image-with-text__content.background-transparent {
+  border-radius: 0;
+}
+
+@media screen and (max-width: 749.98px) {
+  .image-with-text.collapse-corners:not(.image-with-text--overlap) .image-with-text__media-item:after,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap) .flex__item .image-with-text__media,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap) .image-with-text__media img,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap) .image-with-text__media video,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap) .image-with-text__media iframe,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap) .image-with-text__media .placeholder-svg {
+    border-end-end-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  .image-with-text.collapse-corners:not(.image-with-text--overlap) .image-with-text__text-item:after,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap) .flex__item .image-with-text__content {
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+  }
+}
+
+.image-with-text--overlap .image-with-text__content {
+  width: 90%;
+  margin: -3rem auto 0;
+}
+
+@media screen and (min-width: 750px) {
+  .image-with-text__container--reverse .image-with-text__content {
+    margin-inline-start: auto;
+  }
+
+  .image-with-text--overlap .image-with-text__text-item {
+    display: flex;
+    padding: 3rem 0;
+  }
+
+  .image-with-text--overlap .image-with-text__content {
+    height: auto;
+    width: calc(100% + 4rem);
+    min-width: calc(100% + 4rem);
+    margin-top: 0;
+    margin-inline-start: -4rem;
+  }
+
+  .image-with-text--overlap .image-with-text__container--reverse .image-with-text__content {
+    margin-inline-start: 0;
+    margin-inline-end: -4rem;
+  }
+
+  .image-with-text--overlap .image-with-text__container--reverse .image-with-text__text-item {
+    justify-content: flex-end;
+  }
+
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container:not(.image-with-text__container--reverse) .image-with-text__media-item:after,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container:not(.image-with-text__container--reverse) .image-with-text__media,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container:not(.image-with-text__container--reverse) .image-with-text__media img,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container:not(.image-with-text__container--reverse) .image-with-text__media iframe,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container:not(.image-with-text__container--reverse) .image-with-text__media video,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container:not(.image-with-text__container--reverse) .image-with-text__media .placeholder-svg,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container--reverse .image-with-text__text-item:after,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container--reverse .image-with-text__content,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container--reverse .image-with-text__content:after {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container:not(.image-with-text__container--reverse) .image-with-text__text-item:after,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container:not(.image-with-text__container--reverse) .image-with-text__content,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container:not(.image-with-text__container--reverse) .image-with-text__content:after,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container--reverse .image-with-text__media-item:after,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container--reverse .image-with-text__media,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container--reverse .image-with-text__media img,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container--reverse .image-with-text__media iframe,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container--reverse .image-with-text__media video,
+  .image-with-text.collapse-corners:not(.image-with-text--overlap):not(.image-scaled) .image-with-text__container--reverse .image-with-text__media .placeholder-svg {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+}
+
+.image-with-text:not(.collapse-corners, .image-with-text--overlap) .image-with-text__media-item {
+  z-index: 2;
+}
+
+/* Needed for gradient continuity with or without animation so that transparent PNG images come up as we would expect */
+.image-with-text.image-with-text--overlap .background-transparent,
+.image-with-text:not(.image-with-text--overlap) .background-transparent {
+  background: transparent;
+}
+
+.image-with-text--without-image .content-container.background-transparent {
+  padding: 0;
+}
+
+/* Needed for gradient continuity with or without animation, the transform scopes the gradient to its container which happens already when animation are turned on */
+.image-with-text .gradient {
+  transform: perspective(0);
+}
+
+.image-with-text__content {
+  border-radius: var(--text-boxes-radius);
+  word-break: break-word;
+}
+
+.image-with-text__content:not(.card--shadow) {
+  box-shadow: var(--text-boxes-shadow-horizontal-offset) var(--text-boxes-shadow-vertical-offset)
+  var(--text-boxes-shadow-blur-radius) rgba(var(--color-shadow), var(--text-boxes-shadow-opacity));
+}
+
+@media screen and (min-width: 990px) {
+  .image-with-text__content {
+    padding: 7rem;
+  }
+}
+
+@media screen and (max-width: 749.98px) {
+  .collapse-padding .image-with-text__container .image-with-text__content {
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+  }
+
+  .image-with-text--without-image .content-container.background-transparent .section-content {
+    padding-top: 0;
+  }
+}
+
+/* check for flexbox gap in older Safari versions */
+@supports not (inset: 10px) {
+  .image-with-text .grid {
+    margin-inline-start: 0;
+  }
+}
+
+/*
+  Multirow
+*/
+.multirow__inner {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--grid-mobile-vertical-spacing);
+}
+
+@media screen and (min-width: 750px) {
+  .multirow__inner {
+    row-gap: var(--grid-desktop-vertical-spacing);
+  }
+}
+
+/* Text over the image*/
+.image-with-text__media .max-w-xs {
+  max-width: 40%;
+}
+
+.image-with-text__media .max-w-s {
+  max-width: 55%;
+}
+
+.image-with-text__media .max-w-m {
+  max-width: 70%;
+}
+
+.image-with-text__media .max-w-l {
+  max-width: 85%;
+}
+
+.image-with-text__media .max-w-xl {
+  max-width: 100%;
+}
+
+.login-page .image-with-text__media .banner__box,
+.contact .image-with-text__media .banner__box,
+.collapsible-content .image-with-text__media .banner__box {
+  display: flex;
+  z-index: 2;
+}
+
+@media screen and (max-width: 749.98px) {
+  .login-page .image-with-text__media:not(.image-overlay) .banner__box,
+  .contact .image-with-text__media:not(.image-overlay) .banner__box,
+  .collapsible-content .image-with-text__media:not(.image-overlay) .banner__box {
+    position: relative;
+  }
+
+  .login-page .image-with-text__media .banner__box > div,
+  .contact .image-with-text__media .banner__box > div,
+  .collapsible-content .image-with-text__media .banner__box > div {
+    max-width: 100%;
+  }
+}

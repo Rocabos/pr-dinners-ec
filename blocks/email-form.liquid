@@ -1,0 +1,40 @@
+{% render 'standard-blocks', type: 'email_form' %}
+
+{% schema %}
+{
+  "name": "Email signup form",
+  "tag": null,
+  "settings": [
+    
+  {
+    "type": "range",
+    "id": "signup_max_width",
+    "min": 200,
+    "max": 600,
+    "step": 10,
+    "default": 340,
+    "unit": "px",
+    "label": "Maximum width"
+  },
+  {
+    "type": "inline_richtext",
+    "id": "signup_success_message",
+    "label": "Sign up success message",
+    "info": "Leave empty to use the standard theme translation."
+  },
+  {
+    "type": "url",
+    "id": "return_to",
+    "label": "Success page to redirect to",
+    "info": "Optional."
+  }
+
+  ],
+  "presets": [
+    {
+      "name": "Email signup form",
+      "category": "Specialized"
+    }
+  ]
+}
+{% endschema %}

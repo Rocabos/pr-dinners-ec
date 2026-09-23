@@ -1,0 +1,271 @@
+{% comment %}
+  Renders a header drawer menu for mobile and desktop.
+
+  Accepts:
+  - promos: {Block Array} Additional mega menus promos which may or not be relevant to this mega menu
+
+  Usage:
+  {% render 'header-drawer' %}
+{% endcomment %}
+
+{%- liquid
+  if section.settings.secondary_links_threshold > 0
+    assign secondary_links_threshold = section.settings.secondary_links_threshold | plus: 1
+  endif
+-%}
+
+<header-drawer data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}">
+  <details id="Details-menu-drawer-container" class="menu-drawer-container js-header-drawer-main">
+    <summary
+      class="header__icon header__icon--menu header__icon--summary link focus-inset"
+      aria-label="{{ 'sections.header.menu' | t }}"
+    >
+      <span>
+        {% render 'icon-hamburger' %}
+        {% render 'icon-close', class: 'hidden-during-load' %}
+      </span>
+    </summary>
+    <div id="menu-drawer" class="gradient menu-drawer motion-reduce color-{{ section.settings.dropdown_menu_color_scheme }}">
+      <div class="menu-drawer__inner-container">
+        <div class="menu-drawer__navigation-container custom-scrollbar">
+          <nav class="menu-drawer__navigation">
+            <div class="border-bottom flex justify-end p-1 mb-1 hidden-xs">
+              <button class="button-control--no-colors color-foreground" type="button" aria-label="{{ 'accessibility.close' | t }}">
+                {% render 'icon-close' %}
+              </button>
+            </div>
+
+            {%# Top level menu  %}
+            <ul class="menu-drawer__menu has-submenu list-menu" role="list">
+              {%- assign menu = section.settings.menu_burger | default: section.settings.menu -%}
+              {%- for link in menu.links -%}
+                {%- liquid
+                  assign icon_setting = "drawer_icon_" | append: forloop.index
+                  assign icon = section.settings[icon_setting]
+                -%}
+                <li class="{% if forloop.index >= secondary_links_threshold %}menu-drawer__secondary-link{% endif %}{% if forloop.index == secondary_links_threshold %} menu-drawer__first-secondary-link{% endif %}">
+                  {%- if link.links != blank -%}
+                    <details id="Details-menu-drawer-menu-item-{{ forloop.index }}" class="js-header-drawer-sub">
+                      <summary
+                        id="HeaderDrawer-{{ link.handle }}"
+                        class="menu-drawer__menu-item items-center list-menu__item link link--text arrow-inset focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}"
+                      >
+                        {%- liquid
+                            if icon != blank
+                              render 'icon', icon: icon
+                            endif
+                        -%}
+                        <span>{{ link.title | escape }}</span>
+                        {% render 'icon-caret' %}
+                      </summary>
+                      <div
+                        id="link-{{ link.handle | escape }}"
+                        class="menu-drawer__submenu custom-scrollbar has-submenu gradient motion-reduce"
+                        tabindex="-1"
+                      >
+                        <div class="menu-drawer__inner-submenu custom-scrollbar">
+                          <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true" dir="ltr">
+                            {% render 'icon-arrow' %}
+                            {{ 'sections.header.back' | t }}
+                          </button>
+
+                          {%- liquid
+                            assign render_second_level_menu = true
+
+                            assign link_title = link.title | downcase | strip
+                            for promo in promos
+                              if promo.settings.visibility != 'mega'
+                                assign promo_mega_labels = promo.settings.title | downcase | replace: ' ,', ',' | replace: ', ', ',' | split: ','
+                                if promo_mega_labels contains link_title and promo.settings.burger_menu_replace
+                                  assign render_second_level_menu = false
+                                endif
+                              endif
+                            endfor
+                          -%}
+
+                          {%# Second level menu  %}
+                          {%- if render_second_level_menu -%}
+                            <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                              {%- if section.settings.link_headers_second_level -%}
+                                <li>
+                                  <a
+                                      href="{{ link.url }}"
+                                      class="menu-drawer__menu-item menu__menu-item-title link link--text list-menu__item focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"
+                                      {% if link.current %}
+                                        aria-current="page"
+                                      {% endif %}
+                                  >
+                                    <span>{{ link.title | escape }}</span>
+                                  </a>
+                                </li>
+                              {%- endif -%}
+
+                              {%- for childlink in link.links -%}
+                                <li>
+                                  {%- if childlink.links == blank -%}
+                                    <a
+                                      id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
+                                      href="{{ childlink.url }}"
+                                      class="menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
+                                      {% if childlink.current %}
+                                        aria-current="page"
+                                      {% endif %}
+                                    >
+                                      <span>{{ childlink.title | escape }}</span>
+                                    </a>
+                                  {%- else -%}
+                                    <custom-accordion>
+                                      <details id="Details-menu-drawer-{{ link.handle }}-{{ childlink.handle }}">
+                                        <summary
+                                          id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
+                                          class="menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset"
+                                        >
+                                          <span>{{ childlink.title | escape }}</span>
+                                          {% render 'icon-caret' %}
+                                        </summary>
+                                        <div
+                                          id="childlink-{{ childlink.handle | escape }}"
+                                          class="custom-accordion__panel custom-scrollbar has-submenu gradient motion-reduce"
+                                        >
+                                          {%# Third level menu  %}
+                                          <ul
+                                            class="menu-drawer__menu list-menu"
+                                            role="list"
+                                            tabindex="-1"
+                                          >
+                                            {%- for grandchildlink in childlink.links -%}
+                                              <li>
+                                                <a
+                                                  id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                                                  href="{{ grandchildlink.url }}"
+                                                  class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"
+                                                  {% if grandchildlink.current %}
+                                                    aria-current="page"
+                                                  {% endif %}
+                                                >
+                                                  <span>{{ grandchildlink.title | escape }}</span>
+                                                </a>
+                                              </li>
+                                            {%- endfor -%}
+
+                                            {%- if section.settings.link_headers_third_level -%}
+                                              <li>
+                                                <a href="{{ childlink.url }}"
+                                                   class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                                                >
+                                                  <span>{{ 'sections.header.view_all' | t: page: childlink.title }}</span>
+                                                </a>
+                                              </li>
+                                            {%- endif -%}
+                                          </ul>
+                                        </div>
+                                      </details>
+                                    </custom-accordion>
+                                  {%- endif -%}
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
+
+                          {%- liquid
+                            assign link_title = link.title | downcase | strip
+                            for promo in promos
+                              if promo.settings.visibility != 'mega'
+                                assign promo_mega_labels = promo.settings.title | downcase | replace: ' ,', ',' | replace: ', ', ',' | split: ','
+                                if promo_mega_labels contains link_title
+                                  echo "<div class='menu-drawer__promo-container'>"
+                                  render 'header-mega-menu-promo', promo: promo, columns: 1, is_drawer: true
+                                  echo "</div>"
+                                endif
+                              endif
+                            endfor
+                          -%}
+                        </div>
+                      </div>
+                    </details>
+                  {%- else -%}
+                    <a
+                      id="HeaderDrawer-{{ link.handle }}"
+                      href="{{ link.url }}"
+                      class="menu-drawer__menu-item items-center list-menu__item link link--text focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"
+                      {% if link.current %}
+                        aria-current="page"
+                      {% endif %}
+                    >
+                      {%- liquid
+                        if icon != blank
+                          render 'icon', icon: icon
+                        endif
+                      -%}
+                      <span>{{ link.title | escape }}</span>
+                    </a>
+                  {%- endif -%}
+                </li>
+                {%- assign forloop_index = forloop.index | plus: 1 -%}
+              {%- endfor -%}
+              {%- if shop.customer_accounts_enabled and section.settings.drawer_show_login -%}
+                <li class="{% if forloop_index >= secondary_links_threshold %}menu-drawer__secondary-link{% endif %}{% if forloop_index == secondary_links_threshold %} menu-drawer__first-secondary-link{% endif %}">
+                  <a
+                   href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+                   class="menu-drawer__menu-item items-center list-menu__item link link--text focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"
+                  >
+                    <span>
+                      {%- liquid
+                        if customer
+                          echo 'customer.account_fallback' | t
+                        else
+                          echo 'customer.log_in' | t
+                        endif
+                      -%}
+                    </span>
+                  </a>
+                </li>
+              {%- endif -%}
+            </ul>
+          </nav>
+          <div class="menu-drawer__utility-links border-top">
+            <div class="flex flex-wrap items-center gap-2 justify-between">
+              {%- capture socials -%}
+                {%- render 'social-icons' -%}
+              {%- endcapture -%}
+
+              {{ socials }}
+
+              {%- if localization.available_countries or localization.available_languages -%}
+                <div class="menu-drawer__localization header-localization{% unless show_country_name %} flex{% endunless %}{% if socials == blank %} menu-drawer__localization-left{% endif %}">
+                  {%- liquid
+                    if section.settings.enable_country_selector and localization.available_countries.size > 1
+                      assign show_country_picker = true
+                    endif
+
+                    if section.settings.enable_language_selector and localization.available_languages.size > 1
+                      assign show_language_picker = true
+                    endif
+                  -%}
+                  {%- if show_country_picker or show_language_picker -%}
+                    <localization-form data-prevent-hide>
+                      {%- form 'localization', id: 'HeaderDrawerLocalizationForm', class: 'localization-form' -%}
+                        <div>
+                          {%- render 'localization',
+                              localPosition: 'HeaderDrawerLocalization',
+                              show_country_picker: show_country_picker,
+                              show_language_picker: show_language_picker,
+                              show_country_name: false,
+                              show_country_filter: section.settings.show_country_filter,
+                              always_show_currency: true,
+                              color_scheme: section.settings.dropdown_menu_color_scheme,
+                              abbreviate: false
+                          -%}
+                        </div>
+                      {%- endform -%}
+                    </localization-form>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </details>
+</header-drawer>

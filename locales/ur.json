@@ -1,0 +1,655 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "password_page": {
+      "login_form_heading": "دکان میں داخل ہوں",
+      "login_password_button": "لوگن پاس ورڈ بٹن کے ذریعہ داخل ہوں",
+      "login_form_password_label": "پاس ورڈ",
+      "login_form_password_placeholder": "آپ کا پاس ورڈ",
+      "login_form_error": "غلط پاسورڈ!",
+      "login_form_submit": "داخل کریں",
+      "admin_link_html": "کیا آپ مالک دکان ہیں؟ <a href=\"/admin\" class=\"link underlined-link\">یہاں لاگ ان کریں</a>",
+      "powered_by_shopify_html": "اس دکان کو {{ shopify }} کے ذریعہ چلایا جائے گا"
+    },
+    "social": {
+      "alt_text": {
+        "share_on_facebook": "فیس بک پر شیئر کریں",
+        "share_on_twitter": "Twitter par Tweet karo X par",
+        "share_on_pinterest": "پن پر پن کریں",
+        "share_on_whatsapp": "واٹس ایپ پر شیئر کریں",
+        "share_on_linkedin": "لنکڈین پر شیئر کریں"
+      },
+      "links": {
+        "twitter": "ٹویٹر",
+        "facebook": "فیس بک",
+        "pinterest": "پنٹرست",
+        "instagram": "انسٹاگرام",
+        "tumblr": "ٹمبلر",
+        "snapchat": "سنیپچیٹ",
+        "youtube": "یوٹیوب",
+        "vimeo": "ویمیو",
+        "tiktok": "ٹک ٹاک",
+        "whatsapp": "واٹس ایپ",
+        "threads": "موضوعات",
+        "linkedin": "لنکڈ ان"
+      }
+    },
+    "continue_shopping": "خریداری جاری رکھیں",
+    "pagination": {
+      "label": "صفحہ بندی",
+      "page": "صفحہ {{ number }}",
+      "next": "اگلا صفحہ",
+      "previous": "پچھلا صفحہ",
+      "show_more": "مزید دکھائیں",
+      "loading_text": "برائے مہربانی انتظار کریں..."
+    },
+    "search": {
+      "search_placeholder": "تلاش کریں",
+      "search": "آپ کیا تلاش کر رہے ہیں؟",
+      "reset": "تلاش کے لفظ صاف کریں",
+      "product_type": "پروڈکٹ کی قسم منتخب کریں",
+      "all_product_types": "تمام"
+    },
+    "cart": {
+      "view": "کارٹ دیکھیں ({{ count }})",
+      "view_empty_cart": "کارٹ دیکھیں",
+      "item_added": "آپ کے کارٹ میں شامل کر دیا گیا ہے"
+    },
+    "share": {
+      "close": "شیئر بند کریں",
+      "copy_to_clipboard": "لنک کاپی کریں",
+      "share_url": "لنک",
+      "success_message": "لنک کلپ بورڈ پر کاپی کیا گیا ہے"
+    },
+    "discount_code": {
+      "close": "ڈسکاؤنٹ بند کریں",
+      "copy_to_clipboard": "کاپی ڈسکاؤنٹ",
+      "discount_code": "ڈسکاؤنٹ کوڈ",
+      "success_message": "نقل کر دیا گیا",
+      "discount_gated": "ڈسکاؤنٹ کے لئے سائن ان کریں"
+    },
+    "slider": {
+      "of": "کا",
+      "next_slide": "دائیں سلائیڈ",
+      "previous_slide": "اسلائیڈ بائیں جائیں",
+      "name": "اسلائیڈر"
+    }
+  },
+  "newsletter": {
+    "label": "ای میل",
+    "success": "اشتراک کے لئے شکریہ",
+    "button_label": "سبسکرائب کریں"
+  },
+  "accessibility": {
+    "popup": "سائٹ کی اطلاع",
+    "skip_to_text": "مواد پر جائیں",
+    "skip_to_product_info": "مصنوعات کی معلومات تک جائیں",
+    "close": "بند کریں",
+    "unit_price_separator": "در فی",
+    "vendor": "فروخت کار:",
+    "error": "غلطی",
+    "refresh_page": "انتخاب کرنے سے پورے صفحے کا تازہ کرنا ہوتا ہے۔",
+    "link_messages": {
+      "new_window": "ایک نئی ونڈو میں کھلتا ہے۔",
+      "external": "بیرونی ویب سائٹ کھل جاتی ہے۔"
+    },
+    "loading": "لوڈ ہو رہا ہے...",
+    "total_reviews": "کل جائزے",
+    "star_reviews_info": "{{ rating_value }} ستاروں میں سے {{ rating_max }} ستاروں تک",
+    "collapsible_content_title": "قابل انہماک مواد",
+    "complementary_products": "تکمیلی مصنوعات",
+    "scroll_to_top": "صفحے کے اوپر جائیں",
+    "search": "ہمارے دکان میں تلاش کریں",
+    "change_language": "زبان تبدیل کریں",
+    "change_country": "ملک تبدیل کریں",
+    "change_country_language": "ملک/زبان تبدیل کریں",
+    "view_hotspot": "ٹھرمانا دیکھیں"
+  },
+  "blogs": {
+    "filter": {
+      "all": "تمام"
+    },
+    "article": {
+      "blog": "بلاگ",
+      "read_more_title": "مزید پڑھیں: {{ title }}",
+      "author": "{{ author }} کے ذریعہ",
+      "read_estimate": "{{ minutes }} منٹ مطالعہ",
+      "comments": {
+        "one": "{{ count }} تبصرہ",
+        "other": "{{ count }} تبصرے"
+      },
+      "moderated": "براہ کرم نوٹ کریں، تبصرے شائع ہونے سے پہلے منظور کرنے کی ضرورت",
+      "comment_form_title": "تبصرہ چھوڑ دیں",
+      "name": "نام",
+      "email": "ای میل",
+      "message": "تبصرہ",
+      "post": "تبصرہ شائع کریں",
+      "back_to_blog": "بلاگ پر واپس جائیں",
+      "next_article": "اگلا",
+      "previous_article": "پچھلا",
+      "share": "اس مضمون کو شیئر کریں",
+      "success": "آپ کا تبصرہ کامیابی سے پوسٹ ہوا! آپ کا شکریہ!",
+      "success_moderated": "آپ کا تبصرہ کامیابی سے پوسٹ ہوا ہے۔ ہم اسے جلد ہی شائع کری"
+    }
+  },
+  "breadcrumbs": {
+    "title": "نشانیاں",
+    "home": "ہوم",
+    "cart": "کارٹ",
+    "collections": "کلیکشنز",
+    "search": "تلاش کریں"
+  },
+  "onboarding": {
+    "product_title": "مثال مصنوعات کا عنوان",
+    "example_link": "مثال کا لنک",
+    "collection_title": "کلیکشن"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "کارٹ میں شامل کریں",
+      "preorder": "پری آرڈر",
+      "add_to_cart_card": "کارٹ",
+      "choose_options": "فوری نظر",
+      "bulk_order": "بلک آرڈر",
+      "notify_me": "مجھے مطلع کریں",
+      "choose_product_options": "{{ product_name }} کے لئے اختیارات منتخب کریں",
+      "description": "تفصیل",
+      "inventory_in_stock": "دستیاب ہے",
+      "inventory_in_stock_show_count": "{{ quantity }} اسٹاک میں موجود ہیں",
+      "inventory_low_stock": "کم مقدار اسٹاک",
+      "inventory_low_stock_only_count": "صرف {{ quantity }} باقی ہے",
+      "inventory_low_stock_show_count": "کم اسٹاک! صرف {{ quantity }} باقی ہے",
+      "inventory_out_of_stock": "اسٹاک ختم ہوگیا",
+      "inventory_out_of_stock_continue_selling": "انتظار میں ہے، جلد ہی شپنگ کی جائے گی",
+      "sku": "شناختی کوڈ:",
+      "on_sale": "فروخت",
+      "on_sale_percent": "تک {{ discount }}% چھوٹ",
+      "on_sale_value_html": "تک {{ discount }} تخفیف",
+      "product_variants": "مصنوعات کی انواع",
+      "media": {
+        "gallery_viewer": "گیلری دیکھنے والا",
+        "load_image": "گیلری ویو میں تصویر {{ index }} لوڈ کریں",
+        "load_model": "گیلری نمائش میں 3D ماڈل {{ index }} لوڈ کریں",
+        "load_video": "گیلری ویو میں ویڈیو {{ index }} چلائیں",
+        "image_available": "تصویر {{ index }} گیلری ویو میں دستیاب ہے",
+        "open_media": "موڈل میں میڈیا کھولیں {{ index }}",
+        "play_model": "3D ویوئر چلائیں",
+        "play_video": "ویڈیو چلائیں"
+      },
+      "quantity": {
+        "label": "مقدار",
+        "input_label": "{{ product }} کے لئے مقدار",
+        "increase": "{{ product }} کے لئے مقدار میں اضافہ کریں۔",
+        "decrease": "{{ product }} کی مقدار کم کریں",
+        "minimum_of": "{{ quantity }} کی کم سے کم حد",
+        "maximum_of": "{{ quantity }} کی زیادہ سے زیادہ حد",
+        "multiples_of": "{{ quantity }} کے اضافے",
+        "min_of": "کم سے کم {{ quantity }}",
+        "max_of": "زیادہ سے زیادہ {{ quantity }}",
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> کارٹ میں",
+        "note": "مقدار قوانین دیکھیں"
+      },
+      "volume_pricing": {
+        "title": "حجمی قیمتوں کا تعین",
+        "note": "حجمی قیمت دستیاب ہے",
+        "minimum": "{{ quantity }} سے زیادہ",
+        "price_at_each": "{{ price }} پر/ایک کے لئے",
+        "price_range": "{{ minimum }} - {{ maximum }}\" کے لئے \"{{ minimum }} - {{ maximum }}"
+      },
+      "pickup_availability": {
+        "view_store_info": "دکان کی معلومات دیکھیں",
+        "check_other_stores": "دوسرے دکانوں میں دستیابی کی جانچ کریں",
+        "pick_up_available": "پک اپ دستیاب ہے",
+        "pick_up_available_at_html": "لینے کے لئے دستیاب ہے <span class=\"color-foreground\">{{ location_name }}</span>",
+        "pick_up_unavailable_at_html": "حالیہ میں پک اپ {{ location_name }} میں دستیاب نہیں ہے۔",
+        "unavailable": "پک اپ دستیابی لوڈ نہیں ہو سکی",
+        "refresh": "تازہ کریں"
+      },
+      "price": {
+        "from_price_html": "سے {{ price }}",
+        "regular_price": "عام قیمت",
+        "sale_price": "فروخت قیمت",
+        "unit_price": "اکائی قیمت"
+      },
+      "back_in_stock": {
+        "email": "ای میل",
+        "send": "مجھے مطلع کریں",
+        "success": "شکریہ۔ ہم آپ کو بتائیں گے جب یہ دستیاب ہوگا۔"
+      },
+      "product_enquiry": {
+        "email": "ای میل",
+        "enquiry": "آپ کی تفتیش",
+        "send": "بھیج دیں",
+        "success": "شکریہ۔ ہم جلد آپ کو واپس آپ کو واپس آپ کو واپس آپ کو واپس کریں گ"
+      },
+      "share": "اس مصنوعہ کو شیئر کریں",
+      "sold_out": "تمام فروخت",
+      "unavailable": "غیر دستیاب",
+      "vendor": "فروخت کار",
+      "value_unavailable": "{{ option_value }} - دستیاب نہیں",
+      "variant_sold_out_or_unavailable": "ویراینٹ فروخت یا دستیاب نہیں ہے",
+      "video_exit_message": "{{ title }} پوری اسکرین ویڈیو کو اسی ونڈو میں کھولتا ہے۔",
+      "view_full_details": "مزید دیکھیں",
+      "xr_button": "آپ کے خلاف میں دیکھیں",
+      "xr_button_label": "آپ کے فضا میں دیکھیں، ایوگمینٹڈ ریئلٹی ونڈو میں آئٹم لو",
+      "include_taxes": "ٹیکس شامل شدہ ہے۔",
+      "shipping_policy_html": " <a href=\"{{ link }}\" class=\"link underlined-link\">شپنگ</a> چیکاؤٹ پر حساب کی جائے گی۔",
+      "new": "نئی",
+      "change_color": "رنگ کا پیش نظارہ کریں:",
+      "highlight_remainder": "+{{ count }} مزید",
+      "barcode": "بارکوڈ:",
+      "change_product": "مصنوعات میں تبدیلی",
+      "nested_label": "{{ parent_title }} کے لئے {{ title }}"
+    },
+    "modal": {
+      "label": "میڈیا گیلری"
+    },
+    "facets": {
+      "filter_and_operator_subtitle": "تمام ملیں",
+      "apply": "لگائیں",
+      "clear": "صاف کریں",
+      "clear_all": "سب کو صاف کریں",
+      "from": "سے",
+      "filter_and_sort": "فلٹر اور سارٹ کریں",
+      "filter_by_label": "فلٹر کریں:",
+      "filter_button": "فلٹر کریں",
+      "filters_selected": {
+        "one": "{{ count }} منتخب شدہ",
+        "other": "{{ count }} منتخب شدہ"
+      },
+      "filter_selected_accessibility": "{{ type }} ({{ count }} فلٹر منتخب کیے گئے)",
+      "show_more": "سب دیکھیں",
+      "show_less": "کم دکھائیں",
+      "max_price": "سب سے زیادہ قیمت {{ price }} ہے",
+      "product_count": {
+        "one": "{{ product_count }} میں سے {{ count }} پروڈکٹ",
+        "other": "{{ product_count }} میں سے {{ count }} مصنوعات"
+      },
+      "product_count_simple": {
+        "one": "{{ count }} مصنوعات",
+        "other": "{{ count }} مصنوعات"
+      },
+      "reset": "صاف کریں",
+      "reset_price": "ری سیٹ کریں",
+      "sort_button": "ترتیب دینا",
+      "sort_by_label": "ترتیب دینے کے لیے",
+      "to": "تک",
+      "clear_filter": "فلٹر ہٹاؤ"
+    },
+    "flash_sale": {
+      "claimed": "{{ quantity }}٪ دعوی کیا گیا",
+      "sold": "{{ quantity }} فروخت"
+    }
+  },
+  "templates": {
+    "404": {
+      "title": "صفحہ نہیں ملا",
+      "subtext": "404"
+    },
+    "search": {
+      "popular_searches": "مشہور تلاشیں",
+      "no_results": "{{ terms }}\" کے لئے کوئی نتائج نہیں ملے۔ ہجے کی جانچ کریں یا کسی د",
+      "no_results_short": "کوئی نتیجے نہیں ملے۔",
+      "page": "صفحہ",
+      "products": "مصنوعات",
+      "results_pages_with_count": {
+        "one": "{{ count }} صفحہ",
+        "other": "{{ count }} صفحات"
+      },
+      "results_suggestions_with_count": {
+        "one": "{{ count }} تجاویز",
+        "other": "{{ count }} تجاویز"
+      },
+      "results_products_with_count": {
+        "one": "{{ count }} پروڈکٹ",
+        "other": "{{ count }} مصنوعات"
+      },
+      "results_items_with_count": {
+        "one": "{{ count }} آئٹم دکھائیں",
+        "other": ""
+      },
+      "results_with_count": {
+        "one": "{{ count }} نتائج دکھایا جا رہا ہے",
+        "other": "{{ count }} نتائج دکھایا جا رہا ہے"
+      },
+      "results_with_count_and_term": {
+        "one": "“{{ terms }}” کے لئے {{ count }} نتائج ملے",
+        "other": "“{{ terms }}” کے لئے {{ count }} نتائج ملے"
+      },
+      "title": "تلاش کے نتائج",
+      "search_for": "“{{ terms }}” تلاش کریں",
+      "suggestions": "تجاویز",
+      "pages": "صفحات",
+      "articles": "مضامین",
+      "collections": "کلیکشنز"
+    },
+    "cart": {
+      "cart": "کارٹ"
+    },
+    "contact": {
+      "form": {
+        "title": "رابطہ فارم",
+        "name": "نام",
+        "email": "ای میل",
+        "phone": "فون نمبر",
+        "comment": "تبصرہ",
+        "send": "بھیجیں",
+        "post_success": "آپ کا رابطہ کرنے کا شکریہ۔ ہم جلد سے جلد آپ کو واپس آپ کو پہنچا",
+        "error_heading": "برائے مہربانی مندرجہ ذیل کو درست کریں:"
+      }
+    }
+  },
+  "sections": {
+    "announcements": {
+      "previous_announcement": "پچھلی اعلان",
+      "next_announcement": "اگلی اعلان",
+      "carousel": "کیریسل",
+      "announcement": "اعلان",
+      "announcement_bar": "اعلانیہ بار"
+    },
+    "header": {
+      "announcement": "اطلاع",
+      "menu": "مینیو",
+      "back": "پیچھے",
+      "view_all": "تمام دیکھیں {{ page }}",
+      "cart_count": {
+        "one": "{{ count }} آئٹم",
+        "other": "{{ count }} اشیاء"
+      }
+    },
+    "cart": {
+      "title": "آپ کا کارٹ",
+      "caption": "کارٹ آئٹمز",
+      "remove_title": "{{ title }} ہٹائیں",
+      "estimated_total": "تخمینہ کل:",
+      "new_estimated_total": "نیا اندازہ لگایا گیا کل",
+      "note": "آرڈر نوٹس",
+      "checkout": "چیک آؤٹ",
+      "view_cart": "کارٹ دیکھیں",
+      "empty": "آپ کا کارٹ خالی ہے :(",
+      "cart_error": "آپ کے کارٹ کو اپ ڈیٹ کرتے ہوئے خرابی پیش آئی ہے۔ براہ ک",
+      "cart_quantity_error_html": "آپ صرف اس آئٹم کے {{ quantity }} کو اپنے کارٹ میں شامل کرسکتے ہیں۔",
+      "taxes_and_shipping_policy_at_checkout_html": "ٹیکس، ڈسکاؤنٹ اور  <a href=\"{{ link }}\" class=\"link underlined-link\">شپنگ</a> چیکاؤٹ پر حساب لگایا ج",
+      "taxes_included_but_shipping_at_checkout": "ٹیکس شامل ہے۔ چیکاؤٹ پر شپنگ اور ڈسکاؤنٹس کو حساب لگایا جائے",
+      "taxes_included_and_shipping_policy_html": "ٹیکس شامل شدہ ہے۔ چیکاؤٹ پر <a href=\"{{ link }}\" class=\"link underlined-link\">شپنگ</a> اور چھو",
+      "taxes_and_shipping_at_checkout": "چیک اوٹ پر ٹیکس، ڈسکاؤنٹ اور شپنگ کا حساب کیا جائے گا۔",
+      "headings": {
+        "product": "مصنوعات",
+        "price": "قیمت",
+        "total": "کل",
+        "quantity": "مقدار",
+        "image": "مصنوعات کی تصویر"
+      },
+      "update": "تازہ کریں",
+      "login": {
+        "title": "کیا آپ کا اکاؤنٹ ہے؟",
+        "paragraph_html": "زیادہ تیزی سے دیکھنے کے لئے <a href=\"{{ link }}\" class=\"link underlined-link\">لاگ ان کریں</a>۔"
+      },
+      "terms": {
+        "error": "آگے بڑھنے سے پہلے آپ کو شرائط و ضوابط قبول کرنے کی ضرورت ہے",
+        "agreement_html": "میں <a href=\"{{ terms }}\" target=\"_blank\" class=\"link underlined-link\">شرائط اور ضوابط</a> قبول کرتا ہوں۔"
+      },
+      "shipping_calculator": {
+        "link_title": "شپنگ کیلکولیٹر",
+        "country": "ملک",
+        "zip": "زپ/پوسٹل کوڈ",
+        "street_address": "گلی کا پتہ",
+        "city": "شہر",
+        "province": "صوبہ",
+        "submit": "شیپنگ کی قیمتیں حاصل کریں",
+        "no_rates": "ہم اس مقصد پر بھیجنے کے قابل نہیں ہیں۔",
+        "single_rate": "ایک ہی ڈلیوری کی شرح ہے:",
+        "multiple_rates": "{{ author }} کے کندھے پر سے سے سے سے سے سے سے سے سے سے سے سے سے سے جات",
+        "error": "برائے مہربانی مندرجہ ذیل کو ترتیب دیں:"
+      }
+    },
+    "footer": {
+      "payment": "ادائیگی کے طریقے",
+      "copyright_html": "&copy; {{ date }}, <a href=\"{{ store_url }}\">{{ store_name }}</a>۔"
+    },
+    "featured_blog": {
+      "view_all": "سب دیکھیں",
+      "onboarding_title": "بلاگ پوسٹ",
+      "onboarding_content": "اپنے صارفین کو آپ کے بلاگ پوسٹ کی خلاصہ دیں"
+    },
+    "featured_collection": {
+      "view_all": "تمام دیکھیں",
+      "view_all_label": "{{ collection_name }} کی تمام مصنوعات دیکھیں"
+    },
+    "collection_list": {
+      "view_all": "سب دیکھیں"
+    },
+    "collection_template": {
+      "empty": "کوئی مصنوعات نہیں ملیں۔",
+      "title": "کلیکشن",
+      "use_fewer_filters_html": "کم فلٹر استعمال کریں یا <a class=\"{{ class }}\" href=\"{{ link }}\">فلٹرز ختم کریں</a>۔"
+    },
+    "video": {
+      "load_video": "ویڈیو لوڈ کریں: {{ description }}",
+      "toggle": "ویڈیو کی پلے کرنے کی حالت کو ٹوگل کریں",
+      "volume": "ویڈیو کو خاموش/چالو کریں"
+    },
+    "slideshow": {
+      "load_slide": "سلائیڈ لوڈ کریں",
+      "previous_slideshow": "پچھلا اسلائیڈ",
+      "next_slideshow": "اگلا سلائیڈ",
+      "pause_slideshow": "سلائڈ شو روکیں",
+      "play_slideshow": "سلائڈ شو چلائیں",
+      "carousel": "کیروسل",
+      "slide": "سلائڈ"
+    },
+    "page": {
+      "title": "صفحہ عنوان"
+    },
+    "quick_order_list": {
+      "product_total": "کل رقم",
+      "view_cart": "کارٹ دیکھیں",
+      "each": "{{ money }}/ایک",
+      "each_html": "{{ رقم }}/فی اکائی",
+      "product": "مصنوعات",
+      "variant": "ویراینٹ",
+      "variant_total": "کل رقم",
+      "items_added": {
+        "one": "{{ quantity }} آئٹم شامل ہوگیا",
+        "other": "{{ quantity }} اشیاء شامل کی گئیں"
+      },
+      "items_removed": {
+        "one": "{{ quantity }} آئٹم ہٹا دیا گیا",
+        "other": "{{ quantity }} اشیاء ہٹا دیئے گئے"
+      },
+      "product_variants": "مصنوعات کے اختیاری اقسام",
+      "total_items": "کل اشیاء",
+      "remove_all_single_item_confirmation": "آپ کے کارٹ سے 1 آئٹم ہٹائیں؟",
+      "remove_all_items_confirmation": "آپ کے کارٹ سے تمام {{ quantity }} آئٹمز کو ہٹائیں؟",
+      "remove_all": "تمام کو ہٹا دو",
+      "cancel": "منسوخ",
+      "min_error": "اس آئٹم کا کم از کم {{ min }} ہے",
+      "max_error": "اس آئٹم کی زیادہ سے زیادہ تعداد {{ max }} ہے",
+      "step_error": "آپ صرف {{ step }} کے اضافے میں اس اشیاء کو شامل کرسکتے ہیں۔"
+    },
+    "collapsible_rows": {
+      "search": "تلاش کریں",
+      "no_results": "کوئی مشابہت نہیں مل سکی"
+    },
+    "countdown": {
+      "a11y_message": "{{ end_date }} تک ختم ہو جائے گا",
+      "days": "دن",
+      "hours": "گھنٹے",
+      "minutes": "منٹ",
+      "seconds": "سیکنڈ",
+      "days_short": "دن",
+      "hours_short": "گھنٹے",
+      "minutes_short": "منٹ",
+      "seconds_short": "ثانیے"
+    },
+    "compare": {
+      "product_page_link": "مزید جانیں",
+      "buy": "خریدیں"
+    },
+    "contact": {
+      "date_is_in_past": "آپ پچھلی تاریخ منتخب نہیں کرسکتے۔"
+    }
+  },
+  "localization": {
+    "country_label": "ملک/خطہ",
+    "language_label": "زبان",
+    "update_language": "زبان کو اپ ڈیٹ کریں",
+    "update_country": "ملک/علاقہ تازہ کریں",
+    "search": "تلاش کریں",
+    "popular_countries_regions": "مقبول ممالک / علاقوں",
+    "country_results_count": "{{ count }} ملک/علاقے تلاش کیے گئے",
+    "no_countries": "کوئی ملک نہیں ملا"
+  },
+  "customer": {
+    "account": {
+      "title": "حساب",
+      "details": "اکاؤنٹ کی تفصیلات",
+      "view_addresses": "پتے دیکھیں",
+      "edit": "ترمیم کریں",
+      "return": "حساب میں واپس جائیں"
+    },
+    "account_fallback": "حساب",
+    "activate_account": {
+      "title": "حساب فعال کریں",
+      "subtext": "اپنے اکاؤنٹ کو فعال کرنے کے لئے اپنا پاس ورڈ بنائیں۔",
+      "password": "پاس ورڈ",
+      "password_confirm": "پاس ورڈ کی تصدیق کریں",
+      "submit": "حساب فعال کریں",
+      "cancel": "دعوت کو مسترد کریں"
+    },
+    "addresses": {
+      "title": "{{گاہک کے پتے}}",
+      "default": "پہلے سے طے شدہ",
+      "add_new": "نیا پتہ شامل کریں",
+      "edit_address": "پتہ ترمیم کریں",
+      "first_name": "پہلا نام",
+      "last_name": "آخری نام",
+      "company": "کمپنی",
+      "address1": "پتہ 1",
+      "address2": "پتہ 2",
+      "city": "شہر",
+      "country": "ملک/علاقہ",
+      "province": "صوبہ",
+      "zip": "ڈاک/زپ کوڈ",
+      "phone": "فون",
+      "set_default": "پہلے سے طے شدہ پتہ کے طور پر ترتیب دیں",
+      "add": "پتہ شامل کریں",
+      "update": "ایڈریس اپ ڈیٹ کریں",
+      "cancel": "منسوخ کریں",
+      "edit": "ترمیم کریں",
+      "delete": "حذف کریں",
+      "delete_confirm": "کیا آپ اس پتہ کو حذف کرنا چاہتے ہیں؟"
+    },
+    "log_in": "میرا اکاؤنٹ",
+    "log_out": "لاگ آؤٹ",
+    "login_page": {
+      "cancel": "منسوخ کریں",
+      "create_account": "اکاؤنٹ بنائیں",
+      "email": "ای میل",
+      "forgot_password": "آپ اپنا پاسورڈ بھول گئے ہیں؟",
+      "guest_continue": "جاری رکھیں",
+      "guest_title": "مہمان کے طور پر جاری رہنا",
+      "password": "پاس ورڈ",
+      "title": "خوش آمدید",
+      "sign_in": "داخل ہوں",
+      "submit": "جمع کرائیں",
+      "alternate_provider_separator": "یا"
+    },
+    "order": {
+      "title": "{{ name }} کا حکم",
+      "date_html": "{{ date }} پر رکھا گیا",
+      "cancelled_html": "{{ date }} پر آرڈر منسوخ کر دیا گیا",
+      "cancelled_reason": "وجہ: {{ reason }}",
+      "billing_address": "بلنگ ایڈریس",
+      "payment_status": "ادائیگی کی حالت",
+      "shipping_address": "شپنگ ایڈریس",
+      "fulfillment_status": "تکمیل کی حالت",
+      "discount": "تخفیف",
+      "shipping": "شپنگ",
+      "tax": "ٹیکس",
+      "product": "مصنوعہ",
+      "sku": "شناختی اشیاء کا نمبر",
+      "price": "قیمت",
+      "quantity": "مقدار",
+      "total": "کل",
+      "total_refunded": "واپس کر دیا گیا",
+      "fulfilled_at_html": "{{ date }} پورا ہوا",
+      "track_shipment": "شپمنٹ کا پتہ لگائیں",
+      "tracking_url": "ٹریکنگ لنک",
+      "tracking_company": "کیریئر",
+      "tracking_number": "ٹریکنگ نمبر",
+      "subtotal": "فرعی مجموعہ",
+      "total_duties": "محنت"
+    },
+    "orders": {
+      "title": "آرڈر کی تاریخ",
+      "order_number": "آرڈر",
+      "order_number_link": "آرڈر نمبر {{ number }}",
+      "date": "تاریخ",
+      "payment_status": "ادائیگی کی حالت",
+      "fulfillment_status": "تکمیل کی حالت",
+      "total": "کل",
+      "none": "آپ نے اب تک کوئی آرڈر نہیں دیا ہے۔"
+    },
+    "recover_password": {
+      "title": "ری سیٹ پاس ورڈ",
+      "subtext": "ہم آپ کو ایک ای میل بھیجیں گے تاکہ آپ اپنا پاس ورڈ دوبارہ سیٹ کر",
+      "success": "ہم نے آپ کو ایک ای میل بھیجا ہے جس میں آپ کے پاس ورڈ کو اپ ڈیٹ"
+    },
+    "register": {
+      "title": "اکاؤنٹ بنائیں",
+      "first_name": "پہلا نام",
+      "last_name": "آخری نام",
+      "email": "ای میل",
+      "password": "پاس ورڈ",
+      "submit": "بنائیں"
+    },
+    "reset_password": {
+      "title": "حساب کا پاس ورڈ دوبارہ ترتیب دیں",
+      "subtext": "ایک نیا پاس ورڈ درج کریں",
+      "password": "پاس ورڈ",
+      "password_confirm": "پاسورڈ تصدیق کریں",
+      "submit": "پاس ورڈ دوبارہ ترتیب دیں"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "how_to_use_gift_card": "گفٹ کارڈ کو آن لائن استعمال کریں یا اسٹور میں QR کوڈ استعمال کریں",
+      "title": "یہاں آپ کا {{ value }} گفٹ کارڈ بیلنس {{ shop }} کے لئے ہے!",
+      "subtext": "آپ کا تحفہ کارڈ",
+      "gift_card_code": "تحفہ کارڈ کوڈ",
+      "shop_link": "خرید کرنا شروع کریں",
+      "add_to_apple_wallet": "Apple والیٹ میں شامل کریں",
+      "qr_image_alt": "QR کوڈ - گفٹ کارڈ استعمال کرنے کے لئے اسکین کریں",
+      "copy_code": "گفٹ کارڈ کوڈ کاپی کریں",
+      "expiration_date": "انقضا {{ expires_on }}",
+      "copy_code_success": "کوڈ کامیابی سے کاپی ہوگیا",
+      "expired": "تاریخ گذشتہ"
+    }
+  },
+  "recipient": {
+    "form": {
+      "checkbox": "میں یہ تحفہ کے طور پر بھیجنا چاہتا ہوں",
+      "expanded": "گفٹ کارڈ کے وصول کنندہ کا فارم بڑھا دیا گیا ہے",
+      "collapsed": "گفٹ کارڈ وصول کنندہ کا فارم جھکا ہوا ہے",
+      "email_label": "گیرندہ ای میل",
+      "email_label_optional_for_no_js_behavior": "گیرندہ ای میل (اختیاری)",
+      "email": "ای میل",
+      "name_label": "وصول کنندہ کا نام (اختیاری)",
+      "name": "نام",
+      "message_label": "پیغام (اختیاری)",
+      "message": "پیغام",
+      "max_characters": "{{ max_chars }} حروف کی حد",
+      "send_on": "YYYY-MM-DD",
+      "send_on_label": "بھیج دو (اختیاری)"
+    }
+  }
+}

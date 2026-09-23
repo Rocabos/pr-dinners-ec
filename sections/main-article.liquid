@@ -1,0 +1,916 @@
+{%- comment -%}theme-check-disable SchemaJsonFormat{%- endcomment -%}
+{{ 'section-blog-post.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'article-images.js' | asset_url }}" defer="defer"></script>
+
+<div class="color-{{ section.settings.color_scheme }} isolate gradient">
+  <article class="article-template__article section__inner {{ section.settings.top_padding }} {{ section.settings.bottom_padding }}">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when '@app' -%}
+          <div class="page-width page-width--narrow article-template__block" data-no-instant>
+            {% render block %}
+          </div>
+
+        {%- when 'featured_image' -%}
+          {%- if article.image -%}
+            {%- liquid
+              assign image = article.image
+              assign media_aspect_ratio = block.settings.image_ratio
+
+              if media_aspect_ratio != 'custom'
+                assign ratio = 1.77
+                if media_aspect_ratio == 'landscape_wide'
+                  assign ratio = 1.77
+                elsif media_aspect_ratio == 'landscape_wider'
+                  assign ratio = 2.33
+                elsif media_aspect_ratio == 'landscape'
+                  assign ratio = 1.33
+                elsif media_aspect_ratio == 'square'
+                  assign ratio = 1
+                elsif image and media_aspect_ratio == 'adapt'
+                  assign ratio = image.aspect_ratio
+                endif
+              endif
+            -%}
+
+            <div
+              class="page-width page-width--narrow article-template__block article-template__block--image{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+              style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+              {{ block.shopify_attributes }}
+            >
+              <div
+                class="media ratio global-media-settings{% if block.settings.enlarge_image %} article-template__image-large{% endif %}"
+                {% if block.settings.image_height == 'adapt' and article.image %}
+                  style="padding-bottom: {{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;"
+                {% endif %}
+              >
+                <img
+                  srcset="
+                    {% if article.image.width >= 350 %}{{ article.image | image_url: width: 350 }} 350w,{% endif %}
+                    {% if article.image.width >= 750 %}{{ article.image | image_url: width: 750 }} 750w,{% endif %}
+                    {% if article.image.width >= 1100 %}{{ article.image | image_url: width: 1100 }} 1100w,{% endif %}
+                    {% if article.image.width >= 1500 %}{{ article.image | image_url: width: 1500 }} 1500w,{% endif %}
+                    {% if article.image.width >= 2200 %}{{ article.image | image_url: width: 2200 }} 2200w,{% endif %}
+                    {% if article.image.width >= 3000 %}{{ article.image | image_url: width: 3000 }} 3000w,{% endif %}
+                    {{ article.image | image_url }} {{ article.image.width }}w
+                  "
+                  sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 }}px, (min-width: 750px) calc(100vw - 10rem), 100vw"
+                  src="{{ article.image | image_url: width: 1100 }}"
+                  loading="eager"
+                  fetchpriority="high"
+                  width="{{ article.image.width }}"
+                  height="{{ article.image.height }}"
+                  alt="{{ article.image.alt | escape }}"
+                >
+              </div>
+            </div>
+          {%- endif -%}
+
+        {%- when 'title' -%}
+          <header
+            class="page-width page-width--narrow article-template__block article-template__block--title{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            <h1 class="b-main-title mt-0 mb-0 lh-13 {{ block.settings.title_style }} {{ block.settings.title_size }} {{ block.settings.title_text_transform }} font-{{ block.settings.title_weight }}">
+              {{ article.title | escape }}
+            </h1>
+          </header>
+
+        {%- when 'meta' -%}
+          {%- if block.settings.blog_show_date or block.settings.blog_show_author -%}
+            <div
+              class="page-width page-width--narrow article-template__block article-template__block--meta{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="flex gap-1 flex-col md:flex-row justify-between">
+                <div>
+                  {%- if block.settings.blog_show_author -%}
+                    <div class="caption uppercase {{ block.settings.meta_size }}">
+                      <meta property="author" content="{{ article.author }}">
+                      {{ 'blogs.article.author' | t: author: article.author }}
+                    </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.blog_show_date -%}
+                    <span class="caption uppercase xlight {{ block.settings.meta_size }}">
+                      {{- article.published_at | time_tag: format: 'date' -}}
+                    </span>
+                    {%- if block.settings.show_reading_estimate -%}
+                      <span class="article-template__separator" aria-hidden="true">
+                        {{ block.settings.separator }}
+                      </span>
+                    {%- endif -%}
+                  {%- endif -%}
+
+                  {%- if block.settings.show_reading_estimate -%}
+                    {%- assign read_estimate = article.content | strip_html | split: ' ' | size | times: 1.0 | divided_by: 250 | ceil -%}
+                    <span class="caption uppercase xlight {{ block.settings.meta_size }}">
+                      {{ 'blogs.article.read_estimate' | t: minutes: read_estimate }}
+                    </span>
+                  {%- endif -%}
+                </div>
+
+                {%- if block.settings.show_socials -%}
+                  <div>
+                    {%- render 'share-button', share_id: '-top', share_link: article.url, share_title: article.title, share_image: article.image -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+
+        {%- when 'excerpt' -%}
+          <div
+            class="page-width page-width--narrow article-template__block article-template__block--excerpt rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="{{ block.settings.excerpt_size }} {{ block.settings.excerpt_text_style }} {{ block.settings.excerpt_text_transform }} font-{{ block.settings.excerpt_weight }}">
+              {{ article.excerpt }}
+            </div>
+          </div>
+
+        {%- when 'tags' -%}
+          {%- if article.tags.size > 0 -%}
+            {% capture tag_colors_combined %}
+              {% if block.settings.tag1_color == blank or block.settings.tag1_color.alpha == 0 %}var(--color-foreground){% else %}{{ block.settings.tag1_color }}{% endif %}|
+              {% if block.settings.tag2_color == blank or block.settings.tag2_color.alpha == 0 %}var(--color-foreground){% else %}{{ block.settings.tag2_color }}{% endif %}|
+              {% if block.settings.tag3_color == blank or block.settings.tag3_color.alpha == 0 %}var(--color-foreground){% else %}{{ block.settings.tag3_color }}{% endif %}|
+              {% if block.settings.tag4_color == blank or block.settings.tag4_color.alpha == 0 %}var(--color-foreground){% else %}{{ block.settings.tag4_color }}{% endif %}
+            {% endcapture %}
+
+            <div
+              class="page-width page-width--narrow article-template__block article-template__block--tags{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              {%- for tag in article.tags -%}
+                {%- liquid
+                  assign tag_colors = tag_colors_combined | split: '|'
+                  assign color_index = forloop.index0 | modulo: 4
+                  assign tag_color = tag_colors[color_index]
+                -%}
+
+                <a href="{{ tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first }}"
+                   class="full-unstyled-link inline caption-with-letter-spacing font-bold {{ block.settings.tag_size }}"
+                   style="color: {{ tag_color }};">
+                  {{- tag -}}
+                </a>
+                {%- unless forloop.last -%}
+                  <span class="article-template__separator" aria-hidden="true">
+                    {{ block.settings.separator }}
+                  </span>
+                {%- endunless -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+        {%- when 'spacer' -%}
+          <div class="page-width page-width--narrow">
+            {% render 'standard-blocks', section_name: 'article-template', block: block %}
+          </div>
+
+        {%- when 'content' -%}
+          <div
+            class="article-template__content page-width page-width--narrow article-template__block rte
+              {% if block.settings.enlarge_images %} article-template__content--images-large{% endif %}
+              {% if block.settings.enlarge_first_letter %} article-template__content--first-letter-large{% endif %}
+              {% if block.settings.times_first_letter %} article-template__content--first-letter-times{% endif %}
+              {% if block.settings.image_captions != 'none' %} article-template__content--image-captions{% endif %}
+              {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+            data-image-captions="{{ block.settings.image_captions }}"
+            {{ block.shopify_attributes }}
+          >
+            {{ article.content }}
+          </div>
+
+        {%- when 'share' -%}
+          <div class="article-template__social-sharing page-width page-width--narrow article-template__block{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+            {%- render 'share-button', share_id: '-bottom', block: block, share_link: article.url, share_title: article.title, share_image: article.image -%}
+          </div>
+
+        {%- when 'pagination' -%}
+          <div
+            class="article-template__pagination page-width page-width--narrow article-template__block{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="flex justify-between">
+              <a class="article-template__pagination--previous flex items-center full-unstyled-link{% unless blog.previous_article %} light{% endunless %}" {% if blog.previous_article %} href="{{ blog.previous_article }}" title="{{ blog.previous_article.title | escape }}"{% else %} role="link" aria-disabled="true"{% endif %}>
+                {% render 'icon-caret' %}
+                <span>{{ 'blogs.article.previous_article' | t }}</span>
+              </a>
+
+              <a class="article-template__pagination--next flex items-center full-unstyled-link{% unless blog.next_article %} light{% endunless %}" {% if blog.next_article %} href="{{ blog.next_article }}" title="{{ blog.next_article.title | escape }}"{% else %} role="link" aria-disabled="true"{% endif %}>
+                <span>{{ 'blogs.article.next_article' | t }}</span>
+                {% render 'icon-caret' %}
+              </a>
+            </div>
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </article>
+</div>
+
+{%- if settings.seo_schema_article != 'none' -%}
+  {%- if settings.seo_schema_article == 'shopify' -%}
+    <script type="application/ld+json">
+      {{ article | structured_data }}
+    </script>
+  {%- else -%}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "articleBody": {{ article.content | strip_html | json }},
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": {{ request.origin | append: page.url | json }}
+        },
+        "headline": {{ article.title | json }},
+        {% if article.excerpt != blank %}
+          "description": {{ article.excerpt | strip_html | json }},
+        {% endif %}
+        {% if article.image %}
+          "image": [
+            {{ article | image_url: width: 1920 | prepend: "https:" | json }}
+          ],
+        {% endif %}
+        "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+        "dateModified": {{ article.updated_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+        "dateCreated": {{ article.created_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+        "author": {
+          "@type": "Person",
+          "name": {{ article.author | json }}
+        },
+        "publisher": {
+          "@type": "Organization",
+          {%- if page_image -%}
+            "logo": {
+              "@type": "ImageObject",
+              "url": {{ page_image | image_url: width: page_image.width | prepend: "https:" | json }},
+              "height": {{ page_image.height | json }},
+              "width": {{ page_image.width | json }}
+            },
+          {%- endif -%}
+          "name": {{ shop.name | json }}
+        }
+      }
+    </script>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Blog post",
+  "tag": "section",
+  "class": "section section-main-article",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "select",
+      "id": "top_padding",
+      "options": [
+        {
+          "value": "pt-0",
+          "label": "0"
+        },
+        {
+          "value": "pt-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pt-s",
+          "label": "1"
+        },
+        {
+          "value": "pt-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pt-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pt-s",
+      "label": "Top section spacing"
+    },
+    {
+      "type": "select",
+      "id": "bottom_padding",
+      "options": [
+        {
+          "value": "pb-0",
+          "label": "0"
+        },
+        {
+          "value": "pb-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pb-s",
+          "label": "1"
+        },
+        {
+          "value": "pb-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pb-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pb-s",
+      "label": "Bottom section spacing"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "featured_image",
+      "name": "Article featured image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "image_ratio",
+          "options": [
+            {
+              "value": "adapt",
+              "label": "Original image height"
+            },
+            {
+              "value": "square",
+              "label": "Square (1:1)"
+            },
+            {
+              "value": "landscape",
+              "label": "Landscape (4:3)"
+            },
+            {
+              "value": "landscape_wide",
+              "label": "Landscape (16:9)"
+            },
+            {
+              "value": "landscape_wider",
+              "label": "Landscape (21:9)"
+            }
+          ],
+          "default": "adapt",
+          "label": "Minimum image height"
+        },
+        {
+          "type": "checkbox",
+          "id": "enlarge_image",
+          "default": true,
+          "label": "Enlarge image"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "Article title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "title_style",
+          "options": [
+            {
+              "value": "text-body",
+              "label": "Body"
+            },
+            {
+              "value": "text-heading",
+              "label": "Heading"
+            }
+          ],
+          "default": "text-heading",
+          "label": "Title style"
+        },
+        {
+          "type": "select",
+          "id": "title_weight",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Standard"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ],
+          "default": "normal",
+          "label": "Title weight"
+        },
+        {
+          "type": "select",
+          "id": "title_size",
+          "options": [
+            {
+              "value": "h2",
+              "label": "M"
+            },
+            {
+              "value": "h1",
+              "label": "L"
+            },
+            {
+              "value": "h0",
+              "label": "XL"
+            }
+          ],
+          "default": "h1",
+          "label": "Title size"
+        },
+        {
+          "type": "select",
+          "id": "title_text_transform",
+          "default": "none",
+          "label": "Title capitalization",
+          "options": [
+            {
+              "value": "none",
+              "label": "As typed"
+            },
+            {
+              "value": "uppercase",
+              "label": "Uppercase"
+            },
+            {
+              "value": "lowercase",
+              "label": "Lowercase"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "meta",
+      "name": "Article meta",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "blog_show_author",
+          "default": false,
+          "label": "Show author"
+        },
+        {
+          "type": "checkbox",
+          "id": "blog_show_date",
+          "default": true,
+          "label": "Show date"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_reading_estimate",
+          "default": true,
+          "label": "Show reading estimate"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_socials",
+          "default": true,
+          "label": "Show social share icons",
+          "info": "These can be customized in [Social theme settings](/editor?context=theme&category=socials)"
+        },
+        {
+          "type": "select",
+          "id": "meta_size",
+          "options": [
+            {
+              "value": "",
+              "label": "3XS"
+            },
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            }
+          ],
+          "default": "t5",
+          "label": "Meta size"
+        },
+        {
+          "type": "select",
+          "id": "separator",
+          "options": [
+            {
+              "value": "·",
+              "label": "·"
+            },
+            {
+              "value": "|",
+              "label": "|"
+            },
+            {
+              "value": "/",
+              "label": "/"
+            },
+            {
+              "value": "",
+              "label": "None"
+            }
+          ],
+          "default": "·",
+          "label": "Separator"
+        }
+      ]
+    },
+    {
+      "type": "tags",
+      "name": "Article tags",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "tag_size",
+          "options": [
+            {
+              "value": "",
+              "label": "3XS"
+            },
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            }
+          ],
+          "default": "t5",
+          "label": "Tag size"
+        },
+        {
+          "type": "select",
+          "id": "separator",
+          "options": [
+            {
+              "value": "·",
+              "label": "·"
+            },
+            {
+              "value": "|",
+              "label": "|"
+            },
+            {
+              "value": "/",
+              "label": "/"
+            },
+            {
+              "value": "",
+              "label": "None"
+            }
+          ],
+          "default": "·",
+          "label": "Separator"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "paragraph",
+          "content": "Leave colors as transparent to use default text color."
+        },
+        {
+          "type": "color",
+          "id": "tag1_color",
+          "label": "Tag 1 color"
+        },
+        {
+          "type": "color",
+          "id": "tag2_color",
+          "label": "Tag 2 color"
+        },
+        {
+          "type": "color",
+          "id": "tag3_color",
+          "label": "Tag 3 color"
+        },
+        {
+          "type": "color",
+          "id": "tag4_color",
+          "label": "Tag 4 color"
+        }
+      ]
+    },
+    {
+      "type": "excerpt",
+      "name": "Article excerpt",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "excerpt_text_style",
+          "options": [
+            {
+              "value": "",
+              "label": "Standard"
+            },
+            {
+              "value": "subtitle",
+              "label": "Subtitle"
+            }
+          ],
+          "default": "subtitle",
+          "label": "Excerpt style"
+        },
+        {
+          "type": "select",
+          "id": "excerpt_weight",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Standard"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "bold",
+              "label": "Bold"
+            }
+          ],
+          "default": "normal",
+          "label": "Excerpt weight"
+        },
+        {
+          "type": "select",
+          "id": "excerpt_size",
+          "options": [
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            }
+          ],
+          "default": "t3",
+          "label": "Excerpt size"
+        },
+        {
+          "type": "select",
+          "id": "excerpt_text_transform",
+          "default": "none",
+          "label": "Excerpt capitalization",
+          "options": [
+            {
+              "value": "none",
+              "label": "As typed"
+            },
+            {
+              "value": "uppercase",
+              "label": "Uppercase"
+            },
+            {
+              "value": "lowercase",
+              "label": "Lowercase"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "spacer",
+      "name": "Spacer",
+      "settings": [
+        
+  {
+    "type": "checkbox",
+    "id": "show_line_separator",
+    "default": true,
+    "label": "Show separator line"
+  },
+  {
+    "type": "range",
+    "id": "spacing_top",
+    "min": 0,
+    "max": 10,
+    "step": 0.1,
+    "unit": "rem",
+    "default": 2.4,
+    "label": "Spacing top"
+  },
+  {
+    "type": "range",
+    "id": "spacing_bottom",
+    "min": 0,
+    "max": 10,
+    "step": 0.1,
+    "unit": "rem",
+    "default": 2.4,
+    "label": "Spacing bottom"
+  },
+  {
+    "type": "select",
+    "id": "spacer_visibility",
+    "options": [
+      {
+        "value": "mobile",
+        "label": "Mobile"
+      },
+      {
+        "value": "desktop",
+        "label": "Desktop"
+      },
+      {
+        "value": "both",
+        "label": "Both"
+      }
+    ],
+    "default": "both",
+    "label": "Show on"
+  },
+  {
+    "type": "color",
+    "id": "line_color",
+    "label": "Line color",
+    "info": "Set to transparent to use standard line color."
+  }
+
+      ]
+    },
+    {
+      "type": "content",
+      "name": "Article content",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "enlarge_first_letter",
+          "default": false,
+          "info": "Applies when the article starts with a paragraph. May not work in all browsers.",
+          "label": "Enlarge first letter in article"
+        },
+        {
+          "type": "checkbox",
+          "id": "times_first_letter",
+          "default": false,
+          "info": "To be used in conjunction with the above setting.",
+          "label": "Make the first letter a serif font"
+        },
+        {
+          "type": "checkbox",
+          "id": "enlarge_images",
+          "default": false,
+          "label": "Enlarge images"
+        },
+        {
+          "type": "select",
+          "id": "image_captions",
+          "options": [
+            {
+              "value": "none",
+              "label": "Off"
+            },
+            {
+              "value": "large",
+              "label": "Large images"
+            },
+            {
+              "value": "all",
+              "label": "All images"
+            }
+          ],
+          "default": "none",
+          "label": "Show image alt text as captions"
+        }
+      ]
+    },
+    {
+      "type": "share",
+      "name": "Share",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "share_caption",
+          "label": "Caption",
+          "info": "Optional."
+        },
+        {
+          "type": "select",
+          "id": "share_caption_text_style",
+          "options": [
+            {
+              "value": "subtitle",
+              "label": "Subtitle"
+            },
+            {
+              "value": "uppercase",
+              "label": "Uppercase"
+            }
+          ],
+          "default": "uppercase",
+          "label": "Text style"
+        },
+        {
+          "type": "select",
+          "id": "share_caption_size",
+          "options": [
+            {
+              "value": "",
+              "label": "3XS"
+            },
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            }
+          ],
+          "default": "t5",
+          "label": "Caption size"
+        },
+        {
+          "type": "paragraph",
+          "content": "If you include a link in social media posts, the page's featured image will be shown as the preview image. [Learn more](https://help.shopify.com/manual/online-store/images/showing-social-media-thumbnail-images)."
+        },
+        {
+          "type": "paragraph",
+          "content": "A store title and description are included with the preview image. [Learn more](https://help.shopify.com/manual/promoting-marketing/seo/adding-keywords#set-a-title-and-description-for-your-online-store)."
+        }
+      ]
+    },
+    {
+      "type": "pagination",
+      "name": "Next/previous article",
+      "limit": 1,
+      "settings": [
+      ]
+    }
+  ]
+}
+{% endschema %}

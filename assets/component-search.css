@@ -1,0 +1,49 @@
+.header__search .search-modal__close-button {
+  height: 5rem;
+  z-index: 1;
+}
+
+/* Remove extra spacing for search inputs in Safari */
+input::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+.template-search__results {
+  position: relative;
+}
+
+@media screen and (min-width: 750px) {
+  .header__search .search .field__label {
+    top: calc(2rem + var(--inputs-border-width));
+  }
+
+  .header__search .search__input.field__input {
+    padding: 0;
+    border: 1px solid rgba(var(--color-foreground), 0.03);
+    font-size: 1.9rem;
+  }
+
+  .search-modal .select+.search__input.field__input {
+    padding-inline-start: 1em;
+    border-inline-start: 0;
+  }
+
+  .search-modal .select {
+    flex-basis: 150px;
+  }
+
+  .search-modal select,
+  .search-modal .select .current,
+  .search-modal .select .option {
+    font-size: 1.6rem;
+  }
+
+  .header__search .search .search__button .icon {
+    height: 2.2rem;
+    width: 2.2rem;
+  }
+
+  .header__search .search__button {
+    width: 5.1rem;
+  }
+}

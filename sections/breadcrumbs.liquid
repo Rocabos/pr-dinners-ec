@@ -1,0 +1,87 @@
+<div class="color-{{ section.settings.color_scheme }} isolate gradient {{ section.settings.line_separator }} {{ section.settings.visibility }}"
+     style="padding-top: {{ section.settings.spacing }}rem; padding-bottom: {{ section.settings.spacing }}rem;"
+>
+  {%- render 'breadcrumbs' -%}
+</div>
+
+{% schema %}
+{
+  "name": "Breadcrumbs",
+  "tag": "div",
+  "class": "section section-breadcrumb",
+  "settings": [
+    {
+      "type": "range",
+      "id": "spacing",
+      "min": 0,
+      "max": 20,
+      "step": 0.2,
+      "unit": "rem",
+      "default": 0,
+      "label": "Vertical padding"
+    },
+    {
+      "type": "paragraph",
+      "content": "Refer to [Breadcrumb theme settings](/editor?context=theme&category=breadcrumbs) for more settings."
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "line_separator",
+      "options": [
+        {
+          "value": "",
+          "label": "Off"
+        },
+        {
+          "value": "border-top",
+          "label": "Top"
+        },
+        {
+          "value": "border-bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "border-top border-bottom",
+          "label": "Both"
+        }
+      ],
+      "default": "",
+      "label": "Line separator"
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "options": [
+        {
+          "value": "visible-xs",
+          "label": "Mobile"
+        },
+        {
+          "value": "hidden-xs",
+          "label": "Desktop"
+        },
+        {
+          "value": "",
+          "label": "Both"
+        }
+      ],
+      "default": "",
+      "label": "Show on"
+    }
+  ]
+}
+{% endschema %}

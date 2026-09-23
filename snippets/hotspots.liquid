@@ -1,0 +1,107 @@
+{%- liquid
+  assign hotspot_blocks = section.blocks | where: 'type', 'hotspot'
+  if settings.animations_reveal_on_scroll
+    assign animate = true
+  endif
+-%}
+
+{%- if hotspot_blocks.size > 0 -%}
+  <lazy-script src="{{ 'image-hotspot.js' | asset_url }}" defer="defer"></lazy-script>
+  <link rel="stylesheet" href="{{ 'image-hotspot.css' | asset_url }}" media="print" onload="this.media='all'">
+
+  {%- for block in hotspot_blocks -%}
+    {% liquid
+      assign x_desktop = block.settings.hotspot_horizontal_position_override_desktop | default: block.settings.hotspot_horizontal_position_desktop | replace: '%', '' | strip | plus: 0
+      assign y_desktop = block.settings.hotspot_vertical_position_override_desktop | default: block.settings.hotspot_vertical_position_desktop | replace: '%', '' | strip | plus: 0
+      if block.settings.hotspot_position_mobile
+        assign x_mobile = block.settings.hotspot_horizontal_position_override_mobile | default: block.settings.hotspot_horizontal_position_mobile | replace: '%', '' | strip | plus: 0
+        assign y_mobile = block.settings.hotspot_vertical_position_override_mobile | default: block.settings.hotspot_vertical_position_mobile | replace: '%', '' | strip | plus: 0
+      else
+        assign x_mobile = x_desktop
+        assign y_mobile = y_desktop
+      endif
+
+      assign popover_title = block.settings.title | default: block.settings.popover_product.title
+      assign popover_content = block.settings.popover_content
+      if popover_content == blank
+        assign popover_content = block.settings.popover_product.description | strip_html | truncatewords: 25
+      endif
+
+      assign popover_button_link = block.settings.popover_button_link | default: block.settings.popover_product.url
+
+      assign content_char_length = popover_title | append: popover_content | append: block.settings.popover_button_label | size
+    %}
+
+    {%- if popover_title or popover_content or block.settings.popover_button_label != blank -%}
+      <image-hotspot class="hotspot absolute {{ block.settings.hotspot_visibility }}{% if animate %} scroll-trigger animate--fade-in{% endif %}"
+        style="--marker-top-desktop: {{ y_desktop }}%; --marker-left-desktop: {{ x_desktop }}%; --marker-top-mobile: {{ y_mobile }}%; --marker-left-mobile: {{ x_mobile }}%; --size-desktop: {{ block.settings.hotspot_size_desktop }}px; --size-mobile: {{ block.settings.hotspot_size_mobile }}px; --hotspot-opacity: {{ block.settings.hotspot_opacity | divided_by: 100.0 }}; {% if animate %}--animation-order: {{ forloop.index }};{% endif %}"
+        {{ block.shopify_attributes }}
+      >
+        <button class="hotspot__marker tap-target--small
+          {% if block.settings.hotspot_style == 'swatch' %}hotspot__marker--swatch{% endif %}
+          {% if block.settings.hotspot_pulse %} hotspot__marker--pulse{% endif %}"
+          style="--color-background: {{ block.settings.hotspot_background_color.red }},{{ block.settings.hotspot_background_color.green }},{{ block.settings.hotspot_background_color.blue }}; --color-foreground: {{ block.settings.hotspot_foreground_color.red }},{{ block.settings.hotspot_foreground_color.green }},{{ block.settings.hotspot_foreground_color.blue }};"
+        >
+          <span class="visually-hidden">{{ 'accessibility.view_hotspot' | t }}</span>
+          {%- if block.settings.hotspot_style == 'plus' -%}
+            {%- render 'icon-plus' -%}
+          {%- elsif block.settings.hotspot_style == 'magnify' -%}
+            {%- render 'icon-search' -%}
+          {%- elsif block.settings.hotspot_style == 'question' -%}
+            {% render 'icon', icon: 'help' %}
+          {%- elsif block.settings.hotspot_style == 'info' -%}
+            {% render 'icon', icon: 'information' %}
+          {%- elsif block.settings.hotspot_style == 'price' -%}
+            {% render 'icon', icon: 'price_tags' %}
+          {%- elsif block.settings.hotspot_style == 'camera' -%}
+            {% render 'icon', icon: 'camera' %}
+          {%- elsif block.settings.hotspot_style == 'map_pin' -%}
+            {% render 'icon', icon: 'map_pin' %}
+          {%- endif -%}
+        </button>
+        <div class="hotspot__popover absolute border-radius-panel p-3 opacity-0 color-{{ block.settings.popover_color_scheme }} gradient
+          {% if block.settings.popover_width_desktop > 325 %} hotspot__popover--wide{% endif %}
+          {% if x_desktop > 50 %} x-right{% endif %}
+          {% if content_char_length > 100 %}hotspot__popover--long{% endif %}
+          {% if content_char_length > 50 %}{% if y_desktop < 20 %} y-top{% elsif y_desktop > 80 %} y-bottom{% endif %}{% endif %}"
+          aria-hidden="true"
+          style="--popover-width-desktop: {{ block.settings.popover_width_desktop }}px"
+        >
+          {%- if popover_title -%}
+            <h3 class="hotspot__popover-heading lh-15 {{ block.settings.popover_title_size }} last-child:mb-0 mt-0
+              {% if popover_content != blank or block.settings.popover_button_label != blank %}mb-1{% endif %}"
+            >
+              {{ popover_title }}
+            </h3>
+          {%- endif -%}
+
+          {%- if popover_content != blank or block.settings.popover_button_label != blank -%}
+            <div class="hotspot__popover-content {{ block.settings.popover_content_size }}">
+              {%- if popover_content -%}
+                <div class="rte">
+                  {{ popover_content }}
+                </div>
+              {%- endif -%}
+
+              {%- if block.settings.popover_button_label != blank -%}
+                <a
+                  {% if popover_button_link == blank %}
+                    role="link" aria-disabled="true"
+                  {% else %}
+                    href="{{ popover_button_link }}"
+                  {% endif %}
+                  class="{% if popover_content %}mt-15 {% endif %}{{ block.settings.popover_button_text_size }} {% if block.settings.popover_button_style == 'link' %}link un-underlined-link{% else %}button button--{{ block.settings.popover_button_style }}{% endif %}{% if block.settings.popover_button_show_arrow %} button-with-icon button-with-icon--right{% endif %}"
+                >
+                {{- block.settings.popover_button_label | escape -}}
+                {% if block.settings.popover_button_show_arrow %}
+                  {% render 'icon-arrow' %}
+                {% endif %}
+              </a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </image-hotspot>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}

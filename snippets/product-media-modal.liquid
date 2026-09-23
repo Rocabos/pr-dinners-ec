@@ -1,0 +1,48 @@
+{% comment %}
+  Renders a product media modal. Also see 'product-media-gallery'
+
+  Accepts:
+  - product: {Object} Product liquid object
+  - variant_images: {Array} Product images associated with a variant
+
+  Usage:
+  {% render 'product-media-modal' %}
+{% endcomment %}
+
+<product-modal id="ProductModal-{{ section.id }}" class="product-media-modal media-modal">
+
+    <div
+      class="product-media-modal__dialog color-scheme-1 gradient"
+      role="dialog"
+      aria-label="{{ 'products.modal.label' | t }}"
+      aria-modal="true"
+      tabindex="-1"
+    >
+      <button
+        id="ModalClose-{{ section.id }}"
+        type="button"
+        class="product-media-modal__toggle button-control"
+        aria-label="{{ 'accessibility.close' | t }}"
+      >
+        {% render 'icon-close' %}
+      </button>
+
+      <template data-prevent-interpolation class="deferred">
+        <div
+          class="product-media-modal__content color-scheme-1 gradient custom-scrollbar{% if section.settings.image_replace_background %} mix-blend-multiply{% endif %}"
+          style="--media-radius: {{ section.settings.product_media_radius }}px;"
+          role="document"
+          aria-label="{{ 'products.modal.label' | t }}"
+          tabindex="0"
+        >
+          {%- liquid
+            for media in product.media
+              if media.media_type == 'image'
+                render 'product-media', media: media, loop: section.settings.enable_video_looping
+              endif
+            endfor
+          -%}
+        </div>
+      </template>
+    </div>
+</product-modal>

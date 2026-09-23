@@ -1,0 +1,124 @@
+{% render 'standard-blocks', type: 'image' %}
+
+{% schema %}
+{
+  "name": "Images",
+  "tag": null,
+  "settings": [
+    
+  {
+    "type": "select",
+    "id": "image_ratio",
+    "options": [
+      {
+        "value": "adapt",
+        "label": "Original"
+      },
+      {
+        "value": "circle",
+        "label": "Circle"
+      },
+      {
+        "value": "square",
+        "label": "Square (1:1)"
+      },
+      {
+        "value": "landscape",
+        "label": "Landscape (4:3)"
+      },
+      {
+        "value": "landscape_wide",
+        "label": "Landscape (16:9)"
+      },
+      {
+        "value": "portrait",
+        "label": "Portrait (4:5)"
+      },
+      {
+        "value": "portrait_tall",
+        "label": "Portrait (2:3)"
+      }
+    ],
+    "default": "adapt",
+    "label": "Image aspect ratio"
+  },
+  {
+    "type": "range",
+    "id": "desktop_image_width",
+    "min": 20,
+    "max": 300,
+    "step": 5,
+    "default": 100,
+    "unit": "px",
+    "label": "Image width on desktop"
+  },
+  {
+    "type": "range",
+    "id": "mobile_image_width",
+    "min": 20,
+    "max": 270,
+    "step": 5,
+    "default": 60,
+    "unit": "px",
+    "label": "Image width on mobile"
+  },
+  {
+    "type": "range",
+    "id": "image_corner_radius",
+    "min": 0,
+    "max": 40,
+    "step": 2,
+    "unit": "px",
+    "label": "Corner rounding",
+    "default": 0
+  },
+  {
+    "type": "image_picker",
+    "id": "image_1",
+    "label": "Image 1"
+  },
+  {
+    "type": "image_picker",
+    "id": "image_2",
+    "label": "Image 2"
+  },
+  {
+    "type": "image_picker",
+    "id": "image_3",
+    "label": "Image 3"
+  },
+  {
+    "type": "image_picker",
+    "id": "image_4",
+    "label": "Image 4"
+  },
+  {
+    "type": "url",
+    "id": "image_1_link",
+    "label": "Image 1 link"
+  },
+  {
+    "type": "url",
+    "id": "image_2_link",
+    "label": "Image 2 link"
+  },
+  {
+    "type": "url",
+    "id": "image_3_link",
+    "label": "Image 3 link"
+  },
+  {
+    "type": "url",
+    "id": "image_4_link",
+    "label": "Image 4 link"
+  }
+
+  ],
+  "presets": [
+    {
+      "name": "Images",
+      "category": "Basic"
+    }
+  ]
+}
+{% endschema %}

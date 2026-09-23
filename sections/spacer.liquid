@@ -1,0 +1,151 @@
+{%- comment -%}theme-check-disable SchemaJsonFormat{%- endcomment -%}
+<div class="color-{{ section.settings.color_scheme }} gradient bg-scroll {{ section.settings.visibility }} {%- render 'class-time-of-day-to-show' -%}">
+  <div class="{% unless section.settings.full_width %} page-width{% endunless %}"
+   style="padding-top: {{ section.settings.spacing_top }}rem; padding-bottom: {{ section.settings.spacing_bottom }}rem;"
+  >
+    <hr class="section__spacer mt-0 mb-0 ml-auto mr-auto{% unless section.settings.show_line_separator %} visibility-hidden{% endunless %}"
+        style="{% if section.settings.line_color != blank and section.settings.line_color.alpha != 0 %}background-color: {{ section.settings.line_color }};{% endif %}{% if section.settings.line_width < 100 %}width: {{ section.settings.line_width }}%;{% endif %}"/>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Spacer",
+  "tag": "div",
+  "class": "section section-spacer",
+  "disabled_on": {
+    "groups": ["aside"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full width section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_line_separator",
+      "default": true,
+      "label": "Show separator line"
+    },
+    {
+      "type": "range",
+      "id": "line_width",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 100,
+      "label": "Line width"
+    },
+    {
+      "type": "range",
+      "id": "spacing_top",
+      "min": 0,
+      "max": 20,
+      "step": 0.2,
+      "unit": "rem",
+      "default": 2.4,
+      "label": "Spacing top"
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "min": 0,
+      "max": 20,
+      "step": 0.2,
+      "unit": "rem",
+      "default": 2.4,
+      "label": "Spacing bottom"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "line_color",
+      "label": "Line color",
+      "info": "Set to transparent to use standard line color."
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "options": [
+        {
+          "value": "visible-xs",
+          "label": "Mobile"
+        },
+        {
+          "value": "hidden-xs",
+          "label": "Desktop"
+        },
+        {
+          "value": "",
+          "label": "Both"
+        }
+      ],
+      "default": "",
+      "label": "Show on"
+    },
+    
+  {
+    "type": "checkbox",
+    "id": "show_at_specific_time_of_day",
+    "default": false,
+    "label": "Only show at specific times of the day",
+    "info": "Uses the customers' local time. Always shows in Theme Editor."
+  },
+  {
+    "type": "paragraph",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "content": "Lots of hidden content could be harmful for SEO. Don't overuse this."
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_morning",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show in the morning (5am - 12pm)"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_afternoon",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show in the afternoon (12pm - 5pm)"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_evening",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show in the evening (5pm - 9pm)"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_night",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show at night (9pm - 5am)"
+  }
+
+  ],
+  "presets": [
+    {
+      "name": "Spacer"
+    }
+  ]
+}
+{% endschema %}

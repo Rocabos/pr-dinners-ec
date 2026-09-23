@@ -1,0 +1,461 @@
+{%- comment -%}theme-check-disable SchemaJsonFormat{%- endcomment -%}
+{%- liquid
+  assign footer_column_count = 0
+  for block in section.blocks
+    if block.type == 'link_list'
+      assign footer_column_count = footer_column_count | plus: 1
+
+      if block.settings.menu != blank and block.settings.menu_2 != blank
+        assign footer_column_count = footer_column_count | plus: 1
+      endif
+    endif
+  endfor
+
+  assign footer_column_count = footer_column_count | at_least: 3 | at_most: 9
+  assign footer_grid_class = 'grid--' | append: footer_column_count | append: '-col-desktop'
+
+  assign color_scheme_bottom_light = section.settings.color_scheme_bottom_light
+  if color_scheme_bottom_light
+    assign background_lighter = section.settings.color_scheme_bottom.settings.background | color_lighten: 10
+  endif
+
+  assign date = 'now' | date: '%Y'
+-%}
+
+<link rel="stylesheet" href="{{ 'section-footer.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-accordion.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<footer
+  {% if section.settings.let_it_snow %}
+    class="let-it-snow-let-it-snow-let-it-snow"
+  {% endif %}
+>
+  {%- if section.blocks.size > 0 -%}
+    <div class="color-{{ section.settings.color_scheme }} gradient{% if section.blocks.size > 0 %} section__inner{% else %} pt-s05 pb-s05{% endif %}">
+      <div class="page-width">
+        {%- if section.blocks.size > 0 -%}
+          <div class="footer__blocks-wrapper grid grid--1-col grid--2-col grid--4-col-tablet {{ footer_grid_class }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+            {%- for block in section.blocks -%}
+              <div
+                class="footer-block grid__item{% if block.settings.wider %} footer-block--wider{% endif %}{% if block.type == 'link_list' %} footer-block--menu{% endif %} {% if block.settings.menu != blank and block.settings.menu_2 != blank %} grid-double-size{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                {%- liquid
+                  if block.settings.collapsible and block.settings.heading != blank
+                    assign collapsible = true
+                  else
+                    assign collapsible = false
+                  endif
+                -%}
+
+                {%- if block.settings.image != blank -%}
+                  {%- capture image -%}
+                    {%- liquid
+                      assign image_height = block.settings.image_width | divided_by: block.settings.image.aspect_ratio
+                      assign image_width = block.settings.image_width | times: 3
+                    -%}
+                    <div
+                      class="footer-block__image-wrapper {% if block.settings.image_placement == 'top' %}mb-2{% elsif block.settings.image_placement == 'below_heading' %} mb-1{% elsif block.settings.image_placement == 'below_description' %}mt-2{% endif %}"
+                      style="max-width: min(100%, {{ block.settings.image_width }}px);"
+                    >
+                      {{
+                        block.settings.image
+                        | image_url: width: image_width
+                        | image_tag:
+                          loading: 'lazy',
+                          fetchpriority: 'low',
+                          widths: '50, 100, 150, 200, 300, 400, 550, 800, 1100',
+                          height: image_height,
+                          width: block.settings.image_width
+                      }}
+                    </div>
+                  {%- endcapture -%}
+                {%- else -%}
+                  {%- assign image = '' -%}
+                {%- endif -%}
+
+                {%- capture column_content -%}
+                  {%- case block.type -%}
+                    {%- when '@app' -%}
+                      {% render block %}
+
+                    {%- when 'link_list' -%}
+                      <div class="footer-block_details-content-group">
+                        {% if block.settings.menu != blank %}
+                        <ul class="footer-block__details-content list-unstyled{% if collapsible == false %} footer-block--not-collapsible{% endif %}">
+                          {%- if block.settings.menu != blank -%}
+                            {%- for link in block.settings.menu.links -%}
+                              <li>
+                                <a
+                                    href="{{ link.url }}"
+                                    class="link link--text focus-inset full-unstyled-link--foreground t4 footer__link"
+                                >
+                                  {{ link.title | escape }}
+                                </a>
+                              </li>
+                            {%- endfor -%}
+                          {%- else -%}
+                            <li><a href="#" class="link link--text focus-inset full-unstyled-link--foreground t4 footer__link">{{ 'onboarding.example_link' | t }} 1</a></li>
+                            <li><a href="#" class="link link--text focus-inset full-unstyled-link--foreground t4 footer__link">{{ 'onboarding.example_link' | t }} 2</a></li>
+                            <li><a href="#" class="link link--text focus-inset full-unstyled-link--foreground t4 footer__link">{{ 'onboarding.example_link' | t }} 3</a></li>
+                            <li><a href="#" class="link link--text focus-inset full-unstyled-link--foreground t4 footer__link">{{ 'onboarding.example_link' | t }} 4</a></li>
+                          {%- endif -%}
+                        </ul>
+                        {% endif %}
+                        {% if block.settings.menu_2 != blank %}
+                          <ul class="footer-block__details-content list-unstyled{% if collapsible == false %} footer-block--not-collapsible{% endif %}">
+                            {%- if block.settings.menu_2 != blank -%}
+                              {%- for link in block.settings.menu_2.links -%}
+                                <li>
+                                  <a
+                                      href="{{ link.url }}"
+                                      class="link link--text focus-inset full-unstyled-link--foreground t4 footer__link"
+                                  >
+                                    {{ link.title | escape }}
+                                  </a>
+                                </li>
+                              {%- endfor -%}
+                            {%- else -%}
+                              <li><a href="#" class="link link--text focus-inset full-unstyled-link--foreground t4 footer__link">{{ 'onboarding.example_link' | t }} 1</a></li>
+                              <li><a href="#" class="link link--text focus-inset full-unstyled-link--foreground t4 footer__link">{{ 'onboarding.example_link' | t }} 2</a></li>
+                              <li><a href="#" class="link link--text focus-inset full-unstyled-link--foreground t4 footer__link">{{ 'onboarding.example_link' | t }} 3</a></li>
+                              <li><a href="#" class="link link--text focus-inset full-unstyled-link--foreground t4 footer__link">{{ 'onboarding.example_link' | t }} 4</a></li>
+                            {%- endif -%}
+                          </ul>
+                        {% endif %}
+                      </div>
+
+                  {%- endcase -%}
+                {%- endcapture -%}
+
+                {%- if collapsible -%}
+                  {%- if image and block.settings.image_placement == 'top' -%}
+                    <div class="visible-md">{{ image }}</div>
+                  {%- endif -%}
+
+                  <footer-accordion class="custom-accordion">
+                    <details id="Details-collapsible_{{ block.id }}">
+                      <summary
+                        id="Summary-collapsible_{{ block.id }}"
+                        class="t2 footer__column-summary"
+                        role="button"
+                        aria-expanded="false"
+                      >
+                        <h2 class="accordion__title inline-richtext t3 footer__column-heading">
+                          {{- block.settings.heading -}}
+                        </h2>
+                        {% render 'icon-caret' %}
+                      </summary>
+                      <div class="custom-accordion__panel custom-scrollbar">
+                        <div class="flex">
+                          <div
+                            class="accordion__content"
+                            id="CollapsibleAccordion-collapsible_{{ block.id }}"
+                            role="region"
+                            aria-labelledby="Summary-collapsible_{{ block.id }}"
+                          >
+                            {%- if image and block.settings.image_placement == 'top' -%}
+                              <div class="visible-xs">{{ image }}</div>
+                            {%- elsif image and block.settings.image_placement == 'below_heading' -%}
+                              {{ image }}
+                            {%- endif -%}
+
+                            {{ column_content }}
+                          </div>
+                        </div>
+                      </div>
+                    </details>
+                  </footer-accordion>
+                {%- else -%}
+                  {%- if image and block.settings.image_placement == 'top' -%}
+                    {{ image }}
+                  {%- endif -%}
+
+                  {%- if block.settings.heading != blank -%}
+                    <h2 class="mt-0 t3 inline-richtext footer__column-heading">{{- block.settings.heading -}}</h2>
+                  {%- endif -%}
+
+                  {%- if image and block.settings.image_placement == 'below_heading' -%}
+                    {{ image }}
+                  {%- endif -%}
+
+                  {{ column_content }}
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {% if section.settings.footer_image != blank
+    or section.settings.contact_text != blank
+    and shop.phone != blank
+    or section.settings.footer_image_middle != blank
+  %}
+    <div class="color-{{ section.settings.color_scheme }} gradient pt-2 md:pt-0">
+      <div class="flex justify-between items-center flex-col md:flex-row gap-2 page-width pb-3">
+        <div class="flex flex-col items-center gap-0">
+          {% if section.settings.footer_middle_image_text != blank %}
+            <span class="t4">{{ section.settings.footer_middle_image_text }}</span>
+          {% endif %}
+
+          {% assign footer_image_middle_url = section.settings.footer_image_middle
+            | image_url: width: 100, height: 100
+          %}
+          {% if section.settings.footer_middle_image_link != blank %}
+            <a href="{{ section.settings.footer_middle_image_link }}">
+          {% endif %}
+          <img
+            src="{{ footer_image_middle_url }}"
+            alt="{{ section.settings.contact_text | default: '' | escape }}"
+            width="100"
+            height="100"
+            loading="lazy"
+            fetchpriority="low"
+          >
+          {% if section.settings.footer_middle_image_link != blank %}
+            </a>
+          {% endif %}
+        </div>
+
+        <div class="md:pl-3">
+          {% assign footer_image_url = section.settings.footer_image | image_url: width: 406, height: 150 %}
+          <img
+            src="{{ footer_image_url }}"
+            alt="{{ section.settings.contact_text | default: '' | escape }}"
+            width="203"
+            height="75"
+            loading="lazy"
+            fetchpriority="low"
+          >
+        </div>
+
+        {% if section.settings.contact_text != blank and shop.phone != blank %}
+          <div class="flex items-center gap-2 md:pr-3 font-body-bold">
+            <span>{{ section.settings.contact_text }}</span>
+            <span class="flex items-center gap-1">
+              {%- render 'icon-phone' %}
+              {{ shop.phone -}}
+            </span>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if section.settings.bottom_bar_text != blank and section.settings.bottom_bar_image != blank %}
+    <div
+      class="footer__content-bottom color-{{ section.settings.color_scheme_bottom }} gradient"
+      {% if color_scheme_bottom_light %}
+        style="--color-background: {{ background_lighter.red }},{{ background_lighter.green }},{{ background_lighter.blue }}; --gradient-background: rgb({{ background_lighter.red }},{{ background_lighter.green }},{{ background_lighter.blue }})"
+      {% endif %}
+    >
+      <div class="page-width">
+        <div class="md:pb-1 md:pt-1{% if section.settings.color_scheme_bottom == section.settings.color_scheme and color_scheme_bottom_light == false %} border-top pt-1{% else %} pt-s05{% endif %} pb-s05">
+          <div class="flex flex-col-reverse mt-1px md:flex-row flex-wrap gap-1 justify-center items-center footer__content-bottom-inner">
+            {% if section.settings.bottom_bar_text != blank %}
+              <div>{{ section.settings.bottom_bar_text }}</div>
+            {% endif %}
+
+            {% if section.settings.bottom_bar_text != blank and section.settings.bottom_bar_image != blank %}
+              <div class="footer__content-bottom-spacer"></div>
+            {% endif %}
+
+            {% if section.settings.bottom_bar_image %}
+              <div class="footer__content-bottom-image">
+                {% assign bottom_bar_image_url = section.settings.bottom_bar_image | image_url: width: 77, height: 26 %}
+                <img
+                  src="{{ bottom_bar_image_url }}"
+                  alt="{{ section.settings.bottom_bar_text | default: '' | escape }}"
+                  width="77"
+                  height="26"
+                  loading="lazy"
+                  fetchpriority="low"
+                >
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</footer>
+
+{% javascript %}
+  customElements.whenDefined('custom-accordion').then(() => {
+    class FooterAccordion extends CustomAccordion {
+      constructor() {
+        super();
+        this.wasDesktop = window.matchMedia('(min-width: 750px)').matches;
+        this.updateOpenState();
+        window.addEventListener('resizeend', this.updateOpenState.bind(this));
+      }
+
+      updateOpenState() {
+        if (window.matchMedia('(min-width: 750px)').matches) {
+          this.detailsElem.open = true;
+          this.summaryElem.setAttribute('tabindex', '-1');
+          this.summaryElem.classList.add('pointer-events-none');
+          this.wasDesktop = true;
+        } else if (this.wasDesktop) {
+          this.detailsElem.open = false;
+          this.summaryElem.removeAttribute('tabindex');
+          this.summaryElem.classList.remove('pointer-events-none');
+          this.wasDesktop = false;
+        }
+      }
+    }
+
+    customElements.define('footer-accordion', FooterAccordion);
+  });
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "section section-footer bmrk-footer",
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "link_list",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Menu",
+          "label": "Heading"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "default": "footer",
+          "label": "Menu",
+          "info": "Displays only top-level menu items."
+        },
+        {
+          "type": "link_list",
+          "id": "menu_2",
+          "label": "Menu 2",
+          "info": "Displays only top-level menu items."
+        },
+        {
+          "type": "checkbox",
+          "id": "collapsible",
+          "visible_if": "{{ block.settings.heading != blank }}",
+          "default": true,
+          "label": "Collapsible row on mobile"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "footer_image",
+      "label": "Footer image",
+      "info": "Image to display in the footer below links."
+    },
+    {
+      "type": "header",
+      "content": "Middle Image"
+    },
+    {
+      "id": "footer_middle_image_link",
+      "type": "url",
+      "label": "Middle Footer image link"
+    },
+    {
+      "id": "footer_middle_image_text",
+      "type": "text",
+      "label": "Text above middle image",
+      "default": "Pagamento por:"
+    },
+    {
+      "type": "image_picker",
+      "id": "footer_image_middle",
+      "label": "Secondary Footer image",
+      "info": "Image to display in the footer below links in the middle."
+    },
+    {
+      "type": "header",
+      "content": "Bottom Bar",
+      "info": "Configure the bottom bar of the footer."
+    },
+    {
+      "type": "text",
+      "id": "bottom_bar_text",
+      "label": "Bottom bar text",
+      "info": "Text to display in the bottom bar."
+    },
+    {
+      "type": "image_picker",
+      "id": "bottom_bar_image",
+      "label": "Bottom bar right image",
+      "info": "Image to display in the bottom bar."
+    },
+    {
+      "type": "header",
+      "content": "Contact Section",
+      "info": "Configure the contact section of the footer."
+    },
+    {
+      "type": "text",
+      "id": "contact_text",
+      "label": "Contact text",
+      "info": "Text to display in the footer below. If no text is provided, the contact section will not be displayed."
+    },
+    {
+      "type": "header",
+      "content": "Follow on Shop",
+      "info": "To allow customers to follow your store on the Shop app from your storefront, Shop Pay must be enabled. [Learn more](https://help.shopify.com/manual/online-store/themes/customizing-themes/follow-on-shop)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_follow_on_shop",
+      "default": true,
+      "label": "Enable Follow on Shop"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Main color scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme_bottom",
+      "label": "Bottom bar color scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "checkbox",
+      "id": "color_scheme_bottom_light",
+      "default": true,
+      "label": "Use lighter background color"
+    },
+    {
+      "type": "checkbox",
+      "id": "let_it_snow",
+      "default": false,
+      "label": "Let it snow, let it snow, let it snow",
+      "info": "Snow is white, so your footer needs to be dark to show the snow."
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "link_list"
+      }
+    ]
+  }
+}
+{% endschema %}

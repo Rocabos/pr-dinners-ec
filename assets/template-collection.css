@@ -1,0 +1,74 @@
+.collection .loading-overlay {
+  position: absolute;
+  z-index: 1;
+  width: 1.8rem;
+}
+
+.collection-inline-promo .promo-card,
+.collection-inline-promo .promo-image,
+.collection-top-promo .promo-card,
+.collection-top-promo .promo-image {
+  height: 100%;
+  padding-bottom: 0 !important;
+} 
+
+.collection-top-promo .rte {
+  position: static;
+}
+
+.collection-top-promo .promo-card--image {
+  min-height: var(--promo-min-height, 0px);
+}
+
+.collection-top-promo .promo-image {
+  position: absolute;
+}
+
+@media screen and (max-width: 749.98px) {
+  .collection .loading-overlay {
+    top: 0;
+    inset-inline-end: 0;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .collection .loading-overlay {
+    inset-inline-start: 0;
+  }
+}
+
+.collection .loading-overlay {
+  top: 0;
+  inset-inline-end: 0;
+  bottom: 0;
+  inset-inline-start: 0;
+  display: none;
+  width: 100%;
+  padding: 0 1.5rem;
+  opacity: 0.7;
+}
+
+
+.collection--empty .title-wrapper {
+  margin-top: 2rem;
+}
+
+@media screen and (min-width: 750px) {
+  .collection .loading-overlay {
+    padding-inline-start: 5rem;
+    padding-inline-end: 5rem;
+  }
+
+  .collection--empty .title-wrapper {
+    margin-top: 8rem;
+    margin-bottom: 8rem;
+  }
+}
+
+.collection.loading .loading-overlay {
+  display: block;
+}
+
+.collection__description > * {
+  margin: 0;
+}

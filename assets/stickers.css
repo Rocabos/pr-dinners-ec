@@ -1,0 +1,114 @@
+.sticker {
+  display: inline-flex;
+  position: relative;
+  color: rgb(var(--sticker-text-color));
+  font-size: var(--sticker-text-size);
+  line-height: var(--sticker-text-size);
+  font-weight: var(--sticker-text-weight);
+  align-items: center;
+  margin: 0.5rem 0.7rem;
+  top: -0.1rem;
+}
+
+.sticker > span {
+  position: relative;
+}
+
+.sticker::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: -0.7rem;
+  inset-inline-end: -0.7rem;
+  bottom: -0.5rem;
+  top: -0.5rem;
+  z-index: 0;
+  background: var(--sticker-background);
+  border: var(--sticker-border-width) var(--sticker-border-style) rgba(var(--sticker-border-color));
+}
+
+.sticker-wrapper-above:empty,
+.sticker-wrapper-below:empty {
+  display: none;
+}
+
+.sticker-wrapper-above:not(:empty),
+.sticker-wrapper-below:not(:empty) {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.sticker-wrapper-above, .sticker-wrapper-below {
+  width: 100%;
+}
+
+.sticker-wrapper-above {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.sticker-wrapper-below {
+  margin-top: 0.25rem;
+}
+
+.collection-card--center .sticker-wrapper-above,
+.collection-card--center .sticker-wrapper-below {
+  justify-content: center;
+}
+
+.collection-card--right .sticker-wrapper-above,
+.collection-card--right .sticker-wrapper-below {
+  justify-content: flex-end;
+}
+
+.sticker-wrapper-inline .sticker {
+  margin-top: -0.5rem;
+  margin-bottom: -0.5rem;
+}
+
+.sticker-spacer {
+  width: 0.4rem;
+  display: inline-block;
+}
+
+.sticker-spacer:last-child {
+  display: none;
+}
+
+.sticker--angled {
+  inset-inline-start: 0.5rem;
+  inset-inline-end:  0.5rem;
+}
+
+.sticker--angled::before,
+.sticker--pill::before {
+  margin-inline-start: -0.2rem;
+  margin-inline-end: -0.2rem;
+}
+
+.sticker--angled::before {
+  transform: skew(165deg);
+  border-radius: 4px;
+}
+
+.sticker--pill::before {
+  border-radius: 2em;
+}
+
+.sticker--rounded::before {
+  border-radius: 3px;
+}
+
+@media screen and (max-width: 749.98px) {
+  .sticker-wrapper-below:has(.hidden-xs),
+  .sticker-wrapper-above:has(.hidden-xs) {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .sticker-wrapper-below:has(.visible-xs),
+  .sticker-wrapper-above:has(.visible-xs) {
+    display: none;
+  }
+}

@@ -1,0 +1,82 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-login",
+      "blocks": {
+        "text_iCj7qx": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Enter your email and password below for fast check out and exclusive discounts.<\/p>",
+            "text_size": "t3"
+          }
+        },
+        "spacer_3Q7afx": {
+          "type": "spacer",
+          "settings": {
+            "show_line_separator": false,
+            "spacing_top": 0.6,
+            "spacing_bottom": 0.6,
+            "spacer_visibility": "both",
+            "line_color": ""
+          }
+        },
+        "login_form_GgzDWH": {
+          "type": "login_form",
+          "settings": {
+            "show_register_link": true
+          }
+        }
+      },
+      "block_order": [
+        "text_iCj7qx",
+        "spacer_3Q7afx",
+        "login_form_GgzDWH"
+      ],
+      "settings": {
+        "full_width": false,
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "image_overlay_opacity": 20,
+        "desktop_section_height": 560,
+        "mobile_section_height": 400,
+        "desktop_media_width": 45,
+        "layout": "media_first",
+        "show_header_beside": true,
+        "content_max_width": "xl",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "desktop_content_position": "md:justify-start md:items-end",
+        "mobile_content_position": "justify-start items-end",
+        "title": "No account?",
+        "italic_convert": "",
+        "heading_size": "h2",
+        "text": "<p>No sweat. Sign up for exclusive discounts.<\/p>",
+        "text_size": "t3",
+        "button_text_size": "t5",
+        "button_label": "Create account",
+        "button_link": "\/account\/register",
+        "button_style": "secondary",
+        "button_style_show_arrow": true,
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image_overlay_color_scheme": "scheme-6",
+        "show_content_shadow": true,
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "heading_tag": "h2"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

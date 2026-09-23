@@ -1,0 +1,88 @@
+{%- comment -%}theme-check-disable LiquidTag{%- endcomment -%}
+{% comment %}
+  Renders an inline social video modal.
+
+  Accepts:
+  - video_ratio: {String} - The video aspect ratio setting.
+  - custom_id: {String} - A custom ID to use for the modal. Optional.
+
+  Usage:
+    {%- render 'inline-social-video-modal',
+        video_ratio: social_video_block.settings.video_ratio,
+        custom_id: social_video_block.id
+    -%}
+{% endcomment %}
+
+{%- liquid
+  assign media_aspect_ratio = video_ratio
+  assign ratio = 0.66
+  if media_aspect_ratio == 'portrait'
+    assign ratio = 0.8
+  elsif media_aspect_ratio == 'portrait_tall'
+    assign ratio = 0.66
+  elsif media_aspect_ratio == 'portrait_medium'
+    assign ratio = 0.75
+  elsif media_aspect_ratio == 'portrait_video'
+    assign ratio = 0.56
+  elsif media_aspect_ratio == 'landscape_wide'
+    assign ratio = 1.77
+  elsif media_aspect_ratio == 'landscape_wider'
+    assign ratio = 2.33
+  elsif media_aspect_ratio == 'landscape'
+    assign ratio = 1.33
+  elsif media_aspect_ratio == 'square' or media_aspect_ratio == 'circle'
+    assign ratio = 1
+  elsif video != null and media_aspect_ratio == 'adapt'
+    assign ratio = video.aspect_ratio
+  endif
+-%}
+
+<link rel="stylesheet" href="{{ 'component-popup.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-popup-page.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<custom-popup id="PopupModal-{{ section.id }}{{ custom_id }}-video-reel"
+    data-trigger="click"
+    data-visibility="both"
+    data-popup-trigger-id="VideoReel-{{ section.id }}{{ custom_id }}"
+    data-popup-id="{{ section.id }}{{ custom_id }}"
+    data-mode="enabled"
+    data-content-selector=".{{ section.id }}{{ custom_id }}-social-video-wrapper"
+    class="popup-modal popup-modal--social-video p-2 flex justify-center items-center md:justify-center md:items-center"
+    style="--responsive-card-padding: 5rem; visibility: hidden;--video-aspect-ratio: {{ ratio }};{% if video_ratio == 'circle' %}--media-radius: 50%{% endif %}"
+>
+  {%- liquid
+    assign aria_label = section.settings.title | escape
+    if aria_label == blank
+      assign aria_label = 'accessibility.popup' | t
+    endif
+  -%}
+  <div
+      role="dialog"
+      aria-label="{{ aria_label }}"
+      aria-modal="true"
+      class="popup-modal__content custom-scrollbar"
+      tabindex="-1"
+  >
+    <div class="popup__message-container relative">
+      <div class="w-full section-content responsive-card-padding card-padding max-w-xl"></div>
+    </div>
+  </div>
+
+  <button
+      id="ModalClose-{{ section.id }}{{ custom_id }}"
+      type="button"
+      class="popup-modal-video-reel__toggle absolute button-control"
+      aria-label="{{ 'accessibility.close' | t }}"
+  >
+    {% render 'icon-close' %}
+  </button>
+
+  <div class="popup-modal__pagination flex flex-col gap-1 absolute">
+    <button type="button" class="popup-modal-video-reel__previous button-control" aria-label="{{ 'general.pagination.previous' | t }}">
+      {%- render 'icon-caret' -%}
+    </button>
+    <button type="button" class="popup-modal-video-reel__next button-control" aria-label="{{ 'general.pagination.next' | t }}">
+      {%- render 'icon-caret' -%}
+    </button>
+  </div>
+</custom-popup>

@@ -1,0 +1,1059 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "disabled": true,
+      "settings": {
+        "spacing": 0,
+        "color_scheme": "",
+        "line_separator": ""
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "page_width": "narrow",
+        "content_max_width": "m",
+        "custom_page_header": false,
+        "title": "Section heading",
+        "italic_convert": "",
+        "heading_size": "h1",
+        "show_view_all_link": true,
+        "view_all_link": "",
+        "view_all_text": "",
+        "view_all_text_size": "t3",
+        "color_scheme": "",
+        "heading_tag": "h1"
+      }
+    },
+    "video_banner_yykFPU": {
+      "type": "video-banner",
+      "blocks": {
+        "icon_33JU4B": {
+          "type": "icon",
+          "settings": {
+            "icon": "images",
+            "icon_container": "none",
+            "icon_size": 6.8,
+            "icon_color": "",
+            "icon_background_color": "#ededed",
+            "background_gradient": ""
+          }
+        },
+        "heading_QNj4VA": {
+          "type": "heading",
+          "settings": {
+            "heading": "Quality since 2012",
+            "heading_italic_convert": "",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "icon_33JU4B",
+        "heading_QNj4VA"
+      ],
+      "custom_css": [],
+      "settings": {
+        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "show_play_pause": false,
+        "reveal_content_timer": 2.5,
+        "playback_end": "loop",
+        "section_ratio": "custom",
+        "desktop_section_height": 530,
+        "mobile_section_height": 300,
+        "full_width": true,
+        "full_width_animate": false,
+        "desktop_content_position": "md:justify-center md:items-center",
+        "mobile_content_position": "justify-center items-center",
+        "content_max_width": "m",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "center",
+        "show_text_box": "off",
+        "show_text_below": false,
+        "color_scheme": "scheme-3",
+        "container_color_scheme": "scheme-3",
+        "color_overlay": "#000000",
+        "video_overlay_opacity": 40,
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "hide_when_empty": false,
+        "heading_tag": "h2",
+        "description": "Ignite theme",
+        "video_aspect_ratio": "1.33"
+      }
+    },
+    "image_with_text_fRnqrh": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_RNbzRz": {
+          "type": "heading",
+          "settings": {
+            "heading": "Introduction",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h2"
+          }
+        },
+        "text_bgUFdD": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Provide a brief history of your company that captures the essence of how it began.</p><p>Mention key dates, highlight the people involved and explain how the company started. Briefly outline how the company gained traction in the market during its early stages.</p>",
+            "text_size": "t2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_RNbzRz",
+        "text_bgUFdD"
+      ],
+      "settings": {
+        "desktop_section_height": 500,
+        "mobile_section_height": 400,
+        "desktop_media_width": 47,
+        "desktop_media_scale": 100,
+        "layout": "media_first",
+        "image_cover": true,
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "text_max_width": "m",
+        "content_layout": "overlap",
+        "section_color_scheme": "",
+        "color_scheme": "scheme-2",
+        "show_content_shadow": true,
+        "line_separator": "",
+        "top_padding": "pt-s15",
+        "bottom_padding": "pb-s",
+        "hide_when_empty": false
+      }
+    },
+    "image_with_text_jHi6y4": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_h9h9fG": {
+          "type": "heading",
+          "settings": {
+            "heading": "Growing",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h2"
+          }
+        },
+        "text_gJzhhW": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Highlight how the company's product offerings evolved. In this case, Ignite moved from computer components to a broader range of tech products, like smart home devices and virtual reality systems.</p><p>Mention key milestones, such as moving to a new office or expanding the team.</p>",
+            "text_size": "t2"
+          }
+        },
+        "icon_hkJtAH": {
+          "type": "icon",
+          "settings": {
+            "icon": "rocket",
+            "icon_container": "rounded",
+            "icon_size": 3.4,
+            "icon_color": "#ffffff",
+            "icon_background_color": "#ededed",
+            "background_gradient": "linear-gradient(180deg, rgba(216, 57, 132, 1), rgba(158, 15, 189, 1) 100%)"
+          }
+        }
+      },
+      "block_order": [
+        "heading_h9h9fG",
+        "text_gJzhhW",
+        "icon_hkJtAH"
+      ],
+      "settings": {
+        "desktop_section_height": 400,
+        "mobile_section_height": 400,
+        "desktop_media_width": 55,
+        "desktop_media_scale": 100,
+        "layout": "text_first",
+        "image_cover": true,
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "text_max_width": "m",
+        "content_layout": "overlap",
+        "section_color_scheme": "",
+        "color_scheme": "scheme-2",
+        "show_content_shadow": true,
+        "line_separator": "",
+        "top_padding": "pt-0",
+        "bottom_padding": "pb-s",
+        "hide_when_empty": false
+      }
+    },
+    "video_with_text_YiN4Uf": {
+      "type": "video-with-text",
+      "blocks": {
+        "heading_TXVN96": {
+          "type": "heading",
+          "settings": {
+            "heading": "Future.",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h2"
+          }
+        },
+        "text_CzEtdC": {
+          "type": "text",
+          "settings": {
+            "text": "<p>For this final section, you'll want to focus on <strong>future vision and aspirations</strong> for your company.</p><p>Highlight the areas the company plans to explore in the coming years and emphasize the company's ongoing commitment to staying at the cutting edge of the industry</p>",
+            "text_size": "t2"
+          }
+        },
+        "stat_43W8xC": {
+          "type": "stat",
+          "settings": {
+            "stat_caption": "",
+            "stat_number": "86k",
+            "stat_subheading": "<p>happy customers</p>",
+            "stat_animate": true,
+            "stat_caption_style": "",
+            "stat_style": "text-body",
+            "stat_size": "h2",
+            "stat_size_custom": 2.4,
+            "stat_color": "#c241ff",
+            "stat_text_gradient": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_TXVN96",
+        "text_CzEtdC",
+        "stat_43W8xC"
+      ],
+      "settings": {
+        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "enable_video_autoplay": true,
+        "controls_position": "bottom_right",
+        "playback_controls": "custom",
+        "playback_end": "loop",
+        "video_cover": true,
+        "video_aspect_ratio": "1.77",
+        "desktop_section_height": 500,
+        "mobile_section_height": 400,
+        "desktop_media_width": 55,
+        "desktop_media_scale": 100,
+        "layout": "media_first",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "text_max_width": "xs",
+        "content_layout": "no-overlap-separate",
+        "section_color_scheme": "",
+        "color_scheme": "scheme-2",
+        "show_content_shadow": false,
+        "line_separator": "",
+        "top_padding": "pt-0",
+        "bottom_padding": "pb-s",
+        "hide_when_empty": false
+      }
+    },
+    "stats_rqaB79": {
+      "type": "stats",
+      "blocks": {
+        "column_standard_fCF6XG": {
+          "type": "column_standard",
+          "settings": {
+            "stat_caption": "Over",
+            "stat_number": "142k",
+            "title": "products sold",
+            "heading_size": "h4",
+            "stat_color": "#f1b726",
+            "stat_text_gradient": "linear-gradient(276deg, rgba(255, 228, 49, 1), rgba(249, 149, 32, 1) 59%)",
+            "icon": "",
+            "icon_container": "none",
+            "icon_size": 3.4,
+            "icon_color": "",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "text": "",
+            "text_size": "t3",
+            "image_ratio": "adapt",
+            "image_width": 100,
+            "image_position": "below_text",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_standard_ideWMw": {
+          "type": "column_standard",
+          "settings": {
+            "stat_caption": "With",
+            "stat_number": "95%",
+            "title": "positive reviews",
+            "heading_size": "h4",
+            "stat_color": "#e937d6",
+            "stat_text_gradient": "linear-gradient(238deg, rgba(249, 119, 255, 1) 8%, rgba(186, 54, 255, 1) 69%)",
+            "icon": "",
+            "icon_container": "none",
+            "icon_size": 3.4,
+            "icon_color": "",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "text": "",
+            "text_size": "t3",
+            "image_ratio": "adapt",
+            "image_width": 100,
+            "image_position": "below_text",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_standard_eBYRWr": {
+          "type": "column_standard",
+          "settings": {
+            "stat_caption": "Selling in",
+            "stat_number": "12",
+            "title": "territories",
+            "heading_size": "h4",
+            "stat_color": "#00ffff",
+            "stat_text_gradient": "linear-gradient(106deg, rgba(87, 247, 255, 1) 6%, rgba(33, 249, 239, 1) 68%)",
+            "icon": "",
+            "icon_container": "none",
+            "icon_size": 3.4,
+            "icon_color": "",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "text": "",
+            "text_size": "t3",
+            "image_ratio": "adapt",
+            "image_width": 100,
+            "image_position": "below_text",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "",
+            "color_scheme_bg_fix": false
+          }
+        }
+      },
+      "block_order": [
+        "column_standard_fCF6XG",
+        "column_standard_ideWMw",
+        "column_standard_eBYRWr"
+      ],
+      "settings": {
+        "stat_animate": true,
+        "stat_caption_style": "caption-with-letter-spacing",
+        "stat_style": "text-body",
+        "heading_style": "text-body",
+        "stat_size": "custom",
+        "stat_size_custom": 6.2,
+        "desktop_section_height": 270,
+        "mobile_section_height": 0,
+        "column_alignment": "center",
+        "text_vertical_alignment": "justify-center",
+        "spacing_grid": 28,
+        "content_padding": 2,
+        "columns_desktop": 3,
+        "columns_desktop_scale": true,
+        "full_width_section": true,
+        "image_overlay_opacity": 0,
+        "content_max_width": "m",
+        "desktop_heading_alignment": "center",
+        "mobile_heading_alignment": "center",
+        "title": "Today...",
+        "italic_convert": "",
+        "heading_size": "h1",
+        "text": "",
+        "text_size": "t3",
+        "view_all_link": "",
+        "view_all_text": "",
+        "view_all_text_size": "t3",
+        "color_scheme": "",
+        "card_shadow": false,
+        "line_separator": "",
+        "top_padding": "pt-s2",
+        "bottom_padding": "pb-s2",
+        "hide_when_empty": false,
+        "heading_tag": "h2"
+      }
+    },
+    "multicolumn_GWAc4Y": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_full_image_PFf7Xi": {
+          "type": "column_full_image",
+          "settings": {
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-start",
+            "content_padding": 2,
+            "image_ratio": "portrait",
+            "image_position": "top",
+            "icon": "game_controller",
+            "icon_container": "circle",
+            "icon_size": 3,
+            "icon_color": "#711c1c",
+            "icon_background_color": "#ffeaf1",
+            "background_gradient": "",
+            "title": "Person 1",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "text": "<p>Co-Founder and CEO</p>",
+            "text_size": "t5",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_full_image_ftar6q": {
+          "type": "column_full_image",
+          "settings": {
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-start",
+            "content_padding": 2,
+            "image_ratio": "portrait",
+            "image_position": "top",
+            "icon": "bicycle",
+            "icon_container": "circle",
+            "icon_size": 3,
+            "icon_color": "#2359a4",
+            "icon_background_color": "#ecf4ff",
+            "background_gradient": "",
+            "title": "Person 2",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "text": "<p>Co-Founder and COO</p>",
+            "text_size": "t5",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_full_image_TcpQbB": {
+          "type": "column_full_image",
+          "settings": {
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-start",
+            "content_padding": 2,
+            "image_ratio": "portrait",
+            "image_position": "top",
+            "icon": "paw_print",
+            "icon_container": "circle",
+            "icon_size": 3,
+            "icon_color": "#5b590e",
+            "icon_background_color": "#f6fac8",
+            "background_gradient": "",
+            "title": "Person 3",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "text": "<p>Chief Financial Officer</p>",
+            "text_size": "t5",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_full_image_jixRt9": {
+          "type": "column_full_image",
+          "settings": {
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-start",
+            "content_padding": 2,
+            "image_ratio": "portrait",
+            "image_position": "top",
+            "icon": "film",
+            "icon_container": "circle",
+            "icon_size": 3,
+            "icon_color": "#39095e",
+            "icon_background_color": "#f2e3fc",
+            "background_gradient": "",
+            "title": "Person 4",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "text": "<p>Chief Technology Officer</p>",
+            "text_size": "t5",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_full_image_DjwpPK": {
+          "type": "column_full_image",
+          "settings": {
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-start",
+            "content_padding": 2,
+            "image_ratio": "portrait",
+            "image_position": "top",
+            "icon": "wine",
+            "icon_container": "circle",
+            "icon_size": 3,
+            "icon_color": "#195408",
+            "icon_background_color": "#ecfcee",
+            "background_gradient": "",
+            "title": "Person 5",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "text": "<p>Marketing Director</p>",
+            "text_size": "t5",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_full_image_zLDccq": {
+          "type": "column_full_image",
+          "settings": {
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-start",
+            "content_padding": 2,
+            "image_ratio": "portrait",
+            "image_position": "top",
+            "icon": "rocket",
+            "icon_container": "circle",
+            "icon_size": 3,
+            "icon_color": "#0a8a8a",
+            "icon_background_color": "#ecfcfc",
+            "background_gradient": "",
+            "title": "Person 6",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "text": "<p>Lead Product Manager</p>",
+            "text_size": "t5",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_full_image_Nq9yzr": {
+          "type": "column_full_image",
+          "settings": {
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-start",
+            "content_padding": 2,
+            "image_ratio": "portrait",
+            "image_position": "top",
+            "icon": "hammer",
+            "icon_container": "circle",
+            "icon_size": 3,
+            "icon_color": "#df580e",
+            "icon_background_color": "#fceee6",
+            "background_gradient": "",
+            "title": "Person 7",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "text": "<p>Customer Service Director</p>",
+            "text_size": "t5",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_full_image_mbKpMV": {
+          "type": "column_full_image",
+          "settings": {
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-start",
+            "content_padding": 2,
+            "image_ratio": "portrait",
+            "image_position": "top",
+            "icon": "basketball",
+            "icon_container": "circle",
+            "icon_size": 3,
+            "icon_color": "#0e5fdf",
+            "icon_background_color": "#f2f5ff",
+            "background_gradient": "",
+            "title": "Person 8",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "text": "<p>Logistics Manager</p>",
+            "text_size": "t5",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        }
+      },
+      "block_order": [
+        "column_full_image_PFf7Xi",
+        "column_full_image_ftar6q",
+        "column_full_image_TcpQbB",
+        "column_full_image_jixRt9",
+        "column_full_image_DjwpPK",
+        "column_full_image_zLDccq",
+        "column_full_image_Nq9yzr",
+        "column_full_image_mbKpMV"
+      ],
+      "settings": {
+        "icon_bottom": true,
+        "desktop_section_height": 200,
+        "mobile_section_height": 200,
+        "desktop_layout": "grid",
+        "mobile_layout": "carousel",
+        "columns_desktop": "4",
+        "columns_desktop_scale": false,
+        "columns_mobile": "1",
+        "image_overlay_opacity": 0,
+        "content_max_width": "l",
+        "desktop_heading_alignment": "center",
+        "mobile_heading_alignment": "left",
+        "title": "Meet the team",
+        "italic_convert": "",
+        "heading_size": "h2",
+        "text": "<p> </p>",
+        "text_size": "t3",
+        "view_all_link": "",
+        "view_all_text": "",
+        "view_all_text_size": "t3",
+        "color_scheme": "scheme-1",
+        "card_shadow": false,
+        "line_separator": "border-top",
+        "top_padding": "pt-s15",
+        "bottom_padding": "pb-s15",
+        "hide_when_empty": false,
+        "heading_tag": "h2"
+      }
+    },
+    "spacer_pfHerD": {
+      "type": "spacer",
+      "settings": {
+        "full_width": true,
+        "show_line_separator": true,
+        "line_width": 100,
+        "spacing_top": 0,
+        "spacing_bottom": 0,
+        "color_scheme": "scheme-2",
+        "line_color": "",
+        "visibility": ""
+      }
+    },
+    "section_tabs_qhTfBK": {
+      "type": "section-tabs",
+      "settings": {
+        "section_tabs": "3",
+        "tab1": "Value 1",
+        "tab2": "Value 2",
+        "tab3": "Value 3",
+        "tab4": "",
+        "tab_style": "switch",
+        "tab_alignment": "center",
+        "tab_text_size": "t2",
+        "content_max_width": "m",
+        "desktop_heading_alignment": "center",
+        "mobile_heading_alignment": "center",
+        "title": "Our <em>core</em> values",
+        "italic_convert": "accent",
+        "heading_size": "h1",
+        "text": "",
+        "text_size": "t3",
+        "color_scheme": "scheme-4",
+        "top_padding": "pt-s15",
+        "bottom_padding": "pb-s05",
+        "heading_tag": "h2"
+      }
+    },
+    "rich_text_bHQ6PF": {
+      "type": "rich-text",
+      "blocks": {
+        "text_ai47rd": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Start by defining the key values that best represent your company's mission and culture. Think about what drives your business forward, how your team interacts, and what principles guide decision-making.</p>",
+            "text_size": "t0"
+          }
+        }
+      },
+      "block_order": [
+        "text_ai47rd"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_max_width": "m",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-4",
+        "container_color_scheme": "scheme-4",
+        "show_content_shadow": false,
+        "line_separator": "",
+        "top_padding": "pt-0",
+        "bottom_padding": "pb-s",
+        "hide_when_empty": false
+      }
+    },
+    "rich_text_6mCtEH": {
+      "type": "rich-text",
+      "blocks": {
+        "text_VTpFwz": {
+          "type": "text",
+          "settings": {
+            "text": "<p>How does this value shape your company's approach to products, services, internal culture, or decision-making? Consider how it impacts relationships with customers, employees, partners, or other key stakeholders.</p>",
+            "text_size": "t0"
+          }
+        }
+      },
+      "block_order": [
+        "text_VTpFwz"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_max_width": "m",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-4",
+        "container_color_scheme": "scheme-4",
+        "show_content_shadow": false,
+        "line_separator": "",
+        "top_padding": "pt-0",
+        "bottom_padding": "pb-s",
+        "hide_when_empty": false
+      }
+    },
+    "rich_text_3TAkXX": {
+      "type": "rich-text",
+      "blocks": {
+        "text_BDH4kX": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Describe the tangible ways each value is demonstrated within your organization. Give examples of how employees are encouraged to embody this value, whether through specific processes, behaviors, or initiatives.</p>",
+            "text_size": "t0"
+          }
+        }
+      },
+      "block_order": [
+        "text_BDH4kX"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_max_width": "m",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-4",
+        "container_color_scheme": "scheme-4",
+        "show_content_shadow": false,
+        "line_separator": "",
+        "top_padding": "pt-0",
+        "bottom_padding": "pb-s",
+        "hide_when_empty": false
+      }
+    },
+    "spacer_BdRFKG": {
+      "type": "spacer",
+      "settings": {
+        "full_width": true,
+        "show_line_separator": false,
+        "line_width": 100,
+        "spacing_top": 2.4,
+        "spacing_bottom": 2.4,
+        "color_scheme": "scheme-4",
+        "line_color": "",
+        "visibility": ""
+      }
+    },
+    "testimonials_wGiqtd": {
+      "type": "testimonials",
+      "blocks": {
+        "column_standard_fP39kp": {
+          "type": "column_standard",
+          "settings": {
+            "image_ratio": "adapt",
+            "image_width": 100,
+            "rating_stars": 5,
+            "title": "Testimonial",
+            "text": "<p>Include a review of the product or collection left by a customer. Or perhaps it's a review of your store as whole.</p>",
+            "author_name": "Jane Doe",
+            "author_caption": "Director, Company name",
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_standard_ggEeHN": {
+          "type": "column_standard",
+          "settings": {
+            "image_ratio": "adapt",
+            "image_width": 100,
+            "rating_stars": 5,
+            "title": "Testimonial",
+            "text": "<p>Include a review of the product or collection left by a customer. Or perhaps it's a review of your store as whole.</p>",
+            "author_name": "Jane Doe",
+            "author_caption": "Director, Company name",
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_standard_gDFKNY": {
+          "type": "column_standard",
+          "settings": {
+            "image_ratio": "adapt",
+            "image_width": 100,
+            "rating_stars": 5,
+            "title": "Testimonial",
+            "text": "<p>Include a review of the product or collection left by a customer. Or perhaps it's a review of your store as whole.</p>",
+            "author_name": "Jane Doe",
+            "author_caption": "Director, Company name",
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_standard_Y39rME": {
+          "type": "column_standard",
+          "settings": {
+            "image_ratio": "adapt",
+            "image_width": 100,
+            "rating_stars": 5,
+            "title": "Testimonial",
+            "text": "<p>Include a review of the product or collection left by a customer. Or perhaps it's a review of your store as whole.</p>",
+            "author_name": "Jane Doe",
+            "author_caption": "Director, Company name",
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_standard_jYWj4C": {
+          "type": "column_standard",
+          "settings": {
+            "image_ratio": "adapt",
+            "image_width": 100,
+            "rating_stars": 5,
+            "title": "Testimonial",
+            "text": "<p>Include a review of the product or collection left by a customer. Or perhaps it's a review of your store as whole.</p>",
+            "author_name": "Jane Doe",
+            "author_caption": "Director, Company name",
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        },
+        "column_standard_9PaQkt": {
+          "type": "column_standard",
+          "settings": {
+            "image_ratio": "adapt",
+            "image_width": 100,
+            "rating_stars": 5,
+            "title": "Testimonial",
+            "text": "<p>Include a review of the product or collection left by a customer. Or perhaps it's a review of your store as whole.</p>",
+            "author_name": "Jane Doe",
+            "author_caption": "Director, Company name",
+            "card_link": "",
+            "card_color_scheme": "scheme-2",
+            "color_scheme_bg_fix": false
+          }
+        }
+      },
+      "block_order": [
+        "column_standard_fP39kp",
+        "column_standard_ggEeHN",
+        "column_standard_gDFKNY",
+        "column_standard_Y39rME",
+        "column_standard_jYWj4C",
+        "column_standard_9PaQkt"
+      ],
+      "settings": {
+        "review_style": "star",
+        "rating_size": 3,
+        "heading_style": "text-body",
+        "card_heading_size": "h5",
+        "card_text_size": "t3",
+        "author_line": true,
+        "desktop_section_height": 390,
+        "mobile_section_height": 200,
+        "column_alignment": "left",
+        "text_vertical_alignment": "justify-center",
+        "content_padding": 4,
+        "desktop_layout": "carousel",
+        "mobile_layout": "carousel",
+        "columns_desktop": "3",
+        "columns_desktop_scale": true,
+        "image_overlay_opacity": 0,
+        "content_max_width": "m",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "title": "Don't take our word for it...",
+        "italic_convert": "",
+        "heading_size": "h2",
+        "text": "",
+        "text_size": "t3",
+        "view_all_link": "",
+        "view_all_text": "",
+        "view_all_text_size": "t3",
+        "color_scheme": "scheme-1",
+        "star_color": "#f5e121",
+        "card_shadow": true,
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "hide_when_empty": false,
+        "heading_tag": "h2"
+      }
+    },
+    "icons_with_text_j8mhne": {
+      "type": "icons-with-text",
+      "blocks": {
+        "icon_with_text_JjHrHK": {
+          "type": "icon_with_text",
+          "settings": {
+            "icon": "shield_checkmark",
+            "icon_container": "none",
+            "icon_color": "",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "image_width": 40,
+            "title": "<strong>WELL TRUSTED</strong>",
+            "text": "Over 100k customers",
+            "card_link": ""
+          }
+        },
+        "icon_with_text_pcztYt": {
+          "type": "icon_with_text",
+          "settings": {
+            "icon": "truck",
+            "icon_container": "none",
+            "icon_color": "",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "image_width": 40,
+            "title": "<strong>SUPER FAST</strong>",
+            "text": "With Express delivery",
+            "card_link": ""
+          }
+        },
+        "icon_with_text_3pXDr6": {
+          "type": "icon_with_text",
+          "settings": {
+            "icon": "chat_bubbles",
+            "icon_container": "none",
+            "icon_color": "",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "image_width": 40,
+            "title": "<strong>EXPERT HELP</strong>",
+            "text": "Seven days a week",
+            "card_link": ""
+          }
+        },
+        "icon_with_text_B9qa7U": {
+          "type": "icon_with_text",
+          "settings": {
+            "icon": "price_tags",
+            "icon_container": "none",
+            "icon_color": "",
+            "icon_background_color": "#ededed",
+            "background_gradient": "",
+            "image_width": 40,
+            "title": "<strong>BEST PRICES</strong>",
+            "text": "Unbeatable value",
+            "card_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_with_text_JjHrHK",
+        "icon_with_text_pcztYt",
+        "icon_with_text_3pXDr6",
+        "icon_with_text_B9qa7U"
+      ],
+      "settings": {
+        "placement": "beside",
+        "content_vertical_alignment": "items-start",
+        "column_alignment": "left",
+        "vertical_padding": 2.1,
+        "icon_size": 3.2,
+        "heading_size": "t4",
+        "text_size": "t5",
+        "mobile_layout": "carousel",
+        "columns_mobile": "2",
+        "color_scheme": "scheme-5",
+        "line_separator": "",
+        "hide_when_empty": false
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "main",
+    "video_banner_yykFPU",
+    "image_with_text_fRnqrh",
+    "image_with_text_jHi6y4",
+    "video_with_text_YiN4Uf",
+    "stats_rqaB79",
+    "multicolumn_GWAc4Y",
+    "spacer_pfHerD",
+    "section_tabs_qhTfBK",
+    "rich_text_bHQ6PF",
+    "rich_text_6mCtEH",
+    "rich_text_3TAkXX",
+    "spacer_BdRFKG",
+    "testimonials_wGiqtd",
+    "icons_with_text_j8mhne"
+  ]
+}

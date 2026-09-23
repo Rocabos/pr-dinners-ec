@@ -1,0 +1,219 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "Header",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_7zLFcK": {
+          "type": "announcement",
+          "settings": {
+            "text": "Our mid-season sale is now on.<strong> </strong><a href=\"/\" title=\"/\">Shop Phones</a> / <a href=\"/\" title=\"/\">Shop Watches</a>",
+            "mobile_text": "Our mid-season sale is on.<strong> </strong><a href=\"/\" title=\"/\">Shop Phones</a>",
+            "announcement_pages": "",
+            "color_scheme": "scheme-5"
+          }
+        },
+        "announcement_kwmC4H": {
+          "type": "announcement",
+          "settings": {
+            "text": "Trade in your old device for up to $100 off. <a href=\"/\" title=\"/\">Trade ins</a>",
+            "mobile_text": "Trade in for up to $100 off. <a href=\"/\" title=\"/\">Trade ins</a>",
+            "announcement_pages": "",
+            "color_scheme": "scheme-11"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_7zLFcK",
+        "announcement_kwmC4H"
+      ],
+      "disabled": true,
+      "settings": {
+        "text_size": "t5",
+        "change_slides_speed": 7,
+        "enable_accounts": true,
+        "link_1_icon": "question_mark",
+        "link_1_label": "Help",
+        "link_1_url": "/",
+        "link_2_icon": "",
+        "link_2_label": "",
+        "link_2_url": "",
+        "enable_country_selector": true,
+        "show_country_filter": false,
+        "enable_language_selector": true,
+        "text_padding": 0.8,
+        "show_line_separator": true
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "mega_image_promo_Bya6xb": {
+          "type": "mega_image_promo",
+          "settings": {
+            "title": "iPhone",
+            "visibility": "both",
+            "burger_menu_replace": false,
+            "position": "right",
+            "columns_wide": "3",
+            "promos_per_row": 1,
+            "show_line_separator": false,
+            "promo_header_text": "",
+            "promo_header_text_size": "h4-size",
+            "promo_header_text_style": "",
+            "promo_footer_button_label": "",
+            "promo_footer_button_link": "",
+            "promo_footer_button_style": "secondary",
+            "promo_footer_show_arrow": true,
+            "promo_footer_button_style_show_gradient_border": false,
+            "promo_footer_button_border_gradient": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+            "promo_text_size": "h4-size",
+            "promo_text_style": "text-heading",
+            "promo_aspect_ratio": "adapt",
+            "promo_image_overlay_opacity": 6,
+            "promo_1_show": true,
+            "promo_1_image": "shopify://shop_images/banner_970x482_50d482b0-c730-4945-a394-c2dcd308c94f.jpg",
+            "promo_1_text": "",
+            "promo_1_url": "shopify://products/iphone-17-a",
+            "promo_1_text_position": "justify-center items-start",
+            "promo_1_text_alignment": "center",
+            "promo_1_text_padding": 1,
+            "promo_1_text_color": "#000000",
+            "promo_2_show": false,
+            "promo_2_text": "<p>Promo text here</p>",
+            "promo_2_url": "",
+            "promo_2_text_position": "justify-start items-end",
+            "promo_2_text_alignment": "center",
+            "promo_2_text_padding": 1,
+            "promo_2_text_color": "#000000",
+            "promo_3_show": false,
+            "promo_3_text": "<p>Promo text here</p>",
+            "promo_3_url": "",
+            "promo_3_text_position": "justify-start items-end",
+            "promo_3_text_alignment": "center",
+            "promo_3_text_padding": 1,
+            "promo_3_text_color": "#000000",
+            "promo_4_show": false,
+            "promo_4_text": "<p>Promo text here</p>",
+            "promo_4_url": "",
+            "promo_4_text_position": "justify-start items-end",
+            "promo_4_text_alignment": "center",
+            "promo_4_text_padding": 1,
+            "promo_4_text_color": "#000000",
+            "promo_5_show": false,
+            "promo_5_text": "<p>Promo text here</p>",
+            "promo_5_url": "",
+            "promo_5_text_position": "justify-start items-end",
+            "promo_5_text_alignment": "center",
+            "promo_5_text_padding": 1,
+            "promo_5_text_color": "#000000",
+            "promo_6_show": false,
+            "promo_6_text": "<p>Promo text here</p>",
+            "promo_6_url": "",
+            "promo_6_text_position": "justify-start items-end",
+            "promo_6_text_alignment": "center",
+            "promo_6_text_padding": 1,
+            "promo_6_text_color": "#000000",
+            "promo_7_show": false,
+            "promo_7_text": "<p>Promo text here</p>",
+            "promo_7_url": "",
+            "promo_7_text_position": "justify-start items-end",
+            "promo_7_text_alignment": "center",
+            "promo_7_text_padding": 1,
+            "promo_7_text_color": "#000000",
+            "promo_8_show": false,
+            "promo_8_text": "<p>Promo text here</p>",
+            "promo_8_url": "",
+            "promo_8_text_position": "justify-start items-end",
+            "promo_8_text_alignment": "center",
+            "promo_8_text_padding": 1,
+            "promo_8_text_color": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "mega_image_promo_Bya6xb"
+      ],
+      "settings": {
+        "sticky_header_type": "always",
+        "drawer_on_desktop": "off",
+        "logo_position": "middle-left",
+        "center_menu_links": true,
+        "enable_accounts": true,
+        "enable_accounts_mobile": false,
+        "customer_account_login_style": "popup",
+        "customer_account_menu": "customer-account-main-menu",
+        "search": "icon",
+        "search_size": "large",
+        "search_mobile_open": false,
+        "search_placeholder": "Buscar productos",
+        "search_placeholder_2": "Search laptops...",
+        "search_placeholder_3": "Search phones...",
+        "search_placeholder_4": "Search monitors...",
+        "logo": "shopify://shop_images/main-logo-white.svg",
+        "logo_width": 150,
+        "mobile_logo_width": 95,
+        "mobile_logo_position": "left",
+        "logo_strap": "",
+        "logo_strap_text_size": "t7",
+        "menu": "main-menu-2",
+        "text_size": "t5",
+        "text_weight": "normal",
+        "link_headers_third_level": true,
+        "line_separator": "",
+        "mega_menu_link_label": "",
+        "mega_menu_link_enabled": true,
+        "burger_menu_enabled": true,
+        "menu_burger": "",
+        "link_headers_second_level": true,
+        "drawer_show_login": true,
+        "secondary_links_threshold": 7,
+        "drawer_text_size": "1.6",
+        "drawer_icon_1": "",
+        "drawer_icon_2": "",
+        "drawer_icon_3": "",
+        "drawer_icon_4": "",
+        "drawer_icon_5": "",
+        "drawer_icon_6": "",
+        "drawer_icon_7": "",
+        "drawer_icon_8": "",
+        "drawer_icon_9": "",
+        "drawer_icon_10": "",
+        "cta_enable": false,
+        "cta_icon": "headset",
+        "cta_icon_size": 1.4,
+        "cta_heading": "HOW CAN WE HELP?",
+        "cta_label": "+1 (555) 123-4567",
+        "cta_url": "tel:+15551234567",
+        "cta_text_size": "t5",
+        "custom_icon": "",
+        "custom_icon_url": "/",
+        "custom_icon_label": "Get in touch",
+        "color_scheme": "scheme-3",
+        "menu_color_scheme": "scheme-9",
+        "dropdown_menu_color_scheme": "scheme-8",
+        "cta_color_scheme": "scheme-1",
+        "search_bar_color_scheme": "scheme-8",
+        "enable_country_selector": true,
+        "show_country_filter": false,
+        "enable_language_selector": true,
+        "spacing": 0.8,
+        "let_it_snow": false
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
+}

@@ -1,0 +1,91 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "Footer",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "link_list_yAXYbY": {
+          "type": "link_list",
+          "disabled": true,
+          "settings": {
+            "heading": "PERSONAS",
+            "menu": "footer-personas",
+            "menu_2": "",
+            "collapsible": true
+          }
+        },
+        "link_list_UbThaH": {
+          "type": "link_list",
+          "disabled": true,
+          "settings": {
+            "heading": "EMPRESAS",
+            "menu": "footer-empresas-col-1",
+            "menu_2": "footer-empresas-col-2",
+            "collapsible": true
+          }
+        },
+        "link_list_8bez4Y": {
+          "type": "link_list",
+          "settings": {
+            "heading": "COMPRAR",
+            "menu": "footer-1",
+            "menu_2": "",
+            "collapsible": true
+          }
+        },
+        "link_list_LVDLnH": {
+          "type": "link_list",
+          "settings": {
+            "heading": "AYUDA",
+            "menu": "footer-2",
+            "menu_2": "",
+            "collapsible": true
+          }
+        },
+        "link_list_ze9xMi": {
+          "type": "link_list",
+          "settings": {
+            "heading": "INFORMACIÓN LEGAL",
+            "menu": "footer-3",
+            "menu_2": "",
+            "collapsible": true
+          }
+        }
+      },
+      "block_order": [
+        "link_list_yAXYbY",
+        "link_list_UbThaH",
+        "link_list_8bez4Y",
+        "link_list_LVDLnH",
+        "link_list_ze9xMi"
+      ],
+      "settings": {
+        "footer_image": "shopify://shop_images/diners-club-logo_3a4510a6-98e2-47d0-a9f4-565099822fcb.svg",
+        "footer_middle_image_link": "",
+        "footer_middle_image_text": "Pago por:",
+        "footer_image_middle": "shopify://shop_images/placetopay-logo-square-dark-background.svg",
+        "bottom_bar_text": "Tienda operada por IX Comercio Ecuador",
+        "bottom_bar_image": "shopify://shop_images/apple-authorized-reseller.svg",
+        "contact_text": "",
+        "enable_follow_on_shop": true,
+        "color_scheme": "scheme-10",
+        "color_scheme_bottom": "scheme-3",
+        "color_scheme_bottom_light": false,
+        "let_it_snow": false
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

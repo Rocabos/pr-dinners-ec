@@ -1,0 +1,3518 @@
+{%- comment -%}theme-check-disable SchemaJsonFormat{%- endcomment -%}
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+{{ 'component-image-with-text.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign content_layout = "no-overlap-separate"
+
+  if section.settings.color_scheme == section.settings.section_color_scheme and content_layout contains 'no-overlap'
+    assign remove_color_classes = true
+  endif
+-%}
+
+<div class="section__inner {{ section.settings.top_padding }} {{ section.settings.bottom_padding }} gradient color-{{ section.settings.section_color_scheme }}">
+  {% capture header_content %}
+    {%- if section.settings.button_label != blank -%}
+      {% capture additional_button %}
+        <div
+            class="{% if section.settings.button_style == 'link' %}mt-1{% else %}mt-2{% endif %}
+            justify-{{ section.settings.mobile_heading_alignment | default: section.settings.mobile_heading_alignment }}
+            md:justify-{{ section.settings.desktop_heading_alignment | default: section.settings.desktop_heading_alignment }}
+            {% if section.settings.button_label != blank %} banner__buttons--multiple{% endif %}
+            {% if settings.animations_reveal_on_scroll and section.index > 1 %} scroll-trigger animate--fade-in{% endif %}"
+        >
+          {%- if section.settings.button_label != blank -%}
+            <a
+              {% if section.settings.button_link == blank %}
+                role="link" aria-disabled="true"
+              {% else %}
+                href="{{ section.settings.button_link }}"
+              {% endif %}
+              class="{{ section.settings.button_text_size }} {% if section.settings.button_style == 'link' %}link un-underlined-link{% else %}button button--{{ section.settings.button_style }}{% endif %}{% if section.settings.button_style_show_arrow %} button-with-icon button-with-icon--right{% endif %}{% if section.settings.button_style == 'secondary' and section.settings.button_style_show_gradient_border and section.settings.button_border_gradient != blank %} button--secondary-gradient{% endif %}"
+              {% if section.settings.button_style == 'secondary' and section.settings.button_style_show_gradient_border and section.settings.button_border_gradient != blank %} style="--color-secondary-button-border-gradient: {{ section.settings.button_border_gradient }}"{% endif %}
+            >
+              {{- section.settings.button_label | escape -}}
+              {% if section.settings.button_style_show_arrow %}
+                {% render 'icon-arrow' %}
+              {% endif %}
+            </a>
+          {%- endif -%}
+        </div>
+      {% endcapture %}
+    {%- endif -%}
+
+    {%- liquid
+      if section.settings.show_header_beside
+        assign custom_class = "banner__box section-content " | append: section.settings.mobile_content_position | append: ' ' | append: section.settings.desktop_content_position
+      elsif section.settings.image == blank
+        assign custom_class = "title-wrapper page-width mb-3"
+        unless section.settings.full_width
+          assign custom_class = custom_class | append: ' page-width--narrowest'
+        endunless
+      else
+        assign custom_class = "title-wrapper page-width mb-3"
+      endif
+    %}
+
+    {% render 'standard-section-heading',
+        section_name: 'login',
+        section: section,
+        custom_class: custom_class,
+        view_all: additional_button
+    %}
+  {% endcapture %}
+
+  {%- unless section.settings.show_header_beside -%}
+    {{ header_content }}
+  {%- endunless -%}
+
+  <div class="login-page page-width{% if section.settings.image == blank and section.settings.show_header_beside == false %}{% unless section.settings.full_width %} page-width--narrowest{% endunless %}{% elsif section.settings.full_width %} page-width--wide{% endif %}">
+    <div class="image-with-text isolate
+        {% if section.settings.image == blank and section.settings.show_header_beside == false %} image-with-text--without-image{% endif %}
+        {% unless section.settings.color_scheme == section.settings.section_color_scheme %} image-with-text--{{ content_layout }}{% endunless %}
+        {% unless section.settings.color_scheme == section.settings.section_color_scheme or content_layout == 'no-overlap-separate' or section.settings.image == blank and section.settings.show_header_beside == false %} collapse-corners{% endunless %}
+        {% if settings.animations_reveal_on_scroll and section.index > 1 %} scroll-trigger animate--fade-in{% endif %}"
+     style="--image-width: {{ section.settings.desktop_media_width }}%;"
+    >
+      <div class="image-with-text__container flex xs:image-with-text__container--reverse
+        {% if section.settings.layout == 'text_first' %} image-with-text__container--reverse{% endif %}"
+       style="--mobile-height: {{ section.settings.mobile_section_height }}px;--desktop-height: {{ section.settings.desktop_section_height }}px;"
+      >
+        {% if section.settings.image != blank or section.settings.show_header_beside %}
+          <div class="image-with-text__media-item flex__item">
+            <div
+                class="image-with-text__media image-overlay global-media-settings media section-height-responsive--mobile
+                {% if section.settings.show_header_beside %} color-{{ section.settings.image_overlay_color_scheme }}{% endif %}"
+              style="--overlay-opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};"
+            >
+              {% if section.settings.image != blank %}
+                {%- assign widths = '535, 750, 1070, 1500' -%}
+                {%- capture sizes -%}
+                  (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
+                  (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
+                {%- endcapture -%}
+                {{
+                  section.settings.image
+                  | image_url: width: 1500
+                  | image_tag: sizes: sizes, widths: widths, fetchpriority: 'high'
+                }}
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+              {% endif %}
+
+              {% if section.settings.show_header_beside %}
+                {{ header_content }}
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="image-with-text__text-item flex__item{% if section.settings.desktop_section_height > 0 %} section-height-responsive--desktop{% endif %}">
+          <div
+              id="ImageWithText--{{ section.id }}"
+              class="image-with-text__content content-container
+                {% if section.settings.show_content_shadow and remove_color_classes != true %} card--shadow{% endif %}
+                {% if section.settings.image == blank and section.settings.show_header_beside == false %} h-auto{% endif %}
+                {% unless remove_color_classes %} gradient color-{{ section.settings.color_scheme }}{% else %} background-transparent{% endunless %}"
+          >
+            <div class="section-content lg:p-0 mr-auto ml-auto xs:w-full">
+              {%- if section.settings.enable_shop_login_button == false -%}
+                {%- assign hide_shop_login_button = true -%}
+              {%- endif -%}
+              <div class="customer login">
+                <h1 id="recover" class="b-main-title h2 mb-15 text-{{ section.settings.mobile_content_alignment }} md:text-{{ section.settings.desktop_content_alignment }}" tabindex="-1">
+                  {{ 'customer.recover_password.title' | t }}
+                </h1>
+                <div>
+                  <p>
+                    {{ 'customer.recover_password.subtext' | t }}
+                  </p>
+
+                  {%- form 'recover_customer_password', class: 'mb-3 last-child:mb-0' -%}
+                    {% assign recover_success = form.posted_successfully? %}
+                    <div class="field{% if section.settings.desktop_content_alignment == 'center' %} ml-auto mr-auto{% elsif section.settings.desktop_content_alignment == 'right' %} ml-auto{% endif %}">
+                      <input
+                          type="email"
+                          value=""
+                          name="email"
+                          id="RecoverEmail"
+                          autocorrect="off"
+                          autocapitalize="off"
+                          autocomplete="email"
+                          {% if form.errors %}
+                            aria-invalid="true"
+                            aria-describedby="RecoverEmail-email-error"
+                            autofocus
+                          {% endif %}
+                          placeholder="{{ 'customer.login_page.email' | t }}"
+                      >
+                      <label for="RecoverEmail">
+                        {{ 'customer.login_page.email' | t }}
+                      </label>
+                    </div>
+                    {%- if form.errors -%}
+                      <small id="RecoverEmail-email-error" class="form__message">
+                        {% render 'icon-error' %}
+                        {{ form.errors.messages.form }}
+                      </small>
+                    {%- endif -%}
+
+                    <div class="flex items-center justify-{{ section.settings.mobile_content_alignment }} md:justify-{{ section.settings.desktop_content_alignment }} flex-col gap-1 md:gap-3 lg:flex-row mt-2">
+                      <div class="field button-container mb-1">
+                        <button class="button button--primary m-0">
+                          {{ 'customer.login_page.submit' | t }}
+                        </button>
+                      </div>
+                      <div>
+                        <a href="#login" class="no-scroll">
+                          {{ 'customer.login_page.cancel' | t }}
+                        </a>
+                      </div>
+                    </div>
+                  {%- endform -%}
+                </div>
+
+                <h1 id="login" class="b-main-title h2 mb-15 text-{{ section.settings.mobile_content_alignment }} md:text-{{ section.settings.desktop_content_alignment }}" tabindex="-1">
+                  {{ 'customer.login_page.title' | t }}
+                </h1>
+                <div class="section-content p-0">
+                  {%- for block in section.blocks -%}
+                    {%- if block.type == 'login_form' -%}
+                      {%- if recover_success == true -%}
+                        <p class="form__message t2" tabindex="-1" autofocus>
+                          <svg aria-hidden="true" focusable="false" viewBox="0 0 13 13">
+                            <path d="M6.5 12.35C9.73087 12.35 12.35 9.73086 12.35 6.5C12.35 3.26913 9.73087 0.65 6.5 0.65C3.26913 0.65 0.65 3.26913 0.65 6.5C0.65 9.73086 3.26913 12.35 6.5 12.35Z" fill="#428445" stroke="white" stroke-width="0.7"/>
+                            <path d="M5.53271 8.66357L9.25213 4.68197" stroke="white"/>
+                            <path d="M4.10645 6.7688L6.13766 8.62553" stroke="white">
+                          </svg>
+                          {{ 'customer.recover_password.success' | t }}
+                        </p>
+                      {%- endif -%}
+
+                      {%- form 'customer_login', novalidate: 'novalidate', class: 'narrow-form mb-3 last-child:mb-0' -%}
+                        {%- if form.errors -%}
+                          <p class="form__message t5 mb-0 mt-0" tabindex="-1" autofocus>
+                            <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+                            {% render 'icon-error' %}
+                            {{ 'templates.contact.form.error_heading' | t }}
+                          </p>
+                          <div class="t5">
+                            {{ form.errors | default_errors }}
+                          </div>
+                        {%- endif -%}
+
+                        {%- if shop.features.login_with_shop_classic_customer_accounts? -%}
+                          <section name="sign-in-with-shop-provider">
+                            {{ shop | login_button: hide_button: hide_shop_login_button }}
+
+                            {%- unless hide_shop_login_button -%}
+                              <p>
+                                {{ 'customer.login_page.alternate_provider_separator' | t }}
+                              </p>
+                            {%- endunless -%}
+                          </section>
+                        {%- endif -%}
+
+                        <div class="field{% if section.settings.desktop_content_alignment == 'center' %} ml-auto mr-auto{% elsif section.settings.desktop_content_alignment == 'right' %} ml-auto{% endif %}">
+                          <input
+                              type="email"
+                              name="customer[email]"
+                              id="CustomerEmail"
+                              autocomplete="email"
+                              autocorrect="off"
+                              autocapitalize="off"
+                              {% if form.errors contains 'form' %}
+                                aria-invalid="true"
+                              {% endif %}
+                              placeholder="{{ 'customer.login_page.email' | t }}"
+                          >
+                          <label for="CustomerEmail">
+                            {{ 'customer.login_page.email' | t }}
+                          </label>
+                        </div>
+
+                        {%- if form.password_needed -%}
+                          <div class="field{% if section.settings.desktop_content_alignment == 'center' %} ml-auto mr-auto{% elsif section.settings.desktop_content_alignment == 'right' %} ml-auto{% endif %}">
+                            <input
+                                type="password"
+                                value=""
+                                name="customer[password]"
+                                id="CustomerPassword"
+                                autocomplete="current-password"
+                                {% if form.errors contains 'form' %}
+                                  aria-invalid="true"
+                                {% endif %}
+                                placeholder="{{ 'customer.login_page.password' | t }}"
+                            >
+                            <label for="CustomerPassword">
+                              {{ 'customer.login_page.password' | t }}
+                            </label>
+                          </div>
+
+                          <a href="#recover" class="no-scroll t5 un-underlined-link text-{{ section.settings.mobile_content_alignment }} md:text-{{ section.settings.desktop_content_alignment }}">
+                            {{ 'customer.login_page.forgot_password' | t }}
+                          </a>
+                        {%- endif -%}
+
+                        <div class="flex items-center justify-{{ section.settings.mobile_content_alignment }} md:justify-{{ section.settings.desktop_content_alignment }} flex-col gap-1 md:gap-3 lg:flex-row mt-3">
+                          <div class="button-container">
+                            <button class="button button--primary m-0">
+                              {{ 'customer.login_page.sign_in' | t }}
+                            </button>
+                          </div>
+
+                          {% if block.settings.show_register_link %}
+                            <div>
+                              <a href="{{ routes.account_register_url }}">
+                                {{ 'customer.login_page.create_account' | t }}
+                              </a>
+                            </div>
+                          {% endif %}
+                        </div>
+                      {%- endform -%}
+
+                      {%- if shop.checkout.guest_login -%}
+                        <div>
+                          <hr class="mt-3 mb-3">
+                          <h2 class="h4">{{ 'customer.login_page.guest_title' | t }}</h2>
+
+                          {%- form 'guest_login', class: 'narrow-form mb-3 last-child:mb-0' -%}
+                            <button>
+                              {{ 'customer.login_page.guest_continue' | t }}
+                            </button>
+                          {%- endform -%}
+                        </div>
+                      {%- endif -%}
+                    {%- else -%}
+                      <div class="text-{{ section.settings.mobile_content_alignment }} md:text-{{ section.settings.desktop_content_alignment }}">
+                      {%- render 'standard-blocks', section_name: 'login', block: block -%}
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Login",
+  "tag": "section",
+  "class": "section section-main-login",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_shop_login_button",
+      "label": "Enable Sign in with Shop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full width"
+    },
+    {
+      "type": "text_alignment",
+      "id": "desktop_content_alignment",
+      "default": "center",
+      "label": "Text alignment on desktop"
+    },
+    {
+      "type": "text_alignment",
+      "id": "mobile_content_alignment",
+      "default": "left",
+      "label": "Text alignment on mobile"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "info": "1200 x 1200 pixels jpg recommended. [Learn more](https://benchmarkthemes.com/help-center/ignite/guides/image-faq/)",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "label": "Image overlay opacity",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desktop_section_height",
+      "min": 200,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum height on desktop",
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "mobile_section_height",
+      "min": 100,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "label": "Minimum height on mobile",
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "desktop_media_width",
+      "min": 25,
+      "max": 55,
+      "step": 1,
+      "default": 50,
+      "unit": "%",
+      "label": "Image width on desktop"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "media_first",
+          "label": "Left"
+        },
+        {
+          "value": "text_first",
+          "label": "Right"
+        }
+      ],
+      "default": "media_first",
+      "label": "Image placement on desktop"
+    },
+    {
+      "type": "header",
+      "content": "Header layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header_beside",
+      "default": true,
+      "label": "Show over image"
+    },
+    
+  {
+    "type": "select",
+    "id": "content_max_width",
+    "options": [
+      {
+        "value": "xs",
+        "label": "XS"
+      },
+      {
+        "value": "s",
+        "label": "S"
+      },
+      {
+        "value": "m",
+        "label": "M"
+      },
+      {
+        "value": "l",
+        "label": "L"
+      },
+      {
+        "value": "xl",
+        "label": "XL"
+      }
+    ],
+    "default": "m",
+    "label": "Maximum heading width"
+  },
+  {
+    "type": "text_alignment",
+    "id": "desktop_heading_alignment",
+    "default": "left",
+    "label": "Heading alignment on desktop"
+  },
+  {
+    "type": "text_alignment",
+    "id": "mobile_heading_alignment",
+    "default": "left",
+    "label": "Heading alignment on mobile"
+  }
+,
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "options": [
+        {
+          "value": "md:justify-start md:items-start",
+          "label": "Top left"
+        },
+        {
+          "value": "md:justify-center md:items-start",
+          "label": "Top center"
+        },
+        {
+          "value": "md:justify-end md:items-start",
+          "label": "Top right"
+        },
+        {
+          "value": "md:justify-start md:items-center",
+          "label": "Middle left"
+        },
+        {
+          "value": "md:justify-center md:items-center",
+          "label": "Middle center"
+        },
+        {
+          "value": "md:justify-end md:items-center",
+          "label": "Middle right"
+        },
+        {
+          "value": "md:justify-start md:items-end",
+          "label": "Bottom left"
+        },
+        {
+          "value": "md:justify-center md:items-end",
+          "label": "Bottom center"
+        },
+        {
+          "value": "md:justify-end md:items-end",
+          "label": "Bottom right"
+        }
+      ],
+      "default": "md:justify-start md:items-end",
+      "info": "Applies only when showing over the image.",
+      "label": "Text position on desktop"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_position",
+      "options": [
+        {
+          "value": "justify-start items-start",
+          "label": "Top left"
+        },
+        {
+          "value": "justify-center items-start",
+          "label": "Top center"
+        },
+        {
+          "value": "justify-end items-start",
+          "label": "Top right"
+        },
+        {
+          "value": "justify-start items-center",
+          "label": "Middle left"
+        },
+        {
+          "value": "justify-center items-center",
+          "label": "Middle center"
+        },
+        {
+          "value": "justify-end items-center",
+          "label": "Middle right"
+        },
+        {
+          "value": "justify-start items-end",
+          "label": "Bottom left"
+        },
+        {
+          "value": "justify-center items-end",
+          "label": "Bottom center"
+        },
+        {
+          "value": "justify-end items-end",
+          "label": "Bottom right"
+        }
+      ],
+      "default": "justify-center items-center",
+      "info": "Applies only when showing over the image.",
+      "label": "Text position on mobile"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    
+  {
+    "type": "inline_richtext",
+    "id": "title",
+    "default": "Need support?",
+    "info": "Enter ++ for a line break.",
+    "label": "Heading"
+  },
+  {
+    "type": "select",
+    "id": "italic_convert",
+    "visible_if": "{{ section.settings.title != blank }}",
+    "options": [
+      {
+        "value": "",
+        "label": "Off (keep as italics)"
+      },
+      {
+        "value": "light",
+        "label": "Lighter"
+      },
+      {
+        "value": "accent_color",
+        "label": "Accent color"
+      },
+      {
+        "value": "accent",
+        "label": "Accent gradient color"
+      },
+      {
+        "value": "outline",
+        "label": "Outline"
+      },
+      {
+        "value": "outline_accent",
+        "label": "Outline - Accent color"
+      },
+      {
+        "value": "glow",
+        "label": "Glow - Accent color"
+      },
+      {
+        "value": "glow_outline",
+        "label": "Glow with outline - Accent color"
+      }
+    ],
+    "info": "The colors above can be set in the color schemes. 'Outline' may not work with all fonts.",
+    "default": "",
+    "label": "Convert italic text to"
+  },
+  {
+    "type": "select",
+    "id": "heading_size",
+    "visible_if": "{{ section.settings.title != blank }}",
+    "options": [
+      {
+        "value": "h4",
+        "label": "XS"
+      },
+      {
+        "value": "h3",
+        "label": "S"
+      },
+      {
+        "value": "h2",
+        "label": "M"
+      },
+      {
+        "value": "h1",
+        "label": "L"
+      },
+      {
+        "value": "h0",
+        "label": "XL"
+      }
+    ],
+    "default": "h2",
+    "label": "Heading size"
+  }
+,
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    
+  {
+    "type": "richtext",
+    "id": "text",
+    "default": "<p>Check out our support guides first.</p>",
+    "label": "Description"
+  },
+  {
+    "type": "select",
+    "id": "text_size",
+    "visible_if": "{{ section.settings.text != blank }}",
+    "options": [
+      {
+        "value": "t6",
+        "label": "2XS"
+      },
+      {
+        "value": "t5",
+        "label": "XS"
+      },
+      {
+        "value": "t4",
+        "label": "S"
+      },
+      {
+        "value": "t3",
+        "label": "M"
+      },
+      {
+        "value": "t2",
+        "label": "L"
+      },
+      {
+        "value": "t1",
+        "label": "XL"
+      },
+      {
+        "value": "t0",
+        "label": "2XL"
+      }
+    ],
+    "default": "t3",
+    "label": "Text size"
+  }
+,
+    {
+      "type": "header",
+      "content": "Header button"
+    },
+    {
+      "type": "select",
+      "id": "button_text_size",
+      "options": [
+        {
+          "value": "t6",
+          "label": "2XS"
+        },
+        {
+          "value": "t5",
+          "label": "XS"
+        },
+        {
+          "value": "t4",
+          "label": "S"
+        },
+        {
+          "value": "t3",
+          "label": "M"
+        },
+        {
+          "value": "t2",
+          "label": "L"
+        },
+        {
+          "value": "t1",
+          "label": "XL"
+        },
+        {
+          "value": "t0",
+          "label": "2XL"
+        }
+      ],
+      "default": "t5",
+      "label": "Button size"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Support FAQs",
+      "info": "Leave the label blank to hide the button."
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "/"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "link",
+          "label": "Link"
+        }
+      ],
+      "default": "secondary",
+      "label": "Button style"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_show_arrow",
+      "default": true,
+      "label": "Show arrow"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_show_gradient_border",
+      "visible_if": "{{ section.settings.button_style == 'secondary' }}",
+      "default": false,
+      "label": "Show border gradient"
+    },
+    {
+      "type": "color_background",
+      "id": "button_border_gradient",
+      "visible_if": "{{ section.settings.button_style_show_gradient_border and section.settings.button_style == 'secondary' }}",
+      "default": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+      "label": "Border gradient"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "label": "Section color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Form color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "color_scheme",
+      "id": "image_overlay_color_scheme",
+      "label": "Header color scheme when over image",
+      "default": "scheme-6"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_content_shadow",
+      "label": "Show form shadow",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "select",
+      "id": "top_padding",
+      "options": [
+        {
+          "value": "pt-0",
+          "label": "0"
+        },
+        {
+          "value": "pt-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pt-s",
+          "label": "1"
+        },
+        {
+          "value": "pt-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pt-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pt-s",
+      "label": "Top section spacing"
+    },
+    {
+      "type": "select",
+      "id": "bottom_padding",
+      "options": [
+        {
+          "value": "pb-0",
+          "label": "0"
+        },
+        {
+          "value": "pb-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pb-s",
+          "label": "1"
+        },
+        {
+          "value": "pb-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pb-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pb-s",
+      "label": "Bottom section spacing"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h1",
+      "info": "For SEO purposes, there should only be one H1 tag on the page.",
+      "label": "Heading tag"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        
+  {
+    "type": "inline_richtext",
+    "id": "heading",
+    "default": "Talk about your brand",
+    "info": "Enter ++ for a line break. To animate between words enter them in the format: 'We deliver exceptional [products|service|value]'. Ensure [ | and ] characters aren't bold or italic. Keep animated words short and similar in length.",
+    "label": "Heading"
+  },
+  {
+    "type": "select",
+    "id": "heading_italic_convert",
+    "options": [
+      {
+        "value": "",
+        "label": "Off (keep as italics)"
+      },
+      {
+        "value": "light",
+        "label": "Lighter"
+      },
+      {
+        "value": "accent_color",
+        "label": "Accent color"
+      },
+      {
+        "value": "accent",
+        "label": "Accent gradient color"
+      },
+      {
+        "value": "outline",
+        "label": "Outline"
+      },
+      {
+        "value": "outline_accent",
+        "label": "Outline - Accent color"
+      },
+      {
+        "value": "glow",
+        "label": "Glow - Accent color"
+      },
+      {
+        "value": "glow_outline",
+        "label": "Glow with outline - Accent color"
+      }
+    ],
+    "info": "The colors above can be set in the color schemes. 'Outline' may not work with all fonts.",
+    "default": "",
+    "label": "Convert italic text to"
+  },
+  {
+    "type": "select",
+    "id": "heading_size",
+    "options": [
+      {
+        "value": "h6",
+        "label": "3XS"
+      },
+      {
+        "value": "h5",
+        "label": "2XS"
+      },
+      {
+        "value": "h4",
+        "label": "XS"
+      },
+      {
+        "value": "h3",
+        "label": "S"
+      },
+      {
+        "value": "h2",
+        "label": "M"
+      },
+      {
+        "value": "h1",
+        "label": "L"
+      },
+      {
+        "value": "h0",
+        "label": "XL"
+      },
+      {
+        "value": "hxl",
+        "label": "2XL"
+      },
+      {
+        "value": "custom",
+        "label": "Custom"
+      }
+    ],
+    "default": "h3",
+    "label": "Heading size"
+  },
+  {
+    "type": "range",
+    "id": "heading_size_custom",
+    "visible_if": "{{ block.settings.heading_size == 'custom' }}",
+    "min": 1,
+    "max": 9,
+    "step": 0.2,
+    "unit": "rem",
+    "default": 2.4,
+    "label": "Custom heading size"
+  },
+  {
+    "type": "range",
+    "id": "heading_line_height_custom",
+    "visible_if": "{{ block.settings.heading_size == 'custom' }}",
+    "min": 0.4,
+    "max": 2,
+    "step": 0.1,
+    "unit": "em",
+    "default": 1.2,
+    "label": "Custom line height"
+  },
+  {
+    "type": "select",
+    "id": "heading_tag",
+    "options": [
+      {
+        "value": "h1",
+        "label": "H1"
+      },
+      {
+        "value": "h2",
+        "label": "H2"
+      },
+      {
+        "value": "h3",
+        "label": "H3"
+      },
+      {
+        "value": "h4",
+        "label": "H4"
+      }
+    ],
+    "default": "h2",
+    "info": "For SEO purposes, there should only be one H1 tag on the page.",
+    "label": "Heading tag"
+  }
+
+      ]
+    },
+    {
+      "type": "caption",
+      "name": "Caption",
+      "settings": [
+        
+  {
+    "type": "text",
+    "id": "caption",
+    "default": "Add a tagline",
+    "label": "Text"
+  },
+  {
+    "type": "select",
+    "id": "caption_text_style",
+    "options": [
+      {
+        "value": "subtitle",
+        "label": "Subtitle"
+      },
+      {
+        "value": "caption-with-letter-spacing",
+        "label": "Uppercase"
+      }
+    ],
+    "default": "caption-with-letter-spacing",
+    "label": "Text style"
+  },
+  {
+    "type": "select",
+    "id": "caption_text_size",
+    "options": [
+      {
+        "value": "t7",
+        "label": "3XS"
+      },
+      {
+        "value": "t6",
+        "label": "2XS"
+      },
+      {
+        "value": "t5",
+        "label": "XS"
+      },
+      {
+        "value": "t4",
+        "label": "S"
+      },
+      {
+        "value": "t3",
+        "label": "M"
+      },
+      {
+        "value": "t2",
+        "label": "L"
+      },
+      {
+        "value": "t1",
+        "label": "XL"
+      },
+      {
+        "value": "t0",
+        "label": "2XL"
+      }
+    ],
+    "default": "t6",
+    "label": "Text size"
+  }
+
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        
+  {
+    "type": "richtext",
+    "id": "text",
+    "default": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>",
+    "label": "Description"
+  },
+  {
+    "type": "select",
+    "id": "text_size",
+    "options": [
+      {
+        "value": "t6",
+        "label": "2XS"
+      },
+      {
+        "value": "t5",
+        "label": "XS"
+      },
+      {
+        "value": "t4",
+        "label": "S"
+      },
+      {
+        "value": "t3",
+        "label": "M"
+      },
+      {
+        "value": "t2",
+        "label": "L"
+      },
+      {
+        "value": "t1",
+        "label": "XL"
+      },
+      {
+        "value": "t0",
+        "label": "2XL"
+      }
+    ],
+    "default": "t3",
+    "label": "Text size"
+  }
+
+      ]
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Custom Liquid",
+      "settings": [
+        
+  {
+    "type": "liquid",
+    "id": "custom_liquid",
+    "label": "Liquid code",
+    "info": "Add app snippets or other code to create advanced customizations. [Learn more](https://shopify.dev/docs/api/liquid)"
+  }
+
+      ]
+    },
+    {
+      "type": "image_single",
+      "name": "Image",
+      "settings": [
+        
+  {
+    "type": "image_picker",
+    "id": "image",
+    "label": "Image"
+  },
+  {
+    "type": "range",
+    "id": "max_width",
+    "min": 60,
+    "max": 1200,
+    "step": 20,
+    "unit": "px",
+    "label": "Maximum width",
+    "default": 1200
+  },
+  {
+    "type": "checkbox",
+    "id": "round_corners",
+    "label": "Rounded corners",
+    "default": true,
+    "info": "As set in [Theme Settings > Appearance](/editor?context=theme&category=appearance)."
+  },
+  {
+    "type": "url",
+    "id": "image_link",
+    "label": "Image link"
+  },
+  {
+    "type": "checkbox",
+    "id": "zoom_on_hover",
+    "visible_if": "{{ block.settings.image_link != blank }}",
+    "default": true,
+    "label": "Zoom effect on hover"
+  },
+  {
+    "type": "header",
+    "content": "Advanced"
+  },
+  {
+    "type": "checkbox",
+    "id": "hide_when_empty",
+    "default": false,
+    "label": "Hide this block when there's no image to show",
+    "info": "This allows metafields to selectively show this section. Always shows in the Theme Editor."
+  }
+
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Images",
+      "settings": [
+        
+  {
+    "type": "select",
+    "id": "image_ratio",
+    "options": [
+      {
+        "value": "adapt",
+        "label": "Original"
+      },
+      {
+        "value": "circle",
+        "label": "Circle"
+      },
+      {
+        "value": "square",
+        "label": "Square (1:1)"
+      },
+      {
+        "value": "landscape",
+        "label": "Landscape (4:3)"
+      },
+      {
+        "value": "landscape_wide",
+        "label": "Landscape (16:9)"
+      },
+      {
+        "value": "portrait",
+        "label": "Portrait (4:5)"
+      },
+      {
+        "value": "portrait_tall",
+        "label": "Portrait (2:3)"
+      }
+    ],
+    "default": "adapt",
+    "label": "Image aspect ratio"
+  },
+  {
+    "type": "range",
+    "id": "desktop_image_width",
+    "min": 20,
+    "max": 300,
+    "step": 5,
+    "default": 100,
+    "unit": "px",
+    "label": "Image width on desktop"
+  },
+  {
+    "type": "range",
+    "id": "mobile_image_width",
+    "min": 20,
+    "max": 270,
+    "step": 5,
+    "default": 60,
+    "unit": "px",
+    "label": "Image width on mobile"
+  },
+  {
+    "type": "range",
+    "id": "image_corner_radius",
+    "min": 0,
+    "max": 40,
+    "step": 2,
+    "unit": "px",
+    "label": "Corner rounding",
+    "default": 0
+  },
+  {
+    "type": "image_picker",
+    "id": "image_1",
+    "label": "Image 1"
+  },
+  {
+    "type": "image_picker",
+    "id": "image_2",
+    "label": "Image 2"
+  },
+  {
+    "type": "image_picker",
+    "id": "image_3",
+    "label": "Image 3"
+  },
+  {
+    "type": "image_picker",
+    "id": "image_4",
+    "label": "Image 4"
+  },
+  {
+    "type": "url",
+    "id": "image_1_link",
+    "label": "Image 1 link"
+  },
+  {
+    "type": "url",
+    "id": "image_2_link",
+    "label": "Image 2 link"
+  },
+  {
+    "type": "url",
+    "id": "image_3_link",
+    "label": "Image 3 link"
+  },
+  {
+    "type": "url",
+    "id": "image_4_link",
+    "label": "Image 4 link"
+  }
+
+      ]
+    },
+    {
+      "type": "icon",
+      "name": "Icon",
+      "settings": [
+        
+  {
+    "type": "select",
+    "id": "icon",
+    "options": [
+      
+  {
+    "label": "None",
+    "value": ""
+  },
+  {
+    "label": "Clothes & Beauty / Brush",
+    "value": "brush"
+  },
+  {
+    "label": "Clothes & Beauty / Dryer",
+    "value": "dryer"
+  },
+  {
+    "label": "Clothes & Beauty / Footsteps",
+    "value": "footsteps"
+  },
+  {
+    "label": "Clothes & Beauty / Glasses",
+    "value": "glasses"
+  },
+  {
+    "label": "Clothes & Beauty / Iron",
+    "value": "iron"
+  },
+  {
+    "label": "Clothes & Beauty / Leather",
+    "value": "leather"
+  },
+  {
+    "label": "Clothes & Beauty / Lipstick",
+    "value": "lipstick"
+  },
+  {
+    "label": "Clothes & Beauty / Pants",
+    "value": "pants"
+  },
+  {
+    "label": "Clothes & Beauty / Perfume",
+    "value": "perfume"
+  },
+  {
+    "label": "Clothes & Beauty / Ruler",
+    "value": "ruler"
+  },
+  {
+    "label": "Clothes & Beauty / Scissors",
+    "value": "scissors"
+  },
+  {
+    "label": "Clothes & Beauty / Shirt 1",
+    "value": "shirt"
+  },
+  {
+    "label": "Clothes & Beauty / Shirt 2",
+    "value": "shirt2"
+  },
+  {
+    "label": "Clothes & Beauty / Shoe",
+    "value": "shoe"
+  },
+  {
+    "label": "Clothes & Beauty / Washing",
+    "value": "washing"
+  },
+  {
+    "label": "Communication / Call",
+    "value": "call"
+  },
+  {
+    "label": "Communication / Chat bubble",
+    "value": "chat_bubble"
+  },
+  {
+    "label": "Communication / Chat bubbles",
+    "value": "chat_bubbles"
+  },
+  {
+    "label": "Communication / Ear",
+    "value": "ear"
+  },
+  {
+    "label": "Communication / Information",
+    "value": "information"
+  },
+  {
+    "label": "Communication / Information circle",
+    "value": "information_circle"
+  },
+  {
+    "label": "Communication / Mail",
+    "value": "mail"
+  },
+  {
+    "label": "Communication / @ symbol",
+    "value": "email-at"
+  },
+  {
+    "label": "Communication / Notification alert",
+    "value": "alert"
+  },
+  {
+    "label": "Communication / Question mark",
+    "value": "help"
+  },
+  {
+    "label": "Communication / Question mark circle",
+    "value": "question_mark"
+  },
+  {
+    "label": "Communication / Warning",
+    "value": "warning"
+  },
+  {
+    "label": "Digital / Apps",
+    "value": "apps"
+  },
+  {
+    "label": "Digital / Arrow right",
+    "value": "arrow_right"
+  },
+  {
+    "label": "Digital / Attach",
+    "value": "attach"
+  },
+  {
+    "label": "Digital / Calendar",
+    "value": "calendar"
+  },
+  {
+    "label": "Digital / Chart",
+    "value": "chart"
+  },
+  {
+    "label": "Digital / Chevron right",
+    "value": "chevron_right"
+  },
+  {
+    "label": "Digital / Clipboard",
+    "value": "clipboard"
+  },
+  {
+    "label": "Digital / Cloud",
+    "value": "cloud"
+  },
+  {
+    "label": "Digital / Cloud done",
+    "value": "cloud_done"
+  },
+  {
+    "label": "Digital / Cloud download",
+    "value": "cloud_download"
+  },
+  {
+    "label": "Digital / Cloud upload",
+    "value": "cloud_upload"
+  },
+  {
+    "label": "Digital / Code slash",
+    "value": "code_slash"
+  },
+  {
+    "label": "Digital / Documents",
+    "value": "documents"
+  },
+  {
+    "label": "Digital / Home",
+    "value": "home"
+  },
+  {
+    "label": "Digital / Images",
+    "value": "images"
+  },
+  {
+    "label": "Digital / Open in new window",
+    "value": "open"
+  },
+  {
+    "label": "Digital / Options",
+    "value": "options"
+  },
+  {
+    "label": "Digital / Plus",
+    "value": "plus"
+  },
+  {
+    "label": "Digital / Plus in circle",
+    "value": "add"
+  },
+  {
+    "label": "Digital / Repeat",
+    "value": "repeat"
+  },
+  {
+    "label": "Digital / Scan",
+    "value": "scan"
+  },
+  {
+    "label": "Digital / Search",
+    "value": "search"
+  },
+  {
+    "label": "Digital / Volume",
+    "value": "volume"
+  },
+
+  {
+    "label": "eCommerce / Bag add",
+    "value": "bag-add"
+  },
+  {
+    "label": "eCommerce / Bag with check mark",
+    "value": "bag-check"
+  },
+  {
+    "label": "eCommerce / Box",
+    "value": "box"
+  },
+  {
+    "label": "eCommerce / Card",
+    "value": "card"
+  },
+  {
+    "label": "eCommerce / Cart",
+    "value": "cart"
+  },
+  {
+    "label": "eCommerce / Clock",
+    "value": "clock"
+  },
+  {
+    "label": "eCommerce / Cash",
+    "value": "cash"
+  },
+  {
+    "label": "eCommerce / Gift",
+    "value": "gift"
+  },
+  {
+    "label": "eCommerce / Price tag",
+    "value": "price_tag"
+  },
+  {
+    "label": "eCommerce / Price tags",
+    "value": "price_tags"
+  },
+  {
+    "label": "eCommerce / Recycle",
+    "value": "recycle"
+  },
+  {
+    "label": "eCommerce / Return",
+    "value": "return"
+  },
+  {
+    "label": "eCommerce / Storefront",
+    "value": "storefront"
+  },
+  {
+    "label": "eCommerce / Truck",
+    "value": "truck"
+  },
+  {
+    "label": "eCommerce / Wallet",
+    "value": "wallet"
+  },
+  {
+    "label": "Food & Beverage / Apple",
+    "value": "apple"
+  },
+  {
+    "label": "Food & Beverage / Banana",
+    "value": "banana"
+  },
+  {
+    "label": "Food & Beverage / Beer",
+    "value": "beer"
+  },
+  {
+    "label": "Food & Beverage / Bottle",
+    "value": "bottle"
+  },
+  {
+    "label": "Food & Beverage / Carrot",
+    "value": "carrot"
+  },
+  {
+    "label": "Food & Beverage / Coffee",
+    "value": "cafe"
+  },
+  {
+    "label": "Food & Beverage / Cutlery",
+    "value": "restaurant"
+  },
+  {
+    "label": "Food & Beverage / Dairy",
+    "value": "dairy"
+  },
+  {
+    "label": "Food & Beverage / Dairy free",
+    "value": "dairy_free"
+  },
+  {
+    "label": "Food & Beverage / Drink",
+    "value": "pint"
+  },
+  {
+    "label": "Food & Beverage / Egg",
+    "value": "egg"
+  },
+  {
+    "label": "Food & Beverage / Fast food",
+    "value": "fast_food"
+  },
+  {
+    "label": "Food & Beverage / Fish",
+    "value": "fish"
+  },
+  {
+    "label": "Food & Beverage / Gluten free",
+    "value": "gluten_free"
+  },
+  {
+    "label": "Food & Beverage / Ice cream",
+    "value": "ice_cream"
+  },
+  {
+    "label": "Food & Beverage / Nut free",
+    "value": "nut_free"
+  },
+  {
+    "label": "Food & Beverage / Pepper",
+    "value": "pepper"
+  },
+  {
+    "label": "Food & Beverage / Pizza",
+    "value": "pizza"
+  },
+  {
+    "label": "Food & Beverage / Serving dish",
+    "value": "serving_dish"
+  },
+  {
+    "label": "Food & Beverage / Vegan",
+    "value": "plant"
+  },
+  {
+    "label": "Food & Beverage / Wine",
+    "value": "wine"
+  },
+  {
+    "label": "Hardware & Tools / Construction",
+    "value": "construction"
+  },
+  {
+    "label": "Hardware & Tools / Cog",
+    "value": "cog"
+  },
+  {
+    "label": "Hardware & Tools / Eyedropper",
+    "value": "eyedropper"
+  },
+  {
+    "label": "Hardware & Tools / Flashlight",
+    "value": "flashlight"
+  },
+  {
+    "label": "Hardware & Tools / Gear",
+    "value": "gear"
+  },
+  {
+    "label": "Hardware & Tools / Hammer",
+    "value": "hammer"
+  },
+  {
+    "label": "Hardware & Tools / Magnet",
+    "value": "magnet"
+  },
+  {
+    "label": "Hardware & Tools / Paint bucket",
+    "value": "paint"
+  },
+  {
+    "label": "Hardware & Tools / Thermometer",
+    "value": "thermometer"
+  },
+  {
+    "label": "Hardware & Tools / Wrench",
+    "value": "build"
+  },
+  {
+    "label": "Logo / Amazon",
+    "value": "logo_amazon"
+  },
+  {
+    "label": "Logo / Android",
+    "value": "logo_android"
+  },
+  {
+    "label": "Logo / Apple",
+    "value": "logo_apple"
+  },
+  {
+    "label": "Logo / Apple Appstore",
+    "value": "logo_apple_appstore"
+  },
+  {
+    "label": "Logo / Discord",
+    "value": "logo_discord"
+  },
+  {
+    "label": "Logo / Facebook",
+    "value": "logo_facebook"
+  },
+  {
+    "label": "Logo / Google",
+    "value": "logo_google"
+  },
+  {
+    "label": "Logo / Google Playstore",
+    "value": "logo_google_playstore"
+  },
+  {
+    "label": "Logo / Instagram",
+    "value": "logo_instagram"
+  },
+  {
+    "label": "Logo / Linkedin",
+    "value": "logo_linkedin"
+  },
+  {
+    "label": "Logo / Microsoft",
+    "value": "logo_microsoft"
+  },
+  {
+    "label": "Logo / Pinterest",
+    "value": "logo_pinterest"
+  },
+  {
+    "label": "Logo / Soundcloud",
+    "value": "logo_soundcloud"
+  },
+  {
+    "label": "Logo / Tiktok",
+    "value": "logo_tiktok"
+  },
+  {
+    "label": "Logo / Tumblr",
+    "value": "logo_tumblr"
+  },
+  {
+    "label": "Logo / Twitch",
+    "value": "logo_twitch"
+  },
+  {
+    "label": "Logo / Wechat",
+    "value": "logo_wechat"
+  },
+  {
+    "label": "Logo / Whatsapp",
+    "value": "logo_whatsapp"
+  },
+  {
+    "label": "Logo / X (aka Twitter)",
+    "value": "logo_x"
+  },
+  {
+    "label": "Logo / YouTube",
+    "value": "logo_youtube"
+  },
+  {
+    "label": "Nature / Bug",
+    "value": "bug"
+  },
+  {
+    "label": "Nature / Earth",
+    "value": "earth"
+  },
+  {
+    "label": "Nature / Fire",
+    "value": "fire"
+  },
+  {
+    "label": "Nature / Flower",
+    "value": "flower"
+  },
+  {
+    "label": "Nature / Globe",
+    "value": "globe"
+  },
+  {
+    "label": "Nature / Leaf",
+    "value": "leaf"
+  },
+  {
+    "label": "Nature / Lightning bolt",
+    "value": "lightning_bolt"
+  },
+  {
+    "label": "Nature / Partly sunny",
+    "value": "partly_sunny"
+  },
+  {
+    "label": "Nature / Paw print",
+    "value": "paw_print"
+  },
+  {
+    "label": "Nature / Rose",
+    "value": "rose"
+  },
+  {
+    "label": "Nature / Snowflake",
+    "value": "snowflake"
+  },
+  {
+    "label": "Nature / Sunny",
+    "value": "sunny"
+  },
+  {
+    "label": "Nature / Thunderstorm",
+    "value": "thunderstorm"
+  },
+  {
+    "label": "Nature / Umbrella",
+    "value": "umbrella"
+  },
+  {
+    "label": "Nature / Water",
+    "value": "water"
+  },
+  {
+    "label": "Other / Balloon",
+    "value": "balloon"
+  },
+  {
+    "label": "Other / Ban",
+    "value": "ban"
+  },
+  {
+    "label": "Other / Bed",
+    "value": "bed"
+  },
+  {
+    "label": "Other / Book",
+    "value": "book"
+  },
+  {
+    "label": "Other / Books",
+    "value": "books"
+  },
+  {
+    "label": "Other / Briefcase",
+    "value": "briefcase"
+  },
+  {
+    "label": "Other / Calculator",
+    "value": "calculator"
+  },
+  {
+    "label": "Other / Color palette",
+    "value": "color_palette"
+  },
+  {
+    "label": "Other / Cube",
+    "value": "cube"
+  },
+  {
+    "label": "Other / Eye",
+    "value": "eye"
+  },
+  {
+    "label": "Other / Film",
+    "value": "film"
+  },
+  {
+    "label": "Other / Horizontal line",
+    "value": "horizontal_line"
+  },
+  {
+    "label": "Other / Hourglass",
+    "value": "hourglass"
+  },
+  {
+    "label": "Other / Magic wand",
+    "value": "magic_wand"
+  },
+  {
+    "label": "Other / Medical",
+    "value": "medical"
+  },
+  {
+    "label": "Other / Puzzle piece",
+    "value": "puzzle"
+  },
+  {
+    "label": "Other / Rocket",
+    "value": "rocket"
+  },
+  {
+    "label": "Other / Ticket",
+    "value": "ticket"
+  },
+  {
+    "label": "People / Female figure",
+    "value": "woman"
+  },
+  {
+    "label": "People / Female symbol",
+    "value": "female"
+  },
+  {
+    "label": "People / Male figure",
+    "value": "man"
+  },
+  {
+    "label": "People / Male symbol",
+    "value": "male"
+  },
+  {
+    "label": "People / People silhouettes",
+    "value": "people"
+  },
+  {
+    "label": "People / Person happy",
+    "value": "person"
+  },
+  {
+    "label": "People / Silhouette",
+    "value": "silhouette"
+  },
+  {
+    "label": "People / Silhouette circle",
+    "value": "silhouette_circle"
+  },
+  {
+    "label": "People / Unisex symbol",
+    "value": "male_female"
+  },
+  {
+    "label": "Sports & Fitness / Barbell",
+    "value": "barbell"
+  },
+  {
+    "label": "Sports & Fitness / Baseball",
+    "value": "baseball"
+  },
+  {
+    "label": "Sports & Fitness / Basketball",
+    "value": "basketball"
+  },
+  {
+    "label": "Sports & Fitness / Heart rate",
+    "value": "fitness"
+  },
+  {
+    "label": "Sports & Fitness / Pulse",
+    "value": "pulse"
+  },
+  {
+    "label": "Sports & Fitness / Scales",
+    "value": "scale"
+  },
+  {
+    "label": "Sports & Fitness / Soccer ball",
+    "value": "soccer_ball"
+  },
+  {
+    "label": "Sports & Fitness / Stopwatch",
+    "value": "stopwatch"
+  },
+  {
+    "label": "Sports & Fitness / Tennis ball",
+    "value": "tennis_ball"
+  },
+  {
+    "label": "Technology / Battery charging",
+    "value": "battery_charging"
+  },
+  {
+    "label": "Technology / Battery empty",
+    "value": "battery_dead"
+  },
+  {
+    "label": "Technology / Battery full",
+    "value": "battery_full"
+  },
+  {
+    "label": "Technology / Battery half",
+    "value": "battery_half"
+  },
+  {
+    "label": "Technology / Bluetooth",
+    "value": "bluetooth"
+  },
+  {
+    "label": "Technology / Bulb",
+    "value": "bulb"
+  },
+  {
+    "label": "Technology / Camera",
+    "value": "camera"
+  },
+  {
+    "label": "Technology / Camera aperture",
+    "value": "camera_aperture"
+  },
+  {
+    "label": "Technology / Cellular",
+    "value": "cellular"
+  },
+  {
+    "label": "Technology / Computer",
+    "value": "computer"
+  },
+  {
+    "label": "Technology / Flash",
+    "value": "flash"
+  },
+  {
+    "label": "Technology / Game controller",
+    "value": "game_controller"
+  },
+  {
+    "label": "Technology / Hardware chip",
+    "value": "hardware_chip"
+  },
+  {
+    "label": "Technology / Headphones",
+    "value": "headset"
+  },
+  {
+    "label": "Technology / Infinite",
+    "value": "infinite"
+  },
+  {
+    "label": "Technology / Laptop",
+    "value": "laptop"
+  },
+  {
+    "label": "Technology / Layers",
+    "value": "layers"
+  },
+  {
+    "label": "Technology / Mic",
+    "value": "mic"
+  },
+  {
+    "label": "Technology / Phone landscape",
+    "value": "phone_landscape"
+  },
+  {
+    "label": "Technology / Phone portrait",
+    "value": "phone_portrait"
+  },
+  {
+    "label": "Technology / Television",
+    "value": "tv"
+  },
+  {
+    "label": "Technology / Timer",
+    "value": "timer"
+  },
+  {
+    "label": "Technology / Videocam",
+    "value": "videocam"
+  },
+  {
+    "label": "Technology / Watch",
+    "value": "watch"
+  },
+  {
+    "label": "Technology / Wifi",
+    "value": "wifi"
+  },
+  {
+    "label": "Technology / Power",
+    "value": "power"
+  },
+  {
+    "label": "Transport / Airplane",
+    "value": "airplane"
+  },
+  {
+    "label": "Transport / Bicycle",
+    "value": "bicycle"
+  },
+  {
+    "label": "Transport / Car",
+    "value": "car"
+  },
+  {
+    "label": "Transport / Map location",
+    "value": "map_pin"
+  },
+  {
+    "label": "Transport / Navigation",
+    "value": "navigation"
+  },
+  {
+    "label": "Transport / Speedometer",
+    "value": "speedometer"
+  },
+  {
+    "label": "Transport / Sports car",
+    "value": "sports_car"
+  },
+  {
+    "label": "Trust / Award",
+    "value": "ribbon"
+  },
+  {
+    "label": "Trust / Check mark",
+    "value": "check_mark_only"
+  },
+  {
+    "label": "Trust / Check mark in square",
+    "value": "check_mark"
+  },
+  {
+    "label": "Trust / Check mark in circle",
+    "value": "check_mark_circle"
+  },
+  {
+    "label": "Trust / Happy",
+    "value": "happy"
+  },
+  {
+    "label": "Trust / Heart",
+    "value": "heart"
+  },
+  {
+    "label": "Trust / Key",
+    "value": "key"
+  },
+  {
+    "label": "Trust / Lock",
+    "value": "lock"
+  },
+  {
+    "label": "Trust / Lock closed",
+    "value": "lock_closed"
+  },
+  {
+    "label": "Trust / Lock open",
+    "value": "lock_open"
+  },
+  {
+    "label": "Trust / Shield",
+    "value": "shield"
+  },
+  {
+    "label": "Trust / Shield checkmark",
+    "value": "shield_checkmark"
+  },
+  {
+    "label": "Trust / Star",
+    "value": "star_filled"
+  },
+  {
+    "label": "Trust / Star outline",
+    "value": "star"
+  },
+  {
+    "label": "Trust / Thumbs up",
+    "value": "thumbs_up"
+  },
+  {
+    "label": "Trust / Trophy",
+    "value": "trophy"
+  }
+
+    ],
+    "default": "heart",
+    "label": "Icon"
+  },
+  {
+    "type": "select",
+    "id": "icon_container",
+    "visible_if": "{{ block.settings.icon != '' }}",
+    "options": [
+      {
+        "value": "none",
+        "label": "None"
+      },
+      {
+        "value": "circle",
+        "label": "Circle"
+      },
+      {
+        "value": "rounded",
+        "label": "Rounded"
+      },
+      {
+        "value": "square",
+        "label": "Square"
+      }
+    ],
+    "default": "rounded",
+    "label": "Icon background"
+  },
+  {
+    "type": "range",
+    "id": "icon_size",
+    "visible_if": "{{ block.settings.icon != '' }}",
+    "min": 2.4,
+    "max": 10,
+    "step": 0.2,
+    "default": 3.4,
+    "unit": "rem",
+    "label": "Icon size"
+  },
+  {
+    "type": "color",
+    "id": "icon_color",
+    "visible_if": "{{ block.settings.icon != '' }}",
+    "label": "Icon color",
+    "default": "#ffffff",
+    "info": "Set to transparent to use text color."
+  },
+  {
+    "type": "color",
+    "id": "icon_background_color",
+    "visible_if": "{{ block.settings.icon != '' }}",
+    "default": "#44C3ED",
+    "label": "Background color"
+  },
+  {
+    "type": "color_background",
+    "id": "background_gradient",
+    "default": "linear-gradient(45deg, rgba(54, 149, 250, 1), rgba(68, 195, 237, 1) 100%)",
+    "visible_if": "{{ block.settings.icon != '' }}",
+    "label": "Background gradient",
+    "info": "Background gradient replaces background where possible."
+  }
+
+      ]
+    },
+    {
+      "type": "icon_with_text",
+      "name": "Icon with text",
+      "settings": [
+        
+  {
+    "type": "range",
+    "id": "icon_heading_gap",
+    "min": 0,
+    "max": 8,
+    "step": 0.1,
+    "default": 1.8,
+    "unit": "rem",
+    "label": "Horizontal gap"
+  },
+  {
+    "type": "range",
+    "id": "text_max_width",
+    "min": 140,
+    "max": 1000,
+    "step": 20,
+    "default": 400,
+    "unit": "px",
+    "label": "Maximum width"
+  },
+  {
+    "type": "url",
+    "id": "link",
+    "label": "Link",
+    "info": "Makes the entire block a link. Don't use if this contains links."
+  },
+  {
+    "type": "header",
+    "content": "Icon"
+  },
+  {
+    "type": "select",
+    "id": "icon",
+    "options": [
+      
+  {
+    "label": "None",
+    "value": ""
+  },
+  {
+    "label": "Clothes & Beauty / Brush",
+    "value": "brush"
+  },
+  {
+    "label": "Clothes & Beauty / Dryer",
+    "value": "dryer"
+  },
+  {
+    "label": "Clothes & Beauty / Footsteps",
+    "value": "footsteps"
+  },
+  {
+    "label": "Clothes & Beauty / Glasses",
+    "value": "glasses"
+  },
+  {
+    "label": "Clothes & Beauty / Iron",
+    "value": "iron"
+  },
+  {
+    "label": "Clothes & Beauty / Leather",
+    "value": "leather"
+  },
+  {
+    "label": "Clothes & Beauty / Lipstick",
+    "value": "lipstick"
+  },
+  {
+    "label": "Clothes & Beauty / Pants",
+    "value": "pants"
+  },
+  {
+    "label": "Clothes & Beauty / Perfume",
+    "value": "perfume"
+  },
+  {
+    "label": "Clothes & Beauty / Ruler",
+    "value": "ruler"
+  },
+  {
+    "label": "Clothes & Beauty / Scissors",
+    "value": "scissors"
+  },
+  {
+    "label": "Clothes & Beauty / Shirt 1",
+    "value": "shirt"
+  },
+  {
+    "label": "Clothes & Beauty / Shirt 2",
+    "value": "shirt2"
+  },
+  {
+    "label": "Clothes & Beauty / Shoe",
+    "value": "shoe"
+  },
+  {
+    "label": "Clothes & Beauty / Washing",
+    "value": "washing"
+  },
+  {
+    "label": "Communication / Call",
+    "value": "call"
+  },
+  {
+    "label": "Communication / Chat bubble",
+    "value": "chat_bubble"
+  },
+  {
+    "label": "Communication / Chat bubbles",
+    "value": "chat_bubbles"
+  },
+  {
+    "label": "Communication / Ear",
+    "value": "ear"
+  },
+  {
+    "label": "Communication / Information",
+    "value": "information"
+  },
+  {
+    "label": "Communication / Information circle",
+    "value": "information_circle"
+  },
+  {
+    "label": "Communication / Mail",
+    "value": "mail"
+  },
+  {
+    "label": "Communication / @ symbol",
+    "value": "email-at"
+  },
+  {
+    "label": "Communication / Notification alert",
+    "value": "alert"
+  },
+  {
+    "label": "Communication / Question mark",
+    "value": "help"
+  },
+  {
+    "label": "Communication / Question mark circle",
+    "value": "question_mark"
+  },
+  {
+    "label": "Communication / Warning",
+    "value": "warning"
+  },
+  {
+    "label": "Digital / Apps",
+    "value": "apps"
+  },
+  {
+    "label": "Digital / Arrow right",
+    "value": "arrow_right"
+  },
+  {
+    "label": "Digital / Attach",
+    "value": "attach"
+  },
+  {
+    "label": "Digital / Calendar",
+    "value": "calendar"
+  },
+  {
+    "label": "Digital / Chart",
+    "value": "chart"
+  },
+  {
+    "label": "Digital / Chevron right",
+    "value": "chevron_right"
+  },
+  {
+    "label": "Digital / Clipboard",
+    "value": "clipboard"
+  },
+  {
+    "label": "Digital / Cloud",
+    "value": "cloud"
+  },
+  {
+    "label": "Digital / Cloud done",
+    "value": "cloud_done"
+  },
+  {
+    "label": "Digital / Cloud download",
+    "value": "cloud_download"
+  },
+  {
+    "label": "Digital / Cloud upload",
+    "value": "cloud_upload"
+  },
+  {
+    "label": "Digital / Code slash",
+    "value": "code_slash"
+  },
+  {
+    "label": "Digital / Documents",
+    "value": "documents"
+  },
+  {
+    "label": "Digital / Home",
+    "value": "home"
+  },
+  {
+    "label": "Digital / Images",
+    "value": "images"
+  },
+  {
+    "label": "Digital / Open in new window",
+    "value": "open"
+  },
+  {
+    "label": "Digital / Options",
+    "value": "options"
+  },
+  {
+    "label": "Digital / Plus",
+    "value": "plus"
+  },
+  {
+    "label": "Digital / Plus in circle",
+    "value": "add"
+  },
+  {
+    "label": "Digital / Repeat",
+    "value": "repeat"
+  },
+  {
+    "label": "Digital / Scan",
+    "value": "scan"
+  },
+  {
+    "label": "Digital / Search",
+    "value": "search"
+  },
+  {
+    "label": "Digital / Volume",
+    "value": "volume"
+  },
+
+  {
+    "label": "eCommerce / Bag add",
+    "value": "bag-add"
+  },
+  {
+    "label": "eCommerce / Bag with check mark",
+    "value": "bag-check"
+  },
+  {
+    "label": "eCommerce / Box",
+    "value": "box"
+  },
+  {
+    "label": "eCommerce / Card",
+    "value": "card"
+  },
+  {
+    "label": "eCommerce / Cart",
+    "value": "cart"
+  },
+  {
+    "label": "eCommerce / Clock",
+    "value": "clock"
+  },
+  {
+    "label": "eCommerce / Cash",
+    "value": "cash"
+  },
+  {
+    "label": "eCommerce / Gift",
+    "value": "gift"
+  },
+  {
+    "label": "eCommerce / Price tag",
+    "value": "price_tag"
+  },
+  {
+    "label": "eCommerce / Price tags",
+    "value": "price_tags"
+  },
+  {
+    "label": "eCommerce / Recycle",
+    "value": "recycle"
+  },
+  {
+    "label": "eCommerce / Return",
+    "value": "return"
+  },
+  {
+    "label": "eCommerce / Storefront",
+    "value": "storefront"
+  },
+  {
+    "label": "eCommerce / Truck",
+    "value": "truck"
+  },
+  {
+    "label": "eCommerce / Wallet",
+    "value": "wallet"
+  },
+  {
+    "label": "Food & Beverage / Apple",
+    "value": "apple"
+  },
+  {
+    "label": "Food & Beverage / Banana",
+    "value": "banana"
+  },
+  {
+    "label": "Food & Beverage / Beer",
+    "value": "beer"
+  },
+  {
+    "label": "Food & Beverage / Bottle",
+    "value": "bottle"
+  },
+  {
+    "label": "Food & Beverage / Carrot",
+    "value": "carrot"
+  },
+  {
+    "label": "Food & Beverage / Coffee",
+    "value": "cafe"
+  },
+  {
+    "label": "Food & Beverage / Cutlery",
+    "value": "restaurant"
+  },
+  {
+    "label": "Food & Beverage / Dairy",
+    "value": "dairy"
+  },
+  {
+    "label": "Food & Beverage / Dairy free",
+    "value": "dairy_free"
+  },
+  {
+    "label": "Food & Beverage / Drink",
+    "value": "pint"
+  },
+  {
+    "label": "Food & Beverage / Egg",
+    "value": "egg"
+  },
+  {
+    "label": "Food & Beverage / Fast food",
+    "value": "fast_food"
+  },
+  {
+    "label": "Food & Beverage / Fish",
+    "value": "fish"
+  },
+  {
+    "label": "Food & Beverage / Gluten free",
+    "value": "gluten_free"
+  },
+  {
+    "label": "Food & Beverage / Ice cream",
+    "value": "ice_cream"
+  },
+  {
+    "label": "Food & Beverage / Nut free",
+    "value": "nut_free"
+  },
+  {
+    "label": "Food & Beverage / Pepper",
+    "value": "pepper"
+  },
+  {
+    "label": "Food & Beverage / Pizza",
+    "value": "pizza"
+  },
+  {
+    "label": "Food & Beverage / Serving dish",
+    "value": "serving_dish"
+  },
+  {
+    "label": "Food & Beverage / Vegan",
+    "value": "plant"
+  },
+  {
+    "label": "Food & Beverage / Wine",
+    "value": "wine"
+  },
+  {
+    "label": "Hardware & Tools / Construction",
+    "value": "construction"
+  },
+  {
+    "label": "Hardware & Tools / Cog",
+    "value": "cog"
+  },
+  {
+    "label": "Hardware & Tools / Eyedropper",
+    "value": "eyedropper"
+  },
+  {
+    "label": "Hardware & Tools / Flashlight",
+    "value": "flashlight"
+  },
+  {
+    "label": "Hardware & Tools / Gear",
+    "value": "gear"
+  },
+  {
+    "label": "Hardware & Tools / Hammer",
+    "value": "hammer"
+  },
+  {
+    "label": "Hardware & Tools / Magnet",
+    "value": "magnet"
+  },
+  {
+    "label": "Hardware & Tools / Paint bucket",
+    "value": "paint"
+  },
+  {
+    "label": "Hardware & Tools / Thermometer",
+    "value": "thermometer"
+  },
+  {
+    "label": "Hardware & Tools / Wrench",
+    "value": "build"
+  },
+  {
+    "label": "Logo / Amazon",
+    "value": "logo_amazon"
+  },
+  {
+    "label": "Logo / Android",
+    "value": "logo_android"
+  },
+  {
+    "label": "Logo / Apple",
+    "value": "logo_apple"
+  },
+  {
+    "label": "Logo / Apple Appstore",
+    "value": "logo_apple_appstore"
+  },
+  {
+    "label": "Logo / Discord",
+    "value": "logo_discord"
+  },
+  {
+    "label": "Logo / Facebook",
+    "value": "logo_facebook"
+  },
+  {
+    "label": "Logo / Google",
+    "value": "logo_google"
+  },
+  {
+    "label": "Logo / Google Playstore",
+    "value": "logo_google_playstore"
+  },
+  {
+    "label": "Logo / Instagram",
+    "value": "logo_instagram"
+  },
+  {
+    "label": "Logo / Linkedin",
+    "value": "logo_linkedin"
+  },
+  {
+    "label": "Logo / Microsoft",
+    "value": "logo_microsoft"
+  },
+  {
+    "label": "Logo / Pinterest",
+    "value": "logo_pinterest"
+  },
+  {
+    "label": "Logo / Soundcloud",
+    "value": "logo_soundcloud"
+  },
+  {
+    "label": "Logo / Tiktok",
+    "value": "logo_tiktok"
+  },
+  {
+    "label": "Logo / Tumblr",
+    "value": "logo_tumblr"
+  },
+  {
+    "label": "Logo / Twitch",
+    "value": "logo_twitch"
+  },
+  {
+    "label": "Logo / Wechat",
+    "value": "logo_wechat"
+  },
+  {
+    "label": "Logo / Whatsapp",
+    "value": "logo_whatsapp"
+  },
+  {
+    "label": "Logo / X (aka Twitter)",
+    "value": "logo_x"
+  },
+  {
+    "label": "Logo / YouTube",
+    "value": "logo_youtube"
+  },
+  {
+    "label": "Nature / Bug",
+    "value": "bug"
+  },
+  {
+    "label": "Nature / Earth",
+    "value": "earth"
+  },
+  {
+    "label": "Nature / Fire",
+    "value": "fire"
+  },
+  {
+    "label": "Nature / Flower",
+    "value": "flower"
+  },
+  {
+    "label": "Nature / Globe",
+    "value": "globe"
+  },
+  {
+    "label": "Nature / Leaf",
+    "value": "leaf"
+  },
+  {
+    "label": "Nature / Lightning bolt",
+    "value": "lightning_bolt"
+  },
+  {
+    "label": "Nature / Partly sunny",
+    "value": "partly_sunny"
+  },
+  {
+    "label": "Nature / Paw print",
+    "value": "paw_print"
+  },
+  {
+    "label": "Nature / Rose",
+    "value": "rose"
+  },
+  {
+    "label": "Nature / Snowflake",
+    "value": "snowflake"
+  },
+  {
+    "label": "Nature / Sunny",
+    "value": "sunny"
+  },
+  {
+    "label": "Nature / Thunderstorm",
+    "value": "thunderstorm"
+  },
+  {
+    "label": "Nature / Umbrella",
+    "value": "umbrella"
+  },
+  {
+    "label": "Nature / Water",
+    "value": "water"
+  },
+  {
+    "label": "Other / Balloon",
+    "value": "balloon"
+  },
+  {
+    "label": "Other / Ban",
+    "value": "ban"
+  },
+  {
+    "label": "Other / Bed",
+    "value": "bed"
+  },
+  {
+    "label": "Other / Book",
+    "value": "book"
+  },
+  {
+    "label": "Other / Books",
+    "value": "books"
+  },
+  {
+    "label": "Other / Briefcase",
+    "value": "briefcase"
+  },
+  {
+    "label": "Other / Calculator",
+    "value": "calculator"
+  },
+  {
+    "label": "Other / Color palette",
+    "value": "color_palette"
+  },
+  {
+    "label": "Other / Cube",
+    "value": "cube"
+  },
+  {
+    "label": "Other / Eye",
+    "value": "eye"
+  },
+  {
+    "label": "Other / Film",
+    "value": "film"
+  },
+  {
+    "label": "Other / Horizontal line",
+    "value": "horizontal_line"
+  },
+  {
+    "label": "Other / Hourglass",
+    "value": "hourglass"
+  },
+  {
+    "label": "Other / Magic wand",
+    "value": "magic_wand"
+  },
+  {
+    "label": "Other / Medical",
+    "value": "medical"
+  },
+  {
+    "label": "Other / Puzzle piece",
+    "value": "puzzle"
+  },
+  {
+    "label": "Other / Rocket",
+    "value": "rocket"
+  },
+  {
+    "label": "Other / Ticket",
+    "value": "ticket"
+  },
+  {
+    "label": "People / Female figure",
+    "value": "woman"
+  },
+  {
+    "label": "People / Female symbol",
+    "value": "female"
+  },
+  {
+    "label": "People / Male figure",
+    "value": "man"
+  },
+  {
+    "label": "People / Male symbol",
+    "value": "male"
+  },
+  {
+    "label": "People / People silhouettes",
+    "value": "people"
+  },
+  {
+    "label": "People / Person happy",
+    "value": "person"
+  },
+  {
+    "label": "People / Silhouette",
+    "value": "silhouette"
+  },
+  {
+    "label": "People / Silhouette circle",
+    "value": "silhouette_circle"
+  },
+  {
+    "label": "People / Unisex symbol",
+    "value": "male_female"
+  },
+  {
+    "label": "Sports & Fitness / Barbell",
+    "value": "barbell"
+  },
+  {
+    "label": "Sports & Fitness / Baseball",
+    "value": "baseball"
+  },
+  {
+    "label": "Sports & Fitness / Basketball",
+    "value": "basketball"
+  },
+  {
+    "label": "Sports & Fitness / Heart rate",
+    "value": "fitness"
+  },
+  {
+    "label": "Sports & Fitness / Pulse",
+    "value": "pulse"
+  },
+  {
+    "label": "Sports & Fitness / Scales",
+    "value": "scale"
+  },
+  {
+    "label": "Sports & Fitness / Soccer ball",
+    "value": "soccer_ball"
+  },
+  {
+    "label": "Sports & Fitness / Stopwatch",
+    "value": "stopwatch"
+  },
+  {
+    "label": "Sports & Fitness / Tennis ball",
+    "value": "tennis_ball"
+  },
+  {
+    "label": "Technology / Battery charging",
+    "value": "battery_charging"
+  },
+  {
+    "label": "Technology / Battery empty",
+    "value": "battery_dead"
+  },
+  {
+    "label": "Technology / Battery full",
+    "value": "battery_full"
+  },
+  {
+    "label": "Technology / Battery half",
+    "value": "battery_half"
+  },
+  {
+    "label": "Technology / Bluetooth",
+    "value": "bluetooth"
+  },
+  {
+    "label": "Technology / Bulb",
+    "value": "bulb"
+  },
+  {
+    "label": "Technology / Camera",
+    "value": "camera"
+  },
+  {
+    "label": "Technology / Camera aperture",
+    "value": "camera_aperture"
+  },
+  {
+    "label": "Technology / Cellular",
+    "value": "cellular"
+  },
+  {
+    "label": "Technology / Computer",
+    "value": "computer"
+  },
+  {
+    "label": "Technology / Flash",
+    "value": "flash"
+  },
+  {
+    "label": "Technology / Game controller",
+    "value": "game_controller"
+  },
+  {
+    "label": "Technology / Hardware chip",
+    "value": "hardware_chip"
+  },
+  {
+    "label": "Technology / Headphones",
+    "value": "headset"
+  },
+  {
+    "label": "Technology / Infinite",
+    "value": "infinite"
+  },
+  {
+    "label": "Technology / Laptop",
+    "value": "laptop"
+  },
+  {
+    "label": "Technology / Layers",
+    "value": "layers"
+  },
+  {
+    "label": "Technology / Mic",
+    "value": "mic"
+  },
+  {
+    "label": "Technology / Phone landscape",
+    "value": "phone_landscape"
+  },
+  {
+    "label": "Technology / Phone portrait",
+    "value": "phone_portrait"
+  },
+  {
+    "label": "Technology / Television",
+    "value": "tv"
+  },
+  {
+    "label": "Technology / Timer",
+    "value": "timer"
+  },
+  {
+    "label": "Technology / Videocam",
+    "value": "videocam"
+  },
+  {
+    "label": "Technology / Watch",
+    "value": "watch"
+  },
+  {
+    "label": "Technology / Wifi",
+    "value": "wifi"
+  },
+  {
+    "label": "Technology / Power",
+    "value": "power"
+  },
+  {
+    "label": "Transport / Airplane",
+    "value": "airplane"
+  },
+  {
+    "label": "Transport / Bicycle",
+    "value": "bicycle"
+  },
+  {
+    "label": "Transport / Car",
+    "value": "car"
+  },
+  {
+    "label": "Transport / Map location",
+    "value": "map_pin"
+  },
+  {
+    "label": "Transport / Navigation",
+    "value": "navigation"
+  },
+  {
+    "label": "Transport / Speedometer",
+    "value": "speedometer"
+  },
+  {
+    "label": "Transport / Sports car",
+    "value": "sports_car"
+  },
+  {
+    "label": "Trust / Award",
+    "value": "ribbon"
+  },
+  {
+    "label": "Trust / Check mark",
+    "value": "check_mark_only"
+  },
+  {
+    "label": "Trust / Check mark in square",
+    "value": "check_mark"
+  },
+  {
+    "label": "Trust / Check mark in circle",
+    "value": "check_mark_circle"
+  },
+  {
+    "label": "Trust / Happy",
+    "value": "happy"
+  },
+  {
+    "label": "Trust / Heart",
+    "value": "heart"
+  },
+  {
+    "label": "Trust / Key",
+    "value": "key"
+  },
+  {
+    "label": "Trust / Lock",
+    "value": "lock"
+  },
+  {
+    "label": "Trust / Lock closed",
+    "value": "lock_closed"
+  },
+  {
+    "label": "Trust / Lock open",
+    "value": "lock_open"
+  },
+  {
+    "label": "Trust / Shield",
+    "value": "shield"
+  },
+  {
+    "label": "Trust / Shield checkmark",
+    "value": "shield_checkmark"
+  },
+  {
+    "label": "Trust / Star",
+    "value": "star_filled"
+  },
+  {
+    "label": "Trust / Star outline",
+    "value": "star"
+  },
+  {
+    "label": "Trust / Thumbs up",
+    "value": "thumbs_up"
+  },
+  {
+    "label": "Trust / Trophy",
+    "value": "trophy"
+  }
+
+    ],
+    "default": "rocket",
+    "label": "Icon"
+  },
+  {
+    "type": "select",
+    "id": "icon_container",
+    "options": [
+      {
+        "value": "none",
+        "label": "None"
+      },
+      {
+        "value": "circle",
+        "label": "Circle"
+      },
+      {
+        "value": "rounded",
+        "label": "Rounded"
+      },
+      {
+        "value": "square",
+        "label": "Square"
+      }
+    ],
+    "default": "rounded",
+    "label": "Icon background"
+  },
+  {
+    "type": "range",
+    "id": "icon_size",
+    "min": 2.4,
+    "max": 10,
+    "step": 0.2,
+    "default": 3,
+    "unit": "rem",
+    "label": "Icon size"
+  },
+  {
+    "type": "range",
+    "id": "icon_vertical_position",
+    "min": -1,
+    "max": 3,
+    "step": 0.1,
+    "default": 0,
+    "unit": "rem",
+    "label": "Vertical position"
+  },
+  {
+    "type": "color",
+    "id": "icon_color",
+    "label": "Icon color",
+    "info": "Set to transparent to use text color."
+  },
+  {
+    "type": "color",
+    "id": "icon_background_color",
+    "default": "#EDEDED",
+    "label": "Background color"
+  },
+  {
+    "type": "color_background",
+    "id": "background_gradient",
+    "label": "Background gradient",
+    "info": "Background gradient replaces background where possible."
+  },
+  {
+    "type": "header",
+    "content": "Heading"
+  },
+  {
+    "type": "inline_richtext",
+    "id": "heading",
+    "default": "<strong>Key highlight</strong>",
+    "info": "Enter ++ for a line break. To animate between words enter them in the format: 'We deliver exceptional [products|service|value]'. Ensure [ | and ] characters aren't bold or italic. Keep animated words short and similar in length.",
+    "label": "Heading"
+  },
+  {
+    "type": "select",
+    "id": "heading_italic_convert",
+    "options": [
+      {
+        "value": "",
+        "label": "Off (keep as italics)"
+      },
+      {
+        "value": "light",
+        "label": "Lighter"
+      },
+      {
+        "value": "accent_color",
+        "label": "Accent color"
+      },
+      {
+        "value": "accent",
+        "label": "Accent gradient color"
+      },
+      {
+        "value": "outline",
+        "label": "Outline"
+      },
+      {
+        "value": "outline_accent",
+        "label": "Outline - Accent color"
+      },
+      {
+        "value": "glow",
+        "label": "Glow - Accent color"
+      },
+      {
+        "value": "glow_outline",
+        "label": "Glow with outline - Accent color"
+      }
+    ],
+    "info": "The colors above can be set in the color schemes. 'Outline' may not work with all fonts.",
+    "default": "",
+    "label": "Convert italic text to"
+  },
+  {
+    "type": "select",
+    "id": "heading_size",
+    "options": [
+      {
+        "value": "h6",
+        "label": "3XS"
+      },
+      {
+        "value": "h5",
+        "label": "2XS"
+      },
+      {
+        "value": "h4",
+        "label": "XS"
+      },
+      {
+        "value": "h3",
+        "label": "S"
+      },
+      {
+        "value": "h2",
+        "label": "M"
+      },
+      {
+        "value": "h1",
+        "label": "L"
+      },
+      {
+        "value": "h0",
+        "label": "XL"
+      },
+      {
+        "value": "hxl",
+        "label": "2XL"
+      },
+      {
+        "value": "custom",
+        "label": "Custom"
+      }
+    ],
+    "default": "h5",
+    "label": "Heading size"
+  },
+  {
+    "type": "range",
+    "id": "heading_size_custom",
+    "visible_if": "{{ block.settings.heading_size == 'custom' }}",
+    "min": 1,
+    "max": 9,
+    "step": 0.2,
+    "unit": "rem",
+    "default": 2.4,
+    "label": "Custom heading size"
+  },
+  {
+    "type": "range",
+    "id": "heading_line_height_custom",
+    "visible_if": "{{ block.settings.heading_size == 'custom' }}",
+    "min": 0.4,
+    "max": 2,
+    "step": 0.1,
+    "unit": "em",
+    "default": 1.2,
+    "label": "Custom line height"
+  },
+  {
+    "type": "select",
+    "id": "heading_tag",
+    "options": [
+      {
+        "value": "h1",
+        "label": "H1"
+      },
+      {
+        "value": "h2",
+        "label": "H2"
+      },
+      {
+        "value": "h3",
+        "label": "H3"
+      },
+      {
+        "value": "h4",
+        "label": "H4"
+      },
+      {
+        "value": "h5",
+        "label": "H5"
+      }
+    ],
+    "default": "h3",
+    "info": "For SEO purposes, there should only be one H1 tag on the page.",
+    "label": "Heading tag"
+  },
+  {
+    "type": "header",
+    "content": "Text"
+  },
+  {
+    "type": "richtext",
+    "id": "text",
+    "default": "<p>Include optional text to provide more information about this highlight.</p>",
+    "label": "Text"
+  },
+  {
+    "type": "select",
+    "id": "text_size",
+    "options": [
+      {
+        "value": "t6",
+        "label": "2XS"
+      },
+      {
+        "value": "t5",
+        "label": "XS"
+      },
+      {
+        "value": "t4",
+        "label": "S"
+      },
+      {
+        "value": "t3",
+        "label": "M"
+      },
+      {
+        "value": "t2",
+        "label": "L"
+      },
+      {
+        "value": "t1",
+        "label": "XL"
+      },
+      {
+        "value": "t0",
+        "label": "2XL"
+      }
+    ],
+    "default": "t3",
+    "label": "Text size"
+  }
+
+      ]
+    },
+    {
+      "type": "spacer",
+      "name": "Spacer",
+      "settings": [
+        
+  {
+    "type": "checkbox",
+    "id": "show_line_separator",
+    "default": true,
+    "label": "Show separator line"
+  },
+  {
+    "type": "range",
+    "id": "spacing_top",
+    "min": 0,
+    "max": 10,
+    "step": 0.1,
+    "unit": "rem",
+    "default": 2.4,
+    "label": "Spacing top"
+  },
+  {
+    "type": "range",
+    "id": "spacing_bottom",
+    "min": 0,
+    "max": 10,
+    "step": 0.1,
+    "unit": "rem",
+    "default": 2.4,
+    "label": "Spacing bottom"
+  },
+  {
+    "type": "select",
+    "id": "spacer_visibility",
+    "options": [
+      {
+        "value": "mobile",
+        "label": "Mobile"
+      },
+      {
+        "value": "desktop",
+        "label": "Desktop"
+      },
+      {
+        "value": "both",
+        "label": "Both"
+      }
+    ],
+    "default": "both",
+    "label": "Show on"
+  },
+  {
+    "type": "color",
+    "id": "line_color",
+    "label": "Line color",
+    "info": "Set to transparent to use standard line color."
+  }
+
+      ]
+    },
+    {
+      "type": "login_form",
+      "name": "Login form",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_register_link",
+          "label": "Show register link",
+          "default": true
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

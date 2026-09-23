@@ -1,0 +1,75 @@
+{% comment %}
+  Renders the flash sale progress bar for a given product.
+
+  Calculates how much of a product’s stock has been sold during a flash sale,
+  based on either a global or product-specific flash sale threshold. Displays
+  a percentage or quantity sold, and visually represents progress with a
+  progress bar.
+
+  Accepts:
+  - flash_sale_product: {Product} The product to evaluate
+  - class: {String} Optional - CSS class to apply to the container element
+  - is_product_page: {Boolean} Optional - True if it's the product page
+
+
+  Output:
+  - Displays a text label showing percentage or quantity sold
+  - Displays a progress bar with dynamic width and background color
+
+  Usage:
+  {% render 'flash-sale', flash_sale_product: product %}
+{% endcomment %}
+
+{%- if settings.flash_sale_collections != blank and flash_sale_product.selected_or_first_available_variant.inventory_management != blank -%}
+  {%- liquid
+    assign show_flash_sale = false
+    assign handles = settings.flash_sale_collections | map: 'handle'
+    for collection in flash_sale_product.collections
+      if handles contains collection.handle
+        assign show_flash_sale = true
+        break
+      endif
+    endfor
+
+    if show_flash_sale
+      assign total_inventory = 0
+      for variant in flash_sale_product.variants
+        if variant.inventory_quantity > 0
+          assign total_inventory = total_inventory | plus: variant.inventory_quantity
+        endif
+      endfor
+    endif
+
+    assign threshold = flash_sale_product.metafields.custom.flash_sale_threshold | default: settings.flash_sale_threshold | plus: 0
+    assign percent_claimed = nil
+
+    if show_flash_sale and total_inventory > 0 and total_inventory < threshold
+      assign quantity_sold = threshold | minus: total_inventory
+      if quantity_sold < 0
+        assign quantity_sold = 0
+      endif
+      assign percent_claimed = quantity_sold | times: 100 | divided_by: threshold
+    endif
+  -%}
+
+  {%- if percent_claimed > 0 -%}
+    <div class="flash-sale {{ class }}">
+      <p class="flex flex-wrap items-center {% if is_product_page %}t6{% else %}t7{% endif %} {% if settings.flash_sale_show_badge %}mb-05{% else %}mb-025{% endif %} font-bold">
+        {% if settings.flash_sale_show_badge %}
+          <span class="pill relative {% if is_product_page %}t7{% else %}t8{% endif %} inline-flex items-center justify-center gap-025 whitespace-nowrap">
+            {% if settings.flash_sale_show_badge_icon %}{% render 'icon', size: 13, icon: 'lightning_bolt_solid' %}{% endif %}
+            {% if settings.flash_sale_badge_word %}<span class="rte">{{ settings.flash_sale_badge_word }}</span>{% endif %}
+          </span>
+        {% endif %}
+
+        {%- if settings.flash_sale_type == 'percent' -%}
+          {{ 'products.flash_sale.claimed' | t: quantity: percent_claimed }}
+        {%- elsif settings.flash_sale_type == 'quantity' -%}
+          {{ 'products.flash_sale.sold' | t: quantity: quantity_sold }}
+        {%- endif -%}
+      </p>
+
+      <div class="progress-bar" style="--progress-bar-width: {{ percent_claimed }}%; --progress-bar-background: {{ settings.flash_sale_background | default: settings.flash_sale_background_color }}; {% if is_product_page %}height: 4px;{% endif %}"></div>
+    </div>
+  {%- endif -%}
+{%- endif -%}

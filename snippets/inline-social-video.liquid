@@ -1,0 +1,253 @@
+{% comment %}
+  Renders an inline social video.
+
+  Accepts:
+  - is_product: {Boolean} - Whether the video is being rendered in a product context.
+  - index: {Number} - The video index, usually from the parent block loop.
+  - video: {Video} - The video object to render.
+  - custom_id: {String} - A custom ID to use for the modal. Optional.
+
+  - autoplay_setting: {String} - The autoplay setting value.
+  - video_autoplay: {Boolean} - Whether this video should autoplay.
+  - on_click_action: {String} - The action to take when the video is clicked.
+  - on_click_page: {Page} - The page to link to when the click action is set to a page.
+  - video_ratio: {String} - The video aspect ratio setting.
+  - show_unmute_button: {Boolean} - Whether to show the unmute button
+  - clamp_product_titles: {Boolean} - Whether product titles should be clamped.
+
+  - icon: {String} - Icon to show over/alongside the video.
+  - icon_size: {String} - The icon size.
+  - icon_link: {Url} - Link applied to the icon.
+
+  - caption: {String} - Caption text to show with the video.
+  - caption_size: {String} - The caption text size.
+  - caption_link: {Url} - Link applied to the caption.
+  - caption_image: {Image} - Optional image to show with the caption.
+  - caption_image_width: {Number} - Width of the caption image.
+  - caption_image_corner_radius: {String} - Corner radius setting/class for the caption image.
+  - hide_caption_mobile: {Boolean} - Optional. Hide the caption or product card on mobile (doesn't apply to the popup)
+
+  Usage:
+    {%- render 'inline-social-video',
+        is_product: false,
+        index: forloop.index,
+        video: block.settings.video,
+
+        autoplay_setting: section.settings.autoplay,
+        video_autoplay: autoplay,
+        on_click_action: section.settings.on_click_action,
+        on_click_page: block.settings.on_click_page,
+        video_ratio: section.settings.video_ratio,
+        show_unmute_button: section.settings.show_unmute_button,
+        clamp_product_titles: section.settings.clamp_product_titles,
+
+        icon: block.settings.icon,
+        icon_size: block.settings.icon_size,
+        icon_link: block.settings.icon_link,
+
+        caption: block.settings.caption,
+        caption_size: block.settings.caption_size,
+        caption_link: block.settings.caption_link,
+        caption_image: block.settings.caption_image,
+        caption_image_width: block.settings.caption_image_width,
+        caption_image_corner_radius: block.settings.caption_image_corner_radius,
+        hide_caption_mobile: section.settings.hide_caption_mobile
+    -%}
+{% endcomment %}
+
+{%- if request.design_mode or video != blank -%}
+  {%- liquid
+    assign video_id = video.id | default: index
+    assign video_alt = video.alt
+    assign alt = 'sections.video.load_video' | t: description: video_alt | escape
+    assign poster = video.preview_image
+
+    if request.design_mode and lazy_load_video != true
+      assign lazy_load_video = false
+    else
+      assign lazy_load_video = true
+    endif
+
+    assign media_aspect_ratio = video_ratio
+    assign ratio = 0.66
+    if media_aspect_ratio == 'portrait'
+      assign ratio = 0.8
+    elsif media_aspect_ratio == 'portrait_tall'
+      assign ratio = 0.66
+    elsif media_aspect_ratio == 'portrait_medium'
+      assign ratio = 0.75
+    elsif media_aspect_ratio == 'portrait_video'
+      assign ratio = 0.56
+    elsif media_aspect_ratio == 'landscape_wide'
+      assign ratio = 1.77
+    elsif media_aspect_ratio == 'landscape_wider'
+      assign ratio = 2.33
+    elsif media_aspect_ratio == 'landscape'
+      assign ratio = 1.33
+    elsif media_aspect_ratio == 'square' or media_aspect_ratio == 'circle'
+      assign ratio = 1
+    elsif video != null and media_aspect_ratio == 'adapt'
+      assign ratio = video.aspect_ratio
+    endif
+
+    assign fetch_priority = 'low'
+    assign loading = 'lazy'
+    if request.design_mode or section.index < 3
+      assign fetch_priority = 'high'
+      assign loading = 'eager'
+    endif
+
+    if section.index == 1
+      assign preload = true
+    else
+      assign preload = false
+    endif
+
+    assign image_replace =  '<img alt="' | append: alt | append: '" '
+    if section.index > 2
+      assign image_replace =  '<img alt="' | append: alt | append: '" loading="' | append: loading | append: '" fetchpriority="' | append: fetch_priority | append: '" '
+    endif
+
+    if is_product and on_click_action == 'link'
+      assign on_click_page = product.url
+    endif
+  -%}
+
+  {% capture sizes %}
+    (min-width: {{ settings.page_width }}px) calc(({{ settings.page_width }}px - {{ grid_space_desktop }}) * {{ image_width }} /  {{ columns_desktop }}),
+    (min-width: 990px) calc((100vw - {{ grid_space_desktop }}) * {{ image_width }} / {{ columns_desktop | plus: 2 }}),
+    (min-width: 750px) calc((100vw - {{ grid_space_tablet }}) * {{ image_width }} / {{ columns_mobile | plus: 6 }}),
+    calc((100vw - {{ grid_space_mobile | times: 2 }}px) / {{ columns_mobile | plus: 0.5 }})
+  {% endcapture %}
+
+  <{% unless lazy_load_video %}div{% else %}deferred-media{% endunless %}
+    class="section {{ section.id }}{{ custom_id }}-social-video-wrapper social-video-wrapper{% if media_aspect_ratio == 'circle' %} social-video-wrapper--circle{% endif %} video-section__media deferred-media no-js-hidden gradient global-media-settings media-fit-cover global-media-settings--full-width"
+    data-media-id="{{ section.id }}{{ custom_id }}-{{ video_id }}"
+    style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+  >
+    <div id="Deferred-Poster-Modal-{{ section.id }}{{ custom_id }}-{{ video_id }}" class="video-section__poster media deferred-media__poster media--landscape">
+      {%- if poster != null -%}
+        {{
+        poster
+          | image_url: width: 3840
+          | image_tag:
+          widths: '50, 75, 100, 150, 200, 300, 400, 500, 750, 1000',
+          sizes: sizes,
+          alt: alt,
+          fetchpriority: fetch_priority,
+          loading: loading
+        }}
+      {%- else -%}
+        {{ 'collection-5' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+      {%- endif -%}
+    </div>
+
+    {% if lazy_load_video %}
+      <template>
+    {% endif %}
+
+      <social-video class="social-video absolute inset{% if caption_image != blank or caption != blank %} social-video--gradient-bottom{% endif %}{% if icon != blank %} social-video--gradient-top{% endif %}"
+                    data-video-id="{{ section.id }}-{{ video_id }}"
+                    data-end-state="loop"
+                    data-hover-action="{% if autoplay_setting == 'all' %}play{% else %}play_one_at_a_time{% endif %}"
+                    data-index="{{ index }}"
+                    {% if on_click_action == 'modal' %}data-popup-id="PopupModal-{{ section.id }}{{ custom_id }}-video-reel"{% endif %}
+      >
+        {% if on_click_action == 'link' and on_click_page != blank %}
+          <a href="{{ on_click_page }}">
+        {% elsif on_click_action == 'modal' %}
+          <button class="no-style focus-inset" data-open-popup="VideoReel-{{ section.id }}{{ custom_id }}">
+        {% endif %}
+
+        {% if video != blank %}
+          {{
+            video
+            | video_tag:
+              class: 'js-video',
+              image_size: '700x',
+              autoplay: video_autoplay,
+              loop: true,
+              controls: false,
+              muted: true,
+              preload: 'none',
+              poster: ''
+            | replace: '<img ', image_replace
+          }}
+        {% elsif request.design_mode %}
+          <video playsinline="playsinline" class="js-video" loop="loop" autoplay="autoplay" muted="muted">
+            <source
+              src="{{ 'onboarding.mp4' | asset_url }}"
+              type="video/mp4">
+          </video>
+        {% endif %}
+
+        {% if on_click_action == 'link' and on_click_page != blank %}
+          </a>
+        {% elsif on_click_action == 'modal' %}
+          </button>
+        {% endif %}
+
+        {%- if icon != blank or show_unmute_button -%}
+          <div class="social-video__header absolute bottom-0 left-0 w-full z-3 flex justify-end">
+            {%- if icon != blank -%}
+              <{% if icon_link != blank %}a href="{{ icon_link }}"{% else %}div{% endif %} class="social-video__icon button-control--no-colors"
+                   style="--icon-size: {{ icon_size | default: icon_size }}px;">
+                {% render 'icon', icon: icon, size: icon_size %}
+              </{% if icon_link != blank %}a{% else %}div{% endif %}>
+            {%- elsif show_unmute_button  -%}
+              <div>&nbsp;</div>
+            {%- endif -%}
+
+            {%- if show_unmute_button -%}
+              <div>
+                <button class="js-mute-unmute social-video__volume button-control--no-colors tap-target motion-reduce" aria-label="{{ 'sections.video.volume' | t }}" data-volume="muted">
+                  {%- render 'icon-mute' -%}
+                  {%- render 'icon-unmute' -%}
+                </button>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        <div class="social-video__footer absolute bottom-0 left-0 w-full z-3 flex items-end{% if hide_caption_mobile %} hidden-xs{% endif %}{% if clamp_product_titles %} product-title-clamped{% endif %}">
+          {%- if is_product -%}
+            {%- if product != blank or request.design_mode -%}
+              {% render 'card-product',
+                card_product: product,
+                show_secondary_image: false,
+                show_vendor: false,
+                show_rating: false,
+                section_id: section.id,
+                horizontal_class: true,
+                horizontal_mini: true,
+                horizontal_quick_add: true,
+                hide_flash_sale: true,
+                show_quick_add: false,
+                media_aspect_ratio: 'adapt',
+                color_scheme: product_color_scheme
+              %}
+            {%- endif -%}
+          {%- else -%}
+            {% if caption_link != blank %}
+              <a href="{{ caption_link }}" class="absolute inset focus-inset">
+                <span class="visually-hidden">{{ caption | escape }}</span>
+              </a>
+            {% endif %}
+            <div class="social-video__caption grow rte flex items-center lh-11 gap-1"{% if caption_image != blank %} style="--social-caption-image-radius: {{ caption_image_corner_radius }}px; --social-caption-image-width: {{ caption_image_width }}px;"{% endif %}>
+              {% if caption_image != blank %}
+                {%- assign caption_image_width = caption_image_width | times: 2 -%}
+                {{ caption_image | image_url: width: caption_image_width | image_tag: fetchpriority: 'low', class: 'social-video__caption-image mb-0' }}
+              {% endif %}
+              {% if caption != blank %}
+                <p class="social-video__caption-text {{ caption_size }}">{{ caption }}</p>
+              {% endif %}
+            </div>
+          {%- endif -%}
+        </div>
+      </social-video>
+
+      {% if lazy_load_video %}
+      </template>
+    {% endif %}
+  </{% unless lazy_load_video %}div{% else %}deferred-media{% endunless %}>
+{%- endif -%}

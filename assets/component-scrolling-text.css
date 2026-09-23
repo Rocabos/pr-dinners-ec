@@ -1,0 +1,37 @@
+@keyframes ticker {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-100% * var(--direction-multiplier)), 0, 0);
+  }
+}
+
+.scrolling-text__content {
+  animation: ticker var(--speed, 9s) linear infinite running var(--direction, normal);
+  margin: 0;
+}
+
+.scrolling-text__content > * {
+  margin: 0 max(calc(var(--block-gap) * 0.8), 1rem) 0 0;
+  padding: 0;
+}
+
+.scrolling-text__stat {
+  text-align: center;
+}
+
+.scrolling-text__buttons + .scrolling-text__buttons {
+  margin-top: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .scrolling-text__content > * {
+    margin: 0 var(--block-gap) 0 0;
+  }
+
+  .scrolling-text__wrapper--pause-on-hover:hover .scrolling-text__content,
+  .tab-active .section-scrolling-text:focus-within .scrolling-text__content {
+    animation-play-state: paused;
+  }
+}

@@ -1,0 +1,25 @@
+{%- layout none -%}
+<div>
+  {% for filter in collection.filters %}
+    {% unless filter.type == 'price_range' %}
+      <select
+          data-filter-name="{{ filter.param_name | escape }}"
+          data-filter-label="{{ filter.label | escape | downcase | strip }}"
+      >
+        {%- for value in filter.values -%}
+          {%- assign count = value.count | plus: 0 -%}
+          {%- if count > 0 -%}
+            <option
+                value="{{ value.value | escape }}"
+                {% comment %}data-count="{{ value.count }}"{% endcomment %}
+                {% if value.active %} selected{% endif %}
+                data-filter-name="{{ filter.param_name | escape }}"
+            >
+              {{ value.label }} <span class="filter-count">({{ value.count }})</span>
+            </option>
+          {%- endif -%}
+        {%- endfor -%}
+      </select>
+    {% endunless %}
+  {% endfor %}
+</div>

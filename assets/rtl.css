@@ -1,0 +1,39 @@
+[dir='rtl'] {
+    .quick-add__submit.button--secondary .icon:not(.icon-plus),
+    .button-with-icon--right .icon,
+    .newsletter-form__button .icon,
+    .password-form .field__button > svg {
+        transform: scaleX(-1);
+    }
+
+    .customer .button-with-icon--left .icon-arrow {
+        transform: none;
+    }
+
+    .complementary-products__container {
+        overflow: hidden;
+    }
+
+    .field__checkbox:checked + label:after {
+        inset-inline-start: 13px;
+    }
+
+    .cart-item__price-wrapper,
+    .share-button--discount,
+    .nutriscore,
+    stat-counter {
+        direction: ltr;
+    }
+
+    [data-slide-animation="wipe"][data-slide-direction="backwards"] {
+        --reverse-multiplier: 1;
+    }
+
+    [data-slide-animation="wipe"]:not([data-slide-direction="backwards"]) {
+        --reverse-multiplier: -1;
+    }
+
+    .slider-scrollbar__indicator {
+        cursor: default;
+    }
+}

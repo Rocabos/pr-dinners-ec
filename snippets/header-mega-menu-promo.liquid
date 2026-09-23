@@ -1,0 +1,301 @@
+{%- comment -%}theme-check-disable LiquidTag{%- endcomment -%}
+{% comment %}
+  Renders a column of mega menu promotions
+
+  Accepts:
+  - promo: {Object} The block object of the promo to render (Required)
+  - columns: {Number} The number of columns that the column should occupy (Required)
+  - is_drawer: {Boolean} Whether the promos are being rendered in the drawer
+
+  Usage:
+  {%- render 'header-mega-menu-promo',
+        promo: promo,
+        columns: 2
+  -%}
+{% endcomment %}
+
+{%- liquid
+  assign one_column_width = 270
+  assign columns_wide = promo.settings.columns_wide | plus: 0
+  assign image_width_to_request = one_column_width | times: columns_wide | divided_by: promo.settings.promos_per_row
+-%}
+
+{%- unless promo.settings.promo_1_text == blank and promo.settings.promo_1_image == blank and promo.settings.promo_1_heading == blank and
+      promo.settings.promo_2_text == blank and promo.settings.promo_2_image == blank and promo.settings.promo_2_heading == blank and
+      promo.settings.promo_3_text == blank and promo.settings.promo_3_image == blank and promo.settings.promo_3_heading == blank and
+      promo.settings.promo_4_text == blank and promo.settings.promo_4_image == blank and promo.settings.promo_4_heading == blank and
+      promo.settings.promo_5_text == blank and promo.settings.promo_5_image == blank and promo.settings.promo_5_heading == blank and
+      promo.settings.promo_6_text == blank and promo.settings.promo_6_image == blank and promo.settings.promo_6_heading == blank and
+      promo.settings.promo_7_text == blank and promo.settings.promo_7_image == blank and promo.settings.promo_7_heading == blank and
+      promo.settings.promo_8_text == blank and promo.settings.promo_8_image == blank and promo.settings.promo_8_heading == blank
+-%}
+  <div class="mega-promos mega-promos--{{ promo.type | replace: "mega_", "" }}{% if promo.settings.show_line_separator %} mega_promos--separator mega_promos--separator-{{ promo.settings.position }}{% endif %} flex flex-col"{% unless is_drawer %} {{ promo.shopify_attributes }}{% endunless %}>
+    {%- if promo.settings.promo_header_text != blank -%}
+      <div class="mega-promo-header rte {{ promo.settings.promo_header_text_style }} {{ promo.settings.promo_header_text_size }}">
+        {{ promo.settings.promo_header_text }}
+      </div>
+    {%- endif -%}
+
+    <div class="promo-card--grid" style="{% if promo.settings.promo_image_overlay_opacity %}--overlay-opacity: {{ promo.settings.promo_image_overlay_opacity | divided_by: 100.0 }};{% endif %}grid-template-columns: repeat({{ promo.settings.promos_per_row }}, minmax(0, 1fr));">
+      {%- if promo.type == 'mega_image_promo' -%}
+        {%- render 'promo-image',
+            class: 'promo last-child:mb-0',
+            show_promo: promo.settings.promo_1_show,
+            url: promo.settings.promo_1_url,
+            text: promo.settings.promo_1_text,
+            image: promo.settings.promo_1_image,
+            image_width: image_width_to_request,
+            media_aspect_ratio: promo.settings.promo_aspect_ratio,
+            text_position: promo.settings.promo_1_text_position,
+            text_style: promo.settings.promo_text_style,
+            text_alignment: promo.settings.promo_1_text_alignment,
+            text_size: promo.settings.promo_text_size,
+            text_color: promo.settings.promo_1_text_color,
+            text_padding: promo.settings.promo_1_text_padding,
+            placeholder_image: 'hero-apparel-3'
+        -%}
+        
+        {%- render 'promo-image',
+            class: 'promo last-child:mb-0',
+            show_promo: promo.settings.promo_2_show,
+            url: promo.settings.promo_2_url,
+            text: promo.settings.promo_2_text,
+            image: promo.settings.promo_2_image,
+            image_width: image_width_to_request,
+            media_aspect_ratio: promo.settings.promo_aspect_ratio,
+            text_position: promo.settings.promo_2_text_position,
+            text_style: promo.settings.promo_text_style,
+            text_alignment: promo.settings.promo_2_text_alignment,
+            text_size: promo.settings.promo_text_size,
+            text_color: promo.settings.promo_2_text_color,
+            text_padding: promo.settings.promo_2_text_padding,
+            placeholder_image: 'detailed-apparel-1'
+        -%}
+        
+        {%- render 'promo-image',
+            class: 'promo last-child:mb-0',
+            show_promo: promo.settings.promo_3_show,
+            url: promo.settings.promo_3_url,
+            text: promo.settings.promo_3_text,
+            image: promo.settings.promo_3_image,
+            image_width: image_width_to_request,
+            media_aspect_ratio: promo.settings.promo_aspect_ratio,
+            text_position: promo.settings.promo_3_text_position,
+            text_style: promo.settings.promo_text_style,
+            text_alignment: promo.settings.promo_3_text_alignment,
+            text_size: promo.settings.promo_text_size,
+            text_color: promo.settings.promo_3_text_color,
+            text_padding: promo.settings.promo_3_text_padding,
+            placeholder_image: 'hero-apparel-3'
+        -%}
+        
+        {%- render 'promo-image',
+            class: 'promo last-child:mb-0',
+            show_promo: promo.settings.promo_4_show,
+            url: promo.settings.promo_4_url,
+            text: promo.settings.promo_4_text,
+            image: promo.settings.promo_4_image,
+            image_width: image_width_to_request,
+            media_aspect_ratio: promo.settings.promo_aspect_ratio,
+            text_position: promo.settings.promo_4_text_position,
+            text_style: promo.settings.promo_text_style,
+            text_alignment: promo.settings.promo_4_text_alignment,
+            text_size: promo.settings.promo_text_size,
+            text_color: promo.settings.promo_4_text_color,
+            text_padding: promo.settings.promo_4_text_padding,
+            placeholder_image: 'detailed-apparel-1'
+        -%}
+        
+        {%- render 'promo-image',
+            class: 'promo last-child:mb-0',
+            show_promo: promo.settings.promo_5_show,
+            url: promo.settings.promo_5_url,
+            text: promo.settings.promo_5_text,
+            image: promo.settings.promo_5_image,
+            image_width: image_width_to_request,
+            media_aspect_ratio: promo.settings.promo_aspect_ratio,
+            text_position: promo.settings.promo_5_text_position,
+            text_style: promo.settings.promo_text_style,
+            text_alignment: promo.settings.promo_5_text_alignment,
+            text_size: promo.settings.promo_text_size,
+            text_color: promo.settings.promo_5_text_color,
+            text_padding: promo.settings.promo_5_text_padding,
+            placeholder_image: 'hero-apparel-3'
+        -%}
+        
+        {%- render 'promo-image',
+            class: 'promo last-child:mb-0',
+            show_promo: promo.settings.promo_6_show,
+            url: promo.settings.promo_6_url,
+            text: promo.settings.promo_6_text,
+            image: promo.settings.promo_6_image,
+            image_width: image_width_to_request,
+            media_aspect_ratio: promo.settings.promo_aspect_ratio,
+            text_position: promo.settings.promo_6_text_position,
+            text_style: promo.settings.promo_text_style,
+            text_alignment: promo.settings.promo_6_text_alignment,
+            text_size: promo.settings.promo_text_size,
+            text_color: promo.settings.promo_6_text_color,
+            text_padding: promo.settings.promo_6_text_padding,
+            placeholder_image: 'detailed-apparel-1'
+        -%}
+        
+        {%- render 'promo-image',
+            class: 'promo last-child:mb-0',
+            show_promo: promo.settings.promo_7_show,
+            url: promo.settings.promo_7_url,
+            text: promo.settings.promo_7_text,
+            image: promo.settings.promo_7_image,
+            image_width: image_width_to_request,
+            media_aspect_ratio: promo.settings.promo_aspect_ratio,
+            text_position: promo.settings.promo_7_text_position,
+            text_style: promo.settings.promo_text_style,
+            text_alignment: promo.settings.promo_7_text_alignment,
+            text_size: promo.settings.promo_text_size,
+            text_color: promo.settings.promo_7_text_color,
+            text_padding: promo.settings.promo_7_text_padding,
+            placeholder_image: 'hero-apparel-3'
+        -%}
+        
+        {%- render 'promo-image',
+            class: 'promo last-child:mb-0',
+            show_promo: promo.settings.promo_8_show,
+            url: promo.settings.promo_8_url,
+            text: promo.settings.promo_8_text,
+            image: promo.settings.promo_8_image,
+            image_width: image_width_to_request,
+            media_aspect_ratio: promo.settings.promo_aspect_ratio,
+            text_position: promo.settings.promo_8_text_position,
+            text_style: promo.settings.promo_text_style,
+            text_alignment: promo.settings.promo_8_text_alignment,
+            text_size: promo.settings.promo_text_size,
+            text_color: promo.settings.promo_8_text_color,
+            text_padding: promo.settings.promo_8_text_padding,
+            placeholder_image: 'detailed-apparel-1'
+        -%}
+        
+      {%- elsif promo.type == 'mega_text_promo' -%}
+
+        {%- render 'promo-text',
+            show_promo: promo.settings.promo_1_show,
+            url: promo.settings.promo_1_url,
+            heading: promo.settings.promo_1_heading,
+            text: promo.settings.promo_1_text,
+            image_width: image_width_to_request,
+            image: promo.settings.promo_1_image,
+            media_aspect_ratio: promo.settings.promo_image_ratio,
+            accent: promo.settings.promo_1_accent,
+            image_position: promo.settings.promo_image_position,
+            placeholder_image: 'collection-apparel-1'
+        -%}
+
+        {%- render 'promo-text',
+            show_promo: promo.settings.promo_2_show,
+            url: promo.settings.promo_2_url,
+            heading: promo.settings.promo_2_heading,
+            text: promo.settings.promo_2_text,
+            image_width: image_width_to_request,
+            image: promo.settings.promo_2_image,
+            media_aspect_ratio: promo.settings.promo_image_ratio,
+            accent: promo.settings.promo_2_accent,
+            image_position: promo.settings.promo_image_position,
+            placeholder_image: 'collection-apparel-2'
+        -%}
+
+        {%- render 'promo-text',
+            show_promo: promo.settings.promo_3_show,
+            url: promo.settings.promo_3_url,
+            heading: promo.settings.promo_3_heading,
+            text: promo.settings.promo_3_text,
+            image_width: image_width_to_request,
+            image: promo.settings.promo_3_image,
+            media_aspect_ratio: promo.settings.promo_image_ratio,
+            accent: promo.settings.promo_3_accent,
+            image_position: promo.settings.promo_image_position,
+            placeholder_image: 'collection-apparel-3'
+        -%}
+
+        {%- render 'promo-text',
+            show_promo: promo.settings.promo_4_show,
+            url: promo.settings.promo_4_url,
+            heading: promo.settings.promo_4_heading,
+            text: promo.settings.promo_4_text,
+            image_width: image_width_to_request,
+            image: promo.settings.promo_4_image,
+            media_aspect_ratio: promo.settings.promo_image_ratio,
+            accent: promo.settings.promo_4_accent,
+            image_position: promo.settings.promo_image_position,
+            placeholder_image: 'collection-apparel-4'
+        -%}
+
+        {%- render 'promo-text',
+            show_promo: promo.settings.promo_5_show,
+            url: promo.settings.promo_5_url,
+            heading: promo.settings.promo_5_heading,
+            text: promo.settings.promo_5_text,
+            image_width: image_width_to_request,
+            image: promo.settings.promo_5_image,
+            media_aspect_ratio: promo.settings.promo_image_ratio,
+            accent: promo.settings.promo_5_accent,
+            image_position: promo.settings.promo_image_position,
+            placeholder_image: 'collection-apparel-1'
+        -%}
+
+        {%- render 'promo-text',
+            show_promo: promo.settings.promo_6_show,
+            url: promo.settings.promo_6_url,
+            heading: promo.settings.promo_6_heading,
+            text: promo.settings.promo_6_text,
+            image_width: image_width_to_request,
+            image: promo.settings.promo_6_image,
+            media_aspect_ratio: promo.settings.promo_image_ratio,
+            accent: promo.settings.promo_6_accent,
+            image_position: promo.settings.promo_image_position,
+            placeholder_image: 'collection-apparel-2'
+        -%}
+
+        {%- render 'promo-text',
+            show_promo: promo.settings.promo_7_show,
+            url: promo.settings.promo_7_url,
+            heading: promo.settings.promo_7_heading,
+            text: promo.settings.promo_7_text,
+            image_width: image_width_to_request,
+            image: promo.settings.promo_7_image,
+            media_aspect_ratio: promo.settings.promo_image_ratio,
+            accent: promo.settings.promo_7_accent,
+            image_position: promo.settings.promo_image_position,
+            placeholder_image: 'collection-apparel-3'
+        -%}
+
+        {%- render 'promo-text',
+            show_promo: promo.settings.promo_8_show,
+            url: promo.settings.promo_8_url,
+            heading: promo.settings.promo_8_heading,
+            text: promo.settings.promo_8_text,
+            image_width: image_width_to_request,
+            image: promo.settings.promo_8_image,
+            media_aspect_ratio: promo.settings.promo_image_ratio,
+            accent: promo.settings.promo_8_accent,
+            image_position: promo.settings.promo_image_position,
+            placeholder_image: 'collection-apparel-4'
+        -%}
+      {%- endif -%}
+
+    </div>
+
+    {%- if promo.settings.promo_footer_button_label != blank -%}
+      <div>
+        <a
+            href="{{ promo.settings.promo_footer_button_link }}"
+            class="{% if promo.settings.promo_footer_button_style == 'link' %}link underlined-link{% else %}button button--{{ promo.settings.promo_footer_button_style }} {% if promo.settings.promo_footer_button_style == 'secondary' and promo.settings.promo_footer_button_style_show_gradient_border and promo.settings.promo_footer_button_border_gradient != blank %} button--secondary-gradient{% endif %}{% endif %}{% if promo.settings.promo_footer_show_arrow %} button-with-icon button-with-icon--right{% endif %}"
+            {% if promo.settings.promo_footer_button_style == 'secondary' and promo.settings.promo_footer_button_style_show_gradient_border and promo.settings.promo_footer_button_border_gradient != blank %} style="--color-secondary-button-border-gradient: {{ promo.settings.promo_footer_button_border_gradient }}"{% endif %}
+        >
+          {{ promo.settings.promo_footer_button_label }}
+          {% if promo.settings.promo_footer_show_arrow %}
+            {% render 'icon-arrow' %}
+          {% endif %}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+{%- endunless -%}

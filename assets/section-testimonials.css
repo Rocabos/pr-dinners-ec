@@ -1,0 +1,23 @@
+.testimonial-author {
+  gap: 15px;
+}
+
+.testimonial-author__image img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+.testimonial-author__line {
+  max-width: 50px;
+  background-color: rgba(var(--color-foreground),0.2);
+}
+
+.multicolumn-card__quote {
+  font-family: Times;
+  line-height: 0.4em;
+  position: relative;
+  top: 0.2em;
+  letter-spacing: -0.1em;
+  text-indent: -0.1em;
+}

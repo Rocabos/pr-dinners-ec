@@ -1,0 +1,406 @@
+{% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
+{{ 'component-collection-split-hero.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  if section.settings.show_collection_image
+    if section.settings.show_product_image
+      assign collection_image = collection.all_products.first.featured_media.preview_image
+    else
+     assign collection_image = collection.image
+    endif
+  endif
+
+  if collection_image
+    assign custom_class = ''
+  else
+    assign custom_class = 'page-width'
+  endif
+
+  if section.settings.collection_image_ratio != 'grow'
+    assign media_aspect_ratio = section.settings.collection_image_ratio
+    if media_aspect_ratio == 'portrait'
+      assign ratio = 0.8
+    elsif media_aspect_ratio == 'portrait_tall'
+      assign ratio = 0.66
+    elsif media_aspect_ratio == 'landscape_wide'
+      assign ratio = 1.77
+    elsif media_aspect_ratio == 'landscape_wider'
+      assign ratio = 2.33
+    elsif media_aspect_ratio == 'landscape_widest'
+      assign ratio = 3.55
+    elsif media_aspect_ratio == 'landscape'
+      assign ratio = 1.33
+    elsif media_aspect_ratio == 'square'
+      assign ratio = 1
+    endif
+  endif
+-%}
+
+<div class="collection-hero section__inner {{ section.settings.top_padding }} {{ section.settings.bottom_padding }} color-{{ section.settings.color_scheme }} isolate gradient">
+  {% if collection_image %}
+    <div class="page-width collection-hero__inner md:flex{% if section.settings.stick_collection_info %} items-start {% else %} items-center{% endif %} md:flex-row {% if section.settings.image_position_desktop == 'left' %} md:flex-row-reverse{% endif %}">
+        <div class="collection-hero__text-wrapper{% if section.settings.stick_collection_info %} md:sticky top-header{% endif %}">
+  {% endif %}
+
+  {%- capture collection_title -%}
+    {{ collection.title | escape }}{% if section.settings.show_collection_title_count %} <sup>({{ collection.all_products_count }})</sup>{% endif %}
+  {%- endcapture -%}
+
+  {% render 'standard-page-heading',
+      page__name: 'page',
+      page_title: collection_title,
+      page_description: collection.description,
+      custom_class: custom_class,
+      section: section,
+      show_header: section.settings.show_collection_title,
+      show_text: section.settings.show_collection_description
+  %}
+
+  {% if collection_image %}
+      </div>
+
+      <div class="collection-hero__image-container collection-hero__image-container--{{ section.settings.collection_image_ratio }} media gradient{% if ratio %} ratio{% endif %}"
+        {% if ratio %} style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"{% endif %}>
+        <img
+          srcset="
+            {%- if collection_image.width >= 360 -%}{{ collection_image | image_url: width: 360 }} 360w,{%- endif -%}
+            {%- if collection_image.width >= 535 -%}{{ collection_image | image_url: width: 535 }} 535w,{%- endif -%}
+            {%- if collection_image.width >= 750 -%}{{ collection_image | image_url: width: 750 }} 750w,{%- endif -%}
+            {%- if collection_image.width >= 1070 -%}{{ collection_image | image_url: width: 1070 }} 1070w,{%- endif -%}
+            {%- if collection_image.width >= 1500 -%}{{ collection_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+            {{ collection_image | image_url }} {{ collection_image.width }}w
+          "
+          {% if section.settings.collection_image_ratio == 'adapt' %}class="static"{% endif %}
+          src="{{ collection_image | image_url: width: 750 }}"
+          sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
+          alt="{{ collection_image.alt | escape }}"
+          width="{{ collection_image.width }}"
+          height="{{ collection_image.height }}"
+        >
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Collection split banner",
+  "class": "section section-main-collection-split-banner",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The \"Collection banner\" section can alternatively be used."
+    },
+    {
+      "type": "paragraph",
+      "content": "Add a description or image by editing your collection. [Learn more](https://help.shopify.com/manual/products/collections/collection-layout)"
+    },
+    {
+      "type": "header",
+      "content": "Collection title"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_title",
+      "label": "Show collection title",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h4",
+          "label": "XS"
+        },
+        {
+          "value": "h3",
+          "label": "S"
+        },
+        {
+          "value": "h2",
+          "label": "M"
+        },
+        {
+          "value": "h1",
+          "label": "L"
+        },
+        {
+          "value": "h0",
+          "label": "XL"
+        }
+      ],
+      "default": "h2",
+      "label": "Collection title size"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_title_count",
+      "label": "Show product count",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Collection description"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "label": "Show collection description",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "options": [
+        {
+          "value": "t6",
+          "label": "2XS"
+        },
+        {
+          "value": "t5",
+          "label": "XS"
+        },
+        {
+          "value": "t4",
+          "label": "S"
+        },
+        {
+          "value": "t3",
+          "label": "M"
+        },
+        {
+          "value": "t2",
+          "label": "L"
+        },
+        {
+          "value": "t1",
+          "label": "XL"
+        },
+        {
+          "value": "t0",
+          "label": "2XL"
+        }
+      ],
+      "default": "t3",
+      "label": "Text size"
+    },
+    {
+      "type": "header",
+      "content": "Collection image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "default": true,
+      "label": "Show collection image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_image",
+      "label": "Use the image of the first product instead of collection image",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "collection_image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Original"
+        },
+        {
+          "value": "grow",
+          "label": "Match text height"
+        },
+        {
+          "value": "square",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "landscape",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "landscape_wide",
+          "label": "Landscape (16:9)"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait (4:5)"
+        },
+        {
+          "value": "portrait_tall",
+          "label": "Portrait (2:3)"
+        }
+      ],
+      "default": "adapt",
+      "label": "Image aspect ratio"
+    },
+    {
+      "type": "checkbox",
+      "id": "stick_collection_info",
+      "default": true,
+      "label": "Stick collection info next to image",
+      "info": "Works best with a tall collection image."
+    },
+    {
+      "type": "select",
+      "id": "image_position_desktop",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "right",
+      "label": "Image position on desktop"
+    },
+    {
+      "type": "header",
+      "content": "Collection header layout"
+    },
+    {
+      "type": "paragraph",
+      "content": "This controls the layout of the Collection title and description."
+    },
+    
+  {
+    "type": "select",
+    "id": "content_max_width",
+    "options": [
+      {
+        "value": "xs",
+        "label": "XS"
+      },
+      {
+        "value": "s",
+        "label": "S"
+      },
+      {
+        "value": "m",
+        "label": "M"
+      },
+      {
+        "value": "l",
+        "label": "L"
+      },
+      {
+        "value": "xl",
+        "label": "XL"
+      }
+    ],
+    "default": "m",
+    "label": "Maximum heading width"
+  },
+  {
+    "type": "text_alignment",
+    "id": "desktop_heading_alignment",
+    "default": "left",
+    "label": "Heading alignment on desktop"
+  },
+  {
+    "type": "text_alignment",
+    "id": "mobile_heading_alignment",
+    "default": "left",
+    "label": "Heading alignment on mobile"
+  }
+,
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "select",
+      "id": "top_padding",
+      "options": [
+        {
+          "value": "pt-0",
+          "label": "0"
+        },
+        {
+          "value": "pt-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pt-s",
+          "label": "1"
+        },
+        {
+          "value": "pt-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pt-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pt-s",
+      "label": "Top section spacing"
+    },
+    {
+      "type": "select",
+      "id": "bottom_padding",
+      "options": [
+        {
+          "value": "pb-0",
+          "label": "0"
+        },
+        {
+          "value": "pb-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pb-s",
+          "label": "1"
+        },
+        {
+          "value": "pb-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pb-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pb-s",
+      "label": "Bottom section spacing"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h1",
+      "info": "For SEO purposes, there should only be one H1 tag on the page.",
+      "label": "Heading tag"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,123 @@
+.countdown-container:not(.countdown-container--none) {
+  --offset-1: 0.6em;
+}
+
+.countdown--abbreviated {
+  --offset-2: 0.4em;
+}
+
+[data-digits="4"] .countdown {
+  --offset-3: 1em;
+}
+
+custom-countdown {
+  font-size: 20px;
+}
+
+.countdown {
+  --countdown-size: min(max(calc(var(--countdown-size-desktop) * 0.6), 1em), 2.4em - var(--offset-1, 0em) - var(--offset-2, 0em) - var(--offset-3, 0em));
+  --countdown-contained-padding-xs: 0.5em;
+  --countdown-contained-padding: 0.8em;
+  font-size: var(--countdown-size);
+  gap: var(--countdown-gap);
+}
+
+.countdown__unit {
+  font-size: min(0.5em, 12px);
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 749.98px) {
+  .countdown {
+    --countdown-size: min(max(calc(var(--countdown-size-desktop) * 0.6), 1em), 2em - var(--offset-1, 0em) - var(--offset-2, 0em) - var(--offset-3, 0em));
+  }
+
+  .image-with-text--overlap .countdown,
+  .popup__countdown .countdown {
+    --countdown-size: calc(min(max(calc(var(--countdown-size-desktop) * 0.6), 1em), 2em - var(--offset-1, 0em) - var(--offset-2, 0em) - var(--offset-3, 0em)) * 0.85);
+  }
+
+  [data-digits="4"] .countdown-container:not(.countdown-container--none) {
+    --offset-3: 0.55em;
+  }
+
+  [data-digits="4"] .countdown--abbreviated.countdown-container {
+    --offset-2: 0.1em;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .countdown {
+    --countdown-size: min(max(calc(var(--countdown-size-desktop) * 0.7), 1.2em), 3.9em - var(--offset-1, 0em) - var(--offset-2, 0em) - var(--offset-3, 0em));
+  }
+
+  .product__info-wrapper .countdown {
+    --countdown-size: calc(var(--countdown-size-desktop) * 0.8);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .countdown {
+    --countdown-size: calc(var(--countdown-size-desktop) * 0.9);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .countdown {
+    --countdown-size: var(--countdown-size-desktop);
+  }
+}
+
+.countdown--abbreviated {
+  --countdown-contained-padding-xs: 0.8em;
+  --countdown-contained-padding: 1em;
+}
+
+.countdown:not(.countdown--abbreviated) .countdown__number {
+  margin-bottom: 0.2em;
+}
+
+.countdown__number {
+  color: rgb(var(--countdown-color, var(--color-foreground)));
+  white-space: nowrap;
+}
+
+.countdown__number > span {
+  min-width: 2ch;
+}
+
+.countdown__block:not(:first-child)::before {
+  content: var(--countdown-separator);
+  position: absolute;
+  inset-inline-start: calc((var(--countdown-gap) * -1 / 2) - 0.08em);
+  line-height: var(--countdown-separator-lh, 0.85em);
+}
+
+.countdown-container--sharp .countdown__number,
+.countdown-container--rounded .countdown__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(var(--countdown-size) + var(--countdown-contained-padding-xs));
+  min-width: calc(var(--countdown-size) + var(--countdown-contained-padding-xs));
+  padding-inline-start: 0.5em;
+  padding-inline-end: 0.5em;
+}
+
+.countdown-container--sharp .countdown__number,
+.countdown-container--rounded .countdown__number {
+  background-color: rgb(var(--countdown-background-color));
+  background-image: var(--countdown-gradient-background, none);
+}
+
+.countdown-container--rounded .countdown__number {
+  border-radius: 0.2em;
+}
+
+@media screen and (min-width: 750px) {
+  .countdown-container--sharp .countdown__number,
+  .countdown-container--rounded .countdown__number {
+    height: calc(var(--countdown-size) + var(--countdown-contained-padding));
+    min-width: calc(var(--countdown-size) + var(--countdown-contained-padding));
+  }
+}

@@ -1,0 +1,175 @@
+{%- comment -%}theme-check-disable LiquidTag{%- endcomment -%}
+<link rel="stylesheet" href="{{ 'component-popup.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-popup-page.css' | asset_url }}" media="print" onload="this.media='all'">
+
+{%- liquid
+  unless show_delay != blank
+    assign show_delay = section.settings.show_delay
+  endunless
+
+  assign form_id = 'subscribe-' | append: section.id
+
+  assign show_immediately = false
+  for block in section.blocks
+    if block.type == 'email_form'
+      form 'customer', id: form_id
+        if form.posted_successfully?
+          assign show_immediately = true
+        endif
+      endform
+    endif
+  endfor
+-%}
+
+<custom-popup id="PopupModal-{{ section.id }}"
+    data-trigger="{{ section.settings.show_trigger }}"
+    data-delay-seconds="{% if show_immediately %}0{% else %}{{ show_delay }}{% endif %}"
+    data-visibility="{% if is_age_verifier %}both{% else %}{{ section.settings.visibility }}{% endif %}"
+    {% if section.settings.show_at_specific_time_of_day and request.design_mode == false %}data-time-of-day-to-show="{% if section.settings.show_time_morning %}morning,{% endif %}{% if section.settings.show_time_afternoon %}afternoon,{% endif %}{% if section.settings.show_time_evening %}evening,{% endif %}{% if section.settings.show_time_night %}night{% endif %}"{% endif %}
+    data-popup-trigger-id="{{ section.settings.popup_id }}"
+    data-popup-id="{{ section.id }}"
+    data-mode="{{ section.settings.mode }}"
+    {% if is_alert %}
+      data-is-alert="true"
+    {% endif %}
+    {% if is_age_verifier %}
+      data-prevent-close="true"
+    {% endif %}
+    {% if section.settings.auto_close > 0 %}
+      data-auto-close="{{ section.settings.auto_close }}"
+    {% endif %}
+    class="popup-modal p-2 flex{% if is_alert %} popup-modal--alert{% elsif is_age_verifier %} popup-modal--age-verifier{% endif %} {{ section.settings.mobile_content_position }} {{ section.settings.desktop_content_position }}"
+    style="--responsive-card-padding: {{ section.settings.content_padding }}rem; visibility: hidden;"
+>
+  {%- liquid
+    assign aria_label = section.settings.title | escape
+    if aria_label == blank
+      assign aria_label = 'accessibility.popup' | t
+    endif
+  -%}
+  <div
+      role="dialog"
+      aria-label="{{ aria_label }}"
+      aria-modal="true"
+      class="popup-modal__content custom-scrollbar{% if is_alert %} shadow-standard{% endif %} color-{{ section.settings.color_scheme }} gradient"
+      tabindex="-1"
+  >
+    {% if show_close %}
+      <button
+          id="ModalClose-{{ block.id }}"
+          type="button"
+          class="popup-modal__toggle"
+          {% if section.settings.close_color != blank and section.settings.close_color.alpha != 0 %}style="color: {{ section.settings.close_color }};"{% endif %}
+          aria-label="{{ 'accessibility.close' | t }}"
+      >
+        {% render 'icon-close' %}
+      </button>
+    {% endif %}
+
+    <div class="popup__message-container relative image-mobile-{{ section.settings.image_position_mobile }} image-desktop-{{ section.settings.image_position_desktop }}">
+      {%- if section.settings.icon != blank -%}
+        <div class="popup__alert-icon flex">
+          <div class="alert__icon icon-container icon-container--{{ section.settings.icon_container }}{% if section.settings.icon_container != 'none' %} icon--has-container{% endif %}{% if class %} {{ class }}{% endif %}"
+               style="--icon-size: {{ section.settings.icon_size }}rem;--icon-background-color: {{ section.settings.icon_background_color.rgb }};{% if section.settings.icon_color != blank and section.settings.icon_color.alpha != 0 %} --color-icon: {{ section.settings.icon_color.rgb }};{% endif %}{% if section.settings.background_gradient != empty -%}--icon-gradient-background: {{ section.settings.background_gradient }};{% endif %}"
+          >
+            {%- render 'icon', icon: section.settings.icon -%}
+          </div>
+        </div>
+      {%- else -%}
+        <div class="popup__image media
+          {% if section.settings.image_position_mobile == 'background' %} xs:image-overlay{% endif %}
+          {% if section.settings.image_position_desktop == 'background' %} md:image-overlay{% endif %}
+          {% if section.settings.image_cover == false %} background-transparent{% endif %}"
+             style="--image-size-mobile: {{ section.settings.image_size_mobile }}px;
+                    --image-size-desktop: {{ section.settings.image_size_desktop }}px;
+                    {% if section.settings.image_position_mobile == 'background' or section.settings.image_position_desktop == 'background' %}--overlay-opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};{% endif %}"
+        >
+          {%- if section.settings.image_cover == false -%}
+            {%- assign image_class = "popup__image--contained object-contain" -%}
+          {%- endif -%}
+
+          {%- if section.settings.image != blank -%}
+            {%- liquid
+              assign image_size = 460
+              if section.settings.content_max_width == 'm'
+                assign image_size = 960
+              elsif section.settings.content_max_width == 'l'
+                assign image_size = 1024
+              elsif section.settings.content_max_width == 'xl'
+                assign image_size = 1600
+              endif
+
+              if is_alert
+                if section.settings.image_position_mobile == 'background' or section.settings.image_position_desktop == 'background'
+                  assign image_size = 400
+                else
+                  assign image_size = 200
+                endif
+              endif
+            -%}
+            {{ section.settings.image | image_url: width: image_size | image_tag: class: image_class, loading: 'lazy', fetchpriority: 'low' }}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="w-full section-content responsive-card-padding card-padding
+          max-w-{{ section.settings.content_max_width }}
+          text-{{ section.settings.mobile_content_alignment }}
+          md:text-{{ section.settings.desktop_content_alignment }}
+          {% if section.settings.image_cover == false and section.settings.image != blank %} pl-1{% endif %}
+          {% if section.settings.image_position_mobile == 'background' %} banner--mobile-transparent{% endif %}{% if section.settings.image_position_desktop == 'background' %} banner--desktop-transparent{% endif %}"
+      >
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'email_form' -%}
+            {%- form 'customer', id: form_id, return_to: block.settings.return_to.url -%}
+              {%- if form.posted_successfully? -%}
+                {{ block.settings.success_message }}
+              {%- else -%}
+                {%- render 'standard-blocks', section_name: 'popup', block: block, dont_render_customer_form: true -%}
+              {%- endif -%}
+            {%- endform -%}
+
+          {%- elsif block.type == 'age_verifier_buttons' -%}
+            {%- if block.settings.button_label_1 != blank or block.settings.button_label_2 != blank -%}
+              <div
+                  class="age_verifier__buttons section-content__buttons justify-{{ section.settings.mobile_content_alignment | default: block.settings.mobile_content_alignment }} md:justify-{{ section.settings.desktop_content_alignment | default: block.settings.desktop_content_alignment }}{% if block.settings.button_label_1 != blank and block.settings.button_label_2 != blank %} banner__buttons--multiple{% if block.settings.button_style_1 == 'link' or block.settings.button_style_2 == 'link' %} section-content__buttons-with-link{% endif %}{% endif %}{% if animate %} scroll-trigger animate--fade-in{% endif %}{% if class %} {{ class }}{% endif %}"
+                  {{ block.shopify_attributes }}
+                  {% if animate %}
+                    data-cascade
+                    style="--animation-order: {{ forloop.index | default: 1 }};"
+                  {% endif %}
+              >
+                {%- if block.settings.button_label_1 != blank -%}
+                  <button data-modal-close class="{{ block.settings.button_text_size }} {% if block.settings.button_style_1 == 'link' %}link un-underlined-link{% else %}button button--{{ block.settings.button_style_1 }}{% endif %}{% if block.settings.button_style_1_show_arrow %} button-with-icon button-with-icon--right{% endif %}">
+                    {{- block.settings.button_label_1 | escape -}}
+                    {% if block.settings.button_style_1_show_arrow %}
+                      {% render 'icon-arrow' %}
+                    {% endif %}
+                  </button>
+                {%- endif -%}
+
+                {%- if block.settings.button_label_2 != blank -%}
+                  <button class="age_verifier__no-button {{ block.settings.button_text_size }} {% if block.settings.button_style_2 == 'link' %}link un-underlined-link{% else %}button button--{{ block.settings.button_style_2 }}{% endif %}{% if block.settings.button_style_2_show_arrow %} button-with-icon button-with-icon--right{% endif %}">
+                    {{- block.settings.button_label_2 | escape -}}
+                    {% if block.settings.button_style_2_show_arrow %}
+                      {% render 'icon-arrow' %}
+                    {% endif %}
+                  </button>
+
+                  {%- if block.settings.no_text -%}
+                    <div class="age_verifier__no-text" hidden>
+                      {{ block.settings.no_text | escape }}
+                    </div>
+                  {%- endif -%}
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+          {%- else -%}
+            {%- render 'standard-blocks', section_name: 'popup', block: block -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</custom-popup>

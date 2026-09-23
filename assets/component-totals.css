@@ -1,0 +1,28 @@
+.totals {
+  display: flex;
+}
+
+
+.totals>* {
+  font-size: 1.6rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.totals * {
+  line-height: 1;
+}
+
+.totals__total {
+  margin-top: .5rem;
+  font-size: 1.4rem;
+}
+
+.totals__total-value {
+  font-size: 2rem;
+}
+
+.cart__ctas+.totals,
+.cart__ctas-container+.totals {
+  margin-top: 2rem;
+}

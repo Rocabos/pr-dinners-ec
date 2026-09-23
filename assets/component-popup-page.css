@@ -1,0 +1,46 @@
+.popup-modal__content img {
+  max-width: 100%;
+}
+
+@media screen and (max-width: 749.98px) {
+  .popup-modal__content table:not(.theme-table) {
+    display: block;
+    max-width: fit-content;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  .popup-modal__content table.quick-order-list__table {
+    max-width: 100%;
+  }
+}
+
+.popup-modal__opener {
+  display: block;
+}
+
+.variant-form__label .popup-modal__opener {
+  display: inline-flex;
+}
+
+.popup-modal__opener .link {
+  text-decoration-thickness: 1px;
+}
+
+.popup-modal__content-info {
+  padding-inline-end: 4.4rem;
+}
+
+.popup-modal__content-info > * {
+  height: auto;
+  max-width: 100%;
+  width: 100%;
+}
+
+@media screen and (max-width: 749.98px) {
+  .popup-modal__content-info > * {
+    max-height: 100%;
+  }
+}

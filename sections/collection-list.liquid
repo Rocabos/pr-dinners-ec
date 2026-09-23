@@ -1,0 +1,983 @@
+{%- comment -%}theme-check-disable SchemaJsonFormat{%- endcomment -%}
+{%- liquid
+  if section.settings.hide_when_empty
+    assign section_is_empty = true
+    for block in section.blocks
+      if block.settings.collection != blank
+        assign section_is_empty = false
+        break
+      endif
+    endfor
+
+    if section.settings.collections != empty
+      assign section_is_empty = false
+    endif
+  endif
+  assign collection_count = section.blocks.size | plus: section.settings.collections.count
+-%}
+
+{%- if request.design_mode or section.settings.hide_when_empty == false or section_is_empty == false -%}
+  {%- if section.index < 3 or request.design_mode -%}
+    {{ 'component-card.css' | asset_url | stylesheet_tag }}
+    {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+  {%- else -%}
+    <link rel="stylesheet" href="{{ 'component-card.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
+  {%- endif -%}
+
+  {%- liquid
+    assign columns_to_display = collection_count
+    assign columns_desktop = section.settings.columns_desktop | plus: 0
+    assign columns_mobile = section.settings.columns_mobile | plus: 0
+
+    assign columns_to_display_inc_view_more_mobile = columns_to_display
+    if section.settings.view_all_card_visibility == "visible-xs" or section.settings.view_all_card_visibility == ""
+      assign columns_to_display_inc_view_more_mobile = columns_to_display_inc_view_more_mobile | plus: 1
+    endif
+
+    assign show_mobile_slider = false
+    if section.settings.mobile_layout == 'carousel'
+      assign show_mobile_slider = true
+    endif
+
+    assign columns_to_display_inc_view_more_desktop = columns_to_display
+    if section.settings.view_all_card_visibility == "hidden-xs" or section.settings.view_all_card_visibility == ""
+      assign columns_to_display_inc_view_more_desktop = columns_to_display_inc_view_more_desktop | plus: 1
+    endif
+
+    assign show_desktop_slider = false
+    if section.settings.desktop_layout == 'carousel'
+      assign show_desktop_slider = true
+    endif
+  -%}
+
+  <div class="color-{{ section.settings.color_scheme }} isolate gradient {{ section.settings.line_separator }} {{ section.settings.visibility }}">
+    <div class="collection-list section__inner {{ section.settings.top_padding }} {{ section.settings.bottom_padding }}
+      {% if section.settings.carousel_width_desktop == 'wide' %} section-grid-wrapper--full-width{% endif %}"
+    >
+      {%- if section.settings.show_view_all_link and section.settings.view_all_text != blank -%}
+        {% capture view_all %}
+          <div class="section-view-all collection-list__view-all{% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--fade-in{% endif %}">
+            <a
+                href="{{ section.settings.view_all_link }}"
+                class="link un-underlined-link button-with-icon button-with-icon--right {{ section.settings.view_all_text_size }}"
+                aria-label="{{ 'sections.collection_list.view_all' | t }}"
+            >
+              {{ section.settings.view_all_text }}
+              {% render 'icon-arrow' %}
+            </a>
+          </div>
+        {% endcapture %}
+      {%- endif -%}
+
+      {% render 'standard-section-heading',
+          section_name: 'collection-list',
+          section: section,
+          view_all: view_all
+      %}
+
+      <slider-component class="slider-mobile-gutter page-width-desktop
+        {% if settings.carousel_arrows == false or section.settings.carousel_width_desktop == 'narrow' and section.settings.always_show_arrows == true %} slide-component--show-arrows{% endif %}
+        {% if section.settings.carousel_width_desktop == 'wide' %} slider-component-full-width{% endif %}
+        {% if show_mobile_slider == false %} page-width{% endif %}
+        {% if show_desktop_slider %} slider-component-desktop{% if section.settings.carousel_width_desktop == 'narrow' %} slider-component--narrow-width{% endif %}{% endif %}
+        {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--slide-in{% endif %}"
+      >
+        <ul
+            id="Slider-{{ section.id }}"
+            class="collection_list__collections section-grid grid contains-card--collection mt-0 mb-0
+            grid--{{ columns_desktop }}-col-desktop
+            {% if section.settings.desktop_layout == 'grid' %}{{ section.settings.content_alignment }}{% endif %}
+            {% if section.settings.columns_desktop_scale %} grid--scaled{% endif %}
+            {% if collection_count == 0 %}
+              grid--2-col-tablet-down
+            {% else %}
+              grid--{{ columns_mobile }}-col-tablet-down
+            {% endif %}
+            {% if show_mobile_slider or show_desktop_slider %}
+              slider
+              {% if show_desktop_slider %} slider--desktop{% endif %}
+              {% if show_mobile_slider %} slider--tablet grid--peek{% endif %}
+            {% endif %}"
+            role="list"
+            aria-label="{{ 'general.slider.name' | t }}"
+        >
+          {%- assign loop_index = 0 -%}
+          {%- for collection in section.settings.collections -%}
+            {%- assign loop_index = loop_index | plus: 1 -%}
+            <li
+                id="Slide-{{ section.id }}-{{ loop_index }}"
+                class="collection-list__item grid__item
+                {% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %}
+                {% if collection.featured_image == nil %} collection-list__item--no-media{% endif %}
+                {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--slide-in{% endif %}"
+                {{ block.shopify_attributes }}
+                {% if settings.animations_reveal_on_scroll and section.index > 2 %}
+                  data-cascade
+                  style="--animation-order: {{ loop_index }};"
+                {% endif %}
+            >
+              {%- assign placeholder_image_index = loop_index0 | modulo: 4 | plus: 1 -%}
+              {%- assign placeholder_image = 'collection-' | append: placeholder_image_index -%}
+              {% render 'card-collection',
+                  card_collection: collection,
+                  text_size: section.settings.collection_text_size,
+                  media_aspect_ratio: section.settings.card_image_ratio,
+                  use_product_image: section.settings.use_product_image,
+                  columns: columns_desktop,
+                  columns_mobile: columns_mobile,
+                  placeholder_image: placeholder_image
+              %}
+            </li>
+          {%- endfor -%}
+          
+          {%- for block in section.blocks -%}
+            {%- assign loop_index = loop_index | plus: 1 -%}
+            <li
+                id="Slide-{{ section.id }}-{{ loop_index }}"
+                class="collection-list__item grid__item
+                {% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %}
+                {% if block.settings.collection.featured_image == nil %} collection-list__item--no-media{% endif %}
+                {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--slide-in{% endif %}"
+                {{ block.shopify_attributes }}
+                {% if settings.animations_reveal_on_scroll and section.index > 2 %}
+                  data-cascade
+                  style="--animation-order: {{ loop_index }};"
+                {% endif %}
+            >
+              {%- assign placeholder_image_index = loop_index0 | modulo: 4 | plus: 1 -%}
+              {%- assign placeholder_image = 'collection-' | append: placeholder_image_index -%}
+              {% render 'card-collection',
+                  card_collection: block.settings.collection,
+                  text_size: section.settings.collection_text_size,
+                  media_aspect_ratio: section.settings.card_image_ratio,
+                  use_product_image: section.settings.use_product_image,
+                  columns: columns_desktop,
+                  columns_mobile: columns_mobile,
+                  placeholder_image: placeholder_image
+              %}
+            </li>
+          {%- endfor -%}
+
+          {%- if section.settings.view_all_card_visibility != "off" -%}
+            <li
+                id="Slide-{{ section.id }}-{{ collection_count | plus: 1 }}"
+                class="grid__item
+                  {{ section.settings.view_all_card_visibility }}
+                  {% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %} 
+                  {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--slide-in{% endif %}"
+                {% if settings.animations_reveal_on_scroll and section.index > 2 %}
+                  data-cascade
+                  style="--animation-order: {{ collection_count | plus: 1 }};"
+                {% endif %}
+            >
+              <a href="{{ section.settings.view_all_link }}"
+                 class="flex flex-col items-center decoration-none justify-center text-center w-full h-full border-radius-collection-card color-{{ section.settings.view_all_color_scheme }} isolate gradient bg-scroll"
+                 aria-label="{{ 'sections.collection_list.view_all' | t }}"
+              >
+                <div class="card--view-more p-2 {{ section.settings.view_all_text_size }}">
+                  {%- if section.settings.view_all_card_text -%}
+                    <p class="text-heading mt-0 mb-15 last:mb-0">{{ section.settings.view_all_card_text }}</p>
+                  {%- endif -%}
+
+                  {%- if section.settings.view_all_text != blank -%}
+                    <div class="link un-underlined-link button-with-icon button-with-icon--right">
+                      {{ section.settings.view_all_text }}
+                      {% render 'icon-arrow' %}
+                    </div>
+                  {%- endif -%}
+                </div>
+              </a>
+            </li>
+          {%- endif -%}
+        </ul>
+
+        {%- if show_mobile_slider or show_desktop_slider -%}
+          <div class="slider-buttons page-width no-js-hidden">
+            <button
+                type="button"
+                class="slider-button button-control tap-target slider-button--prev"
+                name="previous"
+                aria-label="{{ 'general.slider.previous_slide' | t }}"
+                aria-controls="Slider-{{ section.id }}"
+            >
+              {% render 'icon-caret' %}
+            </button>
+
+            <div class="slider-counter caption visually-hidden">
+              <span class="slider-counter--current">1</span>
+              <span aria-hidden="true"> / </span>
+              <span>{{ 'general.slider.of' | t }}</span>
+              <span class="slider-counter--total">{{ collection_count }}</span>
+            </div>
+
+            <button
+                type="button"
+                class="slider-button button-control tap-target slider-button--next"
+                name="next"
+                aria-label="{{ 'general.slider.next_slide' | t }}"
+                aria-controls="Slider-{{ section.id }}"
+            >
+              {% render 'icon-caret' %}
+            </button>
+
+            <div class="slider-scrollbar__track" style="--num-slides: {{ columns_to_display_inc_view_more_mobile }}"
+                 data-num-slides="{{ columns_to_display_inc_view_more_mobile }}">
+              <div class="slider-scrollbar__indicator"></div>
+            </div>
+          </div>
+        {%- endif -%}
+      </slider-component>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Collection list",
+  "tag": "section",
+  "class": "section section-collection-list",
+  "max_blocks": 30,
+  "disabled_on": {
+    "groups": ["header", "footer", "aside"],
+    "templates": ["password"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Collections can be defined as blocks or using the setting below, or both."
+    },
+    {
+      "type": "collection_list",
+      "id": "collections",
+      "label": "Collections",
+      "info": "To use this to display sub-collections, create a Collection metafield of type 'List of collections' and assign it to this setting."
+    },
+    {
+      "type": "select",
+      "id": "collection_text_size",
+      "options": [
+        {
+          "value": "t6",
+          "label": "2XS"
+        },
+        {
+          "value": "t5",
+          "label": "XS"
+        },
+        {
+          "value": "t4",
+          "label": "S"
+        },
+        {
+          "value": "t3",
+          "label": "M"
+        },
+        {
+          "value": "t2",
+          "label": "L"
+        },
+        {
+          "value": "t1",
+          "label": "XL"
+        },
+        {
+          "value": "t0",
+          "label": "2XL"
+        }
+      ],
+      "default": "t1",
+      "label": "Collection text size"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "default": "md:justify-start",
+      "label": "Collection card alignment on desktop",
+      "info": "Only applies to Grid layout.",
+      "options": [
+        {
+          "value": "md:justify-start",
+          "label": "Left"
+        },
+        {
+          "value": "md:justify-center",
+          "label": "Center"
+        },
+        {
+          "value": "md:justify-end",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Collection images"
+    },
+    {
+      "type": "select",
+      "id": "card_image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Original"
+        },
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "square",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "landscape",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "landscape_wide",
+          "label": "Landscape (16:9)"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait (4:5)"
+        },
+        {
+          "value": "portrait_tall",
+          "label": "Portrait (2:3)"
+        }
+      ],
+      "default": "adapt",
+      "label": "Image aspect ratio"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_product_image",
+      "label": "Show first product image as collection image",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Grid/carousel"
+    },
+    {
+      "type": "select",
+      "id": "desktop_layout",
+      "default": "grid",
+      "label": "Desktop layout",
+      "options": [
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        },
+        {
+          "value": "grid",
+          "label": "Grid"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "default": "carousel",
+      "label": "Mobile layout",
+      "options": [
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        },
+        {
+          "value": "grid",
+          "label": "Grid"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "options": [
+        {
+          "value": "9",
+          "label": "4XS"
+        },
+        {
+          "value": "8",
+          "label": "3XS"
+        },
+        {
+          "value": "7",
+          "label": "2XS"
+        },
+        {
+          "value": "6",
+          "label": "XS"
+        },
+        {
+          "value": "5",
+          "label": "S"
+        },
+        {
+          "value": "4",
+          "label": "M"
+        },
+        {
+          "value": "3",
+          "label": "L"
+        },
+        {
+          "value": "2",
+          "label": "XL"
+        }
+      ],
+      "default": "3",
+      "label": "Card size on desktop"
+    },
+    {
+      "type": "checkbox",
+      "id": "columns_desktop_scale",
+      "label": "Reduce the number of cards shown as the screen gets narrower",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "2",
+      "label": "Number of columns on mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "carousel_width_desktop",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Page width"
+        },
+        {
+          "value": "normal",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "default": "normal",
+      "label": "Width on desktop"
+    },
+    {
+      "type": "checkbox",
+      "visible_if": "{{ section.settings.carousel_width_desktop == 'narrow' and settings.carousel_arrows == true and section.settings.desktop_layout == 'carousel' }}",
+      "id": "always_show_arrows",
+      "default": true,
+      "label": "Always show arrows"
+    },
+    {
+      "type": "header",
+      "content": "Header layout"
+    },
+    
+  {
+    "type": "select",
+    "id": "content_max_width",
+    "options": [
+      {
+        "value": "xs",
+        "label": "XS"
+      },
+      {
+        "value": "s",
+        "label": "S"
+      },
+      {
+        "value": "m",
+        "label": "M"
+      },
+      {
+        "value": "l",
+        "label": "L"
+      },
+      {
+        "value": "xl",
+        "label": "XL"
+      }
+    ],
+    "default": "m",
+    "label": "Maximum heading width"
+  },
+  {
+    "type": "text_alignment",
+    "id": "desktop_heading_alignment",
+    "default": "left",
+    "label": "Heading alignment on desktop"
+  },
+  {
+    "type": "text_alignment",
+    "id": "mobile_heading_alignment",
+    "default": "left",
+    "label": "Heading alignment on mobile"
+  }
+,
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    
+  {
+    "type": "inline_richtext",
+    "id": "title",
+    "default": "Collections",
+    "info": "Enter ++ for a line break.",
+    "label": "Heading"
+  },
+  {
+    "type": "select",
+    "id": "italic_convert",
+    "visible_if": "{{ section.settings.title != blank }}",
+    "options": [
+      {
+        "value": "",
+        "label": "Off (keep as italics)"
+      },
+      {
+        "value": "light",
+        "label": "Lighter"
+      },
+      {
+        "value": "accent_color",
+        "label": "Accent color"
+      },
+      {
+        "value": "accent",
+        "label": "Accent gradient color"
+      },
+      {
+        "value": "outline",
+        "label": "Outline"
+      },
+      {
+        "value": "outline_accent",
+        "label": "Outline - Accent color"
+      },
+      {
+        "value": "glow",
+        "label": "Glow - Accent color"
+      },
+      {
+        "value": "glow_outline",
+        "label": "Glow with outline - Accent color"
+      }
+    ],
+    "info": "The colors above can be set in the color schemes. 'Outline' may not work with all fonts.",
+    "default": "",
+    "label": "Convert italic text to"
+  },
+  {
+    "type": "select",
+    "id": "heading_size",
+    "visible_if": "{{ section.settings.title != blank }}",
+    "options": [
+      {
+        "value": "h4",
+        "label": "XS"
+      },
+      {
+        "value": "h3",
+        "label": "S"
+      },
+      {
+        "value": "h2",
+        "label": "M"
+      },
+      {
+        "value": "h1",
+        "label": "L"
+      },
+      {
+        "value": "h0",
+        "label": "XL"
+      }
+    ],
+    "default": "h2",
+    "label": "Heading size"
+  }
+,
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    
+  {
+    "type": "richtext",
+    "id": "text",
+    
+    "label": "Description"
+  },
+  {
+    "type": "select",
+    "id": "text_size",
+    "visible_if": "{{ section.settings.text != blank }}",
+    "options": [
+      {
+        "value": "t6",
+        "label": "2XS"
+      },
+      {
+        "value": "t5",
+        "label": "XS"
+      },
+      {
+        "value": "t4",
+        "label": "S"
+      },
+      {
+        "value": "t3",
+        "label": "M"
+      },
+      {
+        "value": "t2",
+        "label": "L"
+      },
+      {
+        "value": "t1",
+        "label": "XL"
+      },
+      {
+        "value": "t0",
+        "label": "2XL"
+      }
+    ],
+    "default": "t3",
+    "label": "Text size"
+  }
+,
+    {
+      "type": "header",
+      "content": "View more"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all_link",
+      "default": true,
+      "label": "Show \"View more\" link"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View more link"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "default": "View more",
+      "label": "View more link text"
+    },
+    {
+      "type": "select",
+      "id": "view_all_text_size",
+      "options": [
+        {
+          "value": "t6",
+          "label": "2XS"
+        },
+        {
+          "value": "t5",
+          "label": "XS"
+        },
+        {
+          "value": "t4",
+          "label": "S"
+        },
+        {
+          "value": "t3",
+          "label": "M"
+        },
+        {
+          "value": "t2",
+          "label": "L"
+        },
+        {
+          "value": "t1",
+          "label": "XL"
+        },
+        {
+          "value": "t0",
+          "label": "2XL"
+        }
+      ],
+      "default": "t3",
+      "label": "View more text size"
+    },
+    {
+      "type": "select",
+      "id": "view_all_card_visibility",
+      "options": [
+        {
+          "value": "off",
+          "label": "Off"
+        },
+        {
+          "value": "visible-xs",
+          "label": "Mobile"
+        },
+        {
+          "value": "hidden-xs",
+          "label": "Desktop"
+        },
+        {
+          "value": "",
+          "label": "Both"
+        }
+      ],
+      "default": "off",
+      "label": "\"View more\" card",
+      "info": "Shows as a card after the last collection."
+    },
+    {
+      "type": "text",
+      "id": "view_all_card_text",
+      "default": "More collections",
+      "label": "View more card heading"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Section color scheme",
+      "info": "To change the card color scheme, update your theme settings.",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "view_all_color_scheme",
+      "label": "View more card color scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "select",
+      "id": "line_separator",
+      "options": [
+        {
+          "value": "",
+          "label": "Off"
+        },
+        {
+          "value": "border-top",
+          "label": "Top"
+        },
+        {
+          "value": "border-bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "border-top border-bottom",
+          "label": "Both"
+        }
+      ],
+      "default": "",
+      "label": "Line separator"
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "select",
+      "id": "top_padding",
+      "options": [
+        {
+          "value": "pt-0",
+          "label": "0"
+        },
+        {
+          "value": "pt-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pt-s",
+          "label": "1"
+        },
+        {
+          "value": "pt-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pt-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pt-s",
+      "label": "Top section spacing"
+    },
+    {
+      "type": "select",
+      "id": "bottom_padding",
+      "options": [
+        {
+          "value": "pb-0",
+          "label": "0"
+        },
+        {
+          "value": "pb-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pb-s",
+          "label": "1"
+        },
+        {
+          "value": "pb-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pb-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pb-s",
+      "label": "Bottom section spacing"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "options": [
+        {
+          "value": "visible-xs",
+          "label": "Mobile"
+        },
+        {
+          "value": "hidden-xs",
+          "label": "Desktop"
+        },
+        {
+          "value": "",
+          "label": "Both"
+        }
+      ],
+      "default": "",
+      "info": "Lots of hidden content could be harmful for SEO.",
+      "label": "Show on"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_when_empty",
+      "default": false,
+      "label": "Hide this section when there are no collections to show",
+      "info": "This allows metafields to selectively show this section. Always shows in the Theme Editor."
+    },
+    
+  {
+    "type": "checkbox",
+    "id": "show_at_specific_time_of_day",
+    "default": false,
+    "label": "Only show at specific times of the day",
+    "info": "Uses the customers' local time. Always shows in Theme Editor."
+  },
+  {
+    "type": "paragraph",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "content": "Lots of hidden content could be harmful for SEO. Don't overuse this."
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_morning",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show in the morning (5am - 12pm)"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_afternoon",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show in the afternoon (12pm - 5pm)"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_evening",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show in the evening (5pm - 9pm)"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_night",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show at night (9pm - 5am)"
+  }
+,
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h2",
+      "info": "For SEO purposes, there should only be one H1 tag on the page.",
+      "label": "Heading tag"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "featured_collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection list",
+      "blocks": [
+        {
+          "type": "featured_collection"
+        },
+        {
+          "type": "featured_collection"
+        },
+        {
+          "type": "featured_collection"
+        },
+        {
+          "type": "featured_collection"
+        },
+        {
+          "type": "featured_collection"
+        },
+        {
+          "type": "featured_collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

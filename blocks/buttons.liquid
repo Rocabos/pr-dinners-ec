@@ -1,0 +1,166 @@
+{% render 'standard-blocks', type: 'buttons' %}
+
+{% schema %}
+{
+  "name": "Buttons",
+  "tag": null,
+  "settings": [
+    
+  {
+    "type": "select",
+    "id": "button_text_size",
+    "options": [
+      {
+        "value": "t6",
+        "label": "2XS"
+      },
+      {
+        "value": "t5",
+        "label": "XS"
+      },
+      {
+        "value": "t4",
+        "label": "S"
+      },
+      {
+        "value": "t3",
+        "label": "M"
+      },
+      {
+        "value": "t2",
+        "label": "L"
+      },
+      {
+        "value": "t1",
+        "label": "XL"
+      },
+      {
+        "value": "t0",
+        "label": "2XL"
+      }
+    ],
+    "default": "t3",
+    "label": "Button size"
+  },
+  {
+    "type": "header",
+    "content": "First button"
+  },
+  {
+    "type": "text",
+    "id": "button_label_1",
+    "default": "Button label",
+    "label": "Button label",
+    "info": "Leave the label blank to hide the button."
+  },
+  {
+    "type": "url",
+    "id": "button_link_1",
+    "default": "/",
+    "label": "Button link"
+  },
+  {
+    "type": "select",
+    "id": "button_style_1",
+    "options": [
+      {
+        "value": "primary",
+        "label": "Primary"
+      },
+      {
+        "value": "secondary",
+        "label": "Secondary"
+      },
+      {
+        "value": "link",
+        "label": "Link"
+      }
+    ],
+    "default": "primary",
+    "label": "Button style"
+  },
+  {
+    "type": "checkbox",
+    "id": "button_style_1_show_arrow",
+    "default": false,
+    "label": "Show arrow"
+  },
+  {
+    "type": "checkbox",
+    "id": "button_style_1_show_gradient_border",
+    "visible_if": "{{ block.settings.button_style_1 == 'secondary' }}",
+    "default": false,
+    "label": "Show border gradient"
+  },
+  {
+    "type": "color_background",
+    "id": "button_1_border_gradient",
+    "visible_if": "{{ block.settings.button_style_1_show_gradient_border and block.settings.button_style_1 == 'secondary' }}",
+    "default": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+    "label": "Border gradient"
+  },
+  {
+    "type": "header",
+    "content": "Second button"
+  },
+  {
+    "type": "text",
+    "id": "button_label_2",
+    "label": "Button label",
+    "info": "Leave the label blank to hide the button."
+  },
+  {
+    "type": "url",
+    "id": "button_link_2",
+    "label": "Button link"
+  },
+  {
+    "type": "select",
+    "id": "button_style_2",
+    "options": [
+      {
+        "value": "primary",
+        "label": "Primary"
+      },
+      {
+        "value": "secondary",
+        "label": "Secondary"
+      },
+      {
+        "value": "link",
+        "label": "Link"
+      }
+    ],
+    "default": "secondary",
+    "label": "Button style"
+  },
+  {
+    "type": "checkbox",
+    "id": "button_style_2_show_arrow",
+    "default": false,
+    "label": "Show arrow"
+  },
+  {
+    "type": "checkbox",
+    "id": "button_style_2_show_gradient_border",
+    "visible_if": "{{ block.settings.button_style_2 == 'secondary' }}",
+    "default": false,
+    "label": "Show border gradient"
+  },
+  {
+    "type": "color_background",
+    "id": "button_2_border_gradient",
+    "visible_if": "{{ block.settings.button_style_2_show_gradient_border and block.settings.button_style_2 == 'secondary' }}",
+    "default": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+    "label": "Border gradient"
+  }
+
+  ],
+  "presets": [
+    {
+      "name": "Buttons",
+      "category": "Basic"
+    }
+  ]
+}
+{% endschema %}

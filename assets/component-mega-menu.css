@@ -1,0 +1,128 @@
+.mega-menu {
+  position: static;
+}
+
+.mega-menu__content {
+  background-color: rgb(var(--color-background));
+  border-inline-start: 0;
+  border-radius: 0;
+  border-inline-end: 0;
+  inset-inline-start: 0;
+  overflow-y: auto;
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+  position: absolute;
+  inset-inline-end: 0;
+  top: 100%;
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, .15);
+}
+
+.mega-menu__content {
+  max-height: calc(100vh - var(--header-bottom-position-desktop, 20rem) - 4rem);
+}
+
+.border-bottom .mega-menu__content {
+  border-top: 0;
+}
+
+.js .mega-menu__content {
+  opacity: 0;
+  transform: translateY(-1.5rem);
+}
+
+.mega-menu[open] .mega-menu__content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mega-menu__grid {
+  display: grid;
+  gap: 1.8rem 4rem;
+}
+
+.mega-menu__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  list-style: none;
+}
+
+.mega-promos {
+  row-gap: 1.8rem;
+}
+
+.mega-promos--text_promo,
+.promo-card--grid {
+  row-gap: 2.8rem;
+  column-gap: 2rem;
+}
+
+.mega-promo-header {
+  color: rgba(var(--color-foreground), .85);
+}
+
+.mega-promo-header.text-heading {
+  color: rgb(var(--color-heading));
+}
+
+.mega_promos--separator-left {
+  padding-inline-end: 4rem;
+  border-inline-end: .1rem solid rgba(var(--color-foreground), .08);
+}
+
+.mega_promos--separator-right {
+  padding-inline-start: 4rem;
+  border-inline-start: .1rem solid rgba(var(--color-foreground), .08);
+}
+
+.mega_promos--separator-above {
+  padding-bottom: 4rem;
+  border-bottom: .1rem solid rgba(var(--color-foreground), .08);
+}
+
+.mega_promos--separator-below {
+  padding-top: 4rem;
+  border-top: .1rem solid rgba(var(--color-foreground), .08);
+}
+
+.mega-menu__grid--below {
+  margin-top: 4rem;
+}
+
+.mega-menu__grid--above {
+  margin-bottom: 4rem;
+}
+
+.mega-menu__link {
+  color: rgb(var(--color-foreground));
+  display: block;
+  padding: 0;
+  text-decoration: none;
+  transition: text-decoration var(--duration-short) ease;
+  word-wrap: break-word;
+  font-size: 1.4rem;
+  line-height: calc(1 + 0.6 / var(--font-body-scale));
+  font-weight: 400;
+}
+
+.mega-menu__link:not(.mega-menu__link--level-2) {
+  font-size: 0.9em;
+}
+
+.header--top-center .mega-menu__list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 0;
+}
+
+.header--top-center .mega-menu__list>li {
+  width: 16%;
+  padding-inline-end: 2.4rem;
+}
+
+.mega-menu__link:hover {
+  color: rgb(var(--color-link));
+}

@@ -1,0 +1,270 @@
+{%- comment -%}
+  Renders the country/language picker for the localization form
+
+  Accepts:
+    - abbreviate: Whether the presentation of the country/language should be abbreviated or not. (Optional)
+    - localPosition: pass in the position in which the form is coming up to create specific IDs
+    - show_country_picker: Whether the show the country picker
+    - show_language_picker: Whether the show the language picker
+    - show_country_name: Whether the show the country name or not (Optional, defaults to true)
+    - show_country_filter: Whether the show the search bar or not
+    - always_show_currency: Shows currency all the time, not just on hover
+    - disclosure_class: The CSS class to add to the disclosure element
+    - font_size_class: The css class to use for font size of the dropdown. (Optional, defaults to t6)
+    - color_scheme: The color scheme of the dropdown. (Optional)
+{%- endcomment -%}
+
+{%- liquid
+  assign currencies = localization.available_countries | map: 'currency' | map: 'iso_code' | uniq
+  assign popular_countries = localization.available_countries | where: 'popular?' | sort: 'name'
+
+  assign show_popular_countries = false
+  if localization.available_countries.size > 9 and popular_countries.size > 1
+    assign show_popular_countries = true
+  endif
+
+  assign show_currencies = false
+  if currencies.size > 1
+    assign show_currencies = true
+  endif
+
+  unless show_country_name == false
+    assign show_country_name = true
+  endunless
+
+  unless show_flag == false
+    assign show_flag = true
+  endunless
+
+  unless show_dropdown_flag == false
+    assign show_dropdown_flag = true
+  endunless
+
+  unless font_size_class
+    assign font_size_class = 't6'
+  endunless
+
+  if abbreviate == false and show_country_picker == true
+    assign show_country_name = true
+  endif
+%}
+
+<div class="disclosure {{ disclosure_class }}{% if show_language_picker and show_country_picker %} disclosure--full{% endif %}">
+  <button
+      type="button"
+      class="disclosure__button localization-form__select localization-selector link link--text"
+      data-load-trigger=".js-{{ localPosition }}-trigger"
+      aria-expanded="false"
+      aria-controls="{{ localPosition }}-country-results"
+      aria-label="{% if show_language_picker and show_country_picker %}{{ 'accessibility.change_country_language' | t }}{% elsif show_language_picker %}{{ 'accessibility.change_language' | t }}{% elsif show_country_picker %}{{ 'accessibility.change_country' | t }}{% endif %}"
+  >
+    <span class="flex items-center gap-1">
+      {% if show_flag and show_country_picker %}
+        <span class="localization-flag shrink-0">
+          {{ localization.country | image_url: width: 20 | image_tag }}
+        </span>
+      {% else %}
+        {% render 'icon-localization' %}
+      {% endif %}
+
+      <span class="{{ font_size_class }} mt--1px">
+        {% if abbreviate %}
+          {% if show_language_picker %}
+            {{ localization.language.iso_code | upcase }}
+          {% else %}
+            {%- if show_country_name -%}{{- localization.country.name }} ({%- endif -%}
+            {{ localization.country.currency.iso_code }}
+            {% comment %}{{ localization.country.currency.symbol -}}{% endcomment %}
+            {% if show_country_name %}){% endif %}
+          {% endif %}
+        {% else %}
+          {%- if show_country_picker -%}
+            {%- if show_country_name -%}
+              {{- localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol -}}{% if show_language_picker %}, {{ localization.language.iso_code | upcase }}{% endif %})
+            {%- endif -%}
+          {%- elsif show_language_picker %}
+            {{ localization.language.iso_code | upcase }}
+          {%- endif -%}
+        {% endif %}
+      </span>
+    </span>
+    {% render 'icon-caret' %}
+  </button>
+
+  <div class="disclosure__list-wrapper custom-scrollbar country-selector p-1 pl-2 pr-2 disclosure__list-wrapper--one-option{% if color_scheme %} gradient color-{{ color_scheme }}{% endif %}" hidden>
+    <template class="deferred js-{{ localPosition }}-trigger">
+    <div class="flex justify-end">
+      <button
+          class="country-selector__close-button button--small link"
+          type="button"
+          aria-label="{{ 'accessibility.close' | t }}"
+      >
+        {% render 'icon-close' %}
+      </button>
+    </div>
+
+    <div class="localization__grid flex flex-col md:flex-row gap-2">
+      {% if show_language_picker %}
+        <div class="language-column">
+          {% if show_country_picker %}
+            <h2 class="text-body caption t7 opacity-70 m-0">{{ 'localization.language_label' | t | upcase }}</h2>
+          {% endif %}
+          <ul id="{{ localPosition }}List" role="list" class="disclosure__list custom-scrollbar list-unstyled">
+            {%- for language in localization.available_languages -%}
+              <li class="disclosure__item" tabindex="-1">
+                <a
+                    class="link link--text disclosure__link focus-inset"
+                    href="#"
+                    data-no-instant
+                    hreflang="{{ language.iso_code }}"
+                    lang="{{ language.iso_code }}"
+                    {% if language.iso_code == localization.language.iso_code %}
+                      aria-current="true"
+                    {% endif %}
+                    data-value="{{ language.iso_code }}"
+                >
+                  <span class="t5{% if language.iso_code == localization.language.iso_code %} font-bold color-link{% endif %}">
+                    {{ language.endonym_name | capitalize }}
+                  </span>
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if show_country_picker %}
+        {%- if show_country_filter -%}
+          {%- capture country_filter -%}
+            <li class="disclosure__item disclosure__item--search">
+              <div class="country-filter{% unless show_country_filter %} country-filter--no-padding{% endunless %}">
+                <div class="field">
+                  <input
+                      class="country-filter__input field__input"
+                      id="{{ localPosition }}country-filter-input"
+                      type="search"
+                      name="country_filter"
+                      value=""
+                      placeholder="{{ 'localization.search' | t }}"
+                      role="combobox"
+                      aria-owns="country-results"
+                      aria-controls="country-results"
+                      aria-haspopup="listbox"
+                      aria-autocomplete="list"
+                      autocorrect="off"
+                      autocomplete="off"
+                      autocapitalize="off"
+                      spellcheck="false"
+                  >
+                  <label class="field__label" for="{{ localPosition }}country-filter-input">{{ 'localization.search' | t }}</label>
+                  <button
+                      type="reset"
+                      class="country-filter__reset-button field__button hidden"
+                      aria-label="{{ 'general.search.reset' | t }}"
+                  >
+                    <svg class="icon icon-close" aria-hidden="true" focusable="false">
+                      <use xlink:href="#icon-reset"/>
+                    </svg>
+                  </button>
+                  <div class="country-filter__search-icon field__button motion-reduce">
+                    <svg class="icon icon-search" aria-hidden="true" focusable="false">
+                      <use xlink:href="#icon-search"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <p class="js-no-countries" hidden aria-hidden="true">{{ 'localization.no_countries' | t }}</p>
+            </li>
+          {%- endcapture -%}
+        {%- endif -%}
+
+        <div>
+          {% if show_language_picker %}
+            <h2 class="text-body caption t7 opacity-70 m-0">{{ 'localization.country_label' | t | upcase }}</h2>
+          {% endif %}
+          <div class="js-country-search-results visually-hidden" aria-live="polite"></div>
+          <div
+              class="disclosure__list custom country-selector__list{% if show_currencies %} country-selector__list--with-multiple-currencies{% endif %} custom-scrollbar"
+              id="{{ localPosition }}-country-results"
+          >
+            {% if show_popular_countries %}
+              <ul
+                  role="list"
+                  class="list-unstyled popular-countries"
+                  aria-label="{{ 'localization.popular_countries_regions' | t }}"
+              >
+                {%- for country in popular_countries -%}
+                  <li class="disclosure__item" tabindex="-1">
+                    <a
+                        class="link link--text disclosure__link{% if always_show_currency %} disclosure__link--show-currency{% endif %} focus-inset no-scroll"
+                        href="#"
+                        data-no-instant
+                        {% if country.iso_code == localization.country.iso_code %}
+                          aria-current="true"
+                        {% endif %}
+                        data-value="{{ country.iso_code }}"
+                    >
+                      <span class="country t5{% if show_dropdown_flag %} flex items-center gap-1{% endif %}{% if country.iso_code == localization.country.iso_code %} font-bold color-link{% endif %}">
+                      {% if show_dropdown_flag %}
+                        <span class="localization-flag shrink-0">
+                          {{ country | image_url: width: 20 | image_tag: loading: 'lazy' }}
+                        </span>
+                      {% endif %}
+                      {{- country.name }}
+                    </span>
+                      <span class="localization-form__currency pl-2 t6 motion-reduce{% unless show_currencies %} hidden{% endunless %}">
+                        {{ country.currency.iso_code }}
+                        {{ country.currency.symbol -}}
+                      </span>
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {% endif %}
+            <ul role="list" class="list-unstyled countries">
+              {{ country_filter }}
+
+              {%- for country in localization.available_countries -%}
+                <li class="disclosure__item" tabindex="-1">
+                  <a
+                      class="link link--text disclosure__link{% if always_show_currency %} disclosure__link--show-currency{% endif %} focus-inset no-scroll"
+                      href="#"
+                      data-no-instant
+                      {% if country.iso_code == localization.country.iso_code %}
+                        aria-current="true"
+                      {% endif %}
+                      data-value="{{ country.iso_code }}"
+                  >
+                    <span class="country t5{% if show_dropdown_flag %} flex items-center gap-1{% endif %}{% if country.iso_code == localization.country.iso_code %} font-bold color-link{% endif %}">
+                      {% if show_dropdown_flag %}
+                        <span class="localization-flag shrink-0">
+                          {{ country | image_url: width: 20 | image_tag: loading: 'lazy' }}
+                        </span>
+                      {% endif %}
+                      {{- country.name }}
+                    </span>
+                    <span class="localization-form__currency pl-2 t6 motion-reduce{% unless show_currencies %} hidden{% endunless %}">
+                      {{ country.currency.iso_code }}
+                      {{ country.currency.symbol -}}
+                    </span>
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+    </template>
+  </div>
+  <div class="country-selector__overlay"></div>
+</div>
+
+{% if show_country_picker %}
+  <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+{% endif %}
+
+{% if show_language_picker %}
+  <input type="hidden" name="locale_code" value="{{ localization.language.iso_code }}">
+{% endif %}

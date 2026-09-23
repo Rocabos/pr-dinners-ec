@@ -1,0 +1,178 @@
+{% comment %}
+  Renders a header search box. Should be used with 'header-search.liquid' or 'header.liquid'
+
+  Accepts:
+  - input_id: {String} Id for the search input element (required)
+
+  Usage:
+  {% render 'header-search', input_id: 'My-Id'%}
+{% endcomment %}
+
+{%- liquid
+  assign background_color_brightness = section.settings.color_scheme.settings.background | color_brightness
+  assign search_background_brightness = section.settings.search_bar_color_scheme.settings.background | color_brightness
+  assign is_super_bright = false
+  if background_color_brightness > 230 and search_background_brightness > 230
+    assign is_super_bright = true
+  endif
+-%}
+
+{%- if settings.predictive_search_enabled -%}
+  {%- liquid
+    capture extra_options
+      if settings.predictive_search_search_by_sku
+        echo ",variants.sku"
+      endif
+
+      if settings.predictive_search_search_by_barcode
+        echo ",variants.barcode"
+      endif
+
+      if settings.predictive_search_search_by_tags
+        echo ",tag"
+      endif
+
+      if settings.predictive_search_search_by_product_description
+        echo ",body"
+      endif
+    endcapture
+  -%}
+
+  <form class="predictive_search_form hidden">
+    <input type="hidden" name="resources[options][fields]" value="title,product_type,variants.title,vendor{{ extra_options }}"/>
+    <input type="hidden" name="resources[limit]" value="8"/>
+    <input type="hidden" name="resources[limit_scope]" value="each"/>
+    <input type="hidden" name="section_id" value="predictive-search"/>
+  </form>
+  <predictive-search class="search-modal__form{% if section.settings.search == 'bar' %} search-modal__form--{{ section.settings.search_size }}{% endif %}" data-loading-text="{{ 'accessibility.loading' | t }}">
+{%- else -%}
+  <search-form class="search-modal__form{% if section.settings.search == 'bar' %} search-modal__form--{{ section.settings.search_size }}{% endif %}">
+{%- endif -%}
+  <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form">
+    <input type="hidden" name="options[prefix]" value="last">
+
+    {%- liquid
+      if search and search.filters
+        for filter in search.filters
+          assign product_type_filter = filter.active_values | where: 'param_name', 'filter.p.product_type' | first
+          if product_type_filter
+            assign active_product_type = product_type_filter.label
+          endif
+        endfor
+      endif
+    -%}
+
+    <div class="flex align-center gap-1 border-radius-input color-{{ section.settings.search_bar_color_scheme }} gradient{% if section.settings.search_bar_color_scheme == section.settings.color_scheme or is_super_bright or section.settings.search == 'icon' %} field--matching-color-scheme{% else %} field--diff-color-scheme{% endif %}">
+      {%- if settings.show_search_types and shop.types -%}
+        <label for="{{ input_id }}_header-product-type" class="visually-hidden">{{ 'general.search.product_type' | t }}</label>
+        <div class="select flex items-center">
+          <select class="{% unless section.settings.search == 'icon' %}styled-select {% endunless %}{% if section.settings.search_mobile_open %}styled-select-xs {% endif %}select__select caption-large js-product-types" id="{{ input_id }}_header-product-type" name="filter.p.product_type">
+            <option value=""{% if active_product_type == blank %} selected{% endif %}>{{ 'general.search.all_product_types' | t }}</option>
+            {%- for type in shop.types -%}
+              {% if type != blank %}
+                <option value="{{ type }}"{% if type == active_product_type %} selected{% endif %}>{{ type }}</option>
+              {%- endif -%}
+            {%- endfor -%}
+          </select>
+          {% render 'icon-caret' %}
+        </div>
+      {%- endif -%}
+      <button class="search__button field__button">
+        <svg class="icon icon-search" aria-hidden="true" focusable="false">
+          <use href="#icon-search"/>
+        </svg>
+        {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
+        <span class="visually-hidden">{{ 'general.search.search' | t }}</span>
+      </button>
+      <input
+        class="search__input field__input visible-placeholder"
+        id="{{ input_id }}"
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="{% if section.settings.search_placeholder != blank %}{{ section.settings.search_placeholder | escape }}{% else %}{{ 'general.search.search' | t }}{% endif %}"
+
+        {% if section.settings.search_placeholder_2 %}data-second-placeholder="{{ section.settings.search_placeholder_2 }}"{% endif %}
+        {% if section.settings.search_placeholder_3 %}data-third-placeholder="{{ section.settings.search_placeholder_3 }}"{% endif %}
+        {% if section.settings.search_placeholder_4 %}data-fourth-placeholder="{{ section.settings.search_placeholder_4 }}"{% endif %}
+        data-animated-placeholder-mob="true"
+
+        {% if settings.predictive_search_enabled %}
+          role="combobox"
+          aria-expanded="false"
+          aria-owns="predictive-search-results"
+          aria-controls="predictive-search-results"
+          aria-haspopup="listbox"
+          aria-autocomplete="list"
+          autocorrect="off"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+        {% endif %}
+      >
+      <label class="visually-hidden" for="{{ input_id }}">
+        {{ 'accessibility.search' | t }}
+      </label>
+    </div>
+
+    {%- if settings.predictive_search_enabled -%}
+      <button
+          type="button"
+          class="inline-search__close-button modal__close-button absolute link link--text focus-inset opacity-0 visibility-hidden"
+          aria-label="{{ 'accessibility.close' | t }}"
+      >
+        <svg class="icon icon-close" aria-hidden="true" focusable="false">
+          <use href="#icon-close"/>
+        </svg>
+      </button>
+    {%- endif -%}
+
+    {%- if settings.predictive_search_enabled -%}
+      {%- unless section.settings.search != 'off' and section.settings.search_mobile_open -%}
+        {%- if settings.predictive_search_suggested_searches != blank and search.terms == blank -%}
+          {%- assign suggestions = settings.predictive_search_suggested_searches | newline_to_br | strip_newlines | split: '<br />' -%}
+          <div class="search-suggestions color-{{ section.settings.search_bar_color_scheme }} gradient pt-2{% if section.settings.search == 'bar' %} hidden-md{% endif %}">
+            <strong class="search-suggestions-title">Búsquedas populares</strong>
+
+            <ul class="list-unstyled flex flex-col justify-center gap-1 mb-1" aria-label="{{- 'templates.search.popular_searches' | t | escape -}}">
+              {%- for suggestion in suggestions -%}
+                <li>
+                  <a href="{{ routes.search_url }}?options%5Bprefix%5D=last&q={{ suggestion | url_encode }}" class="predictive-search__item predictive-search__suggestion link link--text border">
+                    {{ suggestion }}
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      {%- endunless -%}
+
+      <div class="predictive-search predictive-search--header color-{{ section.settings.search_bar_color_scheme }} gradient custom-scrollbar" tabindex="-1" data-predictive-search></div>
+
+      {%- if settings.predictive_search_suggested_searches != blank and section.settings.search != 'icon' or section.settings.search_mobile_open -%}
+        {%- assign suggestions = settings.predictive_search_suggested_searches | newline_to_br | strip_newlines | split: '<br />' -%}
+        <div class="predictive-search color-{{ section.settings.search_bar_color_scheme }} gradient predictive-search--suggestions-desktop predictive-search--header custom-scrollbar" tabindex="-1" hidden>
+          <div class="p-1 pb-2">
+            <p class="predictive-search__subheading font-medium t3 mb-1 mt-1 pl-15 pr-15">{{- 'templates.search.popular_searches' | t -}}</p>
+            <ul class="list-unstyled">
+              {%- for suggestion in suggestions -%}
+                <li>
+                  <a href="{{ routes.search_url }}?options%5Bprefix%5D=last&q={{ suggestion | url_encode }}" class="predictive-search__item link link--text ">
+                    {{ suggestion }}
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
+      {%- endif -%}
+
+      <span class="predictive-search-status color-{{ section.settings.search_bar_color_scheme }} gradient visually-hidden" role="status" aria-hidden="true"></span>
+    {%- endif -%}
+  </form>
+
+{%- if settings.predictive_search_enabled -%}
+  </predictive-search>
+{%- else -%}
+  </search-form>
+{%- endif -%}

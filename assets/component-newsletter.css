@@ -1,0 +1,51 @@
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+@media screen and (min-width: 750px) {
+  .newsletter-form {
+    margin: 0 auto;
+    max-width: 36rem;
+  }
+}
+
+.newsletter-form__message {
+  margin-bottom: 0;
+}
+
+.newsletter-form__message--success {
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.newsletter-form__button {
+  width: 4.4rem;
+  margin: 0;
+  inset-inline-end: var(--inputs-border-width);
+  top: 0;
+  height: 100%;
+  z-index: 2;
+}
+
+.newsletter-form__button:focus-visible {
+  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0 0.4rem rgba(var(--color-foreground));
+  background-color: rgb(var(--color-background));
+}
+
+.newsletter-form__button:focus {
+  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0 0.4rem rgba(var(--color-foreground));
+  background-color: rgb(var(--color-background));
+}
+
+.newsletter-form__button:not(:focus-visible):not(.focused) {
+  box-shadow: inherit;
+  background-color: inherit;
+}
+
+.newsletter-form__button .icon {
+  width: 2rem;
+}

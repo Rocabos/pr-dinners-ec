@@ -1,0 +1,70 @@
+{% render 'standard-blocks', type: 'spacer' %}
+
+{% schema %}
+{
+  "name": "Spacer",
+  "tag": null,
+  "settings": [
+    
+  {
+    "type": "checkbox",
+    "id": "show_line_separator",
+    "default": true,
+    "label": "Show separator line"
+  },
+  {
+    "type": "range",
+    "id": "spacing_top",
+    "min": 0,
+    "max": 10,
+    "step": 0.1,
+    "unit": "rem",
+    "default": 2.4,
+    "label": "Spacing top"
+  },
+  {
+    "type": "range",
+    "id": "spacing_bottom",
+    "min": 0,
+    "max": 10,
+    "step": 0.1,
+    "unit": "rem",
+    "default": 2.4,
+    "label": "Spacing bottom"
+  },
+  {
+    "type": "select",
+    "id": "spacer_visibility",
+    "options": [
+      {
+        "value": "mobile",
+        "label": "Mobile"
+      },
+      {
+        "value": "desktop",
+        "label": "Desktop"
+      },
+      {
+        "value": "both",
+        "label": "Both"
+      }
+    ],
+    "default": "both",
+    "label": "Show on"
+  },
+  {
+    "type": "color",
+    "id": "line_color",
+    "label": "Line color",
+    "info": "Set to transparent to use standard line color."
+  }
+
+  ],
+  "presets": [
+    {
+      "name": "Spacer",
+      "category": "Basic"
+    }
+  ]
+}
+{% endschema %}

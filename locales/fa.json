@@ -1,0 +1,655 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "password_page": {
+      "login_form_heading": "ورود به فروشگاه",
+      "login_password_button": "ورود با استفاده از رمز عبور",
+      "login_form_password_label": "گذرواژه",
+      "login_form_password_placeholder": "گذرواژه شما",
+      "login_form_error": "رمز عبور اشتباه است!",
+      "login_form_submit": "وارد شوید",
+      "admin_link_html": "آیا شما مالک فروشگاه هستید؟ <a href=\"/admin\" class=\"link underlined-link\">اینجا وارد شوید</a>",
+      "powered_by_shopify_html": "این فروشگاه توسط {{ shopify }} قدرت گرفته خواهد شد."
+    },
+    "social": {
+      "alt_text": {
+        "share_on_facebook": "اشتراک گذاری در فیسبوک",
+        "share_on_twitter": "توییت در X",
+        "share_on_pinterest": "سنجاق کردن در پینترست",
+        "share_on_whatsapp": "اشتراک گذاری در واتساپ",
+        "share_on_linkedin": "اشتراک گذاری در لینکداین"
+      },
+      "links": {
+        "twitter": "توییتر",
+        "facebook": "فیسبوک",
+        "pinterest": "پینترست",
+        "instagram": "اینستاگرام",
+        "tumblr": "تامبلر",
+        "snapchat": "اسنپ‌چت",
+        "youtube": "یوتیوب",
+        "vimeo": "ویمیو",
+        "tiktok": "تیک‌تاک",
+        "whatsapp": "واتس‌اپ",
+        "threads": "موضوعات",
+        "linkedin": "لینکداین"
+      }
+    },
+    "continue_shopping": "ادامه خرید",
+    "pagination": {
+      "label": "صفحه‌بندی",
+      "page": "صفحه {{ number }}",
+      "next": "صفحه بعدی",
+      "previous": "صفحه قبلی",
+      "show_more": "نمایش بیشتر",
+      "loading_text": "لطفا صبر کنید..."
+    },
+    "search": {
+      "search_placeholder": "جستجو",
+      "search": "چه چیزی را می‌خواهید پیدا کنید؟",
+      "reset": "پاک کردن عبارت جستجو",
+      "product_type": "انتخاب نوع محصول",
+      "all_product_types": "همه"
+    },
+    "cart": {
+      "view": "مشاهده سبد خرید ({{ count }})",
+      "view_empty_cart": "نمایش سبد خرید",
+      "item_added": "به سبد خرید شما اضافه شد"
+    },
+    "share": {
+      "close": "بستن به اشتراک گذاری",
+      "copy_to_clipboard": "کپی لینک",
+      "share_url": "پیوند",
+      "success_message": "لینک به کلیپ بورد کپی شد"
+    },
+    "discount_code": {
+      "close": "بستن تخفیف",
+      "copy_to_clipboard": "کپی کد تخفیف",
+      "discount_code": "کد تخفیف",
+      "success_message": "کپی شد",
+      "discount_gated": "برای تخفیف وارد شوید"
+    },
+    "slider": {
+      "of": "از",
+      "next_slide": "اسلاید به راست",
+      "previous_slide": "اسلاید چپ",
+      "name": "اسلایدر"
+    }
+  },
+  "newsletter": {
+    "label": "ایمیل",
+    "success": "با تشکر از عضویت شما",
+    "button_label": "اشتراک"
+  },
+  "accessibility": {
+    "popup": "اعلان سایت",
+    "skip_to_text": "رفتن به محتوا",
+    "skip_to_product_info": "رفتن به اطلاعات محصول",
+    "close": "بستن",
+    "unit_price_separator": "هر",
+    "vendor": "فروشنده:",
+    "error": "خطا",
+    "refresh_page": "انتخاب یک گزینه منجر به تازه‌سازی کامل صفحه می‌شود.",
+    "link_messages": {
+      "new_window": "در پنجره‌ای جدید باز می‌شود.",
+      "external": "بازکردن وب سایت خارجی."
+    },
+    "loading": "در حال بارگذاری...",
+    "total_reviews": "مجموع نظرات",
+    "star_reviews_info": "{{ rating_value }} از {{ rating_max }} ستاره",
+    "collapsible_content_title": "محتوای قابل جمع شدن",
+    "complementary_products": "محصولات تکمیلی",
+    "scroll_to_top": "به بالای صفحه بروید",
+    "search": "جستجو در فروشگاه ما",
+    "change_language": "تغییر زبان",
+    "change_country": "تغییر کشور",
+    "change_country_language": "تغییر کشور/زبان",
+    "view_hotspot": "مشاهده نقطه داغ"
+  },
+  "blogs": {
+    "filter": {
+      "all": "همه"
+    },
+    "article": {
+      "blog": "وبلاگ",
+      "read_more_title": "بیشتر بخوانید: {{ title }}",
+      "author": "توسط {{ author }}",
+      "read_estimate": "خواندن تخمین {{ minutes }} دقیقه",
+      "comments": {
+        "one": "{{ count }} نظر",
+        "other": "{{ count }} نظرات"
+      },
+      "moderated": "لطفا توجه داشته باشید، نظرات باید قبل از انتشار تایید شوند.",
+      "comment_form_title": "نظرتان را بنویسید",
+      "name": "نام",
+      "email": "ایمیل",
+      "message": "نظر",
+      "post": "نظرات پست",
+      "back_to_blog": "بازگشت به وبلاگ",
+      "next_article": "بعدی",
+      "previous_article": "قبلی",
+      "share": "این مقاله را به اشتراک بگذارید",
+      "success": "نظر شما با موفقیت ارسال شد! با تشکر!",
+      "success_moderated": "نظر شما با موفقیت ارسال شد. ما آن را به زودی منتشر خواهیم کرد، زیرا وبلاگ ما مور"
+    }
+  },
+  "breadcrumbs": {
+    "title": "نشانه های راهنما",
+    "home": "خانه",
+    "cart": "سبد خرید",
+    "collections": "مجموعه ها",
+    "search": "جستجو"
+  },
+  "onboarding": {
+    "product_title": "عنوان محصول نمونه",
+    "example_link": "لینک نمونه",
+    "collection_title": "مجموعه"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "افزودن به سبد خرید",
+      "preorder": "سفارش پیش از زمان تقدیم",
+      "add_to_cart_card": "سبد خرید",
+      "choose_options": "مشاهده سریع",
+      "bulk_order": "سفارش عمده",
+      "notify_me": "به من اطلاع دهید",
+      "choose_product_options": "گزینه‌های محصول {{ product_name }} را انتخاب کنید",
+      "description": "توضیحات",
+      "inventory_in_stock": "موجود در انبار",
+      "inventory_in_stock_show_count": "{{ quantity }} در انبار موجود است",
+      "inventory_low_stock": "موجودی کم",
+      "inventory_low_stock_only_count": "فقط {{ quantity }} موجود است",
+      "inventory_low_stock_show_count": "موجودی کم! فقط {{ quantity }} موجود است",
+      "inventory_out_of_stock": "تمام شد",
+      "inventory_out_of_stock_continue_selling": "در انتظار موجودی، به زودی ارسال می‌شود",
+      "sku": "شناسه محصول:",
+      "on_sale": "فروش",
+      "on_sale_percent": "تا {{ discount }}% تخفیف",
+      "on_sale_value_html": "تا {{ تخفیف }} درصد تخفیف",
+      "product_variants": "نوع‌های محصول",
+      "media": {
+        "gallery_viewer": "نمایشگر گالری",
+        "load_image": "بارگذاری تصویر {{ index }} در نمایش گالری",
+        "load_model": "بارگذاری مدل سه بعدی {{ index }} در نمایش گالری",
+        "load_video": "پخش ویدئو {{ index }} در نمایش گالری",
+        "image_available": "تصویر {{ index }} اکنون در نمایش گالری در دسترس است",
+        "open_media": "بازکردن رسانه {{ index }} در مودال",
+        "play_model": "پخش مدل سه بعدی",
+        "play_video": "پخش ویدئو"
+      },
+      "quantity": {
+        "label": "تعداد",
+        "input_label": "تعداد برای {{ product }}",
+        "increase": "افزایش تعداد برای {{ product }}",
+        "decrease": "کاهش تعداد برای {{ product }}",
+        "minimum_of": "حداقل تعداد {{ quantity }}",
+        "maximum_of": "بیشینه {{ quantity }}",
+        "multiples_of": "افزایش‌های {{ quantity }}",
+        "min_of": "حداقل {{ quantity }}",
+        "max_of": "حداکثر {{ quantity }}",
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> در سبد خرید",
+        "note": "مشاهده قوانین تعداد"
+      },
+      "volume_pricing": {
+        "title": "قیمت گذاری حجمی",
+        "note": "قیمت گذاری حجمی موجود است",
+        "minimum": "{{ quantity }}+",
+        "price_at_each": "به {{ price }}/هر عدد",
+        "price_range": "{{ حداقل }} - {{ حداکثر }}"
+      },
+      "pickup_availability": {
+        "view_store_info": "مشاهده اطلاعات فروشگاه",
+        "check_other_stores": "بررسی موجودی در فروشگاه‌های دیگر",
+        "pick_up_available": "قابلیت تحویل دریافتی",
+        "pick_up_available_at_html": "دریافت موجود در <span class=\"color-foreground\">{{ location_name }}</span>",
+        "pick_up_unavailable_at_html": "در حال حاضر امکان دریافت در {{ location_name }} وجود ندارد",
+        "unavailable": "امکان دریافت محصول موجود نیست",
+        "refresh": "به‌روزرسانی"
+      },
+      "price": {
+        "from_price_html": "از {{ price }}",
+        "regular_price": "قیمت معمولی",
+        "sale_price": "قیمت فروش",
+        "unit_price": "قیمت واحد"
+      },
+      "back_in_stock": {
+        "email": "ایمیل",
+        "send": "اطلاع دهید",
+        "success": "با تشکر. به شما اطلاع خواهیم داد که موجودی محصول برگشته است."
+      },
+      "product_enquiry": {
+        "email": "ایمیل",
+        "enquiry": "پرسش شما",
+        "send": "ارسال",
+        "success": "با تشکر. به زودی به شما پاسخ خواهیم داد."
+      },
+      "share": "اشتراک‌گذاری این محصول",
+      "sold_out": "تمام شد",
+      "unavailable": "غیر قابل دسترس",
+      "vendor": "فروشنده",
+      "value_unavailable": "{{ option_value }} - در دسترس نیست",
+      "variant_sold_out_or_unavailable": "نوع فروخته شده یا در دسترس نیست",
+      "video_exit_message": "{{ title }} ویدیوی تمام صفحه را در همان پنجره باز می‌کند.",
+      "view_full_details": "مشاهده بیشتر",
+      "xr_button": "نمایش در فضای شما",
+      "xr_button_label": "نمایش در فضای شما، بارگذاری مورد در پنجره واقعیت افزوده",
+      "include_taxes": "مالیات دربرگیرنده شده است.",
+      "shipping_policy_html": " <a href=\"{{ link }}\" class=\"link underlined-link\">حمل و نقل</a> محاسبه شده در هنگام پرداخت.",
+      "new": "جدید",
+      "change_color": "پیش‌نمایش رنگ:",
+      "highlight_remainder": "+{{ count }} بیشتر",
+      "barcode": "بارکد:",
+      "change_product": "تغییر محصول",
+      "nested_label": "{{ title }} برای {{ parent_title }}"
+    },
+    "modal": {
+      "label": "گالری رسانه"
+    },
+    "facets": {
+      "filter_and_operator_subtitle": "همه موارد مطابقت دهید",
+      "apply": "اعمال کنید",
+      "clear": "پاک کردن",
+      "clear_all": "پاک کردن همه",
+      "from": "از",
+      "filter_and_sort": "فیلتر و مرتب‌سازی",
+      "filter_by_label": "فیلتر:",
+      "filter_button": "فیلتر",
+      "filters_selected": {
+        "one": "{{ count }} انتخاب شد",
+        "other": "{{ count }} انتخاب شده"
+      },
+      "filter_selected_accessibility": "{{ type }} ({{ count }} فیلتر انتخاب شده)",
+      "show_more": "همه را ببینید",
+      "show_less": "نمایش کمتر",
+      "max_price": "قیمت بالاترین {{ price }} می‌باشد.",
+      "product_count": {
+        "one": "{{ product_count }} از {{ count }} محصول",
+        "other": "{{ product_count }} از {{ count }} محصول"
+      },
+      "product_count_simple": {
+        "one": "یک محصول {{ count }}",
+        "other": "{{ count }} محصولات"
+      },
+      "reset": "پاک کردن",
+      "reset_price": "تنظیم مجدد",
+      "sort_button": "مرتب‌سازی",
+      "sort_by_label": "مرتب سازی بر اساس",
+      "to": "به",
+      "clear_filter": "حذف فیلتر"
+    },
+    "flash_sale": {
+      "claimed": "{{ quantity }}٪ ادعا شده",
+      "sold": "{{ quantity }} فروخته شده"
+    }
+  },
+  "templates": {
+    "404": {
+      "title": "صفحه پیدا نشد",
+      "subtext": "۴۰۴"
+    },
+    "search": {
+      "popular_searches": "جستجوهای محبوب",
+      "no_results": "نتیجه‌ای برای \"{{ terms }}\" پیدا نشد. املای کلمه را بررسی کنید یا از کلمه یا عبارت دیگر",
+      "no_results_short": "نتیجه‌ای یافت نشد.",
+      "page": "صفحه",
+      "products": "محصولات",
+      "results_pages_with_count": {
+        "one": "{{ count }} صفحه",
+        "other": "{{ count }} صفحه"
+      },
+      "results_suggestions_with_count": {
+        "one": "{{ count }} پیشنهاد",
+        "other": "{{ count }} پیشنهاد"
+      },
+      "results_products_with_count": {
+        "one": "{{ count }} محصول",
+        "other": "محصولات {{ count }}"
+      },
+      "results_items_with_count": {
+        "one": "نمایش {{ count }} مورد",
+        "other": "نمایش {{ count }} مورد"
+      },
+      "results_with_count": {
+        "one": "نمایش {{ count }} نتیجه",
+        "other": "نمایش {{ count }} نتیجه"
+      },
+      "results_with_count_and_term": {
+        "one": "یک نتیجه برای \"{{ terms }}\" پیدا شد",
+        "other": "{{ count }} نتیجه برای \"{{ terms }}\" پیدا شد"
+      },
+      "title": "نتایج جستجو",
+      "search_for": "جستجو برای \"{{ terms }}",
+      "suggestions": "پیشنهادات",
+      "pages": "صفحات",
+      "articles": "مقالات",
+      "collections": "مجموعه‌ها"
+    },
+    "cart": {
+      "cart": "سبد خرید"
+    },
+    "contact": {
+      "form": {
+        "title": "فرم تماس",
+        "name": "نام",
+        "email": "ایمیل",
+        "phone": "شماره تلفن",
+        "comment": "نظر",
+        "send": "ارسال",
+        "post_success": "با تشکر از تماس با ما. ما به زودی به شما پاسخ خواهیم داد.",
+        "error_heading": "لطفاً موارد زیر را تنظیم کنید:"
+      }
+    }
+  },
+  "sections": {
+    "announcements": {
+      "previous_announcement": "اعلان قبلی",
+      "next_announcement": "اعلان بعدی",
+      "carousel": "اسلایدر",
+      "announcement": "اعلان",
+      "announcement_bar": "نوار اطلاعیه"
+    },
+    "header": {
+      "announcement": "اعلان",
+      "menu": "منو",
+      "back": "بازگشت",
+      "view_all": "نمایش همه {{ page }}",
+      "cart_count": {
+        "one": "{{ count }} مورد",
+        "other": "{{ count }} مورد"
+      }
+    },
+    "cart": {
+      "title": "سبد خرید شما",
+      "caption": "آیتم‌های سبد خرید",
+      "remove_title": "حذف {{ title }}",
+      "estimated_total": "مجموع تخمین زده شده:",
+      "new_estimated_total": "مجموع تخمینی جدید",
+      "note": "یادداشت‌های سفارش",
+      "checkout": "پرداخت",
+      "view_cart": "مشاهده سبد خرید",
+      "empty": "سبد خرید شما خالی است :(",
+      "cart_error": "خطایی در به‌روزرسانی سبد خرید شما رخ داد. لطفاً مجدداً تلاش کنید.",
+      "cart_quantity_error_html": "شما تنها می‌توانید {{ quantity }} از این مورد را به سبد خرید خود اضافه کنید.",
+      "taxes_and_shipping_policy_at_checkout_html": "مالیات‌ها، تخفیف‌ها و <a href=\"{{ link }}\" class=\"link underlined-link\">هزینه حمل و نقل</a> در هنگام پرداخت محاسب",
+      "taxes_included_but_shipping_at_checkout": "مالیات دربرگیرنده است. هزینه‌های حمل و تخفیف‌ها در هنگام تسویه حساب محاسبه می‌شوند.",
+      "taxes_included_and_shipping_policy_html": "مالیات دربرگیرنده است. <a href=\"{{ link }}\" class=\"link underlined-link\">حمل و نقل</a> و تخفیفات در هنگام پرداخت محاسبه",
+      "taxes_and_shipping_at_checkout": "مالیات، تخفیف‌ها و هزینه حمل و نقل در محاسبه نهایی در صفحه پرداخت محاسبه می‌شوند.",
+      "headings": {
+        "product": "محصول",
+        "price": "قیمت",
+        "total": "جمع کل",
+        "quantity": "تعداد",
+        "image": "تصویر محصول"
+      },
+      "update": "به‌روزرسانی",
+      "login": {
+        "title": "آیا حساب کاربری دارید؟",
+        "paragraph_html": "برای خرید سریع‌تر، به سیستم وارد شوید با <a href=\"{{ link }}\" class=\"link underlined-link\">ورود</a>."
+      },
+      "terms": {
+        "error": "شما باید قبل از ادامه، شرایط و مقررات را قبول کنید.",
+        "agreement_html": "من قبول می کنم <a href=\"{{ terms }}\" target=\"_blank\" class=\"link underlined-link\">شرایط و مقررات</a>"
+      },
+      "shipping_calculator": {
+        "link_title": "ماشین حساب حمل و نقل",
+        "country": "کشور",
+        "zip": "کدپستی/کدپستی",
+        "street_address": "آدرس خیابان",
+        "city": "شهر",
+        "province": "استان",
+        "submit": "دریافت نرخ ها",
+        "no_rates": "ما به این مقصد ارسال نمی‌کنیم.",
+        "single_rate": "یک نرخ حمل و نقل وجود دارد:",
+        "multiple_rates": "تعدادی از نرخ‌های حمل و نقل وجود دارند:",
+        "error": "لطفاً موارد زیر را تنظیم کنید:"
+      }
+    },
+    "footer": {
+      "payment": "روش‌های پرداخت",
+      "copyright_html": "&#169; {{ date }}, <a href=\"{{ store_url }}\">{{ store_name }}</a>."
+    },
+    "featured_blog": {
+      "view_all": "نمایش همه",
+      "onboarding_title": "پست وبلاگ",
+      "onboarding_content": "به مشتریان خود خلاصه‌ای از مطلب وبلاگ خود ارائه دهید"
+    },
+    "featured_collection": {
+      "view_all": "مشاهده همه",
+      "view_all_label": "مشاهده همه محصولات در مجموعه {{ collection_name }}"
+    },
+    "collection_list": {
+      "view_all": "نمایش همه"
+    },
+    "collection_template": {
+      "empty": "محصولی یافت نشد.",
+      "title": "مجموعه",
+      "use_fewer_filters_html": "از کمترین فیلترها استفاده کنید یا <a class=\"{{ class }}\" href=\"{{ link }}\">فیلترها را پاک کنید</a>."
+    },
+    "video": {
+      "load_video": "بارگذاری ویدئو: {{ description }}",
+      "toggle": "تغییر وضعیت پخش ویدیو",
+      "volume": "صامت/غیرصامت کردن ویدیو"
+    },
+    "slideshow": {
+      "load_slide": "بارگذاری اسلاید",
+      "previous_slideshow": "اسلاید قبلی",
+      "next_slideshow": "اسلاید بعدی",
+      "pause_slideshow": "توقف اسلایدشو",
+      "play_slideshow": "نمایش اسلایدشو",
+      "carousel": "اسلایدشو",
+      "slide": "اسلاید"
+    },
+    "page": {
+      "title": "صفحه عنوان"
+    },
+    "quick_order_list": {
+      "product_total": "جمع کل",
+      "view_cart": "مشاهده سبد خرید",
+      "each": "{{ پول }}/هرعدد",
+      "each_html": "{{ money }}/هر واحد",
+      "product": "محصول",
+      "variant": "گزینه",
+      "variant_total": "جمع جزئی",
+      "items_added": {
+        "one": "{{ quantity }} مورد اضافه شد",
+        "other": "{{ quantity }} مورد اضافه شد"
+      },
+      "items_removed": {
+        "one": "{{ quantity }} مورد حذف شد",
+        "other": "{{ quantity }} مورد حذف شد"
+      },
+      "product_variants": "نوع‌های محصول",
+      "total_items": "تعداد کل موارد",
+      "remove_all_single_item_confirmation": "آیا می خواهید ۱ مورد را از سبد خرید خود حذف کنید؟",
+      "remove_all_items_confirmation": "آیا می خواهید تمام {{ quantity }} مورد را از سبد خرید خود حذف کنید؟",
+      "remove_all": "حذف همه",
+      "cancel": "لغو",
+      "min_error": "این مورد دارای حداقل {{ min }} است",
+      "max_error": "این مورد حداکثر {{ max }} را دارد",
+      "step_error": "شما تنها می‌توانید این مورد را به اضافه‌های {{ step }} واحدی اضافه کنید"
+    },
+    "collapsible_rows": {
+      "search": "جستجو",
+      "no_results": "هیچ تطبیقی پیدا نشد"
+    },
+    "countdown": {
+      "a11y_message": "تمام می شود در {{ end_date }}",
+      "days": "روز",
+      "hours": "ساعت‌ها",
+      "minutes": "دقیقه",
+      "seconds": "ثوانیه‌ها",
+      "days_short": "روز",
+      "hours_short": "س",
+      "minutes_short": "د",
+      "seconds_short": "ث"
+    },
+    "compare": {
+      "product_page_link": "بیشتر بدانید",
+      "buy": "خرید"
+    },
+    "contact": {
+      "date_is_in_past": "تاریخی که انتخاب کرده‌اید در گذشته است."
+    }
+  },
+  "localization": {
+    "country_label": "کشور/منطقه",
+    "language_label": "زبان",
+    "update_language": "به روز رسانی زبان",
+    "update_country": "به‌روزرسانی کشور/منطقه",
+    "search": "جستجو",
+    "popular_countries_regions": "کشورها/مناطق محبوب",
+    "country_results_count": "یافت شد {{ count }} کشور/منطقه",
+    "no_countries": "هیچ کشوری یافت نشد"
+  },
+  "customer": {
+    "account": {
+      "title": "حساب",
+      "details": "جزئیات حساب",
+      "view_addresses": "مشاهده آدرس‌ها",
+      "edit": "ویرایش",
+      "return": "بازگشت به حساب کاربری"
+    },
+    "account_fallback": "حساب",
+    "activate_account": {
+      "title": "فعال‌سازی حساب",
+      "subtext": "برای فعال‌سازی حساب خود، رمز عبور خود را ایجاد کنید.",
+      "password": "گذرواژه",
+      "password_confirm": "تأیید رمز عبور",
+      "submit": "فعال‌سازی حساب",
+      "cancel": "لغو دعوت"
+    },
+    "addresses": {
+      "title": "آدرس‌ها",
+      "default": "پیش‌فرض",
+      "add_new": "افزودن آدرس جدید",
+      "edit_address": "ویرایش آدرس",
+      "first_name": "نام اول",
+      "last_name": "نام خانوادگی",
+      "company": "شرکت",
+      "address1": "آدرس ۱",
+      "address2": "آدرس 2",
+      "city": "شهر",
+      "country": "کشور/منطقه",
+      "province": "استان",
+      "zip": "کد پستی / کد پستی",
+      "phone": "تلفن",
+      "set_default": "تنظیم به عنوان آدرس پیشفرض",
+      "add": "افزودن آدرس",
+      "update": "بروزرسانی آدرس",
+      "cancel": "لغو",
+      "edit": "ویرایش",
+      "delete": "حذف",
+      "delete_confirm": "آیا از حذف این آدرس اطمینان دارید؟"
+    },
+    "log_in": "حساب کاربری من",
+    "log_out": "خروج",
+    "login_page": {
+      "cancel": "لغو",
+      "create_account": "ایجاد حساب کاربری",
+      "email": "ایمیل",
+      "forgot_password": "رمز عبور خود را فراموش کرده‌اید؟",
+      "guest_continue": "ادامه دهید",
+      "guest_title": "ادامه به عنوان مهمان",
+      "password": "رمز عبور",
+      "title": "به سایت خوش آمدید",
+      "sign_in": "ورود به سیستم",
+      "submit": "ارسال",
+      "alternate_provider_separator": "یا"
+    },
+    "order": {
+      "title": "سفارش {{ name }}",
+      "date_html": "مرتب سازی شده در {{ date }}",
+      "cancelled_html": "سفارش لغو شد در {{ date }}",
+      "cancelled_reason": "دلیل: {{ reason }}",
+      "billing_address": "آدرس صورتحساب",
+      "payment_status": "وضعیت پرداخت",
+      "shipping_address": "آدرس ارسال",
+      "fulfillment_status": "وضعیت تحقق سفارش",
+      "discount": "تخفیف",
+      "shipping": "حمل و نقل",
+      "tax": "مالیات",
+      "product": "محصول",
+      "sku": "شناسه محصول",
+      "price": "قیمت",
+      "quantity": "تعداد",
+      "total": "مجموع",
+      "total_refunded": "بازپرداخت شده",
+      "fulfilled_at_html": "تحقق شده {{ date }}",
+      "track_shipment": "پیگیری ارسالی",
+      "tracking_url": "پیوند پیگیری",
+      "tracking_company": "حامل",
+      "tracking_number": "شماره پیگیری",
+      "subtotal": "جمع کل سفارش مشتری",
+      "total_duties": "عوارض"
+    },
+    "orders": {
+      "title": "تاریخچه سفارشات",
+      "order_number": "سفارش",
+      "order_number_link": "شماره سفارش {{ number }}",
+      "date": "تاریخ",
+      "payment_status": "وضعیت پرداخت",
+      "fulfillment_status": "وضعیت تحقق",
+      "total": "مجموع",
+      "none": "شما هنوز هیچ سفارشی ثبت نکرده‌اید."
+    },
+    "recover_password": {
+      "title": "بازنشانی رمز عبور",
+      "subtext": "ما یک ایمیل برای شما ارسال خواهیم کرد تا رمز عبورتان را بازنشانی کنید",
+      "success": "ما یک ایمیل حاوی لینکی برای به‌روزرسانی رمز عبورتان برایتان ارسال کرده‌ایم."
+    },
+    "register": {
+      "title": "ایجاد حساب کاربری",
+      "first_name": "نام اول",
+      "last_name": "نام خانوادگی",
+      "email": "ایمیل",
+      "password": "رمز عبور",
+      "submit": "ایجاد کردن"
+    },
+    "reset_password": {
+      "title": "بازنشانی رمز عبور حساب کاربری",
+      "subtext": "رمز عبور جدید را وارد کنید",
+      "password": "رمز عبور",
+      "password_confirm": "تأیید رمز عبور",
+      "submit": "بازنشانی رمزعبور"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "how_to_use_gift_card": "از کد کارت هدیه برای خرید آنلاین یا استفاده از کد QR در فروشگاه استفاده کنید.",
+      "title": "اینجا موجودی کارت هدیه {{ value }} شما برای {{ shop }} است!",
+      "subtext": "کارت هدیه شما",
+      "gift_card_code": "کد کارت هدیه",
+      "shop_link": "شروع خرید",
+      "add_to_apple_wallet": "اضافه کردن به کیف پول اپل",
+      "qr_image_alt": "کد QR - اسکن برای استفاده از کارت هدیه",
+      "copy_code": "کپی کد کارت هدیه",
+      "expiration_date": "منقضی می‌شود {{ expires_on }}",
+      "copy_code_success": "کد با موفقیت کپی شد.",
+      "expired": "منقضی شده"
+    }
+  },
+  "recipient": {
+    "form": {
+      "checkbox": "من می خواهم این را به عنوان یک هدیه ارسال کنم",
+      "expanded": "فرم گیرنده کارت هدیه گسترده شده",
+      "collapsed": "فرم گیرنده کارت هدیه فرو رفته است",
+      "email_label": "ایمیل گیرنده",
+      "email_label_optional_for_no_js_behavior": "ایمیل گیرنده (اختیاری)",
+      "email": "ایمیل",
+      "name_label": "نام گیرنده (اختیاری)",
+      "name": "نام",
+      "message_label": "پیام (اختیاری)",
+      "message": "پیام",
+      "max_characters": "حداکثر {{ max_chars }} کاراکتر",
+      "send_on": "YYYY-MM-DD",
+      "send_on_label": "ارسال در (اختیاری)"
+    }
+  }
+}

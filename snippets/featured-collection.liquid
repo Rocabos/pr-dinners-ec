@@ -1,0 +1,286 @@
+{%- comment -%}theme-check-disable NestedSnippet{%- endcomment -%}
+{% comment %}
+  Renders a grid or carousel of products
+
+  Accepts:
+  - products_to_show: {Number} The number of products to show
+  - is_product_list: {Boolean} True if this is being rendered from a Product List section
+  - products: {Array} List of products to render (optional)
+  - product_count: {Number} Count of the products (optional)
+  - show_onboarding: {Boolean} Shows the onboarding products when empty (optional)
+  - show_quick_add: {Boolean} Show quick add button (optional)
+
+  Usage:
+  {% render 'featured-collection', products_to_show: section.settings.products_to_show %}
+{% endcomment %}
+{%- if request.design_mode
+  or section.settings.hide_when_empty == false
+  or section.settings.collection.all_products_count > 0
+  or product_count > 0
+  or show_onboarding == true
+-%}
+  {%- if section.index < 3 or request.design_mode -%}
+    {{ 'component-card.css' | asset_url | stylesheet_tag }}
+    {{ 'component-price.css' | asset_url | stylesheet_tag }}
+    {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+    {%- if settings.swatch_enabled -%}
+      {{ 'component-swatch.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+  {%- else -%}
+    <link rel="stylesheet" href="{{ 'component-card.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
+    {%- if settings.swatch_enabled -%}
+      <link rel="stylesheet" href="{{ 'component-swatch.css' | asset_url }}" media="print" onload="this.media='all'">
+    {%- endif -%}
+  {%- endif -%}
+
+  {%- liquid
+    assign products_exist = false
+    if products != blank and product_count > 0
+      assign columns_to_display = product_count
+      assign products_exist = true
+    else
+      assign products = section.settings.collection.products
+      assign columns_to_display = section.settings.collection.all_products_count
+
+      if section.settings.collection.all_products_count > 0
+        assign products_exist = true
+      endif
+
+      if is_product_list and products_to_show == 0
+        assign products_to_show = 4
+      endif
+    endif
+
+    if products_exist == false
+      assign more_in_collection = true
+    endif
+
+    assign columns_desktop = section.settings.columns_desktop | plus: 0
+    assign columns_mobile = section.settings.columns_mobile | plus: 0
+
+    if products_exist == false
+      assign columns_to_display = products_to_show
+    endif
+
+    if columns_to_display > products_to_show
+      assign columns_to_display = products_to_show
+      assign more_in_collection = true
+    endif
+
+    assign columns_to_display_inc_view_more_mobile = columns_to_display
+    if section.settings.view_all_card_visibility == 'visible-xs' or section.settings.view_all_card_visibility == ''
+      assign columns_to_display_inc_view_more_mobile = columns_to_display_inc_view_more_mobile | plus: 1
+    endif
+
+    assign show_mobile_slider = false
+    if section.settings.mobile_layout == 'carousel' and products_exist == false or product_count > 1 or section.settings.collection.all_products_count > 1
+      assign show_mobile_slider = true
+    endif
+
+    assign columns_to_display_inc_view_more_desktop = columns_to_display
+    if section.settings.view_all_card_visibility == 'hidden-xs' or section.settings.view_all_card_visibility == ''
+      assign columns_to_display_inc_view_more_desktop = columns_to_display_inc_view_more_desktop | plus: 1
+    endif
+
+    assign show_desktop_slider = false
+    if section.settings.desktop_layout == 'carousel'
+      assign show_desktop_slider = true
+    endif
+
+    if is_product_list
+      assign more_in_collection = true
+    endif
+
+    assign columns_desktop_scale = true
+  -%}
+
+  <div class="color-{{ section.settings.color_scheme }} isolate gradient {{ section.settings.line_separator }} {{ section.settings.visibility }} {%- render 'class-time-of-day-to-show' -%} {%if section.settings.show_quick_add%}show-quick-add{% endif %}">
+    <div
+      class="
+        collection collection-quick-add-bulk section__inner {{ section.settings.top_padding }} {{ section.settings.bottom_padding }}
+        {% if section.settings.carousel_width_desktop == 'wide' %} section-grid-wrapper--full-width{% endif %}
+      "
+      id="collection-{{ section.id }}"
+      data-id="{{ section.id }}"
+    >
+      {% if section.settings.show_view_all_link and section.settings.view_all_text != blank %}
+        {% capture view_all %}
+          <div class="section-view-all collection__view-all{% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--fade-in{% endif %}">
+            <a
+                href="{% if is_product_list %}{{ section.settings.view_all_link }}{% else %}{{ section.settings.collection.url }}{% endif %}"
+                class="link un-underlined-link button-with-icon button-with-icon--right {{ section.settings.view_all_text_size }}"
+                {% unless is_product_list %}aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title | escape }}"{% endunless %}
+            >
+              {{ section.settings.view_all_text }}
+              {% render 'icon-arrow' %}
+            </a>
+          </div>
+        {% endcapture %}
+      {% endif %}
+
+      {% render 'standard-section-heading', section_name: 'collection', section: section, view_all: view_all %}
+
+      <slider-component
+        class="
+          slider-mobile-gutter page-width-desktop
+          {% if settings.carousel_arrows == false or section.settings.carousel_width_desktop == 'narrow' and section.settings.always_show_arrows == true %} slide-component--show-arrows{% endif %}
+          {% if section.settings.carousel_width_desktop == 'wide' %} slider-component-full-width{% endif %}
+          {% if show_mobile_slider == false %} page-width{% endif %}
+          {% if show_desktop_slider %} slider-component-desktop{% if section.settings.carousel_width_desktop == 'narrow' %} slider-component--narrow-width{% endif %}{% endif %}
+          {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--slide-in{% endif %}
+        "
+      >
+        <ul
+          id="Slider-{{ section.id }}"
+          data-id="{{ section.id }}"
+          class="
+            section-grid grid product-grid contains-card contains-card--product
+            {% if settings.card_style == 'standard' %} contains-card--standard{% endif %}
+            grid--{{ columns_desktop }}-col-desktop
+            {% if columns_desktop_scale %} grid--scaled{% endif %}
+            {% if products_exist == false %}
+              grid--2-col-tablet-down
+            {% else %}
+              grid--{{ columns_mobile }}-col-tablet-down
+            {% endif %}
+            {% if show_mobile_slider or show_desktop_slider %}
+              slider
+              {% if show_desktop_slider %} slider--desktop{% endif %}
+              {% if show_mobile_slider %} slider--tablet grid--peek{% endif %}
+            {% endif %}
+          "
+          role="list"
+          aria-label="{{ 'general.slider.name' | t }}"
+        >
+          {% if products_exist %}
+            {%- for product in products limit: products_to_show -%}
+              <li
+                id="Slide-{{ section.id }}-{{ forloop.index }}"
+                data-product-id="{{ product.id }}"
+                class="
+                  grid__item
+                  {% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %}
+                  {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--slide-in{% endif %}
+                "
+                {% if settings.animations_reveal_on_scroll and section.index > 2 %}
+                  data-cascade
+                  style="--animation-order: {{ forloop.index }};"
+                {% endif %}
+              >
+                {% render 'card-product',
+                  card_product: product,
+                  section_id: section.id,
+                  columns_desktop: section.settings.columns_desktop,
+                  columns_mobile: section.settings.columns_mobile,
+                  show_quick_add: show_quick_add,
+                  horizontal_quick_add: true,
+                  product: product
+                %}
+                {%- assign last_index = forloop.index -%}
+              </li>
+            {%- endfor -%}
+          {% else %}
+            {%- for i in (1..columns_to_display) -%}
+              <li
+                id="Slide-{{ section.id }}-{{ forloop.index }}"
+                class="
+                  grid__item
+                  {% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %}
+                  {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--slide-in{% endif %}
+                "
+                {% if settings.animations_reveal_on_scroll and section.index > 2 %}
+                  data-cascade
+                  style="--animation-order: {{ forloop.index }};"
+                {% endif %}
+              >
+                {%- assign placeholder_index = forloop.rindex | at_most: 6 -%}
+                {%- assign placeholder_image = 'product-' | append: placeholder_index -%}
+                {% render 'card-product', placeholder_image: placeholder_image %}
+                {%- assign last_index = forloop.index -%}
+              </li>
+            {%- endfor -%}
+          {%- endif -%}
+
+          {%- if section.settings.view_all_card_visibility != null
+            and section.settings.view_all_card_visibility != 'off'
+            and more_in_collection
+          -%}
+            <li
+              id="Slide-{{ section.id }}-{{ last_index | plus: 1 }}"
+              class="
+                grid__item
+                {{ section.settings.view_all_card_visibility }}
+                {% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %}
+                {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--slide-in{% endif %}
+              "
+              {% if settings.animations_reveal_on_scroll and section.index > 2 %}
+                data-cascade
+                style="--animation-order: {{ last_index | plus: 1 }};"
+              {% endif %}
+            >
+              <a
+                href="{% if is_product_list %}{{ section.settings.view_all_link }}{% else %}{{ section.settings.collection.url }}{% endif %}"
+                class="flex flex-col items-center decoration-none justify-center text-center w-full h-full border-radius-product-card color-{{ section.settings.view_all_color_scheme }} isolate gradient bg-scroll"
+                aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title | escape }}"
+              >
+                <div class="card--view-more p-2 {{ section.settings.view_all_text_size }}">
+                  {%- if section.settings.view_all_card_text -%}
+                    <p class="text-heading mt-0 mb-15 last:mb-0">{{ section.settings.view_all_card_text }}</p>
+                  {%- endif -%}
+
+                  {%- if section.settings.view_all_text != blank -%}
+                    <div class="link un-underlined-link button-with-icon button-with-icon--right">
+                      {{ section.settings.view_all_text }}
+                      {% render 'icon-arrow' %}
+                    </div>
+                  {%- endif -%}
+                </div>
+              </a>
+            </li>
+          {%- endif -%}
+        </ul>
+
+        {%- if show_mobile_slider or show_desktop_slider -%}
+          <div class="slider-buttons page-width no-js-hidden">
+            <button
+              type="button"
+              class="slider-button button-control tap-target slider-button--prev"
+              name="previous"
+              aria-label="{{ 'general.slider.previous_slide' | t }}"
+              aria-controls="Slider-{{ section.id }}"
+            >
+              {% render 'icon-caret' %}
+            </button>
+
+            <div class="slider-counter caption visually-hidden">
+              <span class="slider-counter--current">1</span>
+              <span aria-hidden="true"> / </span>
+              <span>{{ 'general.slider.of' | t }}</span>
+              <span class="slider-counter--total">{{ columns_to_display }}</span>
+            </div>
+
+            <button
+              type="button"
+              class="slider-button button-control tap-target slider-button--next"
+              name="next"
+              aria-label="{{ 'general.slider.next_slide' | t }}"
+              aria-controls="Slider-{{ section.id }}"
+            >
+              {% render 'icon-caret' %}
+            </button>
+
+            <div
+              class="slider-scrollbar__track"
+              style="--num-slides: {{ last_index }}"
+              data-num-slides="{{ last_index }}"
+            >
+              <div class="slider-scrollbar__indicator"></div>
+            </div>
+          </div>
+        {%- endif -%}
+      </slider-component>
+    </div>
+  </div>
+{%- endif -%}

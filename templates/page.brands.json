@@ -1,0 +1,817 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "disabled": true,
+      "settings": {
+        "spacing": 0,
+        "color_scheme": "scheme-3",
+        "line_separator": ""
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "page_width": "narrow",
+        "content_max_width": "m",
+        "custom_page_header": false,
+        "title": "Section heading",
+        "italic_convert": "",
+        "heading_size": "h1",
+        "show_view_all_link": true,
+        "view_all_link": "",
+        "view_all_text": "",
+        "view_all_text_size": "t3",
+        "color_scheme": "",
+        "heading_tag": "h1"
+      }
+    },
+    "image_banner_r8yrqR": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_qeb9ni": {
+          "type": "heading",
+          "settings": {
+            "heading": "Shop the brands you love.",
+            "heading_italic_convert": "",
+            "heading_size": "h0",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h1"
+          }
+        },
+        "text_kdpxgX": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our top brands, delivered to your door.</p>",
+            "text_size": "t0"
+          }
+        }
+      },
+      "block_order": [
+        "heading_qeb9ni",
+        "text_kdpxgX"
+      ],
+      "settings": {
+        "image_overlay_opacity": 40,
+        "image_link": "",
+        "fix_image": false,
+        "skew_images": true,
+        "stack_images_on_mobile": false,
+        "image_ratio": "custom",
+        "desktop_section_height": 530,
+        "mobile_section_height": 340,
+        "full_width": true,
+        "full_width_animate": false,
+        "desktop_content_position": "md:justify-center md:items-center",
+        "mobile_content_position": "justify-center items-center",
+        "content_max_width": "m",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "left",
+        "show_text_box": "off",
+        "show_text_below": false,
+        "color_scheme": "scheme-3",
+        "container_color_scheme": "scheme-3",
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "hide_when_empty": false
+      }
+    },
+    "collapsible_content_U4KhiF": {
+      "type": "collapsible-content",
+      "blocks": {
+        "heading_fkxg7d": {
+          "type": "heading",
+          "settings": {
+            "heading": "A",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_Fn8qjk": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_ckJ4gx": {
+          "type": "heading",
+          "settings": {
+            "heading": "B",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_eEXkE7": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_xhrpU4": {
+          "type": "heading",
+          "settings": {
+            "heading": "C",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_b3m8Ad": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_d38VJX": {
+          "type": "heading",
+          "settings": {
+            "heading": "D",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_8XEmJg": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_UdW6jf": {
+          "type": "heading",
+          "settings": {
+            "heading": "E",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_XyieyW": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_hmH4Uy": {
+          "type": "heading",
+          "settings": {
+            "heading": "F",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_BCyHyz": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_fkxg7d",
+        "text_Fn8qjk",
+        "heading_ckJ4gx",
+        "text_eEXkE7",
+        "heading_xhrpU4",
+        "text_b3m8Ad",
+        "heading_d38VJX",
+        "text_8XEmJg",
+        "heading_UdW6jf",
+        "text_XyieyW",
+        "heading_hmH4Uy",
+        "text_BCyHyz"
+      ],
+      "settings": {
+        "one_row_at_a_time": true,
+        "show_line_separator": true,
+        "row_heading_size": "t2",
+        "row_text_size": "t4",
+        "show_header_beside": true,
+        "desktop_media_width": 25,
+        "layout": "media_first",
+        "show_search_box": false,
+        "content_max_width": "l",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "title": "<em>A-F</em>",
+        "italic_convert": "light",
+        "heading_size": "h2",
+        "text": "",
+        "text_size": "t3",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "secondary",
+        "button_text_size": "t5",
+        "button_style_show_arrow": true,
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-2",
+        "show_content_shadow": true,
+        "line_separator": "",
+        "top_padding": "pt-s15",
+        "bottom_padding": "pb-s",
+        "heading_tag": "h3",
+        "hide_when_empty": false,
+        "render_schema": false
+      }
+    },
+    "collapsible_content_9BqnQg": {
+      "type": "collapsible-content",
+      "blocks": {
+        "heading_yBDthk": {
+          "type": "heading",
+          "settings": {
+            "heading": "G",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_VXQVQ6": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_ByKEjH": {
+          "type": "heading",
+          "settings": {
+            "heading": "H",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_ww3zXm": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_bwW6AB": {
+          "type": "heading",
+          "settings": {
+            "heading": "I",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_GE4wAR": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_bhgw39": {
+          "type": "heading",
+          "settings": {
+            "heading": "J",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_MyVYT6": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_fk7cTA": {
+          "type": "heading",
+          "settings": {
+            "heading": "K",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_HN4KYb": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_yBDthk",
+        "text_VXQVQ6",
+        "heading_ByKEjH",
+        "text_ww3zXm",
+        "heading_bwW6AB",
+        "text_GE4wAR",
+        "heading_bhgw39",
+        "text_MyVYT6",
+        "heading_fk7cTA",
+        "text_HN4KYb"
+      ],
+      "settings": {
+        "one_row_at_a_time": true,
+        "show_line_separator": true,
+        "row_heading_size": "t2",
+        "row_text_size": "t4",
+        "show_header_beside": true,
+        "desktop_media_width": 25,
+        "layout": "media_first",
+        "show_search_box": false,
+        "content_max_width": "l",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "title": "<em>G-K</em>",
+        "italic_convert": "light",
+        "heading_size": "h2",
+        "text": "",
+        "text_size": "t3",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "secondary",
+        "button_text_size": "t5",
+        "button_style_show_arrow": true,
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-d69e0ed9-d207-43c6-9e73-0d91ee215dde",
+        "show_content_shadow": true,
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "heading_tag": "h3",
+        "hide_when_empty": false,
+        "render_schema": false
+      }
+    },
+    "collapsible_content_arEUDH": {
+      "type": "collapsible-content",
+      "blocks": {
+        "heading_etG89x": {
+          "type": "heading",
+          "settings": {
+            "heading": "L",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_DMpata": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_KW4eyy": {
+          "type": "heading",
+          "settings": {
+            "heading": "M",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_Tiwp4r": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_RwTbHR": {
+          "type": "heading",
+          "settings": {
+            "heading": "N",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_iqyByz": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_N79LFW": {
+          "type": "heading",
+          "settings": {
+            "heading": "O",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_fAaBjH": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_hVFWFj": {
+          "type": "heading",
+          "settings": {
+            "heading": "P",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_4x44nx": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_etG89x",
+        "text_DMpata",
+        "heading_KW4eyy",
+        "text_Tiwp4r",
+        "heading_RwTbHR",
+        "text_iqyByz",
+        "heading_N79LFW",
+        "text_fAaBjH",
+        "heading_hVFWFj",
+        "text_4x44nx"
+      ],
+      "settings": {
+        "one_row_at_a_time": true,
+        "show_line_separator": true,
+        "row_heading_size": "t2",
+        "row_text_size": "t4",
+        "show_header_beside": true,
+        "desktop_media_width": 25,
+        "layout": "media_first",
+        "show_search_box": false,
+        "content_max_width": "l",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "title": "<em>L-P</em>",
+        "italic_convert": "light",
+        "heading_size": "h2",
+        "text": "",
+        "text_size": "t3",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "secondary",
+        "button_text_size": "t5",
+        "button_style_show_arrow": true,
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-d69e0ed9-d207-43c6-9e73-0d91ee215dde",
+        "show_content_shadow": true,
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "heading_tag": "h3",
+        "hide_when_empty": false,
+        "render_schema": false
+      }
+    },
+    "collapsible_content_kMCkpt": {
+      "type": "collapsible-content",
+      "blocks": {
+        "heading_ptn4m9": {
+          "type": "heading",
+          "settings": {
+            "heading": "Q",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_LkYATd": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_MKgfwz": {
+          "type": "heading",
+          "settings": {
+            "heading": "R",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_ncF6MJ": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_FpeQ4T": {
+          "type": "heading",
+          "settings": {
+            "heading": "S",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_chMHWq": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_74wEge": {
+          "type": "heading",
+          "settings": {
+            "heading": "T",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_CaLDF7": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_rYzFfb": {
+          "type": "heading",
+          "settings": {
+            "heading": "U",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_HyRfrK": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_ptn4m9",
+        "text_LkYATd",
+        "heading_MKgfwz",
+        "text_ncF6MJ",
+        "heading_FpeQ4T",
+        "text_chMHWq",
+        "heading_74wEge",
+        "text_CaLDF7",
+        "heading_rYzFfb",
+        "text_HyRfrK"
+      ],
+      "settings": {
+        "one_row_at_a_time": true,
+        "show_line_separator": true,
+        "row_heading_size": "t2",
+        "row_text_size": "t4",
+        "show_header_beside": true,
+        "desktop_media_width": 25,
+        "layout": "media_first",
+        "show_search_box": false,
+        "content_max_width": "l",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "title": "<em>Q-U</em>",
+        "italic_convert": "light",
+        "heading_size": "h2",
+        "text": "",
+        "text_size": "t3",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "secondary",
+        "button_text_size": "t5",
+        "button_style_show_arrow": true,
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-d69e0ed9-d207-43c6-9e73-0d91ee215dde",
+        "show_content_shadow": true,
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "heading_tag": "h3",
+        "hide_when_empty": false,
+        "render_schema": false
+      }
+    },
+    "collapsible_content_aJmHVz": {
+      "type": "collapsible-content",
+      "blocks": {
+        "heading_mVNfkN": {
+          "type": "heading",
+          "settings": {
+            "heading": "V",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_PhwNFT": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_NUkRWU": {
+          "type": "heading",
+          "settings": {
+            "heading": "W",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_bGmxHB": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_RFqHVJ": {
+          "type": "heading",
+          "settings": {
+            "heading": "X",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_znWx88": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_7QYCXJ": {
+          "type": "heading",
+          "settings": {
+            "heading": "Y",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_gnPpFd": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        },
+        "heading_agdaAP": {
+          "type": "heading",
+          "settings": {
+            "heading": "Z",
+            "heading_italic_convert": "",
+            "heading_size": "h2",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "text_7BxQxE": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p><p><a href=\"/\">Example brand</a></p>",
+            "text_size": "t2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_mVNfkN",
+        "text_PhwNFT",
+        "heading_NUkRWU",
+        "text_bGmxHB",
+        "heading_RFqHVJ",
+        "text_znWx88",
+        "heading_7QYCXJ",
+        "text_gnPpFd",
+        "heading_agdaAP",
+        "text_7BxQxE"
+      ],
+      "settings": {
+        "one_row_at_a_time": true,
+        "show_line_separator": true,
+        "row_heading_size": "t2",
+        "row_text_size": "t4",
+        "show_header_beside": true,
+        "desktop_media_width": 25,
+        "layout": "media_first",
+        "show_search_box": false,
+        "content_max_width": "l",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "title": "<em>V-Z</em>",
+        "italic_convert": "light",
+        "heading_size": "h2",
+        "text": "",
+        "text_size": "t3",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "secondary",
+        "button_text_size": "t5",
+        "button_style_show_arrow": true,
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-d69e0ed9-d207-43c6-9e73-0d91ee215dde",
+        "show_content_shadow": true,
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "heading_tag": "h3",
+        "hide_when_empty": false,
+        "render_schema": false
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "main",
+    "image_banner_r8yrqR",
+    "collapsible_content_U4KhiF",
+    "collapsible_content_9BqnQg",
+    "collapsible_content_arEUDH",
+    "collapsible_content_kMCkpt",
+    "collapsible_content_aJmHVz"
+  ]
+}

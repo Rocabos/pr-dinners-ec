@@ -1,0 +1,16 @@
+{%- liquid
+    if section.settings.show_at_specific_time_of_day and request.design_mode == false
+        if section.settings.show_time_morning == false
+            echo " hidden-morning "
+        endif
+        if section.settings.show_time_afternoon == false
+            echo " hidden-afternoon "
+        endif
+        if section.settings.show_time_evening == false
+            echo " hidden-evening "
+        endif
+        if section.settings.show_time_night == false
+            echo " hidden-night "
+        endif
+    endif
+-%}

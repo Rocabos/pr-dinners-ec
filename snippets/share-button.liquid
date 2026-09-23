@@ -1,0 +1,139 @@
+{% comment %}
+  Renders share button.
+
+  Accepts:
+  - share_id: {String} Allows for unique id's (if snippet is included on the smae page more than once). (Optional)
+  - block: {Object} passes in the block information. (Optional)
+  - share_link: {String} Url to be added to share/the input the user will get/copy (WITHOUT the shop url).
+  - share_title: {String} Title to share.
+  - share_image: {String} Image to share.
+  - class: {String} CSS class to add the element (Optional).
+  - disable_css: {Boolean} Disables the inclusion of the css (Optional)
+
+  Usage:
+  {% render 'share-button',
+    block: block,
+    share_link: article.url,
+    share_title: article.title,
+    share_image: article.image
+  %}
+{% endcomment %}
+
+{%- liquid
+  assign share_link = request.origin | append: share_link
+
+  unless share_title
+    assign share_title = block.settings.share_label
+  endunless
+
+  unless show_share_button == false
+    assign show_share_button = true
+  endunless
+-%}
+
+{%- unless disable_css == true -%}
+  <link rel="stylesheet" href="{{ 'component-share-button.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endunless -%}
+
+<lazy-script data-watch-element="share-button,.product" src="{{ 'share.js' | asset_url }}" defer="defer"></lazy-script>
+
+{%- if block.settings.share_caption != blank -%}
+  <div class="caption mb-1 {{ block.settings.share_caption_text_style }} {{ block.settings.share_caption_size }}">
+    {{ block.settings.share_caption }}
+  </div>
+{%- endif -%}
+
+<ul class="social-share list-unstyled flex items-center">
+  {%- if settings.social_share_facebook != 'off' -%}
+    <li class="{{ settings.social_share_facebook }}">
+      <a class="share-button__social tap-target flex items-center justify-center"
+         href="//www.facebook.com/sharer.php?u={{ share_link }}"
+         target="_blank" rel="noopener" title="{{ 'general.social.alt_text.share_on_facebook' | t }}">
+        {% render 'icon-facebook' %}
+      </a>
+    </li>
+  {%- endif -%}
+
+  {%- if settings.social_share_twitter != 'off' -%}
+    <li class="{{ settings.social_share_twitter }}">
+      <a class="share-button__social tap-target flex items-center justify-center"
+         href="//twitter.com/intent/tweet?text={{ share_title | url_param_escape }}&amp;url={{ share_link }}"
+         target="_blank" rel="noopener" title="{{ 'general.social.alt_text.share_on_twitter' | t }}">
+        {% render 'icon-twitter' %}
+      </a>
+    </li>
+  {%- endif -%}
+
+  {%- if settings.social_share_pinterest != 'off' -%}
+    <li class="{{ settings.social_share_pinterest }}">
+      <a class="share-button__social tap-target flex items-center justify-center"
+         href="//pinterest.com/pin/create/button/?url={{ share_link }}&amp;media={{ share_image | image_url: width: 1000 }}&amp;description={{ share_title | url_param_escape }}"
+         target="_blank" rel="noopener" title="{{ 'general.social.alt_text.share_on_pinterest' | t }}">
+        {% render 'icon-pinterest' %}
+      </a>
+    </li>
+  {%- endif -%}
+
+  {%- if settings.social_share_whatsapp != 'off' -%}
+    <li class="{{ settings.social_share_whatsapp }}">
+      <a class="share-button__social tap-target flex items-center justify-center"
+         href="https://wa.me/?text={{ share_title | url_param_escape }}%20{{ share_link }}"
+         target="_blank" rel="noopener" title="{{ 'general.social.alt_text.share_on_whatsapp' | t }}">
+        {% render 'icon-whatsapp' %}
+      </a>
+    </li>
+  {%- endif -%}
+
+  {%- if settings.social_share_linkedin != 'off' -%}
+    <li class="{{ settings.social_share_linkedin }}">
+      <a class="share-button__social tap-target flex items-center justify-center"
+         href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_link }}"
+         target="_blank" rel="noopener" title="{{ 'general.social.alt_text.share_on_linkedin' | t }}">
+        {% render 'icon-linkedin' %}
+      </a>
+    </li>
+  {%- endif -%}
+
+  {%- if settings.social_share_button != 'off' -%}
+    <li class="{{ settings.social_share_button }}">
+      <share-button id="Share-{{ section.id }}{{ share_id }}" class="share-button tap-target quick-add-hidden"{% if block %} {{ block.shopify_attributes }}{% endif %}>
+        <button class="share-button__button hidden" aria-label="{{ 'products.product.share' | t }}">
+          {% render 'icon-share' %}
+        </button>
+
+        <details id="Details-{% if block %}{{ block.id }}{% endif %}-{{ section.id }}{{ share_id }}">
+          <summary class="share-button__button">
+            {% render 'icon-share' %}
+          </summary>
+          <div class="share-button__fallback motion-reduce">
+            <div class="field">
+              <span id="ShareMessage-{{ section.id }}{{ share_id }}" class="share-button__message hidden" role="status"> </span>
+              <input
+                  type="text"
+                  class="field__input"
+                  id="ShareUrl-{{ section.id }}{{ share_id }}"
+                  value="{{ share_link }}"
+                  placeholder="{{ 'general.share.share_url' | t }}"
+                  onclick="this.select();"
+                  readonly
+              >
+              <label class="field__label visually-hidden" for="ShareUrl-{{ section.id }}{{ share_id }}">{{ 'general.share.share_url' | t }}</label>
+            </div>
+
+            <button class="share-button__close focus-inset hidden no-js-hidden">
+              {% render 'icon-close' %}
+              <span class="visually-hidden">{{ 'general.share.close' | t }}</span>
+            </button>
+
+            <button class="share-button__copy focus-inset no-js-hidden">
+              {% render 'icon-clipboard' %}
+              <span class="visually-hidden">{{ 'general.share.copy_to_clipboard' | t }}</span>
+            </button>
+          </div>
+        </details>
+      </share-button>
+    </li>
+  {%- endif -%}
+</ul>
+
+

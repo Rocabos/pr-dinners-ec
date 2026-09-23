@@ -1,0 +1,113 @@
+<modal-checkout class="modal-checkout-address" style="display: none;">
+  <close-modal id="close-modal-checkout">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M6.39989 18.3079L5.69189 17.5999L11.2919 11.9999L5.69189 6.39989L6.39989 5.69189L11.9999 11.2919L17.5999 5.69189L18.3079 6.39989L12.7079 11.9999L18.3079 17.5999L17.5999 18.3079L11.9999 12.7079L6.39989 18.3079Z" fill="#474747"></path>
+    </svg>
+  </close-modal>
+  <div class="content-checkout-address">
+    <div id="container-mobile-title-main">
+      <p class="text-title">Proceso de compra</p>
+      <span class="text-subtitle">Ingreso de datos</span>
+    </div>
+
+    <div id="summary-cart">
+      <div id="logo-desk-cart" class="logo-main-page">
+        <img src="{{ 'diners_club_2_x320.webp' | asset_url }}" alt="DINERSCLUB" >      
+      </div>
+      <div id="items-cart-pop-up"></div>
+      <div id="total-cart-pop-up">
+        <p id="text-info-cart-pop-up">Resumen de pedido</p>
+        <p id="prices-cart-pop-up">
+          <span id="price-without-discount-cart-pop-up"></span>
+          <span id="price-with-discount-cart-pop-up"></span>
+        </p>
+      </div>
+    </div>
+
+    <div id="divider-cart"></div>
+    <div id="content-checkout">
+      <hr id="mobile-divider-sumary-content">
+      <div id="container-desk-title-main">
+        <p class="text-title">Proceso de compra</p>
+        <span class="text-subtitle">Ingreso de datos</span>
+      </div>
+
+      <div class="s-form-row">
+        <div class="s-text-field" data-required="true">
+          <input id="email-client" class="input-checkout s-text-field__input" type="email" placeholder=" " autocomplete="email" required>
+          <label class="s-text-field__label" for="email-client">Correo electrónico</label>
+        </div>
+      </div>
+
+      <div class="s-form-row s-form-row--2">
+        <div class="s-text-field" data-required="true">
+          <input id="first-name-client" class="input-checkout s-text-field__input" type="text" placeholder=" " autocomplete="given-name" required>
+          <label class="s-text-field__label" for="first-name-client">Nombre</label>
+        </div>
+        <div class="s-text-field" data-required="true">
+          <input id="last-name-client" class="input-checkout s-text-field__input" type="text" placeholder=" " autocomplete="family-name" required>
+          <label class="s-text-field__label" for="last-name-client">Apellidos</label>
+        </div>
+      </div>
+
+      <hr class="s-divider"/>
+
+      <div class="s-form-row s-form-row--doc">
+        <div class="s-text-field s-text-field--select" data-required="true">
+          <select id="doc-type-client" class="input-checkout s-text-field__input" required></select>
+          <label class="s-text-field__label" for="doc-type-client">Tipo de documento</label>
+        </div>
+        <div class="s-text-field" data-required="true">
+          <input id="RUT-client" class="input-checkout s-text-field__input" type="text" placeholder=" " required>
+          <label id="doc-number-label" class="s-text-field__label" for="RUT-client">Documento</label>
+        </div>
+      </div>
+
+      <div class="s-form-row">
+        <div class="s-text-field" data-required="true">
+          <input id="address-client" class="input-checkout s-text-field__input" type="text" placeholder=" " autocomplete="street-address" required>
+          <label class="s-text-field__label" for="address-client">Dirección (Calle, casa/edificio, apartamento,etc.)</label>
+        </div>
+      </div>
+
+      <div class="s-form-row">
+        <div class="s-text-field" data-required="true">
+          <input id="phone-client" class="input-checkout s-text-field__input" type="tel" placeholder=" " autocomplete="tel" required>
+          <label class="s-text-field__label" for="phone-client">Teléfono</label>
+        </div>
+      </div>
+
+      <hr class="s-divider"/>
+
+      <div class="s-form-row s-form-row--3">
+        <div class="s-text-field s-text-field--select" data-required="true">
+          <select id="level3-client" class="input-checkout s-text-field__input"></select>
+          <label class="s-text-field__label" for="level3-client">Provincia</label>
+        </div>
+        <div class="s-text-field s-text-field--select" data-required="true">
+          <select id="level2-client" class="input-checkout s-text-field__input"></select>
+          <label class="s-text-field__label" for="level2-client">Cantón</label>
+        </div>
+        <div class="s-text-field s-text-field--select" data-required="true">
+          <select id="level1-client" class="input-checkout s-text-field__input"></select>
+          <label class="s-text-field__label" for="level1-client">Parroquia</label>
+        </div>
+      </div>
+
+      <div class="s-form row s-form-row--terms">
+        <input id="terms-client" class="input-checkout s-text-field__input" type="checkbox" required>
+        <label for="terms-client">He leído y acepto los  <a href="/policies/terms-of-service" target="_blank">Términos y Condiciones</a> y <a href="/policies/privacy-policy" target="_blank">politicas de privacidad.</a></label>
+      </div>
+
+      <div class="container-btns-checkout">
+        <div class="container-btn-checkout flex-cart padding-cart">
+          <back-modal id="btn-close-modal">Volver</back-modal>
+        </div>
+        <div id="container-btn-checkout" class="container-btn-checkout flex-cart">
+          <div id="spinner-btn-save" class="spinner-btn-save" style="display: none;"></div>
+          <button id="btn-save-pre-checkout" class="full" onclick="savePreCheckout()">Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal-checkout>

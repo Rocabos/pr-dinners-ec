@@ -1,0 +1,80 @@
+<div class="color-scheme-2 gradient p-2 border-radius-panel card--shadow mt-1">
+  <h2 class="h4 text-center">{{ shop.name }}</h2>
+
+  <div class="gift-card__text-wrapper">
+    <p class="gift-card__text">{{ 'gift_cards.issued.how_to_use_gift_card' | t }}</p>
+  </div>
+
+  <div class="gift-card__image-wrapper">
+    {%- if section.settings.image != blank -%}
+      {%- liquid
+        assign image_width = section.settings.image_width
+        assign image_width_double = image_width | times: 2
+      -%}
+      <img src="{{ section.settings.image | image_url: width: image_width_double }}" loading="lazy" fetchpriority="low" class="border-radius-media" width="auto" height="{{ image_width | divided_by: section.settings.image.aspect_ratio | ceil }}" alt="{{ section.settings.image.alt | escape }}">
+    {%- else %}
+      <img
+          class="gift-card__image"
+          src="{{ 'gift-card/card.svg' | shopify_asset_url }}"
+          alt="{{ shop.name | escape }}"
+          height="{{ 570 | divided_by: 1.5 }}"
+          width="570"
+          loading="lazy"
+          fetchpriority="low"
+      >
+    {%- endif %}
+  </div>
+
+  <p id="gift-card-code" class="gift-card__number">{{ gift_card.code | format_code }}</p>
+
+  <div class="gift-card__qr-code" data-identifier="{{ gift_card.qr_identifier }}"></div>
+
+  {%- if gift_card.pass_url -%}
+    <a href="{{ gift_card.pass_url }}" class="gift_card__apple-wallet no-print">
+      <img
+          src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}"
+          width="120"
+          height="40"
+          alt="{{ 'gift_cards.issued.add_to_apple_wallet' | t }}"
+          loading="lazy"
+          fetchpriority="low"
+      >
+    </a>
+  {%- endif -%}
+
+  <div class="gift-card__buttons no-print">
+    <a
+        href="{{ shop.url }}"
+        class="button button--secondary text-center"
+        target="_blank"
+        rel="noopener"
+        aria-describedby="a11y-new-window-message"
+    >
+      {{ 'gift_cards.issued.shop_link' | t }}
+    </a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Gift card",
+  "class": "gift-card section-main-gift-card",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Custom image"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 30,
+      "max": 500,
+      "step": 10,
+      "default": 380,
+      "unit": "px",
+      "label": "Custom image width"
+    }
+  ]
+}
+{% endschema %}

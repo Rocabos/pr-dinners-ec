@@ -1,0 +1,71 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-register",
+      "blocks": {
+        "text_nQPPNe": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Register for exclusive member-only discounts and faster checkout.<\/p>",
+            "text_size": "t3"
+          }
+        },
+        "registration_form_NqiPmw": {
+          "type": "registration_form",
+          "settings": {
+            "show_register_link": true
+          }
+        }
+      },
+      "block_order": [
+        "text_nQPPNe",
+        "registration_form_NqiPmw"
+      ],
+      "settings": {
+        "full_width": false,
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "image_overlay_opacity": 20,
+        "desktop_section_height": 500,
+        "mobile_section_height": 400,
+        "desktop_media_width": 50,
+        "layout": "media_first",
+        "show_header_beside": false,
+        "content_max_width": "m",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "desktop_content_position": "md:justify-start md:items-end",
+        "mobile_content_position": "justify-center items-center",
+        "title": "",
+        "italic_convert": "",
+        "heading_size": "h2",
+        "text": "",
+        "text_size": "t3",
+        "button_text_size": "t5",
+        "button_label": "",
+        "button_link": "\/",
+        "button_style": "secondary",
+        "button_style_show_arrow": true,
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image_overlay_color_scheme": "scheme-6",
+        "show_content_shadow": true,
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "heading_tag": "h1"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,26 @@
+.contact img {
+  max-width: 100%;
+}
+
+.contact .form__error .form__message {
+  font-size: 1.3rem;
+}
+
+.contact .form__error .icon-error {
+  height: 2rem;
+  margin-inline-end: .2rem;
+  width: 2rem;
+}
+
+.contact-form__heading,
+.contact-form__text {
+  margin: 0;
+}
+
+.contact .image-with-text__content {
+  overflow: visible !important; /* Necessary to not cut off long dropdown contents */
+}
+
+.contact-form__heading {
+  text-align: start;
+}

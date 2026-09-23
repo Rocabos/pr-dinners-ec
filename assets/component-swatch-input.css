@@ -1,0 +1,93 @@
+/* swatch-input lives in its own file for reusability of the swatch in other areas than the product form context */
+.swatch-input__input + .swatch-input__label {
+  display: inline-block;
+  max-width: 100%;
+  border-radius: var(--swatch-input--border-radius);
+  cursor: pointer;
+  forced-color-adjust: none;
+  transform: translateZ(0);
+  top: 0;
+}
+
+.swatch-input__input + .swatch-input__label .swatch,
+.product__group--link {
+  outline-offset: 2px;
+  outline-color: transparent;
+  outline-style: solid;
+  transition-property: outline-color, outline-width, box-shadow;
+  transition-duration: var(--duration-short);
+  transition-timing-function: ease;
+}
+
+.swatch--color {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Active state */
+.swatch-input__input:active + .swatch-input__label .swatch,
+.swatch-input__input:checked + .swatch-input__label .swatch,
+.product__group--link-active {
+  outline: 2px solid rgba(var(--color-foreground), 0.8);
+}
+
+/* Hover state */
+.swatch-input__input + .swatch-input__label:hover .swatch,
+.swatch-input__input:hover + .swatch-input__label .swatch,
+.product__group--link:not(.product__group--link-unavailable):hover {
+  outline: 2px solid rgba(var(--color-foreground), 0.4);
+}
+
+/* Focus visible */
+.swatch-input__input:focus-visible + .swatch-input__label .swatch {
+  outline: 2px solid rgba(var(--color-foreground), 0.5);
+  box-shadow: 0 0 0 2px rgb(var(--color-background)), 0 0 0.1rem 0.5rem rgba(var(--color-foreground), 0.25);
+}
+
+/* Active and focused */
+.swatch-input__input:active:focus-visible + .swatch-input__label .swatch,
+.swatch-input__input:checked:focus-visible + .swatch-input__label .swatch,
+.product__group--link:focus {
+  outline: 0.1rem solid rgb(var(--color-foreground));
+  box-shadow: 0 0 0 2px rgb(var(--color-background)), 0 0 0.1rem 0.4rem rgba(var(--color-foreground), 0.25);
+}
+
+/* Disabled swatches */
+/* Overrides for swatch snippet when used inside disabled swatch-input */
+.swatch-input__input.disabled + .swatch-input__label > .swatch {
+  position: relative;
+  overflow: hidden;
+}
+
+.product__group--link-unavailable {
+  --swatch-input--size: 100%;
+}
+
+/* Disabled styles */
+.swatch-input__input.disabled + .swatch-input__label > .swatch,
+.product__group--link-unavailable {
+  opacity: 0.4;
+  filter: sepia(0.5);
+  border: 0;
+}
+
+.facets__label.disabled:has(.swatch-input-wrapper) .swatch-input__input.disabled + .swatch-input__label > .swatch {
+  opacity: 1;
+}
+
+/* Display crossed out line over swatch when input is disabled */
+.swatch-input__input.disabled + .swatch-input__label > .swatch::after,
+.product__group--link-unavailable::after {
+  /* Diagonal of a square = length of the side * sqrt(2)  */
+  --diagonal--size: calc(var(--swatch-input--size) * 1.414);
+  --crossed-line--size: 2px;
+  content: '';
+  position: absolute;
+  bottom: calc(var(--crossed-line--size) * -0.5);
+  left: 0;
+  width: var(--diagonal--size);
+  height: var(--crossed-line--size);
+  background-color: rgb(var(--color-background), 0.5);
+  backdrop-filter: invert(1);
+  transform: rotate(-45deg);
+  transform-origin: left;
+}

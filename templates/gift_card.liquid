@@ -1,0 +1,631 @@
+{%- comment -%}theme-check-disable LiquidTag{%- endcomment -%}
+{% layout none %}
+{%- liquid
+  assign is_rtl = false
+  assign rtl_languages = 'ar,arc,dv,fa,ha,he,khw,ks,ku,ps,ur,yi' | split: ','
+  assign current_lang = localization.language.iso_code | split: '-' | first
+
+  if rtl_languages contains current_lang
+    assign is_rtl = true
+  endif
+-%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}"{% if is_rtl %} dir="rtl"{% endif %}>
+  <head>
+    <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_background }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- unless settings.type_header_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    {%- assign formatted_balance = gift_card.balance | money_without_trailing_zeros | strip_html -%}
+
+    <title>{{ 'gift_cards.issued.title' | t: value: formatted_balance, shop: shop.name }}</title>
+
+    <meta name="description" content="{{ 'gift_cards.issued.subtext' | t }}">
+
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+
+    {%- if settings.animations_reveal_on_scroll -%}
+      <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+    {%- if request.design_mode -%}
+      <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+    {{ content_for_header }}
+
+    {%- liquid
+      # Theme constants
+      assign card_border_thickness = 0
+      assign card_border_opacity = 0
+      assign card_shadow_opacity = 0
+      assign card_shadow_horizontal_offset = 0
+      assign card_shadow_vertical_offset = 0
+      assign card_shadow_blur = 0
+
+      assign collection_card_border_thickness = 0
+      assign collection_card_border_opacity = 0
+      assign collection_card_image_padding = 0
+      assign collection_card_shadow_opacity = 0
+      assign collection_card_shadow_horizontal_offset = 0
+      assign collection_card_shadow_vertical_offset = 0
+      assign collection_card_shadow_blur = 0
+
+      assign blog_card_border_thickness = 0
+      assign blog_card_border_opacity = 0
+      assign blog_card_shadow_opacity = 0
+      assign blog_card_shadow_horizontal_offset = 0
+      assign blog_card_shadow_vertical_offset = 0
+      assign blog_card_shadow_blur = 0
+
+      assign text_boxes_border_thickness = 0
+      assign text_boxes_border_opacity = 0
+      assign text_boxes_shadow_opacity = 0
+      assign text_boxes_shadow_horizontal_offset = 0
+      assign text_boxes_shadow_vertical_offset = 0
+      assign text_boxes_shadow_blur = 0
+
+      assign media_border_thickness = 0
+      assign media_border_opacity = 0
+      assign media_shadow_opacity = 0
+      assign media_shadow_horizontal_offset = 0
+      assign media_shadow_vertical_offset = 0
+      assign media_shadow_blur = 0
+
+      assign popup_border_thickness = 1
+      assign popup_border_opacity = 8
+      assign popup_shadow_opacity = 15
+      assign popup_shadow_horizontal_offset = 0
+      assign popup_shadow_vertical_offset = 0
+      assign popup_shadow_blur = 5
+
+      assign buttons_border_opacity = 100
+      assign buttons_shadow_opacity = 0
+      assign buttons_shadow_horizontal_offset = 0
+      assign buttons_shadow_vertical_offset = 0
+      assign buttons_shadow_blur = 0
+
+      assign inputs_border_opacity = 35
+      assign inputs_shadow_opacity = 0
+      assign inputs_shadow_horizontal_offset = 0
+      assign inputs_shadow_vertical_offset = 0
+      assign inputs_shadow_blur = 0
+
+      assign variant_pills_border_opacity = inputs_border_opacity
+      assign variant_pills_shadow_opacity = 0
+      assign variant_pills_shadow_horizontal_offset = 0
+      assign variant_pills_shadow_vertical_offset = 0
+      assign variant_pills_shadow_blur = 0
+
+      # Fonts
+      assign header_font_bold = settings.type_header_font | font_modify: 'weight', 'bold'
+      assign header_font_medium = settings.type_header_font | font_modify: 'weight', '500'
+      assign body_font_medium = settings.type_body_font | font_modify: 'weight', '500'
+      assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
+      assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
+      assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+    %}
+
+    {% style %}
+      {{ settings.type_body_font | font_face: font_display: 'swap' }}
+      {%- if settings.type_header_font != settings.type_body_font -%}{{ settings.type_header_font | font_face: font_display: settings.font_display }}{%- endif -%}
+
+      {{ body_font_medium | font_face: font_display: 'swap' }}
+      {{ body_font_bold | font_face: font_display: 'swap' }}
+      {{ body_font_italic | font_face: font_display: 'swap' }}
+      {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+      {{ header_font_bold | font_face: font_display: 'swap' }}
+      {{ header_font_medium | font_face: font_display: 'swap' }}
+
+      {%- assign color_schemes_with_heading_gradient = "" -%}
+      {% for scheme in settings.color_schemes -%}
+        {% assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id %}
+        {% if forloop.index == 1 -%}
+          :root,
+        {%- endif %}
+        .color-{{ scheme.id }} {
+          --color-background: {{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }};
+          --color-background-accent: {{ scheme.settings.background_accent.red }},{{ scheme.settings.background_accent.green }},{{ scheme.settings.background_accent.blue }};
+        {% if scheme.settings.background_gradient != empty %}
+          --gradient-background: {{ scheme.settings.background_gradient }};
+        {% else %}
+          --gradient-background: {{ scheme.settings.background }};
+        {% endif %}
+
+        {% liquid
+          assign background_color = scheme.settings.background
+          assign background_color_brightness = background_color | color_brightness
+          if background_color_brightness <= 26
+            assign background_color_contrast = background_color | color_lighten: 50
+          elsif background_color_brightness <= 65
+            assign background_color_contrast = background_color | color_lighten: 5
+          else
+            assign background_color_contrast = background_color | color_darken: 25
+          endif
+        %}
+
+        --color-foreground: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }};
+        --color-heading: {{ scheme.settings.heading.red }},{{ scheme.settings.heading.green }},{{ scheme.settings.heading.blue }};
+        --color-background-contrast: {{ background_color_contrast.red }},{{ background_color_contrast.green }},{{ background_color_contrast.blue }};
+        --color-shadow: 0, 0, 0;
+        --color-button: {{ scheme.settings.button.red }},{{ scheme.settings.button.green }},{{ scheme.settings.button.blue }};
+        --color-button-alpha: {{ scheme.settings.button.alpha }};
+        {% if scheme.settings.button_background_gradient != blank %}
+        --color-button-gradient: {{ scheme.settings.button_background_gradient }};
+        {% else %}
+          --color-button-gradient: none;
+        {% endif %}
+        --color-button-text: {{ scheme.settings.button_label.red }},{{ scheme.settings.button_label.green }},{{ scheme.settings.button_label.blue }};
+        --color-secondary-button: {{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }};
+        --color-secondary-button-text: {{ scheme.settings.secondary_button_label.red }},{{ scheme.settings.secondary_button_label.green }},{{ scheme.settings.secondary_button_label.blue }};
+        --color-link: {{ scheme.settings.link.red }},{{ scheme.settings.link.green }},{{ scheme.settings.link.blue }};
+        --color-caption: {{ scheme.settings.caption.red }},{{ scheme.settings.caption.green }},{{ scheme.settings.caption.blue }};
+        --color-badge-foreground: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }};
+        --color-badge-background: {{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }};
+        --color-badge-border: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }};
+        --color-accent: {{ scheme.settings.accent.red }},{{ scheme.settings.accent.green }},{{ scheme.settings.accent.blue }};
+        --payment-terms-background-color: rgb({{ scheme.settings.background.rgb }});
+
+        {% if scheme.settings.heading_background_gradient == blank %}
+          --color-heading-gradient-background: none;
+          --color-heading-gradient-background-clip: border-box;
+          --color-heading-gradient-fill: currentColor;
+        {% else %}
+          --color-heading-gradient-background: -webkit-{{ scheme.settings.heading_background_gradient }};
+          --color-heading-gradient-background-clip: text;
+          --color-heading-gradient-fill: transparent;
+          {%- assign color_schemes_with_heading_gradient = color_schemes_with_heading_gradient | append: "," | append: ".color-" | append: scheme.id -%}
+        {% endif %}
+
+        {% if scheme.settings.accent_gradient == blank %}
+          --color-accent-gradient-background: none;
+          --color-accent-gradient-background-clip: border-box;
+          --color-accent-gradient-fill: currentColor;
+        {% else %}
+          --color-accent-gradient-background: -webkit-{{ scheme.settings.accent_gradient }};
+          --color-accent-gradient-background-clip: text;
+          --color-accent-gradient-fill: transparent;
+        {% endif %}
+      }
+      {% endfor %}
+
+      {% if color_schemes_with_heading_gradient != blank %}
+        {% comment %}Heading text with gradient background{% endcomment %}
+        :is({{ color_schemes_with_heading_gradient | remove_first: ',' }}) :is(h1, h2, h3, h4, h5, h6).inline-richtext a {
+          box-shadow: 0 0.2rem 0 0 rgb(var(--color-heading));
+        }
+      {% endif %}
+
+      {{ scheme_classes | prepend: 'body' }} {
+        color: rgb(var(--color-foreground));
+        background-color: rgb(var(--color-background));
+      }
+
+      :root {
+        --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+        --font-body-style: {{ settings.type_body_font.style }};
+        --font-body-weight: {{ settings.type_body_font.weight }};
+        --font-body-weight-bold: {{ settings.type_body_font.weight | plus: 300 | at_most: 1000 }};
+        --font-body-letter-spacing: {{ settings.body_letter_spacing | plus: 1 | times: 0.001 }}em;
+
+        --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
+        --font-heading-style: {{ settings.type_header_font.style }};
+        --font-heading-weight: {{ settings.type_header_font.weight }};
+
+        --font-button-font-weight: {{ settings.button_text_font_weight }};
+        --font-button-case: {{ settings.button_text_transform }};
+        --font-button-icon-offset: {% if settings.button_text_transform == 'uppercase' %}-0.1rem{% else %}0.1rem{% endif %};
+        --font-button-letter-spacing: {{ settings.button_letter_spacing | plus: 1 | times: 0.01 }}em;
+        --font-button-text-size: {% if settings.button_text_transform == 'uppercase' %}1.3rem{% else %}1.5rem{% endif %};
+
+        --font-body-scale: {{ settings.body_scale | divided_by: 100.0 }};
+        --font-heading-scale: {{ settings.heading_scale | times: 1.0 | divided_by: settings.body_scale }};
+        --font-heading-case: {{ settings.heading_text_transform }};
+        --font-heading-letter-spacing: {{ settings.heading_letter_spacing | plus: 1 | times: 0.001 }}em;
+
+        --media-padding: {{ settings.media_padding }}px;
+        --media-border-opacity: {{ media_border_opacity | divided_by: 100.0 }};
+        --media-border-width: {{ media_border_thickness }}px;
+        --media-radius: {{ settings.text_boxes_radius }}px;
+        --media-shadow-opacity: {{ media_shadow_opacity | divided_by: 100.0 }};
+        --media-shadow-horizontal-offset: {{ media_shadow_horizontal_offset }}px;
+        --media-shadow-vertical-offset: {{ media_shadow_vertical_offset }}px;
+        --media-shadow-blur-radius: {{ media_shadow_blur }}px;
+        --media-shadow-visible: {% if media_shadow_opacity > 0 %}1{% else %}0{% endif %};
+
+        --page-width: {{ settings.page_width | divided_by: 10 }}rem;
+        --px-mobile: 2rem;
+        --page-width-margin: {% if settings.page_width == '1600' %}2{% else %}0{% endif %}rem;
+
+        --product-card-image-padding: {{ settings.card_image_padding | divided_by: 10.0 }}rem;
+        --product-card-image-scale: {{ settings.card_image_scale | divided_by: 100.0 }};
+        --product-card-corner-radius: {{ settings.card_corner_radius | divided_by: 10.0 }}rem;
+        --product-card-text-alignment: {% if settings.card_text_alignment == 'left' %}start{% elsif settings.card_text_alignment == 'right' %}end{% else %}{{ settings.card_text_alignment }}{% endif %};
+        --product-card-border-width: {{ card_border_thickness | divided_by: 10.0 }}rem;
+        --product-card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};
+        --product-card-shadow-opacity: {{ card_shadow_opacity | divided_by: 100.0 }};
+        --product-card-shadow-visible: {% if card_shadow_opacity > 0 %}1{% else %}0{% endif %};
+        --product-card-shadow-horizontal-offset: {{ card_shadow_horizontal_offset | divided_by: 10.0 }}rem;
+        --product-card-shadow-vertical-offset: {{ card_shadow_vertical_offset | divided_by: 10.0 }}rem;
+        --product-card-shadow-blur-radius: {{ card_shadow_blur | divided_by: 10.0 }}rem;
+        --product-card-star-color: {{ settings.card_star_color.red }},{{ settings.card_star_color.green }},{{ settings.card_star_color.blue }};
+        --product-card-icon-width: {{ settings.product_icons_size }}px;
+
+        --inventory-stock-low-color: {{ settings.stock_low.red }},{{ settings.stock_low.green }},{{ settings.stock_low.blue }};
+        --inventory-stock-normal-color: {{ settings.stock_normal.red }},{{ settings.stock_normal.green }},{{ settings.stock_normal.blue }};
+        --inventory-stock-continue-color: {{ settings.stock_continue.red }},{{ settings.stock_continue.green }},{{ settings.stock_continue.blue }};
+        --inventory-stock-out-color: {{ settings.stock_out.red }},{{ settings.stock_out.green }},{{ settings.stock_out.blue }};
+
+        {% unless settings.card_price_color == blank or settings.card_price_color.alpha == 0 %}
+          --product-card-price-color: {{ settings.card_price_color.red }},{{ settings.card_price_color.green }},{{ settings.card_price_color.blue }};
+        {% endunless %}
+
+        {% unless settings.card_image_background == blank %}
+        --product-card-image-background: {{ settings.card_image_background.red }},{{ settings.card_image_background.green }},{{ settings.card_image_background.blue }},{{ settings.card_image_background.alpha }};
+        {% endunless %}
+
+        --collection-card-image-padding: {{ collection_card_image_padding | divided_by: 10.0 }}rem;
+        --collection-card-corner-radius: {{ settings.collection_card_corner_radius | divided_by: 10.0 }}rem;
+        --collection-card-image-scale: {{ settings.collection_card_image_scale | divided_by: 100.0 }};
+        --collection-card-text-alignment: {% if settings.collection_card_text_alignment == 'left' %}start{% elsif settings.collection_card_text_alignment == 'right' %}end{% else %}{{ settings.collection_card_text_alignment }}{% endif %};
+        --collection-card-border-width: {{ collection_card_border_thickness | divided_by: 10.0 }}rem;
+        --collection-card-border-opacity: {{ collection_card_border_opacity | divided_by: 100.0 }};
+        --collection-card-shadow-opacity: {{ collection_card_shadow_opacity | divided_by: 100.0 }};
+        --collection-card-shadow-visible: {% if collection_card_shadow_opacity > 0 %}1{% else %}0{% endif %};
+        --collection-card-shadow-horizontal-offset: {{ collection_card_shadow_horizontal_offset | divided_by: 10.0 }}rem;
+        --collection-card-shadow-vertical-offset: {{ collection_card_shadow_vertical_offset | divided_by: 10.0 }}rem;
+        --collection-card-shadow-blur-radius: {{ collection_card_shadow_blur | divided_by: 10.0 }}rem;
+        --collection-card-image-background: {{ settings.collection_card_image_background.red }},{{ settings.collection_card_image_background.green }},{{ settings.collection_card_image_background.blue }},{{ settings.collection_card_image_background.alpha }};
+
+        --blog-card-image-padding: {{ settings.blog_card_image_padding | divided_by: 10.0 }}rem;
+        --blog-card-corner-radius: {{ settings.blog_card_corner_radius | divided_by: 10.0 }}rem;
+        --blog-card-border-width: {{ blog_card_border_thickness | divided_by: 10.0 }}rem;
+        --blog-card-border-opacity: {{ blog_card_border_opacity | divided_by: 100.0 }};
+        --blog-card-shadow-opacity: {{ blog_card_shadow_opacity | divided_by: 100.0 }};
+        --blog-card-shadow-visible: {% if blog_card_shadow_opacity > 0 %}1{% else %}0{% endif %};
+        --blog-card-shadow-horizontal-offset: {{ blog_card_shadow_horizontal_offset | divided_by: 10.0 }}rem;
+        --blog-card-shadow-vertical-offset: {{ blog_card_shadow_vertical_offset | divided_by: 10.0 }}rem;
+        --blog-card-shadow-blur-radius: {{ blog_card_shadow_blur | divided_by: 10.0 }}rem;
+        --blog-card-image-background: {{ settings.blog_card_image_background.red }},{{ settings.blog_card_image_background.green }},{{ settings.blog_card_image_background.blue }},{{ settings.blog_card_image_background.alpha }};
+
+        {% liquid
+          # Determine the font size
+          if settings.badge_text_size == "xs"
+            assign badge_font_size = "1rem"
+          elsif settings.badge_text_size == "s"
+            assign badge_font_size = "1.1rem"
+          elsif settings.badge_text_size == "m"
+            assign badge_font_size = "1.2rem"
+          elsif settings.badge_text_size == "l"
+            assign badge_font_size = "1.3rem"
+          elsif settings.badge_text_size == "xl"
+            assign badge_font_size = "1.5rem"
+          endif
+        %}
+
+        --badge-text-size: {{ badge_font_size }};
+        --badge-text-weight: {{ settings.badge_text_weight }};
+        --badge-border-width: 1px;
+        --badge-border-style: solid;
+
+        --badge-sold-out-foreground: {{ settings.badge_sold_out_text_color.rgba }};
+        --badge-sold-out-border: {{ settings.badge_sold_out_border_color.rgba }};
+        --badge-sold-out-background: {% if settings.badge_sold_out_background_gradient != blank %}{{ settings.badge_sold_out_background_gradient }}{% else %}{{ settings.badge_sold_out_bg_color }}{% endif %};
+        {% if settings.badge_custom_show %}
+        --badge-custom-foreground: {{ settings.badge_custom_text_color.rgba }};
+        --badge-custom-border: {{ settings.badge_custom_border_color.rgba }};
+        --badge-custom-background: {% if settings.badge_custom_background_gradient != blank %}{{ settings.badge_custom_background_gradient }}{% else %}{{ settings.badge_custom_bg_color }}{% endif %};
+        {% endif %}
+        {% if settings.badge_preorder_show or settings.badge_preorder_show_cart %}
+        --badge-preorder-foreground: {{ settings.badge_preorder_text_color.rgba }};
+        --badge-preorder-border: {{ settings.badge_preorder_border_color.rgba }};
+        --badge-preorder-background: {% if settings.badge_preorder_background_gradient != blank %}{{ settings.badge_preorder_background_gradient }}{% else %}{{ settings.badge_preorder_bg_color }}{% endif %};
+        {% endif %}
+        {% if settings.badge_bulk_show %}
+        --badge-bulk-foreground: {{ settings.badge_bulk_text_color.rgba }};
+        --badge-bulk-border: {{ settings.badge_bulk_border_color.rgba }};
+        --badge-bulk-background: {% if settings.badge_bulk_background_gradient != blank %}{{ settings.badge_bulk_background_gradient }}{% else %}{{ settings.badge_bulk_bg_color }}{% endif %};
+        {% endif %}
+        {% if settings.badge_new_show %}
+        --badge-new-foreground: {{ settings.badge_new_text_color.rgba }};
+        --badge-new-border: {{ settings.badge_new_border_color.rgba }};
+        --badge-new-background: {% if settings.badge_new_background_gradient != blank %}{{ settings.badge_new_background_gradient }}{% else %}{{ settings.badge_new_bg_color }}{% endif %};
+        {% endif %}
+        {% if settings.badge_sale_show %}
+        --badge-sale-foreground: {{ settings.badge_sale_text_color.rgba }};
+        --badge-sale-border: {{ settings.badge_sale_border_color.rgba }};
+        --badge-sale-background: {% if settings.badge_sale_background_gradient != blank %}{{ settings.badge_sale_background_gradient }}{% else %}{{ settings.badge_sale_bg_color }}{% endif %};
+        {% endif %}
+
+        --popup-border-width: {{ popup_border_thickness }}px;
+        --popup-border-opacity: {{ popup_border_opacity | divided_by: 100.0 }};
+        --popup-corner-radius: {{ settings.popup_corner_radius }}px;
+        --promo-corner-radius: {{ settings.promo_corner_radius }}px;
+        --popup-shadow-opacity: {{ popup_shadow_opacity | divided_by: 100.0 }};
+        --popup-shadow-horizontal-offset: {{ popup_shadow_horizontal_offset }}px;
+        --popup-shadow-vertical-offset: {{ popup_shadow_vertical_offset }}px;
+        --popup-shadow-blur-radius: {{ popup_shadow_blur }}px;
+
+        --drawer-border-width: {{ settings.drawer_border_thickness }}px;
+        --drawer-border-opacity: {{ settings.drawer_border_opacity | divided_by: 100.0 }};
+        --drawer-shadow-opacity: {{ settings.drawer_shadow_opacity | divided_by: 100.0 }};
+        --drawer-shadow-horizontal-offset: {{ settings.drawer_shadow_horizontal_offset }}px;
+        --drawer-shadow-vertical-offset: {{ settings.drawer_shadow_vertical_offset }}px;
+        --drawer-shadow-blur-radius: {{ settings.drawer_shadow_blur }}px;
+
+        --grid-desktop-vertical-spacing: {{ settings.spacing_grid }}px;
+        --grid-desktop-horizontal-spacing: {{ settings.spacing_grid }}px;
+        --grid-desktop-horizontal-spacing-initial: {{ settings.spacing_grid }}px;
+        --grid-mobile-vertical-spacing: calc(var(--px-mobile) * 0.8);
+        --grid-mobile-horizontal-spacing: calc(var(--px-mobile) * 0.8);
+
+        --text-boxes-radius: {{ settings.text_boxes_radius }}px;
+
+        --text-boxes-border-opacity: {{ text_boxes_border_opacity | divided_by: 100.0 }};
+        --text-boxes-border-width: {{ text_boxes_border_thickness }}px;
+        --text-boxes-shadow-opacity: {{ text_boxes_shadow_opacity | divided_by: 100.0 }};
+        --text-boxes-shadow-visible: {% if text_boxes_shadow_opacity > 0 %}1{% else %}0{% endif %};
+        --text-boxes-shadow-horizontal-offset: {{ text_boxes_shadow_horizontal_offset }}px;
+        --text-boxes-shadow-vertical-offset: {{ text_boxes_shadow_vertical_offset }}px;
+        --text-boxes-shadow-blur-radius: {{ text_boxes_shadow_blur }}px;
+
+        --buttons-radius: {{ settings.buttons_radius }}px;
+        --buttons-radius-outset: {% if settings.buttons_radius > 0 %}{{ settings.buttons_radius | plus: settings.buttons_border_thickness }}{% else %}0{% endif %}px;
+        --buttons-border-width: {% if buttons_border_opacity > 0 %}{{ settings.buttons_border_thickness }}{% else %}0{% endif %}px;
+        --buttons-border-opacity: {{ buttons_border_opacity | divided_by: 100.0 }};
+        --buttons-shadow-opacity: {{ buttons_shadow_opacity | divided_by: 100.0 }};
+        --buttons-shadow-visible: {% if buttons_shadow_opacity > 0 %}1{% else %}0{% endif %};
+        --buttons-shadow-horizontal-offset: {{ buttons_shadow_horizontal_offset }}px;
+        --buttons-shadow-vertical-offset: {{ buttons_shadow_vertical_offset }}px;
+        --buttons-shadow-blur-radius: {{ buttons_shadow_blur }}px;
+        --buttons-border-offset: {% if settings.buttons_radius > 0 or buttons_shadow_opacity > 0 %}0.3{% else %}0{% endif %}px;
+
+        --inputs-radius: {{ settings.buttons_radius }}px;
+        --inputs-border-width: {% if buttons_border_opacity > 0 %}{{ settings.buttons_border_thickness }}{% else %}0{% endif %}px;
+        --inputs-border-opacity: {{ inputs_border_opacity | divided_by: 100.0 }};
+        --inputs-shadow-opacity: {{ inputs_shadow_opacity | divided_by: 100.0 }};
+        --inputs-shadow-horizontal-offset: {{ inputs_shadow_horizontal_offset }}px;
+        --inputs-margin-offset: {% if inputs_shadow_vertical_offset != 0 and inputs_shadow_opacity > 0 %}{{ inputs_shadow_vertical_offset | abs }}{% else %}0{% endif %}px;
+        --inputs-shadow-vertical-offset: {{ inputs_shadow_vertical_offset }}px;
+        --inputs-shadow-blur-radius: {{ inputs_shadow_blur }}px;
+        --inputs-radius-outset: {% if settings.buttons_radius > 0 %}{{ settings.buttons_radius | plus: settings.buttons_border_thickness }}{% else %}0{% endif %}px;
+
+        --variant-pills-radius: {{ settings.buttons_radius }}px;
+        --variant-pills-border-width: {{ settings.buttons_border_thickness }}px;
+        --variant-pills-border-opacity: {{ variant_pills_border_opacity | divided_by: 100.0 }};
+        --variant-pills-shadow-opacity: {{ variant_pills_shadow_opacity | divided_by: 100.0 }};
+        --variant-pills-shadow-horizontal-offset: {{ variant_pills_shadow_horizontal_offset }}px;
+        --variant-pills-shadow-vertical-offset: {{ variant_pills_shadow_vertical_offset }}px;
+        --variant-pills-shadow-blur-radius: {{ variant_pills_shadow_blur }}px;
+
+        --color-overlay: {{ settings.color_overlay }};
+
+        {% assign spacing_sections = settings.spacing_sections | plus: 0 %}
+        --spacing-section: {% if spacing_sections < 24 %}{{ spacing_sections }}{% else %}{{ spacing_sections | times: 0.7 | round | at_least: 20 }}{% endif %}px;
+
+        --breadcrumb-padding: {{ settings.breadcrumb_padding }}rem;
+        --panel-corner-radius: {{ settings.panel_corner_radius }}px;
+        --controls-corner-radius: {{ settings.controls_corner_radius }}px;
+        --pagination-border-width: {{ settings.pagination_border_width }}rem;
+        --swatch-input--border-radius: {{ settings.swatch_corner_radius }}%;
+        --spacer-thickness: 3px;
+        --easter-egg-let-it-snow: url({{ 'snow.webp' | asset_url }});
+
+        --flash-sale-corner-radius: {{ settings.flash_sale_corner_radius }}px;
+        --flash-sale-color: {{ settings.flash_sale_badge_foreground_color }};
+        --flash-sale-color-light: {{ settings.flash_sale_badge_background_color }};
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+
+      html {
+        box-sizing: border-box;
+        font-size: calc(var(--font-body-scale) * 62.5%);
+        height: 100%;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        min-height: 100%;
+        margin: 0;
+        font-size: 1.5rem;
+        overflow-wrap: break-word;
+        word-break: break-word;
+        letter-spacing: var(--font-body-letter-spacing);
+        line-height: calc(1 + 0.8 / var(--font-body-scale));
+        font-family: var(--font-body-family);
+        font-style: var(--font-body-style);
+        font-weight: var(--font-body-weight);
+        overflow-x: hidden;
+        padding-inline-end: var(--temp-scrollbar-width, 0px);
+      }
+
+      @media screen and (min-width: 750px) {
+        :root {
+          --spacing-section: {{ spacing_sections }}px;
+        }
+
+        body {
+          font-size: 1.6rem;
+        }
+
+        {% if settings.color_scheme_fixed_background != false %}
+          .gradient {
+            background-attachment: fixed !important;
+          }
+        {% endif %}
+      }
+    {% endstyle %}
+
+    {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
+
+    {%- if is_rtl -%}
+      {{ 'rtl.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+
+    {%- if request.design_mode -%}
+      {{ 'standard.css' | asset_url | stylesheet_tag }}
+    {%- else -%}
+      <link rel="stylesheet" href="{{ 'standard.css' | asset_url }}" media="print" onload="this.media='all'">
+    {%- endif -%}
+
+    {%- unless settings.type_body_font.system? -%}
+      {% comment %}theme-check-disable AssetPreload{% endcomment %}
+      <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin fetchpriority="high">
+      {% comment %}theme-check-enable AssetPreload{% endcomment %}
+    {%- endunless -%}
+    {%- unless settings.type_header_font.system? -%}
+      {% comment %}theme-check-disable AssetPreload{% endcomment %}
+      <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin fetchpriority="high">
+      {% comment %}theme-check-enable AssetPreload{% endcomment %}
+    {%- endunless -%}
+
+    {{ 'template-giftcard.css' | asset_url | stylesheet_tag }}
+  </head>
+
+  <body class="gradient gift-card">
+    <header>
+      <div class="gift-card__price">
+        <h1 class="b-main-title">
+          {% if settings.currency_code_enabled %}
+            {{ gift_card.balance | money_with_currency }}
+          {% else %}
+            {{ gift_card.balance | money }}
+          {% endif %}
+        </h1>
+        {%- if gift_card.enabled == false or gift_card.expired -%}
+          <p class="badge badge--expired">{{ 'gift_cards.issued.expired' | t }}</p>
+        {%- endif -%}
+      </div>
+      {% if gift_card.expires_on %}
+        {%- assign gift_card_expiration_date = gift_card.expires_on | date: '%B %e, %Y' -%}
+        <p class="gift-card__text">
+          {{ 'gift_cards.issued.expiration_date' | t: expires_on: gift_card_expiration_date }}
+        </p>
+      {% endif %}
+    </header>
+
+    <main>
+      {% section 'main-gift-card' %}
+    </main>
+
+    <div hidden>
+      <span id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</span>
+    </div>
+
+    <script>
+      window.shopUrl = '{{ request.origin }}';
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}',
+        search_url: '{{ routes.search_url }}'
+      };
+
+      window.cartStrings = {
+        error: `{{ 'sections.cart.cart_error' | t }}`,
+        quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`
+      };
+
+      window.variantStrings = {
+        addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+        preorder: `{{ 'products.product.preorder' | t }}`,
+        soldOut: `{{ 'products.product.sold_out' | t }}`,
+        unavailable: `{{ 'products.product.unavailable' | t }}`,
+        unavailable_with_option: `{{ 'products.product.value_unavailable' | t: option_value: '[value]' }}`
+      };
+
+      window.quickOrderListStrings = {
+        itemsAdded: `{{ 'sections.quick_order_list.items_added.other' | t: quantity: '[quantity]' }}`,
+        itemAdded: `{{ 'sections.quick_order_list.items_added.one' | t: quantity: '[quantity]' }}`,
+        itemsRemoved: `{{ 'sections.quick_order_list.items_removed.other' | t: quantity: '[quantity]' }}`,
+        itemRemoved: `{{ 'sections.quick_order_list.items_removed.one' | t: quantity: '[quantity]' }}`,
+        viewCart: `{{- 'sections.quick_order_list.view_cart' | t -}}`,
+        each: `{{- 'sections.quick_order_list.each_html' | t: money: '[money]' }}`,
+        min_error: `{{- 'sections.quick_order_list.min_error' | t: min: '[min]' }}`,
+        max_error: `{{- 'sections.quick_order_list.max_error' | t: max: '[max]' }}`,
+        step_error: `{{- 'sections.quick_order_list.step_error' | t: step: '[step]' }}`
+      };
+
+      window.accessibilityStrings = {
+        imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
+        shareSuccess: `{{ 'general.share.success_message' | t }}`,
+        pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
+        playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
+        recipientFormExpanded: `{{ 'recipient.form.expanded' | t }}`,
+        recipientFormCollapsed: `{{ 'recipient.form.collapsed' | t }}`,
+        countrySelectorSearchCount: `{{ 'localization.country_results_count' | t: count: '[count]' }}`
+      };
+
+      window.strings = {
+        sections: {
+          collapsibleRows: {
+            noResults: `{{ 'sections.collapsible_rows.no_results' | t }}`
+          }
+        },
+        general: {
+          pagination: {
+            loadingText: `{{ 'general.pagination.loading_text' | t }}`
+          }
+        }
+      }
+
+      window.theme = {
+        settings: {
+          moneyWithCurrencyFormat: {{ shop.money_with_currency_format | json }},
+          browserTab: {{ settings.tab_message | json }},
+          externalDomainLinks: {{ settings.new_tab_other_websites | json }},
+          scrollType: {{ settings.paginationLoadType | json }},
+          cartDrawer: {
+            atcAction: {{ atc_action | json }}
+          },
+          lazyLoadJs: {{ settings.lazy_load_js | json }}
+        }
+      }
+    </script>
+
+    <script>
+      var string = { qrImageAlt: {{ 'gift_cards.issued.qr_image_alt' | t | json }} };
+      document.addEventListener('DOMContentLoaded', function() {
+        new QRCode( document.querySelector('.gift-card__qr-code'), {
+          text: document.querySelector('.gift-card__qr-code').dataset.identifier,
+          width: 72,
+          height: 72,
+          imageAltText: string.qrImageAlt
+        });
+      });
+      var template = document.getElementsByTagName("template")[0];
+      var clonedTemplate = template.content.cloneNode(true);
+      var isMessageDisplayed = false;
+      document
+        .querySelector('.gift-card__copy-button')
+        .addEventListener('click', () => {
+          navigator.clipboard.writeText(document.getElementById('gift-card-code').innerText).then(function () {
+            if (!isMessageDisplayed) {
+              document.querySelector('.gift-card__copy-success').appendChild(clonedTemplate);
+              isMessageDisplayed = true
+            }
+          });
+        });
+    </script>
+  </body>
+</html>

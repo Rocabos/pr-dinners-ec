@@ -1,0 +1,280 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign current_installments_number = 0
+  assign current_installment_price = 0
+
+  if settings.installments_enabled and settings.installment_rules != blank
+    for rule in settings.installment_rules
+      assign rule_minimum_price = rule.minimum_price.value
+      assign rule_maximum_price = rule.maximum_price.value
+      assign rule_installments = rule.installments.value | plus: 0
+
+      if rule_minimum_price != blank and current_variant.price >= rule_minimum_price
+        if rule_maximum_price != blank and current_variant.price <= rule_maximum_price
+          assign current_installments_number = rule_installments
+          break
+        endif
+      endif
+    endfor
+  endif
+
+  if current_installments_number > 0
+    assign current_installments_divisor = current_installments_number | times: 1.0
+    assign current_installment_price = current_variant.price | divided_by: current_installments_divisor
+  endif
+
+  assign installment_template = settings.installment_text
+
+  if installment_template == blank
+    assign installment_template = '{{installments_number}} cuotas de {{value}} sin interés.'
+  endif
+
+  assign installment_template = installment_template | escape
+  assign installment_template = installment_template | replace: '{{ installments_number }}', '{{installments_number}}'
+  assign installment_template = installment_template | replace: '{{ value }}', '{{value}}'
+
+  capture installments_number_markup
+    echo '<span data-installments-number>'
+    echo current_installments_number
+    echo '</span>'
+  endcapture
+
+  assign installment_template = installment_template | replace: '{{installments_number}}', installments_number_markup
+
+  assign installment_text_before = installment_template
+  assign installment_text_after = ''
+
+  if installment_template contains '{{value}}'
+    assign installment_text_parts = installment_template | split: '{{value}}'
+    assign installment_text_before = installment_text_parts | first
+    assign installment_text_after = installment_text_parts | last
+  endif
+-%}
+
+{%- if settings.installments_enabled and settings.installment_rules != blank and current_installment_price > 0 -%}
+  <product-installment-info
+    data-section-id="{{ section.id }}"
+    class="product-installment-info"
+    {% if current_installments_number <= 0 %}
+      hidden
+    {% endif %}
+    {{ block.shopify_attributes }}
+  >
+    <span class="installment-text-before">{{ installment_text_before }}</span
+    ><span
+      data-installment-price
+      class="installment-price"
+    >
+      {{- current_installment_price | money -}}</span
+    ><span class="installment-text-after">
+      {{- installment_text_after -}}
+    </span>
+
+    <script
+      type="application/json"
+      data-installment-variants
+    >
+      {
+        "variants": [
+          {%- for variant in product.variants -%}
+            {%- liquid
+              assign variant_installments_number = 0
+              assign variant_installment_price = 0
+              assign variant_has_installments = false
+
+              for rule in settings.installment_rules
+                assign rule_minimum_price = rule.minimum_price.value
+                assign rule_maximum_price = rule.maximum_price.value
+                assign rule_installments = rule.installments.value | plus: 0
+
+                if rule_minimum_price != blank and variant.price >= rule_minimum_price
+                  if rule_maximum_price != blank and variant.price <= rule_maximum_price
+                    assign variant_installments_number = rule_installments
+                    break
+                  endif
+                endif
+              endfor
+
+              if variant_installments_number > 0
+                assign variant_has_installments = true
+                assign variant_installments_divisor = variant_installments_number | times: 1.0
+                assign variant_installment_price = variant.price | divided_by: variant_installments_divisor
+              endif
+            -%}
+
+            {
+              "id": {{ variant.id | json }},
+              "hasInstallments": {{ variant_has_installments | json }},
+              "installmentsNumber": {{ variant_installments_number | json }},
+              "installmentPrice": {{ variant_installment_price | money | json }}
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      }
+    </script>
+  </product-installment-info>
+{%- endif -%}
+
+{% javascript %}
+  if (!customElements.get('product-installment-info')) {
+    customElements.define(
+      'product-installment-info',
+      class ProductInstallmentInfo extends HTMLElement {
+        connectedCallback() {
+          if (this.isInitialized) return;
+
+          const dataElement = this.querySelector('[data-installment-variants]');
+
+          const priceElement = this.querySelector('[data-installment-price]');
+
+          if (!dataElement || !priceElement) return;
+
+          try {
+            this.productData = JSON.parse(dataElement.textContent);
+          } catch (error) {
+            console.error('Invalid installment variants JSON:', error);
+
+            return;
+          }
+
+          this.isInitialized = true;
+          this.priceElement = priceElement;
+
+          this.numberElements = this.querySelectorAll('[data-installments-number]');
+
+          this.variantIds = new Set(this.productData.variants.map((variant) => String(variant.id)));
+
+          this.sectionRoot = this.closest('[id^="shopify-section-"]') || document;
+
+          this.handleChange = this.handleChange.bind(this);
+
+          this.handleVariantEvent = this.handleVariantEvent.bind(this);
+
+          this.sectionRoot.addEventListener('change', this.handleChange, true);
+
+          document.addEventListener('variant:change', this.handleVariantEvent);
+
+          document.addEventListener('variant-change', this.handleVariantEvent);
+
+          document.addEventListener('product:variant-change', this.handleVariantEvent);
+
+          this.scheduleUpdate();
+
+          this.variantWatcher = window.setInterval(() => {
+            this.updateFromProductForm();
+          }, 300);
+        }
+
+        disconnectedCallback() {
+          this.isInitialized = false;
+
+          this.sectionRoot?.removeEventListener('change', this.handleChange, true);
+
+          document.removeEventListener('variant:change', this.handleVariantEvent);
+
+          document.removeEventListener('variant-change', this.handleVariantEvent);
+
+          document.removeEventListener('product:variant-change', this.handleVariantEvent);
+
+          window.clearInterval(this.variantWatcher);
+          window.clearTimeout(this.updateTimer);
+          window.clearTimeout(this.delayedUpdateTimer);
+        }
+
+        handleChange() {
+          this.scheduleUpdate();
+        }
+
+        handleVariantEvent(event) {
+          const variant = event.detail?.variant || event.detail?.data?.variant;
+
+          if (variant?.id && this.variantIds.has(String(variant.id))) {
+            this.update(variant.id);
+            return;
+          }
+
+          this.scheduleUpdate();
+        }
+
+        scheduleUpdate() {
+          window.clearTimeout(this.updateTimer);
+          window.clearTimeout(this.delayedUpdateTimer);
+
+          this.updateTimer = window.setTimeout(() => {
+            this.updateFromProductForm();
+          }, 0);
+
+          this.delayedUpdateTimer = window.setTimeout(() => {
+            this.updateFromProductForm();
+          }, 150);
+        }
+
+        updateFromProductForm() {
+          const variantId = this.getSelectedVariantId();
+
+          if (variantId) {
+            this.update(variantId);
+          }
+        }
+
+        getSelectedVariantId() {
+          const forms = Array.from(this.sectionRoot.querySelectorAll('form[action*="/cart/add"]'));
+
+          const preferredForm = forms.find((form) => {
+            if (!form?.id?.includes) return false;
+
+            return form.id.includes(this.dataset.sectionId);
+          });
+
+          const orderedForms = preferredForm
+            ? [preferredForm, ...forms.filter((form) => form !== preferredForm)]
+            : forms;
+
+          for (const form of orderedForms) {
+            const variantField = form.querySelector('[name="id"]');
+
+            if (variantField?.value && this.variantIds.has(String(variantField.value))) {
+              return variantField.value;
+            }
+          }
+
+          const urlVariantId = new URL(window.location.href).searchParams.get('variant');
+
+          if (urlVariantId && this.variantIds.has(String(urlVariantId))) {
+            return urlVariantId;
+          }
+
+          return null;
+        }
+
+        update(variantId) {
+          const normalizedVariantId = String(variantId);
+
+          if (normalizedVariantId === this.currentVariantId) {
+            return;
+          }
+
+          const selectedVariant = this.productData.variants.find(
+            (variant) => String(variant.id) === normalizedVariantId
+          );
+
+          if (!selectedVariant) return;
+
+          this.currentVariantId = normalizedVariantId;
+
+          const hasInstallments = selectedVariant.hasInstallments && Number(selectedVariant.installmentsNumber) > 0;
+
+          this.hidden = !hasInstallments;
+
+          if (!hasInstallments) return;
+
+          this.priceElement.innerHTML = selectedVariant.installmentPrice;
+
+          this.numberElements.forEach((element) => {
+            element.textContent = selectedVariant.installmentsNumber;
+          });
+        }
+      }
+    );
+  }
+{% endjavascript %}

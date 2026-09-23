@@ -1,0 +1,17 @@
+.section-logo-list .multicolumn-card {
+  --card-padding: var(--responsive-card-padding) !important;
+}
+
+.section-logo-list .multicolumn-card__image-wrapper img {
+  transform: scale(var(--image-scale));
+  object-fit: contain;
+}
+
+.section-logo-list .multicolumn-card__image-wrapper,
+.section-logo-list .multicolumn-card__text {
+  margin-bottom: 0;
+}
+
+.section-logo-list .multicolumn-card__text {
+  margin-top: 1rem;
+}

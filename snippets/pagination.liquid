@@ -1,0 +1,85 @@
+{% comment %}
+  Renders a set of links for paginated results. Must be used within paginate tags.
+
+  Usage:
+  {% paginate results by 2 %}
+    {% render 'pagination', paginate: paginate, anchor: '#yourID' %}
+  {% endpaginate %}
+
+  Accepts:
+  - paginate: {Object}
+  - anchor: {String} (optional) This can be added so that on page reload it takes you to wherever you've placed your anchor tag.
+{% endcomment %}
+
+{%- if settings.pagination_style != 'standard' -%}
+  <script src="{{ 'infinite-scroll.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+<link rel="stylesheet" href="{{ 'component-pagination.css' | asset_url }}" media="print" onload="this.media='all'">
+
+{%- if paginate.parts.size > 0 -%}
+  <div class="pagination-wrapper{% if settings.pagination_style != 'standard' %} text-center{% endif %} js-pagination{% if settings.animations_reveal_on_scroll and false %} scroll-trigger animate--fade-in{% endif %}">
+    {%- if settings.pagination_style == 'standard' -%}
+      <nav class="pagination text-center" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+        <ul class="pagination__list overflow-hidden inline-flex flex-wrap justify-center list-unstyled {{ settings.pagination_text_size }}"
+            role="list">
+          {%- if paginate.previous -%}
+            <li class="flex">
+              <a
+                href="{{ paginate.previous.url }}{{ anchor }}"
+                class="pagination__item pagination__item--prev pagination__item-arrow color-{{ settings.pagination_color_scheme }} gradient full-unstyled-link motion-reduce"
+                aria-label="{{ 'general.pagination.previous' | t }}"
+              >
+                {% render 'icon-caret' %}
+              </a>
+            </li>
+          {%- endif -%}
+
+          {%- for part in paginate.parts -%}
+            <li class="flex">
+              {%- if part.is_link -%}
+                <a
+                  href="{{ part.url }}{{ anchor }}"
+                  class="pagination__item full-unstyled-link color-{{ settings.pagination_color_scheme }} gradient"
+                  aria-label="{{ 'general.pagination.page' | t: number: part.title }}"
+                >
+                  {{- part.title -}}
+                </a>
+              {%- else -%}
+                {%- if part.title == paginate.current_page -%}
+                  <a
+                    role="link"
+                    aria-disabled="true"
+                    class="pagination__item pagination__item--current font-bold full-unstyled-link color-{{ settings.pagination_color_scheme }} gradient"
+                    aria-current="page"
+                    aria-label="{{ 'general.pagination.page' | t: number: part.title }}"
+                  >
+                    {{- part.title -}}
+                  </a>
+                {%- else -%}
+                  <span class="pagination__item color-{{ settings.pagination_color_scheme }} gradient">{{ part.title }}</span>
+                {%- endif -%}
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+
+          {%- if paginate.next -%}
+            <li class="flex">
+              <a
+                href="{{ paginate.next.url }}{{ anchor }}"
+                class="pagination__item pagination__item--next pagination__item-arrow full-unstyled-link color-{{ settings.pagination_color_scheme }} gradient motion-reduce"
+                aria-label="{{ 'general.pagination.next' | t }}"
+              >
+                {%- render 'icon-caret' -%}
+              </a>
+            </li>
+          {%- endif -%}
+        </ul>
+      </nav>
+    {%- else -%}
+      <a class="button{% if settings.pagination_style == 'infinite' %} button--tertiary{% else %} button--secondary{% endif %} js-pagination__next-button {{ settings.pagination_text_size }}" {% if paginate.next.is_link %} href="{{ paginate.next.url }}"{% else %}role="link" aria-disabled="true"{% endif %}>
+        {{ 'general.pagination.show_more' | t }}
+      </a>
+    {%- endif -%}
+  </div>
+{%- endif -%}

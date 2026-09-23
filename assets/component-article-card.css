@@ -1,0 +1,176 @@
+@media screen and (max-width: 549.98px) {
+  .articles-wrapper .article {
+    width: 100%;
+  }
+}
+
+.article {
+  display: flex;
+  align-items: center;
+}
+
+.article-card__title {
+  line-height: 1.4em;
+}
+
+.article-card__title .sticker-wrapper-above {
+  margin-top: 0;
+}
+
+.article.grid__item {
+  padding: 0;
+}
+
+.grid--peek .article-card {
+  box-sizing: border-box;
+}
+
+.article-card__image {
+  background-color: rgba(var(--blog-card-image-background, '0,0,0,0'));
+}
+
+.article-card__image-relative {
+  position: relative !important;
+}
+
+.article-card__image-wrapper > a {
+  display: block;
+}
+
+.article-card__link.link {
+  padding: 0;
+}
+
+.article-card__link {
+  text-underline-offset: 0.3rem;
+}
+
+.blog-articles .article-card .card__information,
+.blog__posts .article-card .card__information {
+  padding: 2rem 1.7rem;
+}
+
+.article-card__footer {
+  letter-spacing: 0.1rem;
+  font-size: 1.4rem;
+}
+
+.article-card__footer:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.article-card__footer:last-child {
+  margin-top: auto;
+}
+
+.article-card__excerpt {
+  width: 100%;
+  font-size: 1.5rem;
+}
+
+.article-card__link:not(:only-child) {
+  margin-inline-end: 3rem;
+}
+
+@media screen and (min-width: 990px) {
+  .article-card__link:not(:only-child) {
+    margin-inline-end: 4rem;
+  }
+}
+
+.article-card__image--small .ratio::before {
+  padding-bottom: 11rem;
+}
+
+.article-card__image--medium .ratio::before {
+  padding-bottom: 22rem;
+}
+
+.article-card__image--large .ratio::before {
+  padding-bottom: 33rem;
+}
+
+@media screen and (min-width: 750px) {
+  .article-card__image--small .ratio::before {
+    padding-bottom: 14.3rem;
+  }
+
+  .article-card__image--medium .ratio::before {
+    padding-bottom: 21.9rem;
+  }
+
+  .article-card__image--large .ratio::before {
+    padding-bottom: 27.5rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .article-card__image--small .ratio::before {
+    padding-bottom: 17.7rem;
+  }
+
+  .article-card__image--medium .ratio::before {
+    padding-bottom: 30.7rem;
+  }
+
+  .article-card__image--large .ratio::before {
+    padding-bottom: 40.7rem;
+  }
+}
+
+/* check for flexbox gap in older Safari versions */
+@supports not (inset: 10px) {
+  .articles-wrapper.grid {
+    margin: 0 0 5rem 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .articles-wrapper.grid {
+      margin-bottom: 7rem;
+    }
+  }
+}
+
+.article-card--featured .card__inner {
+  height: 100%;
+}
+
+.article-card--featured .card__media,
+.article-card--featured .card__content .card__information {
+  border-radius: calc(var(--border-radius) - var(--border-width) - var(--image-padding)) !important;
+}
+
+.article-card.article-card--featured .card__content {
+  --color-foreground: 255,255,255;
+  padding-top: 10rem;
+}
+
+.article-card.article-card--featured .card__heading {
+  margin-top: 5rem;
+}
+
+.article-card.article-card--featured .card__inner {
+  position: absolute;
+  bottom: 0;
+  inset-inline-start: 0;
+  top: 0;
+  z-index: -1;;
+}
+
+.article-card--featured .article-card__excerpt {
+  color: rgba(var(--color-foreground),1);
+}
+
+.article-card--featured .card__content .card__information {
+  padding: 2rem !important;
+  background: linear-gradient(
+    to bottom, rgba(0, 0, 0, 0) 0,
+    rgba(0, 1, 1, 0.009) 20px,
+    rgba(0, 1, 1, 0.07) 55px,
+    rgba(0, 1, 1, 0.16) 86px,
+    rgba(0, 1, 1, 0.28) 115px,
+    rgba(0, 1, 1, 0.38) 145px,
+    rgba(0, 1, 1, 0.44) 180px,
+    rgba(0, 1, 1, 0.8) 100%
+  );
+}

@@ -1,0 +1,210 @@
+sticky-product-cta[hidden],
+.sticky-cta [hidden] {
+  display: none !important;
+}
+
+.sticky-cta {
+  position: fixed;
+  left: 50%;
+  bottom: 1.2rem;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  gap: 2.4rem;
+
+  max-width: var(--page-width);
+  width: min(calc(100% - 2.4rem), 144rem);
+  padding: 1.2rem 1.6rem;
+
+  background: rgb(var(--color-background));
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+  border-radius: 3.2rem;
+  box-shadow: 0 0.8rem 3.2rem rgba(0, 0, 0, 0.12);
+}
+
+.sticky-cta__info {
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.sticky-cta__label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #0071e3;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.sticky-cta__title {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sticky-cta__pricing {
+  width: 100%;
+}
+
+.sticky-cta__compare-price {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: rgba(var(--color-foreground), 0.55);
+  font-size: 1.2rem;
+}
+
+.sticky-cta__pricing-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1.2rem;
+}
+
+.sticky-cta__price {
+  color: #0071e3;
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.sticky-cta__installments {
+  font-size: 1.4rem;
+  white-space: nowrap;
+}
+
+.sticky-cta__installments [data-sticky-installment-price] {
+  color: #0071e3;
+}
+
+.sticky-cta__actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.sticky-cta__quantity {
+  display: grid;
+  grid-template-columns: 1fr 1.6rem;
+  align-items: center;
+  width: 10.3rem;
+  height: 4.4rem;
+  padding: 0 0.8rem 0 1.2rem;
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+  border-radius: 999px;
+}
+
+.sticky-cta__quantity-input {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  text-align: left;
+  appearance: textfield;
+}
+
+.sticky-cta__quantity-input::-webkit-inner-spin-button,
+.sticky-cta__quantity-input::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.sticky-cta__quantity-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.sticky-cta__quantity-buttons button {
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.sticky-cta__quantity-buttons svg {
+  width: 0.8rem;
+  height: auto;
+}
+
+.sticky-cta__button {
+  min-width: 16rem;
+  border-radius: 999px;
+}
+
+sticky-product-cta {
+  display: block;
+  transform: translate3d(-50%,
+      calc(100% + 2rem),
+      0);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 250ms ease,
+    visibility 0s linear 350ms;
+  will-change: transform, opacity;
+}
+
+sticky-product-cta.is-visible {
+  transform: translate3d(-50%, 0, 0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  sticky-product-cta {
+    transition: none;
+  }
+}
+
+@media screen and (max-width: 989px) {
+  .sticky-cta__pricing-row {
+    align-items: center;
+  }
+
+  .sticky-cta__price {
+    white-space: nowrap;
+  }
+
+  .sticky-cta {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .sticky-cta {
+    bottom: 0;
+    right: 0;
+    border-radius: 0;
+    gap: 1.2rem;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .sticky-cta__label,
+  .sticky-cta__quantity {
+    display: none;
+  }
+
+  .sticky-cta__button {
+    min-width: auto;
+  }
+
+  .sticky-cta__actions {
+    grid-column: span 2;
+    padding-right: 50px;
+  }
+
+  .sticky-cta__submit-button {
+    width: 100%;
+  }
+}

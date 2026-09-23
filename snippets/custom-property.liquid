@@ -1,0 +1,178 @@
+{%- if block.settings.label != blank -%}
+  <div class="product__custom-property">
+    {%- assign field_label = block.settings.label | escape -%}
+    <div class="{% unless block.type == 'custom_property_checkbox' %}field{% endunless %}{% if block.type == 'custom_property_dropdown' %} select relative{% endif %}" {{ block.shopify_attributes }}>
+      {% case block.type %}
+
+        {%- when'custom_property_text' -%}
+          {%- assign include_label = true -%}
+          <input type="text"
+             id="{{ block.id }}"
+             class="field__input js-prevent-enter-submit"
+             form="{{ product_form_id }}"
+             aria-label="{{ field_label | escape }}"
+             name="properties[{{ field_label }}]"
+             {%- if block.settings.required %}
+               aria-required="true"
+               required
+             {%- endif %}
+             placeholder="{{ field_label }}"
+          >
+
+        {%- when'custom_property_textarea' -%}
+          {%- assign include_label = true -%}
+          <textarea id="{{ block.id }}"
+             class="text-area field__input"
+             name="properties[{{ field_label }}]"
+             form="{{ product_form_id }}"
+             rows="10"
+             {%- if block.settings.required %}
+               aria-required="true"
+               required
+             {%- endif %}
+             placeholder="{{ field_label }}"
+          ></textarea>
+
+        {%- when'custom_property_date' -%}
+          {%- liquid
+            assign include_label = true
+            assign allowed_dates = ''
+            assign error_messages_json = ''
+
+            if block.settings.enable_validation
+              if block.settings.can_pick_past == false
+                assign allowed_dates = allowed_dates | append: ',future_only'
+                assign message = 'sections.contact.date_is_in_past' | t
+                assign error_messages_json = error_messages_json | append: ',"future_only": "' | append: message | append: '"'
+              endif
+              if block.settings.validation_monday
+                assign allowed_dates = allowed_dates | append: ',monday'
+              else
+                assign message = block.settings.validation_monday_error | escape
+                assign error_messages_json = error_messages_json | append: ',"monday": "' | append: message | append: '"'
+              endif
+              if block.settings.validation_tuesday
+                assign allowed_dates = allowed_dates | append: ',tuesday'
+              else
+                assign message = block.settings.validation_tuesday_error | escape
+                assign error_messages_json = error_messages_json | append: ',"tuesday": "' | append: message | append: '"'
+              endif
+              if block.settings.validation_wednesday
+                assign allowed_dates = allowed_dates | append: ',wednesday'
+              else
+                assign message = block.settings.validation_wednesday_error | escape
+                assign error_messages_json = error_messages_json | append: ',"wednesday": "' | append: message | append: '"'
+              endif
+              if block.settings.validation_thursday
+                assign allowed_dates = allowed_dates | append: ',thursday'
+              else
+                assign message = block.settings.validation_thursday_error | escape
+                assign error_messages_json = error_messages_json | append: ',"thursday": "' | append: message | append: '"'
+              endif
+              if block.settings.validation_friday
+                assign allowed_dates = allowed_dates | append: ',friday'
+              else
+                assign message = block.settings.validation_friday_error | escape
+                assign error_messages_json = error_messages_json | append: ',"friday": "' | append: message | append: '"'
+              endif
+              if block.settings.validation_saturday
+                assign allowed_dates = allowed_dates | append: ',saturday'
+              else
+                assign message = block.settings.validation_saturday_error | escape
+                assign error_messages_json = error_messages_json | append: ',"saturday": "' | append: message | append: '"'
+              endif
+              if block.settings.validation_sunday
+                assign allowed_dates = allowed_dates | append: ',sunday'
+              else
+                assign message = block.settings.validation_sunday_error | escape
+                assign error_messages_json = error_messages_json | append: ',"sunday": "' | append: message | append: '"'
+              endif
+
+              assign allowed_dates = allowed_dates | replace_first: ',', ''
+              assign error_messages_json = error_messages_json | replace_first: ',', ''
+            endif
+          -%}
+
+          <input type="date{% if block.settings.show_time %}time-local{% endif %}"
+             id="{{ block.id }}"
+             class="field__input"
+             form="{{ product_form_id }}"
+             aria-label="{{ field_label }}"
+             name="properties[{{ field_label }}]"
+             {%- if block.settings.required %}
+               aria-required="true"
+               required
+             {%- endif %}
+              {% if block.settings.can_pick_past == false and block.settings.enable_validation == true %}min="{{ 'now' | date: '%Y-%m-%d' }}"{% endif %}
+              {% unless allowed_dates == blank %}data-allowed-dates="{{ allowed_dates }}"{% endunless %}
+              {% unless allowed_dates == blank %}data-json-error-messages='{ {{ error_messages_json }} }'{% endunless %}
+                 placeholder="{{ field_label }}"
+          >
+          <lazy-script src="{{ 'date-validation.js' | asset_url }}" defer="defer"></lazy-script>
+
+        {%- when'custom_property_dropdown' -%}
+          {%- assign options = block.settings.options | newline_to_br | strip_newlines | split: '<br />' -%}
+          <select class="styled-select select__select"
+              name="properties[{{ field_label }}]"
+              id="{{ block.id }}"
+              form="{{ product_form_id }}"
+              {%- if block.settings.required %}
+                aria-required="true"
+                required
+              {%- endif %}
+              placeholder="{{ field_label }}{% if block.settings.required %} *{% endif %}"
+          >
+            <option value="" selected>
+              {{ field_label }}{% if block.settings.required %} *{% endif %}
+            </option>
+
+            {% for option in options %}
+              <option value="{{ option | escape }}">
+                {{ option }}
+              </option>
+            {% endfor %}
+          </select>
+          {% render 'icon-caret' %}
+
+          <label class="visually-hidden" for="{{ block.id }}">
+            {{- field_label -}}
+          </label>
+
+        {%- when'custom_property_checkbox' -%}
+          {% if block.settings.required == false %}
+            <input type="hidden" form="{{ product_form_id }}" name="properties[{{ field_label }}]" value="{{ block.settings.false_value | escape }}">
+          {% endif %}
+          <input type="checkbox" id="{{ block.id }}" class="field__checkbox" form="{{ product_form_id }}" name="properties[{{ field_label }}]" value="{{ block.settings.true_value | escape }}"
+            {% if block.settings.required %} required {% if block.settings.error_message != blank %}oninvalid='this.setCustomValidity("{{ block.settings.error_message }}")' onchange="this.setCustomValidity('')"{% endif %}{% endif %}>
+          <label for="{{ block.id }}" class="flex items-center">
+            {{- field_label -}}
+          </label>
+
+      {%- endcase -%}
+
+      {%- if include_label -%}
+        <label class="form__label field__label" for="{{ block.id }}">
+          {{- field_label -}}
+          {%- if block.settings.required -%}
+            <span aria-hidden="true">*</span>
+          {%- endif -%}
+        </label>
+      {%- endif -%}
+    </div>
+
+    {%- if block.type == 'custom_property_date' and block.settings.enable_validation -%}
+      <div class="mt-05 form__error hidden" id="{{ block.id }}_error" role="alert">
+        <p class="form__message items-center gap-05 m-0">
+          {% render 'icon-error' %}
+          <span class="t6"></span>
+        </p>
+      </div>
+    {%- endif -%}
+
+    {%- if block.settings.tip != blank -%}
+      <div class="flex items-center gap-05 t6 mt-05">
+        <p class="m-0 opacity-60 rte">{{ block.settings.tip }}</p>
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}

@@ -1,0 +1,455 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "disabled": true,
+      "settings": {
+        "spacing": 0,
+        "color_scheme": "scheme-2",
+        "line_separator": ""
+      }
+    },
+    "image_banner_jp6nVT": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_XexDPK": {
+          "type": "heading",
+          "settings": {
+            "heading": "FAQs",
+            "heading_italic_convert": "",
+            "heading_size": "h0",
+            "heading_size_custom": 5.2,
+            "heading_line_height_custom": 0.7,
+            "heading_tag": "h1"
+          }
+        },
+        "text_ztDFB9": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Got a question? We've got the answer.</p>",
+            "text_size": "t0"
+          }
+        }
+      },
+      "block_order": [
+        "heading_XexDPK",
+        "text_ztDFB9"
+      ],
+      "settings": {
+        "image_overlay_opacity": 40,
+        "image_link": "",
+        "fix_image": false,
+        "skew_images": true,
+        "stack_images_on_mobile": true,
+        "image_ratio": "custom",
+        "desktop_section_height": 440,
+        "mobile_section_height": 300,
+        "full_width": true,
+        "full_width_animate": false,
+        "desktop_content_position": "md:justify-start md:items-center",
+        "mobile_content_position": "justify-start items-center",
+        "content_max_width": "m",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "show_text_box": "off",
+        "show_text_below": false,
+        "color_scheme": "scheme-6",
+        "container_color_scheme": "scheme-3",
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "hide_when_empty": false
+      }
+    },
+    "main": {
+      "type": "main-faq",
+      "disabled": true,
+      "settings": {
+        "page_width": "narrow",
+        "content_max_width": "m",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "custom_page_header": false,
+        "title": "Page header",
+        "italic_convert": "",
+        "heading_size": "h1",
+        "custom_page_text": false,
+        "text": "<p>Add a brief introduction to the FAQ page.</p>",
+        "text_size": "t2",
+        "show_view_all_link": true,
+        "view_all_link": "",
+        "view_all_text": "",
+        "view_all_text_size": "t3",
+        "color_scheme": "scheme-2",
+        "heading_tag": "h1"
+      }
+    },
+    "collapsible_content_t3C4Tq": {
+      "type": "collapsible-content",
+      "blocks": {
+        "heading_ztecAF": {
+          "type": "heading",
+          "settings": {
+            "heading": "Orders",
+            "heading_italic_convert": "",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "collapsible_row_UPgR8m": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_open": true,
+            "heading": "What payment methods do you accept?",
+            "icon": "card",
+            "image_width": 20,
+            "row_content": "<p>Add your text here to answer the question. Where possible, it's best to keep text roughly the same length across all the answers.</p>",
+            "page": "",
+            "content_embed": "",
+            "button_text_size": "t3",
+            "button_label_1": "",
+            "button_link_1": "/",
+            "button_style_1": "primary",
+            "button_style_1_show_arrow": false
+          }
+        },
+        "collapsible_row_y93qxH": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_open": false,
+            "heading": "What is your return policy?",
+            "icon": "return",
+            "image_width": 20,
+            "row_content": "<p>Add your text here to answer the question. Where possible, it's best to keep text roughly the same length across all the answers.</p>",
+            "page": "",
+            "content_embed": "",
+            "button_text_size": "t3",
+            "button_label_1": "",
+            "button_link_1": "/",
+            "button_style_1": "primary",
+            "button_style_1_show_arrow": false
+          }
+        },
+        "collapsible_row_i3Pjqc": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_open": false,
+            "heading": "Can I change or cancel my order?",
+            "icon": "question_mark",
+            "image_width": 20,
+            "row_content": "<p>Add your text here to answer the question. Where possible, it's best to keep text roughly the same length across all the answers.</p>",
+            "page": "",
+            "content_embed": "",
+            "button_text_size": "t3",
+            "button_label_1": "",
+            "button_link_1": "/",
+            "button_style_1": "primary",
+            "button_style_1_show_arrow": false
+          }
+        },
+        "heading_BjrQWD": {
+          "type": "heading",
+          "settings": {
+            "heading": "Products",
+            "heading_italic_convert": "",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "collapsible_row_hk9DHw": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_open": false,
+            "heading": "How do I set up my new device?",
+            "icon": "key",
+            "image_width": 20,
+            "row_content": "<p>Add your text here to answer the question. Where possible, it's best to keep text roughly the same length across all the answers.</p>",
+            "page": "",
+            "content_embed": "",
+            "button_text_size": "t3",
+            "button_label_1": "",
+            "button_link_1": "/",
+            "button_style_1": "primary",
+            "button_style_1_show_arrow": false
+          }
+        },
+        "collapsible_row_3zyzVG": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_open": false,
+            "heading": "Do you offer warranties on your products?",
+            "icon": "storefront",
+            "image_width": 20,
+            "row_content": "<p>Add your text here to answer the question. Where possible, it's best to keep text roughly the same length across all the answers.</p>",
+            "page": "",
+            "content_embed": "",
+            "button_text_size": "t3",
+            "button_label_1": "",
+            "button_link_1": "/",
+            "button_style_1": "primary",
+            "button_style_1_show_arrow": false
+          }
+        },
+        "heading_WEpLJf": {
+          "type": "heading",
+          "settings": {
+            "heading": "Shipping",
+            "heading_italic_convert": "",
+            "heading_size": "h4",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3"
+          }
+        },
+        "collapsible_row_atEQfc": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_open": false,
+            "heading": "Do you ship internationally?",
+            "icon": "airplane",
+            "image_width": 20,
+            "row_content": "<p>Add your text here to answer the question. Where possible, it's best to keep text roughly the same length across all the answers.</p>",
+            "page": "",
+            "content_embed": "",
+            "button_text_size": "t3",
+            "button_label_1": "",
+            "button_link_1": "/",
+            "button_style_1": "primary",
+            "button_style_1_show_arrow": false
+          }
+        },
+        "collapsible_row_wzzmgF": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_open": false,
+            "heading": "How can I track my order?",
+            "icon": "truck",
+            "image_width": 20,
+            "row_content": "<p>Add your text here to answer the question. Where possible, it's best to keep text roughly the same length across all the answers.</p>",
+            "page": "",
+            "content_embed": "",
+            "button_text_size": "t3",
+            "button_label_1": "",
+            "button_link_1": "/",
+            "button_style_1": "primary",
+            "button_style_1_show_arrow": false
+          }
+        },
+        "spacer_zGqL4c": {
+          "type": "spacer",
+          "settings": {
+            "show_line_separator": false,
+            "spacing_top": 3,
+            "spacing_bottom": 0.2,
+            "spacer_visibility": "both",
+            "line_color": "#dfdfdf"
+          }
+        },
+        "text_PCJRbe": {
+          "type": "text",
+          "settings": {
+            "text": "<p><em>Still can't see it? </em><a href=\"/\" title=\"Contact\"><em>Get in touch.</em></a></p>",
+            "text_size": "t4"
+          }
+        }
+      },
+      "block_order": [
+        "heading_ztecAF",
+        "collapsible_row_UPgR8m",
+        "collapsible_row_y93qxH",
+        "collapsible_row_i3Pjqc",
+        "heading_BjrQWD",
+        "collapsible_row_hk9DHw",
+        "collapsible_row_3zyzVG",
+        "heading_WEpLJf",
+        "collapsible_row_atEQfc",
+        "collapsible_row_wzzmgF",
+        "spacer_zGqL4c",
+        "text_PCJRbe"
+      ],
+      "settings": {
+        "one_row_at_a_time": true,
+        "show_line_separator": true,
+        "row_heading_size": "t2",
+        "row_text_size": "t5",
+        "show_header_beside": true,
+        "desktop_media_width": 35,
+        "layout": "media_first",
+        "show_search_box": true,
+        "content_max_width": "xl",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "title": "Search",
+        "italic_convert": "",
+        "heading_size": "h2",
+        "text": "<p>Can't see it? Try searching.</p>",
+        "text_size": "t3",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "link",
+        "button_text_size": "t5",
+        "button_style_show_arrow": true,
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "show_content_shadow": true,
+        "line_separator": "border-top",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "heading_tag": "h2",
+        "hide_when_empty": false,
+        "render_schema": false
+      }
+    },
+    "spacer_jCKFkK": {
+      "type": "spacer",
+      "settings": {
+        "full_width": false,
+        "show_line_separator": true,
+        "visibility": "",
+        "line_width": 100,
+        "spacing_top": 0,
+        "spacing_bottom": 0,
+        "color_scheme": "",
+        "line_color": ""
+      }
+    },
+    "image_banner_w6Hndw": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_Rt3FFB": {
+          "type": "heading",
+          "settings": {
+            "heading": "About us",
+            "heading_italic_convert": "",
+            "heading_size": "h3",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h2"
+          }
+        },
+        "text_texUmh": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Want to know more about us? Hear our story.</p>",
+            "text_size": "t3"
+          }
+        },
+        "buttons_iac9TH": {
+          "type": "buttons",
+          "settings": {
+            "button_text_size": "t3",
+            "button_label_1": "About us",
+            "button_link_1": "/",
+            "button_style_1": "primary",
+            "button_style_1_show_arrow": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_2": "secondary",
+            "button_style_2_show_arrow": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_Rt3FFB",
+        "text_texUmh",
+        "buttons_iac9TH"
+      ],
+      "settings": {
+        "image_overlay_opacity": 0,
+        "image_link": "",
+        "fix_image": false,
+        "skew_images": false,
+        "stack_images_on_mobile": true,
+        "image_ratio": "landscape_wide",
+        "desktop_section_height": 500,
+        "mobile_section_height": 400,
+        "full_width": false,
+        "full_width_animate": false,
+        "desktop_content_position": "md:justify-center md:items-center",
+        "mobile_content_position": "justify-center items-center",
+        "content_max_width": "m",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "center",
+        "show_text_box": "desktop",
+        "show_text_below": true,
+        "color_scheme": "",
+        "container_color_scheme": "scheme-3",
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "hide_when_empty": false
+      }
+    },
+    "ribbon_banner_CzhgQT": {
+      "type": "ribbon-banner",
+      "blocks": {
+        "heading_86zr4g": {
+          "type": "heading",
+          "settings": {
+            "heading": "Still got questions?++ Don't be a stranger.",
+            "heading_italic_convert": "",
+            "heading_size": "custom",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.7,
+            "heading_tag": "h2"
+          }
+        },
+        "buttons_FCB4dg": {
+          "type": "buttons",
+          "settings": {
+            "button_text_size": "t2",
+            "button_label_1": "Get in touch",
+            "button_link_1": "/",
+            "button_style_1": "secondary",
+            "button_style_1_show_arrow": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_2": "secondary",
+            "button_style_2_show_arrow": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_86zr4g",
+        "buttons_FCB4dg"
+      ],
+      "settings": {
+        "full_width": true,
+        "closable": false,
+        "content_alignment": "justify-center",
+        "vertical_padding": 10,
+        "horizontal_padding": 3.5,
+        "spacing_grid": 8.8,
+        "visibility": "both",
+        "image_overlay_opacity": 0,
+        "color_scheme": "scheme-4",
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "hide_when_empty": false
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "image_banner_jp6nVT",
+    "main",
+    "collapsible_content_t3C4Tq",
+    "spacer_jCKFkK",
+    "image_banner_w6Hndw",
+    "ribbon_banner_CzhgQT"
+  ]
+}

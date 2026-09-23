@@ -1,0 +1,67 @@
+<script src="{{ 'scroll-to-top.js' | asset_url }}" defer="defer"></script>
+
+<scroll-to-top-button tabindex="0" class="scroll-to-top-button hidden-during-load button button--{{ section.settings.button_style }} tap-target {{ section.settings.visibility }} {{ section.settings.position }}">
+  <span class="visually-hidden">{{ 'accessibility.scroll_to_top' | t }}</span>
+  {% render 'icon-caret' %}
+</scroll-to-top-button>
+
+{% schema %}
+{
+  "name": "Scroll to top",
+  "class": "section-scroll-to-top",
+  "settings": [
+    {
+      "type": "select",
+      "id": "button_style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "secondary",
+          "label": "Secondary"
+        }
+      ],
+      "default": "primary",
+      "label": "Button style"
+    },
+    {
+      "type": "select",
+      "id": "position",
+      "options": [
+        {
+          "value": "bottom-left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        }
+      ],
+      "default": "bottom-right",
+      "label": "Position"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "options": [
+        {
+          "value": "visible-xs",
+          "label": "Mobile"
+        },
+        {
+          "value": "hidden-xs",
+          "label": "Desktop"
+        },
+        {
+          "value": "",
+          "label": "Both"
+        }
+      ],
+      "default": "",
+      "label": "Show on"
+    }
+  ]
+}
+{% endschema %}

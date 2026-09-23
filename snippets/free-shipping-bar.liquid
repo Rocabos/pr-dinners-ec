@@ -1,0 +1,40 @@
+{%- liquid
+  assign thresholds = settings.cart_shipping_bar_threshold | newline_to_br | strip_newlines | split: '<br />'
+  assign current_min_threshold = nil
+  assign current_currency_code = cart.currency.iso_code
+  assign current_country_code = localization.country.iso_code
+
+  for threshold in thresholds
+    assign arr = threshold | split: ':'
+    if arr.size == 2 and arr[0] == current_currency_code
+      assign current_min_threshold = arr
+      break
+    elsif arr.size == 3 and arr[0] == current_country_code and arr[1] == cart.currency.iso_code
+      assign current_min_threshold = arr
+      break
+    endif
+  endfor
+
+  if current_min_threshold != nil
+    assign show_free_shipping = true
+    assign min_threshold = current_min_threshold | last
+    assign free_shipping_minimum = min_threshold | times: 100
+    assign money_til_free_shipping = cart.total_price | minus: free_shipping_minimum | abs | money
+    assign progress = cart.total_price | times: 1.0 | divided_by: min_threshold | at_most: 100
+  endif
+-%}
+
+{%- if show_free_shipping -%}
+  <div class="drawer__shipping-bar pl-2 pr-2 {{ class }}">
+    <div class="caption">
+      {%- if progress < 60 -%}
+        {{ settings.cart_shipping_bar_msg_standard | replace: "[amount]", money_til_free_shipping | replace: "[ amount ]", money_til_free_shipping }}
+      {%- elsif progress >= 60 and progress < 100 -%}
+        {{ settings.cart_shipping_bar_msg_close | replace: "[amount]", money_til_free_shipping | replace: "[ amount ]", money_til_free_shipping }}
+      {%- else -%}
+        {{ settings.cart_shipping_bar_msg_free }}
+      {%- endif -%}
+    </div>
+    <div class="free-shipping-bar" style="--shipping-bar-width: {{ progress }}%; --shipping-bar-background: {{ settings.cart_shipping_bar_background | default: settings.cart_shipping_bar_background_color }}"></div>
+  </div>
+{%- endif -%}

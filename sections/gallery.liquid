@@ -1,0 +1,2196 @@
+{%- comment -%}theme-check-disable SchemaJsonFormat,ImgLazyLoading{%- endcomment -%}
+{%- liquid
+  assign section_is_empty = true
+  assign block_count = 0
+  for block in section.blocks
+    if block.settings.icon != blank or block.settings.text != blank or block.settings.title != blank or block.settings.image != blank
+      assign section_is_empty = false
+      assign block_count = block_count | plus: 1
+    endif
+  endfor
+-%}
+
+{%- if request.design_mode or section.settings.hide_when_empty == false or section_is_empty == false -%}
+  {%- liquid
+    assign columns_desktop = section.settings.columns_desktop
+    assign columns_mobile = 1
+
+    assign show_mobile_slider = false
+    if section.settings.mobile_layout == 'carousel'
+      assign show_mobile_slider = true
+    endif
+
+    if settings.animations_reveal_on_scroll and section.index > 2 and section.location != 'header'
+      assign animate = true
+    else
+      assign animate = false
+    endif
+
+    assign img_loading = 'lazy'
+    if section.index == 1 or request.design_mode
+      assign img_loading = 'eager'
+    endif
+  -%}
+  {%- if section.index < 3 or request.design_mode -%}
+    {{ 'component-gallery.css' | asset_url | stylesheet_tag }}
+    {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+  {%- else -%}
+    <link rel="stylesheet" href="{{ 'component-gallery.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
+  {%- endif -%}
+
+  <div class="color-{{ section.settings.section_color_scheme }} isolate gradient {{ section.settings.line_separator }}{% if section.settings.full_width %} gallery--full-width{% endif %} {{ section.settings.visibility }} {%- render 'class-time-of-day-to-show' -%}">
+    <div class="section__inner {{ section.settings.top_padding }} {{ section.settings.bottom_padding }}">
+      {%- if section.settings.view_all_text != blank -%}
+        {% capture view_all %}
+          <div class="section-view-all gallery__view-all{% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--fade-in{% endif %}">
+            <a
+                href="{{ section.settings.view_all_link }}"
+                class="link {{ section.settings.view_all_text_size }}"
+            >
+              {{ section.settings.view_all_text }}
+            </a>
+          </div>
+        {% endcapture %}
+      {%- endif -%}
+
+      {% render 'standard-section-heading', section_name: 'gallery', section: section, view_all: view_all %}
+
+      <slider-component
+        class="
+          slider-mobile-gutter
+          {% unless settings.carousel_arrows %} slide-component--show-arrows{% endunless %}
+          {% if show_mobile_slider == false and section.settings.full_width == false %} page-width{% endif %}
+          {% unless section.settings.full_width %} page-width-desktop{% endunless %}
+        "
+      >
+        <ul
+          id="Slider-{{ section.id }}"
+          class="
+            gallery-grid section-grid grid mb-0 mt-0
+            {% if section.settings.full_width %}
+              gallery-grid--rounding-none
+            {% else %}
+              gallery-grid--rounding-{{ section.settings.corner_rounding }}
+            {% endif %}
+            grid--{{ columns_desktop }}-col-desktop
+            grid--central-loners
+            {% if block_count == 0 %}
+              grid--2-col-tablet-down
+            {% else %}
+              grid--{{ columns_mobile }}-col-tablet-down
+            {% endif %}
+            {% if show_mobile_slider %}
+              slider slider--tablet grid--peek
+            {% endif %}
+          "
+          role="list"
+          aria-label="{{ 'general.slider.name' | t }}"
+          style="--gallery-grid-cols: {{ section.settings.columns_desktop }}; --gallery-grid-gap: {{ section.settings.spacing_grid }}px;--gallery-grid-gap-mobile: {{ section.settings.spacing_grid_mobile }}px;--mobile-height: {{ section.settings.mobile_section_height }}px;--desktop-height: {{ section.settings.desktop_section_height }}px;--mobile-height-double: {{ section.settings.mobile_section_height | times: 2 }}px;--desktop-height-double: {{ section.settings.desktop_section_height | times: 2 }}px;"
+        >
+          {%- for block in section.blocks -%}
+            {%- liquid
+              if block.settings.title contains '<a ' or block.settings.text contains '<a ' or block.settings.button_label != blank
+                assign content_has_link = true
+              else
+                assign content_has_link = false
+              endif
+            -%}
+            <li
+              id="Slide-{{ section.id }}-{{ forloop.index }}"
+              class="
+                gallery__item grid__item pt-0 pb-0
+                {% if forloop.first and show_mobile_slider and section.settings.full_width %} ml-0{% endif %}
+                {% if block.settings.wide %} gallery__item-wide{% endif %}
+                {% if block.settings.tall %} gallery__item-tall{% endif %}
+                {% if show_mobile_slider %} slider__slide{% endif %}
+                {% if animate %} scroll-trigger animate--fade-in{% endif %}
+              "
+              {{ block.shopify_attributes }}
+              {% if animate %}
+                data-cascade
+              {% endif %}
+              style="{% if animate %}--animation-order: {{ forloop.index }};{% endif %}--galery-item-button-link-color: {{ block.settings.button_link_color }};"
+            >
+              <{% if content_has_link == false and block.settings.card_link != blank %}a href="{{ block.settings.card_link }}"{% else %}div{% endif %}
+                class="
+                w-full m-0
+                  responsive-card-padding overflow-hidden h-full flex flex-col content-container color-{{ block.settings.card_color_scheme }} gradient text-{{ block.settings.column_alignment }}
+                  {% if section.settings.full_width %} rounded-none{% endif %}
+                  {% if content_has_link == false and block.settings.card_link != blank %} full-unstyled-link--foreground hover-zoom focus-this-inner-inset{% endif %}
+                "
+                style="--responsive-card-padding: {{ section.settings.content_padding }}rem;{% if block.settings.image != blank %}--overlay-opacity: {{ block.settings.image_overlay_opacity | divided_by: 100.0 }};{% endif %}{% if block.settings.custom_background != blank and block.settings.custom_background.alpha > 0 %}--color-background: {{ block.settings.custom_background.red }},{{ block.settings.custom_background.green }},{{ block.settings.custom_background.blue }};--gradient-background: {{ block.settings.custom_background }};{% endif %}"
+              >
+                {%- assign image = '' -%}
+                {%- liquid
+                  assign has_mobile_image = false
+
+                  if block.settings.mobile_image != blank
+                    assign has_mobile_image = true
+                  endif
+                -%}
+
+                {%- if block.settings.image != blank -%}
+                  {% capture image %}
+                    <div class="inline-block w-full h-full{% if section.settings.full_width %} global-media-settings--full-width{% endif %}">
+                      <div class="media media--transparent w-full h-full">
+                        {%- liquid
+                          assign image_width = section.settings.columns_desktop
+
+                          if block.settings.tall or block.settings.wide
+                            assign image_width = image_width | divided_by: 2 | round
+                          elsif image_width > 2
+                            assign image_width = image_width | minus: 1
+                          endif
+                        -%}
+
+                        <picture class="w-100 absolute">
+                          {%- if has_mobile_image -%}
+                            <source
+                              media="(max-width: 750px)"
+                              srcset="
+                                {%- if block.settings.mobile_image.width >= 165 -%}
+                                  {{ block.settings.mobile_image | image_url: width: 165 }} 165w,
+                                {%- endif -%}
+                                {%- if block.settings.mobile_image.width >= 360 -%}
+                                  {{ block.settings.mobile_image | image_url: width: 360 }} 360w,
+                                {%- endif -%}
+                                {%- if block.settings.mobile_image.width >= 533 -%}
+                                  {{ block.settings.mobile_image | image_url: width: 533 }} 533w,
+                                {%- endif -%}
+                                {%- if block.settings.mobile_image.width >= 750 -%}
+                                  {{ block.settings.mobile_image | image_url: width: 750 }} 750w,
+                                {%- endif -%}
+                                {{ block.settings.mobile_image | image_url }} {{ block.settings.mobile_image.width }}w
+                              "
+                              sizes="
+                                (min-width: 576px) calc((100vw - 50px) / {{ columns_mobile }}),
+                                calc((100vw - 30px) / {{ columns_mobile }})
+                              "
+                            >
+                          {%- endif -%}
+
+                          <img
+                            srcset="
+                              {%- if block.settings.image.width >= 165 -%}
+                                {{ block.settings.image | image_url: width: 165 }} 165w,
+                              {%- endif -%}
+                              {%- if block.settings.image.width >= 360 -%}
+                                {{ block.settings.image | image_url: width: 360 }} 360w,
+                              {%- endif -%}
+                              {%- if block.settings.image.width >= 533 -%}
+                                {{ block.settings.image | image_url: width: 533 }} 533w,
+                              {%- endif -%}
+                              {%- if block.settings.image.width >= 940 -%}
+                                {{ block.settings.image | image_url: width: 940 }} 940w,
+                              {%- endif -%}
+                              {%- if block.settings.image.width >= 1066 -%}
+                                {{ block.settings.image | image_url: width: 1066 }} 1066w,
+                              {%- endif -%}
+                              {{ block.settings.image | image_url }} {{ block.settings.image.width }}w
+                            "
+                            src="{{ block.settings.image | image_url: width: 720 }}"
+                            sizes="
+                              (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: image_width }}px,
+                              (min-width: 1200px) calc((100vw - 130px) / {{ image_width }}),
+                              (min-width: 992px) calc((100vw - 130px) / {{ image_width | minus: 1 | at_least: 1 }}),
+                              (min-width: 768px) calc((100vw - 120px) / {{ image_width | minus: 1 | at_least: 1 }}),
+                              (min-width: 576px) calc((100vw - 50px) / {{ columns_mobile }}),
+                              calc((100vw - 30px) / {{ columns_mobile }})
+                            "
+                            alt="{{ block.settings.image.alt | escape }}"
+                            class="gallery__image"
+                            loading="{{ img_loading }}"
+                            width="{{ block.settings.image.width }}"
+                            height="{{ block.settings.image.height }}"
+                            {% if block.settings.image.presentation %}
+                              style="object-position: {{ block.settings.image.presentation.focal_point }}"
+                            {% endif %}
+                          >
+                        </picture>
+                      </div>
+                    </div>
+                  {% endcapture %}
+                {%- endif -%}
+
+                <div class="absolute inset image-overlay">
+                  {% if block.settings.image != blank %}
+                    {{ image }}
+                  {% endif %}
+                </div>
+
+                <div
+                  class="
+                    card-padding block-when-empty relative grow section-height-responsive--mobile section-height-responsive--desktop
+                    max-w-{{ block.settings.content_max_width }} flex flex-col {{ block.settings.text_vertical_alignment }} self-{{ block.settings.column_alignment }}
+                    {% if block.settings.image != blank %} z-1{% endif %}
+                  "
+                >
+                  {%- if block.settings.icon != blank and block.settings.stat_number == blank -%}
+                    {% render 'standard-blocks',
+                      type: 'icon',
+                      section_name: 'gallery',
+                      block: block,
+                      class: 'mb--icon-container'
+                    %}
+                  {%- endif -%}
+
+                  {%- if block.settings.title != blank -%}
+                    <h3
+                      class="lh-13 color-heading mt-0{% if block.settings.text != blank %} mb-05{% else %} mb-0{% endif %} last-child:mb-0 inline-richtext {{ section.settings.heading_style }}{% if block.settings.heading_size == "custom" %} text-size-custom{% else %} {{ block.settings.heading_size }}{% endif %}"
+                      {% if block.settings.heading_size == 'custom' %}
+                        style="--custom-font-size:{{ block.settings.heading_size_custom }}em"
+                      {% endif %}
+                    >
+                      {%- assign text = block.settings.title -%}
+                      {%- if text contains '[' and text contains ']' and text contains '|' -%}
+                        <lazy-script src="{{ 'animated-list.js' | asset_url }}" defer="defer"></lazy-script>
+                        {%- liquid
+                          assign before_bracket = text | split: '[' | first
+                          assign inside_bracket = text | split: '[' | last | split: ']' | first
+                          assign after_bracket = text | split: ']' | last
+
+                          assign inside_em = inside_bracket | split: '<em>' | last | split: '</em>' | first
+                          assign inside_strong = inside_bracket | split: '<strong>' | last | split: '</strong>' | first
+
+                          assign items = inside_bracket | split: '|'
+                          assign first_item = items | first
+                          assign remaining_items = items | slice: 1, items.size | join: '|'
+                        -%}
+
+                        {%- if inside_bracket contains '<em>' and inside_em contains '|' -%}
+                          {{ text | replace: '++', '<br>' }}
+                        {%- elsif inside_bracket contains '<strong>' and inside_strong contains '|' -%}
+                          {{ text | replace: '++', '<br>' }}
+                        {%- else -%}
+                          {{- before_bracket | replace: '++', '<br>' -}}
+                          <animated-list class="relative inline-flex" data-list="{{ remaining_items }}">
+                            {{- first_item -}}
+                          </animated-list>
+                          {%- unless after_bracket contains '[' -%}
+                            {{ after_bracket | replace: '++', '<br>' }}
+                          {%- endunless -%}
+                        {%- endif -%}
+                      {%- else -%}
+                        {{ text | replace: '++', '<br>' }}
+                      {%- endif -%}
+                    </h3>
+                  {%- endif -%}
+
+                  {%- if block.settings.text != blank -%}
+                    <div
+                      class="rte text-balance mb-1 last:mb-0 {{ block.settings.text_style }} {{ block.settings.text_size }}{% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--slide-in{% endif %}"
+                      {{ block.shopify_attributes }}
+                      {% if settings.animations_reveal_on_scroll and section.index > 2 %}
+                        data-cascade
+                        style="--animation-order: {{ forloop.index | default: 1 }};"
+                      {% endif %}
+                    >
+                      {{ block.settings.text }}
+                    </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.button_label != blank -%}
+                    <div
+                      class="
+                        {% if block.settings.title != blank and block.settings.text == blank and block.settings.button_style != 'link' %}mt-05{% endif %}
+                        {% if block.settings.button_label != blank %} banner__buttons--multiple{% endif %}
+                        {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--slide-in{% endif %}
+                      "
+                      {{ block.shopify_attributes }}
+                      {% if settings.animations_reveal_on_scroll and section.index > 2 %}
+                        data-cascade
+                        style="--animation-order: {{ forloop.index | default: 1 }};"
+                      {% endif %}
+                    >
+                      {%- if block.settings.button_label != blank -%}
+                        <a
+                          {% if block.settings.button_link == blank %}
+                            role="link" aria-disabled="true"
+                          {% else %}
+                            href="{{ block.settings.button_link }}"
+                          {% endif %}
+                          class="mt-1 {{ block.settings.button_text_size }} {% if block.settings.button_style == 'link' %}link un-underlined-link{% else %}button button--{{ block.settings.button_style }}{% endif %}{% if block.settings.button_style_show_arrow %} button-with-icon button-with-icon--right{% endif %}{% if block.settings.button_style == 'secondary' and block.settings.button_style_show_gradient_border and block.settings.button_border_gradient != blank %} button--secondary-gradient{% endif %}"
+                          {% if block.settings.button_style == 'secondary'
+                            and block.settings.button_style_show_gradient_border
+                            and block.settings.button_border_gradient != blank
+                          %}
+                            style="--color-secondary-button-border-gradient: {{ block.settings.button_border_gradient }}"
+                          {% endif %}
+                        >
+                          {{- block.settings.button_label | escape -}}
+                          {% if block.settings.button_style_show_arrow %}
+                            {% render 'icon-arrow' %}
+                          {% endif %}
+                        </a>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+              </{% if content_has_link == false and block.settings.card_link != blank %}a href="{{ block.settings.card_link }}"{% else %}div{% endif %}>
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        {%- if show_mobile_slider -%}
+          <div class="slider-buttons page-width no-js-hidden">
+            <button
+              type="button"
+              class="slider-button button-control tap-target slider-button--prev"
+              name="previous"
+              aria-label="{{ 'general.slider.previous_slide' | t }}"
+              aria-controls="Slider-{{ section.id }}"
+            >
+              {% render 'icon-caret' %}
+            </button>
+
+            <div class="slider-counter caption visually-hidden">
+              <span class="slider-counter--current">1</span>
+              <span aria-hidden="true"> / </span>
+              <span>{{ 'general.slider.of' | t }}</span>
+              <span class="slider-counter--total">{{ block_count }}</span>
+            </div>
+
+            <button
+              type="button"
+              class="slider-button button-control tap-target slider-button--next"
+              name="next"
+              aria-label="{{ 'general.slider.next_slide' | t }}"
+              aria-controls="Slider-{{ section.id }}"
+            >
+              {% render 'icon-caret' %}
+            </button>
+
+            <div
+              class="slider-scrollbar__track"
+              style="--num-slides: {{ block_count }}"
+              data-num-slides="{{ block_count }}"
+            >
+              <div class="slider-scrollbar__indicator"></div>
+            </div>
+          </div>
+        {%- endif -%}
+      </slider-component>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Gallery",
+  "class": "section section-gallery",
+  "disabled_on": {
+    "groups": ["header", "footer", "aside"]
+  },
+  "settings": [
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "label": "Number of columns on desktop",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "spacing_grid",
+      "min": 0,
+      "max": 56,
+      "step": 1,
+      "default": 16,
+      "unit": "px",
+      "label": "Gap on desktop"
+    },
+    {
+      "type": "range",
+      "id": "spacing_grid_mobile",
+      "min": 0,
+      "max": 56,
+      "step": 1,
+      "default": 16,
+      "unit": "px",
+      "label": "Gap on mobile"
+    },
+    {
+      "type": "select",
+      "id": "corner_rounding",
+      "default": "inner",
+      "info": "Defines where the \"Sections, images and video\" corner rounding in the [Appearance settings](/editor?context=theme&category=appearance) should be applied. Doesn't apply when the Gallery is full width.",
+      "label": "Corner rounding on desktop",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "inner",
+          "label": "Standard"
+        },
+        {
+          "value": "outer",
+          "label": "Outer"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "min": 2,
+      "max": 7,
+      "step": 0.1,
+      "default": 3,
+      "unit": "rem",
+      "info": "This will scale according to screen size.",
+      "label": "Content padding"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_section_height",
+      "min": 0,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum height on desktop",
+      "default": 260
+    },
+    {
+      "type": "range",
+      "id": "mobile_section_height",
+      "min": 0,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum height on mobile",
+      "default": 220
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "default": "carousel",
+      "label": "Mobile layout",
+      "options": [
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        },
+        {
+          "value": "grid",
+          "label": "Stack"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full width"
+    },
+    {
+      "type": "header",
+      "content": "Header layout"
+    },
+
+    {
+      "type": "select",
+      "id": "content_max_width",
+      "options": [
+        {
+          "value": "xs",
+          "label": "XS"
+        },
+        {
+          "value": "s",
+          "label": "S"
+        },
+        {
+          "value": "m",
+          "label": "M"
+        },
+        {
+          "value": "l",
+          "label": "L"
+        },
+        {
+          "value": "xl",
+          "label": "XL"
+        }
+      ],
+      "default": "m",
+      "label": "Maximum heading width"
+    },
+    {
+      "type": "text_alignment",
+      "id": "desktop_heading_alignment",
+      "default": "left",
+      "label": "Heading alignment on desktop"
+    },
+    {
+      "type": "text_alignment",
+      "id": "mobile_heading_alignment",
+      "default": "left",
+      "label": "Heading alignment on mobile"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Gallery",
+      "info": "Enter ++ for a line break.",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "italic_convert",
+      "visible_if": "{{ section.settings.title != blank }}",
+      "options": [
+        {
+          "value": "",
+          "label": "Off (keep as italics)"
+        },
+        {
+          "value": "light",
+          "label": "Lighter"
+        },
+        {
+          "value": "accent_color",
+          "label": "Accent color"
+        },
+        {
+          "value": "accent",
+          "label": "Accent gradient color"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "outline_accent",
+          "label": "Outline - Accent color"
+        },
+        {
+          "value": "glow",
+          "label": "Glow - Accent color"
+        },
+        {
+          "value": "glow_outline",
+          "label": "Glow with outline - Accent color"
+        }
+      ],
+      "info": "The colors above can be set in the color schemes. 'Outline' may not work with all fonts.",
+      "default": "",
+      "label": "Convert italic text to"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "visible_if": "{{ section.settings.title != blank }}",
+      "options": [
+        {
+          "value": "h4",
+          "label": "XS"
+        },
+        {
+          "value": "h3",
+          "label": "S"
+        },
+        {
+          "value": "h2",
+          "label": "M"
+        },
+        {
+          "value": "h1",
+          "label": "L"
+        },
+        {
+          "value": "h0",
+          "label": "XL"
+        }
+      ],
+      "default": "h2",
+      "label": "Heading size"
+    },
+    {
+      "type": "header",
+      "content": "Description"
+    },
+
+    {
+      "type": "richtext",
+      "id": "text",
+
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "visible_if": "{{ section.settings.text != blank }}",
+      "options": [
+        {
+          "value": "t6",
+          "label": "2XS"
+        },
+        {
+          "value": "t5",
+          "label": "XS"
+        },
+        {
+          "value": "t4",
+          "label": "S"
+        },
+        {
+          "value": "t3",
+          "label": "M"
+        },
+        {
+          "value": "t2",
+          "label": "L"
+        },
+        {
+          "value": "t1",
+          "label": "XL"
+        },
+        {
+          "value": "t0",
+          "label": "2XL"
+        }
+      ],
+      "default": "t3",
+      "label": "Text size"
+    },
+    {
+      "type": "header",
+      "content": "View more"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View more link"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "visible_if": "{{ section.settings.view_all_link != blank }}",
+      "label": "View more link text"
+    },
+    {
+      "type": "select",
+      "id": "view_all_text_size",
+      "visible_if": "{{ section.settings.view_all_link != blank }}",
+      "options": [
+        {
+          "value": "t6",
+          "label": "2XS"
+        },
+        {
+          "value": "t5",
+          "label": "XS"
+        },
+        {
+          "value": "t4",
+          "label": "S"
+        },
+        {
+          "value": "t3",
+          "label": "M"
+        },
+        {
+          "value": "t2",
+          "label": "L"
+        },
+        {
+          "value": "t1",
+          "label": "XL"
+        },
+        {
+          "value": "t0",
+          "label": "2XL"
+        }
+      ],
+      "default": "t3",
+      "label": "View more link size"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "label": "Section color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "line_separator",
+      "options": [
+        {
+          "value": "",
+          "label": "Off"
+        },
+        {
+          "value": "border-top",
+          "label": "Top"
+        },
+        {
+          "value": "border-bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "border-top border-bottom",
+          "label": "Both"
+        }
+      ],
+      "default": "",
+      "label": "Line separator"
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "select",
+      "id": "top_padding",
+      "options": [
+        {
+          "value": "pt-0",
+          "label": "0"
+        },
+        {
+          "value": "pt-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pt-s",
+          "label": "1"
+        },
+        {
+          "value": "pt-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pt-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pt-s",
+      "label": "Top section spacing"
+    },
+    {
+      "type": "select",
+      "id": "bottom_padding",
+      "options": [
+        {
+          "value": "pb-0",
+          "label": "0"
+        },
+        {
+          "value": "pb-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pb-s",
+          "label": "1"
+        },
+        {
+          "value": "pb-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pb-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pb-s",
+      "label": "Bottom section spacing"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "options": [
+        {
+          "value": "visible-xs",
+          "label": "Mobile"
+        },
+        {
+          "value": "hidden-xs",
+          "label": "Desktop"
+        },
+        {
+          "value": "",
+          "label": "Both"
+        }
+      ],
+      "default": "",
+      "info": "Lots of hidden content could be harmful for SEO.",
+      "label": "Show on"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_when_empty",
+      "default": false,
+      "label": "Hide this section when there's no image to show",
+      "info": "This allows metafields to selectively show this section. Always shows in the Theme Editor."
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_at_specific_time_of_day",
+      "default": false,
+      "label": "Only show at specific times of the day",
+      "info": "Uses the customers' local time. Always shows in Theme Editor."
+    },
+    {
+      "type": "paragraph",
+      "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+      "content": "Lots of hidden content could be harmful for SEO. Don't overuse this."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_time_morning",
+      "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+      "default": true,
+      "label": "Show in the morning (5am - 12pm)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_time_afternoon",
+      "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+      "default": true,
+      "label": "Show in the afternoon (12pm - 5pm)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_time_evening",
+      "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+      "default": true,
+      "label": "Show in the evening (5pm - 9pm)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_time_night",
+      "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+      "default": true,
+      "label": "Show at night (9pm - 5am)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "gallery_item",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "tall",
+          "default": false,
+          "label": "Tall"
+        },
+        {
+          "type": "checkbox",
+          "id": "wide",
+          "default": false,
+          "label": "Wide"
+        },
+        {
+          "type": "text_alignment",
+          "id": "column_alignment",
+          "default": "left",
+          "label": "Content alignment"
+        },
+        {
+          "type": "select",
+          "id": "text_vertical_alignment",
+          "default": "justify-end",
+          "label": "Content vertical alignment",
+          "options": [
+            {
+              "value": "justify-start",
+              "label": "Top"
+            },
+            {
+              "value": "justify-center",
+              "label": "Middle"
+            },
+            {
+              "value": "justify-end",
+              "label": "Bottom"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "content_max_width",
+          "options": [
+            {
+              "value": "xxs",
+              "label": "2XS"
+            },
+            {
+              "value": "xs",
+              "label": "XS"
+            },
+            {
+              "value": "s",
+              "label": "S"
+            },
+            {
+              "value": "m",
+              "label": "M"
+            },
+            {
+              "value": "l",
+              "label": "L"
+            }
+          ],
+          "default": "l",
+          "label": "Maximum text width"
+        },
+        {
+          "type": "header",
+          "content": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Background mobile image (optional)"
+        },
+        {
+          "type": "range",
+          "id": "image_overlay_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "%",
+          "label": "Image overlay opacity",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Icon"
+        },
+
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            {
+              "label": "None",
+              "value": ""
+            },
+            {
+              "label": "Clothes & Beauty / Brush",
+              "value": "brush"
+            },
+            {
+              "label": "Clothes & Beauty / Dryer",
+              "value": "dryer"
+            },
+            {
+              "label": "Clothes & Beauty / Footsteps",
+              "value": "footsteps"
+            },
+            {
+              "label": "Clothes & Beauty / Glasses",
+              "value": "glasses"
+            },
+            {
+              "label": "Clothes & Beauty / Iron",
+              "value": "iron"
+            },
+            {
+              "label": "Clothes & Beauty / Leather",
+              "value": "leather"
+            },
+            {
+              "label": "Clothes & Beauty / Lipstick",
+              "value": "lipstick"
+            },
+            {
+              "label": "Clothes & Beauty / Pants",
+              "value": "pants"
+            },
+            {
+              "label": "Clothes & Beauty / Perfume",
+              "value": "perfume"
+            },
+            {
+              "label": "Clothes & Beauty / Ruler",
+              "value": "ruler"
+            },
+            {
+              "label": "Clothes & Beauty / Scissors",
+              "value": "scissors"
+            },
+            {
+              "label": "Clothes & Beauty / Shirt 1",
+              "value": "shirt"
+            },
+            {
+              "label": "Clothes & Beauty / Shirt 2",
+              "value": "shirt2"
+            },
+            {
+              "label": "Clothes & Beauty / Shoe",
+              "value": "shoe"
+            },
+            {
+              "label": "Clothes & Beauty / Washing",
+              "value": "washing"
+            },
+            {
+              "label": "Communication / Call",
+              "value": "call"
+            },
+            {
+              "label": "Communication / Chat bubble",
+              "value": "chat_bubble"
+            },
+            {
+              "label": "Communication / Chat bubbles",
+              "value": "chat_bubbles"
+            },
+            {
+              "label": "Communication / Ear",
+              "value": "ear"
+            },
+            {
+              "label": "Communication / Information",
+              "value": "information"
+            },
+            {
+              "label": "Communication / Information circle",
+              "value": "information_circle"
+            },
+            {
+              "label": "Communication / Mail",
+              "value": "mail"
+            },
+            {
+              "label": "Communication / @ symbol",
+              "value": "email-at"
+            },
+            {
+              "label": "Communication / Notification alert",
+              "value": "alert"
+            },
+            {
+              "label": "Communication / Question mark",
+              "value": "help"
+            },
+            {
+              "label": "Communication / Question mark circle",
+              "value": "question_mark"
+            },
+            {
+              "label": "Communication / Warning",
+              "value": "warning"
+            },
+            {
+              "label": "Digital / Apps",
+              "value": "apps"
+            },
+            {
+              "label": "Digital / Arrow right",
+              "value": "arrow_right"
+            },
+            {
+              "label": "Digital / Attach",
+              "value": "attach"
+            },
+            {
+              "label": "Digital / Calendar",
+              "value": "calendar"
+            },
+            {
+              "label": "Digital / Chart",
+              "value": "chart"
+            },
+            {
+              "label": "Digital / Chevron right",
+              "value": "chevron_right"
+            },
+            {
+              "label": "Digital / Clipboard",
+              "value": "clipboard"
+            },
+            {
+              "label": "Digital / Cloud",
+              "value": "cloud"
+            },
+            {
+              "label": "Digital / Cloud done",
+              "value": "cloud_done"
+            },
+            {
+              "label": "Digital / Cloud download",
+              "value": "cloud_download"
+            },
+            {
+              "label": "Digital / Cloud upload",
+              "value": "cloud_upload"
+            },
+            {
+              "label": "Digital / Code slash",
+              "value": "code_slash"
+            },
+            {
+              "label": "Digital / Documents",
+              "value": "documents"
+            },
+            {
+              "label": "Digital / Home",
+              "value": "home"
+            },
+            {
+              "label": "Digital / Images",
+              "value": "images"
+            },
+            {
+              "label": "Digital / Open in new window",
+              "value": "open"
+            },
+            {
+              "label": "Digital / Options",
+              "value": "options"
+            },
+            {
+              "label": "Digital / Plus",
+              "value": "plus"
+            },
+            {
+              "label": "Digital / Plus in circle",
+              "value": "add"
+            },
+            {
+              "label": "Digital / Repeat",
+              "value": "repeat"
+            },
+            {
+              "label": "Digital / Scan",
+              "value": "scan"
+            },
+            {
+              "label": "Digital / Search",
+              "value": "search"
+            },
+            {
+              "label": "Digital / Volume",
+              "value": "volume"
+            },
+
+            {
+              "label": "eCommerce / Bag add",
+              "value": "bag-add"
+            },
+            {
+              "label": "eCommerce / Bag with check mark",
+              "value": "bag-check"
+            },
+            {
+              "label": "eCommerce / Box",
+              "value": "box"
+            },
+            {
+              "label": "eCommerce / Card",
+              "value": "card"
+            },
+            {
+              "label": "eCommerce / Cart",
+              "value": "cart"
+            },
+            {
+              "label": "eCommerce / Clock",
+              "value": "clock"
+            },
+            {
+              "label": "eCommerce / Cash",
+              "value": "cash"
+            },
+            {
+              "label": "eCommerce / Gift",
+              "value": "gift"
+            },
+            {
+              "label": "eCommerce / Price tag",
+              "value": "price_tag"
+            },
+            {
+              "label": "eCommerce / Price tags",
+              "value": "price_tags"
+            },
+            {
+              "label": "eCommerce / Recycle",
+              "value": "recycle"
+            },
+            {
+              "label": "eCommerce / Return",
+              "value": "return"
+            },
+            {
+              "label": "eCommerce / Storefront",
+              "value": "storefront"
+            },
+            {
+              "label": "eCommerce / Truck",
+              "value": "truck"
+            },
+            {
+              "label": "eCommerce / Wallet",
+              "value": "wallet"
+            },
+            {
+              "label": "Food & Beverage / Apple",
+              "value": "apple"
+            },
+            {
+              "label": "Food & Beverage / Banana",
+              "value": "banana"
+            },
+            {
+              "label": "Food & Beverage / Beer",
+              "value": "beer"
+            },
+            {
+              "label": "Food & Beverage / Bottle",
+              "value": "bottle"
+            },
+            {
+              "label": "Food & Beverage / Carrot",
+              "value": "carrot"
+            },
+            {
+              "label": "Food & Beverage / Coffee",
+              "value": "cafe"
+            },
+            {
+              "label": "Food & Beverage / Cutlery",
+              "value": "restaurant"
+            },
+            {
+              "label": "Food & Beverage / Dairy",
+              "value": "dairy"
+            },
+            {
+              "label": "Food & Beverage / Dairy free",
+              "value": "dairy_free"
+            },
+            {
+              "label": "Food & Beverage / Drink",
+              "value": "pint"
+            },
+            {
+              "label": "Food & Beverage / Egg",
+              "value": "egg"
+            },
+            {
+              "label": "Food & Beverage / Fast food",
+              "value": "fast_food"
+            },
+            {
+              "label": "Food & Beverage / Fish",
+              "value": "fish"
+            },
+            {
+              "label": "Food & Beverage / Gluten free",
+              "value": "gluten_free"
+            },
+            {
+              "label": "Food & Beverage / Ice cream",
+              "value": "ice_cream"
+            },
+            {
+              "label": "Food & Beverage / Nut free",
+              "value": "nut_free"
+            },
+            {
+              "label": "Food & Beverage / Pepper",
+              "value": "pepper"
+            },
+            {
+              "label": "Food & Beverage / Pizza",
+              "value": "pizza"
+            },
+            {
+              "label": "Food & Beverage / Serving dish",
+              "value": "serving_dish"
+            },
+            {
+              "label": "Food & Beverage / Vegan",
+              "value": "plant"
+            },
+            {
+              "label": "Food & Beverage / Wine",
+              "value": "wine"
+            },
+            {
+              "label": "Hardware & Tools / Construction",
+              "value": "construction"
+            },
+            {
+              "label": "Hardware & Tools / Cog",
+              "value": "cog"
+            },
+            {
+              "label": "Hardware & Tools / Eyedropper",
+              "value": "eyedropper"
+            },
+            {
+              "label": "Hardware & Tools / Flashlight",
+              "value": "flashlight"
+            },
+            {
+              "label": "Hardware & Tools / Gear",
+              "value": "gear"
+            },
+            {
+              "label": "Hardware & Tools / Hammer",
+              "value": "hammer"
+            },
+            {
+              "label": "Hardware & Tools / Magnet",
+              "value": "magnet"
+            },
+            {
+              "label": "Hardware & Tools / Paint bucket",
+              "value": "paint"
+            },
+            {
+              "label": "Hardware & Tools / Thermometer",
+              "value": "thermometer"
+            },
+            {
+              "label": "Hardware & Tools / Wrench",
+              "value": "build"
+            },
+            {
+              "label": "Logo / Amazon",
+              "value": "logo_amazon"
+            },
+            {
+              "label": "Logo / Android",
+              "value": "logo_android"
+            },
+            {
+              "label": "Logo / Apple",
+              "value": "logo_apple"
+            },
+            {
+              "label": "Logo / Apple Appstore",
+              "value": "logo_apple_appstore"
+            },
+            {
+              "label": "Logo / Discord",
+              "value": "logo_discord"
+            },
+            {
+              "label": "Logo / Facebook",
+              "value": "logo_facebook"
+            },
+            {
+              "label": "Logo / Google",
+              "value": "logo_google"
+            },
+            {
+              "label": "Logo / Google Playstore",
+              "value": "logo_google_playstore"
+            },
+            {
+              "label": "Logo / Instagram",
+              "value": "logo_instagram"
+            },
+            {
+              "label": "Logo / Linkedin",
+              "value": "logo_linkedin"
+            },
+            {
+              "label": "Logo / Microsoft",
+              "value": "logo_microsoft"
+            },
+            {
+              "label": "Logo / Pinterest",
+              "value": "logo_pinterest"
+            },
+            {
+              "label": "Logo / Soundcloud",
+              "value": "logo_soundcloud"
+            },
+            {
+              "label": "Logo / Tiktok",
+              "value": "logo_tiktok"
+            },
+            {
+              "label": "Logo / Tumblr",
+              "value": "logo_tumblr"
+            },
+            {
+              "label": "Logo / Twitch",
+              "value": "logo_twitch"
+            },
+            {
+              "label": "Logo / Wechat",
+              "value": "logo_wechat"
+            },
+            {
+              "label": "Logo / Whatsapp",
+              "value": "logo_whatsapp"
+            },
+            {
+              "label": "Logo / X (aka Twitter)",
+              "value": "logo_x"
+            },
+            {
+              "label": "Logo / YouTube",
+              "value": "logo_youtube"
+            },
+            {
+              "label": "Nature / Bug",
+              "value": "bug"
+            },
+            {
+              "label": "Nature / Earth",
+              "value": "earth"
+            },
+            {
+              "label": "Nature / Fire",
+              "value": "fire"
+            },
+            {
+              "label": "Nature / Flower",
+              "value": "flower"
+            },
+            {
+              "label": "Nature / Globe",
+              "value": "globe"
+            },
+            {
+              "label": "Nature / Leaf",
+              "value": "leaf"
+            },
+            {
+              "label": "Nature / Lightning bolt",
+              "value": "lightning_bolt"
+            },
+            {
+              "label": "Nature / Partly sunny",
+              "value": "partly_sunny"
+            },
+            {
+              "label": "Nature / Paw print",
+              "value": "paw_print"
+            },
+            {
+              "label": "Nature / Rose",
+              "value": "rose"
+            },
+            {
+              "label": "Nature / Snowflake",
+              "value": "snowflake"
+            },
+            {
+              "label": "Nature / Sunny",
+              "value": "sunny"
+            },
+            {
+              "label": "Nature / Thunderstorm",
+              "value": "thunderstorm"
+            },
+            {
+              "label": "Nature / Umbrella",
+              "value": "umbrella"
+            },
+            {
+              "label": "Nature / Water",
+              "value": "water"
+            },
+            {
+              "label": "Other / Balloon",
+              "value": "balloon"
+            },
+            {
+              "label": "Other / Ban",
+              "value": "ban"
+            },
+            {
+              "label": "Other / Bed",
+              "value": "bed"
+            },
+            {
+              "label": "Other / Book",
+              "value": "book"
+            },
+            {
+              "label": "Other / Books",
+              "value": "books"
+            },
+            {
+              "label": "Other / Briefcase",
+              "value": "briefcase"
+            },
+            {
+              "label": "Other / Calculator",
+              "value": "calculator"
+            },
+            {
+              "label": "Other / Color palette",
+              "value": "color_palette"
+            },
+            {
+              "label": "Other / Cube",
+              "value": "cube"
+            },
+            {
+              "label": "Other / Eye",
+              "value": "eye"
+            },
+            {
+              "label": "Other / Film",
+              "value": "film"
+            },
+            {
+              "label": "Other / Horizontal line",
+              "value": "horizontal_line"
+            },
+            {
+              "label": "Other / Hourglass",
+              "value": "hourglass"
+            },
+            {
+              "label": "Other / Magic wand",
+              "value": "magic_wand"
+            },
+            {
+              "label": "Other / Medical",
+              "value": "medical"
+            },
+            {
+              "label": "Other / Puzzle piece",
+              "value": "puzzle"
+            },
+            {
+              "label": "Other / Rocket",
+              "value": "rocket"
+            },
+            {
+              "label": "Other / Ticket",
+              "value": "ticket"
+            },
+            {
+              "label": "People / Female figure",
+              "value": "woman"
+            },
+            {
+              "label": "People / Female symbol",
+              "value": "female"
+            },
+            {
+              "label": "People / Male figure",
+              "value": "man"
+            },
+            {
+              "label": "People / Male symbol",
+              "value": "male"
+            },
+            {
+              "label": "People / People silhouettes",
+              "value": "people"
+            },
+            {
+              "label": "People / Person happy",
+              "value": "person"
+            },
+            {
+              "label": "People / Silhouette",
+              "value": "silhouette"
+            },
+            {
+              "label": "People / Silhouette circle",
+              "value": "silhouette_circle"
+            },
+            {
+              "label": "People / Unisex symbol",
+              "value": "male_female"
+            },
+            {
+              "label": "Sports & Fitness / Barbell",
+              "value": "barbell"
+            },
+            {
+              "label": "Sports & Fitness / Baseball",
+              "value": "baseball"
+            },
+            {
+              "label": "Sports & Fitness / Basketball",
+              "value": "basketball"
+            },
+            {
+              "label": "Sports & Fitness / Heart rate",
+              "value": "fitness"
+            },
+            {
+              "label": "Sports & Fitness / Pulse",
+              "value": "pulse"
+            },
+            {
+              "label": "Sports & Fitness / Scales",
+              "value": "scale"
+            },
+            {
+              "label": "Sports & Fitness / Soccer ball",
+              "value": "soccer_ball"
+            },
+            {
+              "label": "Sports & Fitness / Stopwatch",
+              "value": "stopwatch"
+            },
+            {
+              "label": "Sports & Fitness / Tennis ball",
+              "value": "tennis_ball"
+            },
+            {
+              "label": "Technology / Battery charging",
+              "value": "battery_charging"
+            },
+            {
+              "label": "Technology / Battery empty",
+              "value": "battery_dead"
+            },
+            {
+              "label": "Technology / Battery full",
+              "value": "battery_full"
+            },
+            {
+              "label": "Technology / Battery half",
+              "value": "battery_half"
+            },
+            {
+              "label": "Technology / Bluetooth",
+              "value": "bluetooth"
+            },
+            {
+              "label": "Technology / Bulb",
+              "value": "bulb"
+            },
+            {
+              "label": "Technology / Camera",
+              "value": "camera"
+            },
+            {
+              "label": "Technology / Camera aperture",
+              "value": "camera_aperture"
+            },
+            {
+              "label": "Technology / Cellular",
+              "value": "cellular"
+            },
+            {
+              "label": "Technology / Computer",
+              "value": "computer"
+            },
+            {
+              "label": "Technology / Flash",
+              "value": "flash"
+            },
+            {
+              "label": "Technology / Game controller",
+              "value": "game_controller"
+            },
+            {
+              "label": "Technology / Hardware chip",
+              "value": "hardware_chip"
+            },
+            {
+              "label": "Technology / Headphones",
+              "value": "headset"
+            },
+            {
+              "label": "Technology / Infinite",
+              "value": "infinite"
+            },
+            {
+              "label": "Technology / Laptop",
+              "value": "laptop"
+            },
+            {
+              "label": "Technology / Layers",
+              "value": "layers"
+            },
+            {
+              "label": "Technology / Mic",
+              "value": "mic"
+            },
+            {
+              "label": "Technology / Phone landscape",
+              "value": "phone_landscape"
+            },
+            {
+              "label": "Technology / Phone portrait",
+              "value": "phone_portrait"
+            },
+            {
+              "label": "Technology / Television",
+              "value": "tv"
+            },
+            {
+              "label": "Technology / Timer",
+              "value": "timer"
+            },
+            {
+              "label": "Technology / Videocam",
+              "value": "videocam"
+            },
+            {
+              "label": "Technology / Watch",
+              "value": "watch"
+            },
+            {
+              "label": "Technology / Wifi",
+              "value": "wifi"
+            },
+            {
+              "label": "Technology / Power",
+              "value": "power"
+            },
+            {
+              "label": "Transport / Airplane",
+              "value": "airplane"
+            },
+            {
+              "label": "Transport / Bicycle",
+              "value": "bicycle"
+            },
+            {
+              "label": "Transport / Car",
+              "value": "car"
+            },
+            {
+              "label": "Transport / Map location",
+              "value": "map_pin"
+            },
+            {
+              "label": "Transport / Navigation",
+              "value": "navigation"
+            },
+            {
+              "label": "Transport / Speedometer",
+              "value": "speedometer"
+            },
+            {
+              "label": "Transport / Sports car",
+              "value": "sports_car"
+            },
+            {
+              "label": "Trust / Award",
+              "value": "ribbon"
+            },
+            {
+              "label": "Trust / Check mark",
+              "value": "check_mark_only"
+            },
+            {
+              "label": "Trust / Check mark in square",
+              "value": "check_mark"
+            },
+            {
+              "label": "Trust / Check mark in circle",
+              "value": "check_mark_circle"
+            },
+            {
+              "label": "Trust / Happy",
+              "value": "happy"
+            },
+            {
+              "label": "Trust / Heart",
+              "value": "heart"
+            },
+            {
+              "label": "Trust / Key",
+              "value": "key"
+            },
+            {
+              "label": "Trust / Lock",
+              "value": "lock"
+            },
+            {
+              "label": "Trust / Lock closed",
+              "value": "lock_closed"
+            },
+            {
+              "label": "Trust / Lock open",
+              "value": "lock_open"
+            },
+            {
+              "label": "Trust / Shield",
+              "value": "shield"
+            },
+            {
+              "label": "Trust / Shield checkmark",
+              "value": "shield_checkmark"
+            },
+            {
+              "label": "Trust / Star",
+              "value": "star_filled"
+            },
+            {
+              "label": "Trust / Star outline",
+              "value": "star"
+            },
+            {
+              "label": "Trust / Thumbs up",
+              "value": "thumbs_up"
+            },
+            {
+              "label": "Trust / Trophy",
+              "value": "trophy"
+            }
+          ],
+          "default": "",
+          "label": "Icon"
+        },
+        {
+          "type": "select",
+          "id": "icon_container",
+          "visible_if": "{{ block.settings.icon != '' }}",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "circle",
+              "label": "Circle"
+            },
+            {
+              "value": "rounded",
+              "label": "Rounded"
+            },
+            {
+              "value": "square",
+              "label": "Square"
+            }
+          ],
+          "default": "rounded",
+          "label": "Icon background"
+        },
+        {
+          "type": "range",
+          "id": "icon_size",
+          "visible_if": "{{ block.settings.icon != '' }}",
+          "min": 2.4,
+          "max": 10,
+          "step": 0.2,
+          "default": 3.4,
+          "unit": "rem",
+          "label": "Icon size"
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "visible_if": "{{ block.settings.icon != '' }}",
+          "label": "Icon color",
+          "default": "#ffffff",
+          "info": "Set to transparent to use text color."
+        },
+        {
+          "type": "color",
+          "id": "icon_background_color",
+          "visible_if": "{{ block.settings.icon != '' }}",
+          "default": "#44C3ED",
+          "label": "Background color"
+        },
+        {
+          "type": "color_background",
+          "id": "background_gradient",
+          "default": "linear-gradient(45deg, rgba(54, 149, 250, 1), rgba(68, 195, 237, 1) 100%)",
+          "visible_if": "{{ block.settings.icon != '' }}",
+          "label": "Background gradient",
+          "info": "Background gradient replaces background where possible."
+        },
+        {
+          "type": "header",
+          "content": "Heading"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "default": "Gallery card",
+          "info": "Enter ++ for a line break. To animate between words enter them in the format: 'We deliver exceptional [products|service|value]'. Ensure [ | and ] characters aren't bold or italic. Keep animated words short and similar in length.",
+          "label": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "h5",
+              "label": "2XS"
+            },
+            {
+              "value": "h4",
+              "label": "XS"
+            },
+            {
+              "value": "h3",
+              "label": "S"
+            },
+            {
+              "value": "h2",
+              "label": "M"
+            },
+            {
+              "value": "h1",
+              "label": "L"
+            },
+            {
+              "value": "custom",
+              "label": "Custom"
+            }
+          ],
+          "default": "h3",
+          "label": "Heading size"
+        },
+        {
+          "type": "range",
+          "id": "heading_size_custom",
+          "visible_if": "{{ block.settings.heading_size == 'custom' }}",
+          "min": 1,
+          "max": 9,
+          "step": 0.2,
+          "unit": "rem",
+          "default": 2.4,
+          "label": "Custom heading size"
+        },
+        {
+          "type": "header",
+          "content": "Text"
+        },
+
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>",
+          "label": "Description"
+        },
+        {
+          "type": "color",
+          "id": "button_link_color",
+          "default": "#202020",
+          "label": "Button text color"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            }
+          ],
+          "default": "t3",
+          "label": "Text size"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "select",
+          "id": "button_text_size",
+          "options": [
+            {
+              "value": "t6",
+              "label": "2XS"
+            },
+            {
+              "value": "t5",
+              "label": "XS"
+            },
+            {
+              "value": "t4",
+              "label": "S"
+            },
+            {
+              "value": "t3",
+              "label": "M"
+            },
+            {
+              "value": "t2",
+              "label": "L"
+            },
+            {
+              "value": "t1",
+              "label": "XL"
+            },
+            {
+              "value": "t0",
+              "label": "2XL"
+            }
+          ],
+          "default": "t3",
+          "label": "Button size"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "link",
+              "label": "Link"
+            }
+          ],
+          "default": "primary",
+          "label": "Button style"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_show_arrow",
+          "default": false,
+          "label": "Show arrow"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_show_gradient_border",
+          "visible_if": "{{ block.settings.button_style == 'secondary' }}",
+          "default": false,
+          "label": "Show border gradient"
+        },
+        {
+          "type": "color_background",
+          "id": "button_border_gradient",
+          "visible_if": "{{ block.settings.button_style_show_gradient_border and block.settings.button_style == 'secondary' }}",
+          "default": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+          "label": "Border gradient"
+        },
+        {
+          "type": "header",
+          "content": "Link"
+        },
+        {
+          "type": "url",
+          "id": "card_link",
+          "info": "Turns the entire card into a link. Doesn't apply when a button is added or when the text contains a link.",
+          "label": "Card link"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "color_scheme",
+          "id": "card_color_scheme",
+          "label": "Card color scheme",
+          "default": "scheme-3"
+        },
+        {
+          "type": "color",
+          "id": "custom_background",
+          "label": "Custom background",
+          "info": "Overrides the background from the color scheme."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gallery",
+      "blocks": [
+        {
+          "type": "gallery_item",
+          "settings": {
+            "tall": true,
+            "wide": true,
+            "title": "Card 1",
+            "text": "<p>These cards can have background images, or you can use the color schemes for full color backgrounds.<\/p>",
+            "card_color_scheme": "scheme-3"
+          }
+        },
+        {
+          "type": "gallery_item",
+          "settings": {
+            "tall": false,
+            "wide": true,
+            "title": "Card 2",
+            "text": "<p>Cards can go wider or taller.<\/p>",
+            "card_color_scheme": "scheme-3"
+          }
+        },
+        {
+          "type": "gallery_item",
+          "settings": {
+            "tall": false,
+            "wide": false,
+            "title": "Card 3",
+            "text": "<p>Or perhaps smaller like this one.<\/p>",
+            "card_color_scheme": "scheme-3"
+          }
+        },
+        {
+          "type": "gallery_item",
+          "settings": {
+            "tall": false,
+            "wide": false,
+            "title": "Card 4",
+            "text": "<p>Each card can also be a full link.<\/p>",
+            "card_color_scheme": "scheme-3"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

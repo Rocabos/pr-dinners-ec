@@ -1,0 +1,303 @@
+{%- comment -%}theme-check-disable LiquidTag{%- endcomment -%}
+{%- liquid
+  assign is_empty = true
+  assign is_placeholders_only = true
+
+  for block in section.blocks
+    if block.settings.page.content != blank or block.settings.row_content != blank or block.settings.content_embed != blank
+      assign is_empty = false
+    endif
+
+    if show_placeholder_image and block.settings.side_image != blank
+      assign is_placeholders_only = false
+    endif
+  endfor
+
+  assign show_image = false
+  if section.settings.image != blank or show_placeholder_image
+    assign show_image = true
+  endif
+
+  unless one_row_at_a_time
+    assign one_row_at_a_time = section.settings.one_row_at_a_time
+  endunless
+
+  if show_placeholder_image != true
+    assign is_placeholders_only = false
+  endif
+-%}
+
+{%- if request.design_mode or section.settings.hide_when_empty == false or is_empty == false -%}
+  {%- if section.index < 3 or request.design_mode -%}
+    {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+    {{ 'collapsible-content.css' | asset_url | stylesheet_tag }}
+    {{ 'component-image-with-text.css' | asset_url | stylesheet_tag }}
+  {%- else -%}
+    <link rel="stylesheet" href="{{ 'component-accordion.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'collapsible-content.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'component-image-with-text.css' | asset_url }}" media="print" onload="this.media='all'">
+  {%- endif -%}
+
+  {%- liquid
+    assign fetch_priority = 'auto'
+    if section.index == 1 or request.design_mode
+      assign fetch_priority = 'high'
+    endif
+
+    if section.settings.color_scheme == section.settings.section_color_scheme and show_image and section.settings.content_layout contains 'no-overlap'
+      assign remove_color_classes = true
+    endif
+
+    if section.settings.color_scheme == section.settings.section_color_scheme and show_image == false
+      assign remove_content_padding = true
+    endif
+
+    if show_image == false or section.settings.content_layout == 'no-overlap-separate' or section.settings.content_layout == 'overlap'
+      assign prevent_image_grow = true
+    endif
+  -%}
+
+  <div class="section__inner {{ section.settings.line_separator }} {{ section.settings.top_padding }} {{ section.settings.bottom_padding }} gradient color-{{ section.settings.section_color_scheme }} {{ section.settings.visibility }} {%- render 'class-time-of-day-to-show' -%}">
+    {% capture header_content %}
+      {%- if section.settings.button_label != blank or section.settings.show_search_box -%}
+        {% capture additional %}
+          <div
+              class="{% if section.settings.button_style == 'link' %}mt-1{% else %}mt-2{% endif %}
+              justify-{{ section.settings.mobile_heading_alignment | default: section.settings.mobile_heading_alignment }}
+              md:justify-{{ section.settings.desktop_heading_alignment | default: section.settings.desktop_heading_alignment }}"
+          >
+            {%- if section.settings.button_label != blank -%}
+              <div class="{% if section.settings.button_label != blank %} banner__buttons--multiple{% endif %}">
+                {%- if section.settings.button_label != blank -%}
+                  <a
+                    {% if section.settings.button_link == blank %}
+                      role="link" aria-disabled="true"
+                    {% else %}
+                      href="{{ section.settings.button_link }}"
+                    {% endif %}
+                    class="{{ section.settings.button_text_size }} {% if section.settings.button_style == 'link' %}link un-underlined-link{% else %}button button--{{ section.settings.button_style }}{% endif %}{% if section.settings.button_style_show_arrow %} button-with-icon button-with-icon--right{% endif %}{% if section.settings.button_style == 'secondary' and section.settings.button_style_show_gradient_border and section.settings.button_border_gradient != blank %} button--secondary-gradient{% endif %}"
+                    {% if section.settings.button_style == 'secondary' and section.settings.button_style_show_gradient_border and section.settings.button_border_gradient != blank %} style="--color-secondary-button-border-gradient: {{ section.settings.button_border_gradient }}"{% endif %}
+                  >
+                    {{- section.settings.button_label | escape -}}
+                    {% if section.settings.button_style_show_arrow %}
+                      {% render 'icon-arrow' %}
+                    {% endif %}
+                  </a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            {% if section.settings.show_search_box %}
+              <accordion-search class="no-js-hidden form__field-wrapper inline-flex{% if section.settings.button_label != blank %} mt-3{% endif %}">
+                <div class="field">
+                  <input
+                      id="SearchForm--{{ section.id }}"
+                      type="text"
+                      class="field__input js-collapsible-content-search"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      placeholder="{{ 'sections.collapsible_rows.search' | t }}"
+                  >
+
+                  <div class="form-icon flex items-center justify-end self-center">
+                    {% render 'icon-search' %}
+                  </div>
+
+                  <label class="field__label" for="SearchForm--{{ section.id }}">
+                    {{ 'sections.collapsible_rows.search' | t }}
+                  </label>
+                </div>
+              </accordion-search>
+            {% endif %}
+          </div>
+        {% endcapture %}
+      {%- endif -%}
+
+      {%- liquid
+        if section.settings.show_header_beside
+          if show_image == false
+            assign custom_class = "banner__box section-content p-0 " | append: section.settings.mobile_content_position | append: ' ' | append: section.settings.desktop_content_position
+          else
+            assign custom_class = "z-2 banner__box section-content " | append: section.settings.mobile_content_position | append: ' ' | append: section.settings.desktop_content_position
+          endif
+        elsif show_image == false
+          assign custom_class = "z-2 title-wrapper page-width page-width--narrow"
+        else
+          assign custom_class = "title-wrapper page-width mb-3"
+        endif
+      %}
+
+      {% render 'standard-section-heading',
+          section_name: 'collapsible-content',
+          section: section,
+          custom_class: custom_class,
+          view_all: additional
+      %}
+    {% endcapture %}
+
+    {%- if section.settings.show_header_beside == false -%}
+      {{ header_content }}
+    {%- endif -%}
+
+    <div class="collapsible-content page-width{% if show_image == false and section.settings.show_header_beside == false %} page-width--narrow{% endif %}">
+      <div class="image-with-text
+          {% unless section.settings.color_scheme == section.settings.section_color_scheme or show_image == false %} image-with-text--{{ section.settings.content_layout }}{% else %} image-with-text--no-overlap-separate{% endunless %} isolate
+          {% unless section.settings.color_scheme == section.settings.section_color_scheme or section.settings.content_layout == 'no-overlap-separate' or show_image == false %} collapse-corners{% endunless %}"
+           style="--image-width: {{ section.settings.desktop_media_width }}%;{% if show_image %}--mobile-height: {{ section.settings.mobile_section_height }}px;--desktop-height: {{ section.settings.desktop_section_height }}px;{% endif %}"
+      >
+        <div class="image-with-text__container flex{% if show_image %} banner--mobile-transparent banner--desktop-transparent{% endif %}{% if section.settings.layout == 'text_first' %} image-with-text__container--reverse{% endif %}">
+          {% if show_image or section.settings.show_header_beside %}
+            <div class="image-with-text__media-item flex__item section-height-responsive--desktop{% if prevent_image_grow %} relative{% endif %}">
+              <div
+                  class="image-with-text__media global-media-settings media section-height-responsive--mobile
+                  {% if section.settings.show_header_beside %} background-transparent{% endif %}
+                  {% if prevent_image_grow %}{% if show_image %} section-height-responsive--desktop{% else %} min-h-0{% endif %} sticky top-header-and-section{% endif %}
+                  {% if show_image %} image-overlay{% else %} rounded-none{% endif %}
+                  {% if show_image and section.settings.show_header_beside %} color-{{ section.settings.image_overlay_color_scheme }}{% endif %}"
+
+                  {% if show_image %}
+                    style="--overlay-opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};"
+                  {% endif %}
+              >
+                {% if show_image %}
+                  {%- assign widths = '535, 750, 1070, 1500' -%}
+                  {%- capture sizes -%}
+                    (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
+                    (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
+                  {%- endcapture -%}
+
+                  {% if section.settings.image != blank %}
+                    {{ section.settings.image | image_url: width: 1500 | image_tag: sizes: sizes, widths: widths, class: 'revealed-image reveal', fetchpriority: fetch_priority }}
+                  {% endif %}
+
+                  {%- assign non_empty_tab_index = 0 -%}
+                  {%- for block in section.blocks -%}
+                    {%- if block.settings.page.content != blank or block.settings.row_content != blank or block.settings.content_embed != blank or section.settings.hide_when_empty == false or request.design_mode -%}
+                      {%- if block.type == 'collapsible_row' -%}
+                        {%- assign non_empty_tab_index = non_empty_tab_index | plus: 1 -%}
+                      {%- endif -%}
+                      {%- if block.settings.side_image != blank -%}
+                        {%- assign class = 'revealed-image image-' | append: non_empty_tab_index -%}
+                        {%- if open_first and non_empty_tab_index == 1 -%}
+                          {%- assign class = class | append: ' reveal' -%}
+                        {%- endif -%}
+                        {{ block.settings.side_image | image_url: width: 1500 | image_tag: sizes: sizes, widths: widths, class: class }}
+                      {%- elsif is_placeholders_only -%}
+                        {%- assign class = 'placeholder-svg placeholder revealed-image image-' | append: non_empty_tab_index -%}
+                        {%- if open_first and non_empty_tab_index == 1 -%}
+                          {%- assign class = class | append: ' reveal' -%}
+                        {%- endif -%}
+                        {%- assign svg_index = non_empty_tab_index | at_most: 4 -%}
+                        {%- assign placeholder_image_name = 'product-apparel-' | append: svg_index -%}
+                        {{ placeholder_image_name | placeholder_svg_tag: class }}
+                      {%- endif -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                {% endif %}
+
+                {% if section.settings.show_header_beside %}
+                  {{ header_content }}
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+
+          <div class="image-with-text__text-item flex__item{% if section.settings.desktop_section_height > 0 %} section-height-responsive--desktop{% endif %}">
+            <div
+              id="ImageWithText--{{ section.id }}"
+              class="image-with-text__content{% if section.settings.show_content_shadow and remove_color_classes != true %} card--shadow{% endif %} content-container{% if remove_content_padding %} p-0{% endif %}{% unless remove_color_classes %} gradient color-{{ section.settings.color_scheme }}{% else %} background-transparent{% endunless %}"
+            >
+              <div class="section-content{% if remove_content_padding %} p-0{% endif %} lg:p-0 w-full accordion-container">
+                {%- assign non_empty_tab_index = 0 -%}
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'collapsible_row' -%}
+                    {%- if block.settings.page.content != blank or block.settings.content_embed != blank or block.settings.row_content != blank or section.settings.hide_when_empty == false or request.design_mode -%}
+                      {%- assign non_empty_tab_index = non_empty_tab_index | plus: 1 -%}
+                      <div
+                          class="accordion
+                            {% if section.settings.layout == 'row' %} content-container color-{{ section.settings.container_color_scheme }} gradient{% endif %}
+                            {% if section.settings.show_line_separator == false %} accordion--no-lines{% endif %}
+                            {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--fade-in{% endif %}"
+                          {{ block.shopify_attributes }}
+                          {% if settings.animations_reveal_on_scroll and section.index > 2 %}
+                            data-cascade
+                            style="--animation-order: {{ non_empty_tab_index }}"
+                          {% endif %}
+                      >
+                        <custom-accordion
+                            {% if one_row_at_a_time %} data-one-at-a-time=".section-content"{% endif %}
+                            {% if block.settings.side_image != blank or is_placeholders_only %}data-reveals-image=".image-{{ non_empty_tab_index }}"{% endif %}
+                        >
+                          <details
+                              id="Details-{{ block.id }}-{{ section.id }}"
+                              {% if block.settings.row_open or open_first and non_empty_tab_index == 1 %}
+                                open
+                              {% endif %}
+                          >
+                            <summary id="Summary-{{ block.id }}-{{ section.id }}" class="{{ section.settings.row_heading_size }}">
+                              {% if block.settings.image != blank or block.settings.icon != blank %}
+                                <span class="accordion__image {{ section.settings.row_heading_size }}">
+                                  {% if block.settings.image != blank %}
+                                    {%- assign double_width = block.settings.image_width | times: 2 -%}
+                                    {%- assign image_height = block.settings.image_width | divided_by: block.settings.image.aspect_ratio | round -%}
+
+                                    {{ block.settings.image | image_url: width: double_width | image_tag:
+                                      class: 'image-accordion',
+                                      loading: 'lazy',
+                                      srcset: nil,
+                                      width: block.settings.image_width,
+                                      height: image_height,
+                                      alt: block.settings.image.alt
+                                    }}
+                                  {% elsif block.settings.icon != blank %}
+                                    {% render 'icon', class: 'icon-accordion', icon: block.settings.icon %}
+                                  {% endif %}
+                                </span>
+                              {% endif %}
+
+                              <{{ block.settings.row_heading_tag }} class="accordion__title inline-richtext text-body {{ section.settings.row_heading_size }}">
+                                {{ block.settings.heading | default: block.settings.page.title | escape }}
+                              </{{ block.settings.row_heading_tag }}>
+
+                              {% render 'icon-caret' %}
+                            </summary>
+                            <div class="custom-accordion__panel custom-scrollbar">
+                              <div class="flex">
+                                {% if block.settings.icon != blank or block.settings.image != blank %}
+                                  <div class="accordion__content--spacer {{ section.settings.row_heading_size }} shrink-0"></div>
+                                {% endif %}
+                                <div
+                                    class="accordion__content"
+                                    id="CollapsibleAccordion-{{ block.id }}-{{ section.id }}"
+                                    role="region"
+                                    aria-labelledby="Summary-{{ block.id }}-{{ section.id }}"
+                                >
+                                  <div class="rte {{ section.settings.row_text_size }}">
+                                    {{ block.settings.row_content }}
+                                    {{ block.settings.page.content }}
+                                    {{ block.settings.content_embed }}
+                                  </div>
+
+                                  {%- if block.settings.button_label_1 != blank or block.settings.button_label_2 != blank -%}
+                                    {% render 'standard-blocks', type: 'buttons', section_name: 'collapsible-content-row', block: block, class: 'mt-2' %}
+                                  {%- endif -%}
+                                </div>
+                                <div class="accordion__content--spacer {{ section.settings.row_heading_size }} shrink-0"></div>
+                              </div>
+                            </div>
+                          </details>
+                        </custom-accordion>
+                      </div>
+                    {%- endif -%}
+                  {%- else -%}
+                    {%- render 'standard-blocks', section_name: 'collapsible-content', block: block, heading_ignores_alignment: true -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}

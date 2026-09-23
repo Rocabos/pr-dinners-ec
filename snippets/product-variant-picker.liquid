@@ -1,0 +1,197 @@
+{% comment %}
+  Renders product variant-picker
+
+  Accepts:
+  - product: {Object} product object.
+  - block: {Object} passing the block information.
+  - product_form_id: {String} Id of the product form to which the variant picker is associated.
+  Usage:
+  {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+{% endcomment %}
+{%- liquid
+  assign original_picker_type = block.settings.picker_type
+-%}
+{%- unless product.has_only_default_variant -%}
+  <variant-selects
+    id="variant-selects-{{ section.id }}"
+    class="no-js-hidden{% if original_picker_type == 'dropdown' %} relative z-3{% endif %} variant-selects--{{ original_picker_type }}"
+    data-section="{{ section.id }}"
+    data-product-id="{{ product.id }}"
+    data-show-availability="{{ block.settings.show_availability }}"
+    {{ block.shopify_attributes }}
+  >
+    {%- assign size_chart_options = block.settings.size_chart_options | downcase | replace: ',,', ',' | replace: ' ,', ',' | replace: ', ', ',' | split: ',' -%}
+
+    {%- for option in product.options_with_values -%}
+      {%- liquid
+        assign option_name_downcase = option.name | downcase
+        assign swatch_count = option.values | map: 'swatch' | compact | size
+        assign picker_type = original_picker_type
+
+        if block.settings.swatch_enabled and swatch_count > 0
+          assign picker_type = 'swatch'
+        endif
+      -%}
+      {%- if size_chart_options contains option_name_downcase and block.settings.size_chart_page.content != blank -%}
+        {%- capture size_chart -%}
+          <modal-opener class="popup-modal__opener no-js-hidden quick-add-hidden"
+            data-modal-class="popup-modal--pdp"
+            data-modal="#PopupModal-{{ block.id }}"
+          >
+            <button
+                id="ProductPopup-{{ block.id }}"
+                class="flex items-start text-left gap-05 t5 p-0 tap-target--small link{% if block.settings.size_chart_icon and block.settings.size_chart_label != blank %} button-with-icon button-with-icon--left{% endif %}"
+                type="button"
+                aria-haspopup="dialog"
+            >
+              {%- render 'icon', icon: block.settings.size_chart_icon, class: 'mt-0', size: 18 -%}
+
+              {% if block.settings.size_chart_label != blank %}
+                {{ block.settings.size_chart_label }}
+              {% else %}
+                <span class="visually-hidden">{{ block.settings.size_chart_page.title }}</span>
+              {% endif %}
+            </button>
+          </modal-opener>
+          <a href="{{ block.settings.size_chart_page.url }}" target="_blank" class="flex gap-05 t5 p-0 link no-js">
+            {%- render 'icon', icon: block.settings.size_chart_icon, size: 15 -%}
+            {{- block.settings.text -}}
+          </a>
+        {%- endcapture -%}
+      {%- else -%}
+        {%- assign size_chart = "" -%}
+      {%- endif -%}
+
+      {%- if picker_type == 'swatch' -%}
+        <fieldset class="js product-form__input{% if block.settings.swatch_box %} product-form__input--pill{% else %} product-form__input--swatch{% endif %}" style="{% if block.settings.swatch_box %}--max-boxes:5;{% endif %}--swatch-size: {{ block.settings.swatch_size }}em">
+          <legend class="variant-form__label flex{% if size_chart %} gap-2{% endif %} w-full items-center m-0 justify-between font-{{ block.settings.variant_label_text_weight }} {{ block.settings.variant_label_text_size }} {{ block.settings.variant_label_text_transform }}">
+            <span>
+              {% if block.settings.prefix != blank %}{{ block.settings.prefix | escape }} {{ option.name | downcase }}{% else %}{{ option.name }}{% endif %}
+            </span>
+            {{ size_chart }}
+          </legend>
+
+          {% if block.settings.swatch_box %}
+            <div class="product-form__input--box product-form__input--swatch-box">
+          {% endif %}
+
+          {% render 'product-variant-options',
+            product: product,
+            option: option,
+            block: block,
+            picker_type: picker_type
+          %}
+
+          {% if block.settings.swatch_box %}
+            </div>
+          {% endif %}
+        </fieldset>
+      {%- elsif picker_type == 'button' or picker_type == 'box' -%}
+        {%- liquid
+          if picker_type == 'box'
+            assign max_boxes = block.settings.box_size
+            if max_boxes == 'auto'
+              assign pill_text_transform = block.settings.pill_text_transform
+
+              # Detect if options are already uppercase
+              if pill_text_transform != 'uppercase'
+                assign first_option = option.values.first
+                assign first_option_uppercase = first_option | upcase
+                if first_option == first_option_uppercase
+                  assign pill_text_transform = 'uppercase'
+                endif
+              endif
+
+              assign total_chars = 0
+              assign total_values = option.values.size
+              for value in option.values
+                assign escaped_value = value | escape
+                assign total_chars = total_chars | plus: escaped_value.size
+              endfor
+
+              if total_values != 0
+                assign average_chars = total_chars | divided_by: total_values
+              endif
+
+              if average_chars <= 2
+                assign max_boxes = 5
+              elsif average_chars < 7
+                assign max_boxes = 4
+              elsif average_chars < 15
+                assign max_boxes = 3
+              else
+                assign max_boxes = 2
+              endif
+
+              if section.settings.media_size == 'large'
+                assign max_boxes = max_boxes | minus: 1
+              elsif section.settings.media_size == 'small'
+                assign max_boxes = max_boxes | plus: 1
+              endif
+
+              if pill_text_transform == 'uppercase'
+                assign max_boxes = max_boxes | minus: 1
+              endif
+            endif
+          endif
+        -%}
+        <fieldset class="js {{ block.settings.pill_text_size }} product-form__input product-form__input--pill{% if picker_type != 'box' %} flex flex-wrap gap-1{% endif %}"
+          style="--variant-pill-font-weight: {{ block.settings.pill_text_weight }};--variant-pill-text-transform: {{ block.settings.pill_text_transform }};{% if picker_type == 'box' %}--max-boxes: {{ max_boxes }};{% endif %}">
+          <legend class="variant-form__label flex{% if size_chart %} gap-2{% endif %} w-full items-center m-0 justify-between font-{{ block.settings.variant_label_text_weight }} {{ block.settings.variant_label_text_size }} {{ block.settings.variant_label_text_transform }}">
+            <span class="grow basis-1/2">{% if block.settings.prefix != blank %}{{ block.settings.prefix | escape }} {{ option.name | downcase }}{% else %}{{ option.name }}{% endif %}</span>
+            {{ size_chart }}
+          </legend>
+
+          {% if picker_type == 'box' %}
+            <div class="product-form__input--box">
+          {% endif %}
+
+          {% render 'product-variant-options',
+            product: product,
+            option: option,
+            block: block,
+            picker_type: 'button'
+          %}
+
+          {% if picker_type == 'box' %}
+            </div>
+          {% endif %}
+        </fieldset>
+      {%- else -%}
+        <div class="product-form__input product-form__input--dropdown">
+          <label class="variant-form__label flex{% if size_chart %} gap-2{% endif %} w-full items-center m-0 justify-between font-{{ block.settings.variant_label_text_weight }} {{ block.settings.variant_label_text_size }} {{ block.settings.variant_label_text_transform }}" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+            <span class="grow basis-1/2">{% if block.settings.prefix != blank %}{{ block.settings.prefix | escape }} {{ option.name | downcase }}:{% else %}{{ option.name }}{% endif %}</span>
+            {{ size_chart }}
+          </label>
+          <div class="select">
+            {%- if picker_type == 'swatch_dropdown' -%}
+              <span
+                data-selected-value
+                class="dropdown-swatch"
+              >
+                {% render 'swatch', swatch: option.selected_value.swatch %}
+              </span>
+            {%- endif -%}
+            <select
+              id="Option-{{ section.id }}-{{ forloop.index0 }}"
+              class="styled-select select__select"
+              name="options[{{ option.name | escape }}]"
+              form="{{ product_form_id }}"
+            >
+              {% render 'product-variant-options',
+                product: product,
+                option: option,
+                block: block,
+                picker_type: picker_type
+              %}
+            </select>
+            {% render 'icon-caret' %}
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+    <script type="application/json" data-selected-variant>
+      {{ product.selected_or_first_available_variant | json }}
+    </script>
+  </variant-selects>
+{%- endunless -%}

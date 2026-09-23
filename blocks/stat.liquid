@@ -1,0 +1,146 @@
+{% render 'standard-blocks', type: 'stat' %}
+
+{% schema %}
+{
+  "name": "Stat counter",
+  "tag": null,
+  "settings": [
+    
+  {
+    "type": "text",
+    "id": "stat_caption",
+    "default": "Over",
+    "label": "Caption"
+  },
+  {
+    "type": "text",
+    "id": "stat_number",
+    "default": "123k",
+    "label": "Stat counter"
+  },
+  {
+    "type": "richtext",
+    "id": "stat_subheading",
+    "default": "<p>products sold</p>",
+    "label": "Subheading"
+  },
+  {
+    "type": "header",
+    "content": "Stat appearance"
+  },
+  {
+    "type": "checkbox",
+    "id": "stat_animate",
+    "default": true,
+    "label": "Animate numbers"
+  },
+  {
+    "type": "select",
+    "id": "stat_caption_style",
+    "options": [
+      {
+        "value": "",
+        "label": "Standard"
+      },
+      {
+        "value": "subtitle",
+        "label": "Subtitle"
+      },
+      {
+        "value": "caption-with-letter-spacing",
+        "label": "Uppercase"
+      }
+    ],
+    "default": "caption-with-letter-spacing",
+    "label": "Caption style"
+  },
+  {
+    "type": "select",
+    "id": "stat_style",
+    "options": [
+      {
+        "value": "text-body",
+        "label": "Body"
+      },
+      {
+        "value": "text-heading",
+        "label": "Heading"
+      }
+    ],
+    "default": "text-body",
+    "label": "Stat style"
+  },
+  {
+    "type": "select",
+    "id": "stat_size",
+    "options": [
+      {
+        "value": "h4",
+        "label": "XS"
+      },
+      {
+        "value": "h3",
+        "label": "S"
+      },
+      {
+        "value": "h2",
+        "label": "M"
+      },
+      {
+        "value": "h1",
+        "label": "L"
+      },
+      {
+        "value": "h0",
+        "label": "XL"
+      },
+      {
+        "value": "hxl",
+        "label": "2XL"
+      },
+      {
+        "value": "custom",
+        "label": "Custom"
+      }
+    ],
+    "default": "h0",
+    "label": "Stat size"
+  },
+  {
+    "type": "range",
+    "id": "stat_size_custom",
+    "visible_if": "{{ block.settings.stat_size == 'custom' }}",
+    "min": 1,
+    "max": 13,
+    "step": 0.2,
+    "unit": "rem",
+    "default": 2.4,
+    "info": "Check your stats on smaller screens to ensure they don't get cut off.",
+    "label": "Custom stat size"
+  },
+  {
+    "type": "header",
+    "content": "Style"
+  },
+  {
+    "type": "color",
+    "id": "stat_color",
+    "label": "Stat color",
+    "info": "Set to transparent to use text color."
+  },
+  {
+    "type": "color_background",
+    "id": "stat_text_gradient",
+    "label": "Text gradient",
+    "info": "Replaces the stat color."
+  }
+
+  ],
+  "presets": [
+    {
+      "name": "Stat counter",
+      "category": "Specialized"
+    }
+  ]
+}
+{% endschema %}

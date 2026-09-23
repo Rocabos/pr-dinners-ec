@@ -1,0 +1,56 @@
+{% comment %}
+  Renders a swatch input component.
+  Accepts:
+  - id: {String} unique input id
+  - type: {String} input type. Accepts 'radio' or 'checkbox', defaults to 'radio' (optional)
+  - name: {String} input name,
+  - value: {ProductOptionValueDrop} input value
+  - label: {String} label value
+  - swatch: {SwatchDrop} the swatch drop
+  - product_form_id: {String} id of the form associted with the input (optional)
+  - checked: {Boolean} default checked status
+  - disabled: {Boolean} default disabled status (optional)
+  - visually_disabled: {Boolean} style the swatch as disabled, but leave the input enabled (optional)
+  - size: {Float} swatch size (optional)
+  - help_text: {String} additional content to render inside the label (optional)
+  - additional_props: {String} (optional) additional properties to attach to the input
+
+  Usage:
+   {% render 'swatch-input',
+      id: input_id,
+      name: input_name,
+      value: input_value,
+      label: input_label,
+      swatch: swatch,
+      product_form_id: product_form_id,
+      checked: checked
+    %}
+{% endcomment %}
+
+<input
+  type="{{ type | default: 'radio' }}"
+  id="{{ id }}"
+  name="{{ name }}"
+  value="{{ value }}"
+  {% if product_form_id %}
+    form="{{ product_form_id }}"
+  {% endif %}
+  class="swatch-input__input{% if visually_disabled %} disabled{% endif %}"
+  {% if checked %}
+    checked
+  {% endif %}
+  {% if disabled %}
+    disabled
+  {% endif %}
+  {% if additional_props %}
+    {{ additional_props }}
+  {% endif %}
+>
+<label
+  for="{{ id }}"
+  title="{{ label | escape }}"
+  class="swatch-input__label"
+>
+  {% render 'swatch', swatch: swatch, shape: shape, size: size %}
+  {{ help_text }}
+</label>

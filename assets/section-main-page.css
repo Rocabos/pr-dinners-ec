@@ -1,0 +1,9 @@
+.section-page .page__title {
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+}
+
+.page-placeholder-wrapper {
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,92 @@
+/* Needed for gradient continuity with or without animation so that transparent PNG images come up as we would expect */
+.scroll-trigger:where(.gradient.video-section__media) {
+  background: transparent;
+}
+
+.video-section__media.global-media-settings--full-width {
+  padding-bottom: var(--ratio-percent);
+}
+
+.video-section__media.deferred-media {
+  box-shadow: var(--media-shadow-horizontal-offset) var(--media-shadow-vertical-offset) var(--media-shadow-blur-radius) rgba(var(--color-shadow), var(--media-shadow-opacity));
+}
+
+.video-section__media.deferred-media:after {
+  content: none;
+}
+
+.video-section__poster.deferred-media__poster:focus {
+  outline-offset: 0.3rem;
+}
+
+.video-section__media iframe {
+  background-color: rgba(var(--color-foreground), 0.03);
+  border: 0;
+  transform: scale(1.01);
+}
+
+.video-section__poster,
+.video-section__media iframe,
+.video-section__media video {
+  position: absolute;
+  width: calc(100% + 1px);
+  height: calc(100% + 1px);
+}
+
+.video-section__media video {
+  background: #000000;
+}
+
+.video-section__media.media-fit-cover video {
+  object-fit: cover;
+}
+
+@media screen and (min-width: 990px) {
+  .video-banner-section {
+    padding-left: var(--video-banner-horizontal-padding, 0) !important;
+    padding-right: var(--video-banner-horizontal-padding, 0) !important;
+  }
+}
+
+.video-banner-section .deferred-media__poster-button {
+  z-index: 3;
+}
+
+@media screen and (max-width: 749.98px) {
+  .mobile-text-below .video-banner-section .video-section__media {
+    padding-bottom: 0;
+  }
+}
+
+.video-section__media {
+  overflow: hidden !important;
+}
+
+/* Cuts of the YT player controls */
+.video-banner-section iframe.js-youtube {
+  --zoom-amount: 150px;
+  width: calc(100% + var(--zoom-amount));
+  height: calc(100% + var(--zoom-amount));
+  top: calc((var(--zoom-amount) * -1) / 2);
+  inset-inline-start: calc((var(--zoom-amount) * -1) / 2);
+}
+
+[data-scale-video] social-video,
+[data-scale-video] custom-video {
+  position: absolute;
+  inset: 0;
+  transform: scale(var(--scale-factor, 1));
+}
+
+.js .video-banner-section [data-content-timer="show"] .section-content {
+  opacity: 1;
+  visibility: visible;
+}
+
+.js .video-banner-section [data-stop-timer]::after {
+  transition: opacity 1.5s;
+}
+
+.js .video-banner-section [data-stop-timer="stopped"]::after {
+  opacity: 1;
+}

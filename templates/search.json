@@ -1,0 +1,61 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "disabled": true,
+      "settings": {
+        "spacing": 0,
+        "color_scheme": "",
+        "line_separator": "",
+        "visibility": ""
+      }
+    },
+    "main": {
+      "type": "main-search",
+      "settings": {
+        "article_show_date": true,
+        "article_show_author": false,
+        "full_width": false,
+        "results_per_page": 16,
+        "columns_desktop": "4",
+        "columns_mobile": "2",
+        "filter_type": "vertical",
+        "enable_filtering": true,
+        "enable_sorting": false,
+        "show_filter_count": true,
+        "uppercase_filter_titles": true,
+        "open_all_accordions": true,
+        "show_more_number": 12,
+        "filter_text_size": "1.4",
+        "box_filters": "",
+        "box_filter_active": "border",
+        "show_image_box_filter_border": true,
+        "show_image_box_filter_labels": true,
+        "image_box_filter_cols": 2,
+        "image_box_filter_active": "border",
+        "swatch_size": 1.8,
+        "show_swatch_filter_labels": true,
+        "color_scheme": "",
+        "color_scheme_drawer": "",
+        "color_scheme_filter": "scheme-1",
+        "color_scheme_filter_bar": "",
+        "card_shadow": true,
+        "top_padding": "pt-s05",
+        "bottom_padding": "pb-s"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "main"
+  ]
+}

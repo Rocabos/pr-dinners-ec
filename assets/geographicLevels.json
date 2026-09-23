@@ -1,0 +1,6466 @@
+{
+  "idCountry": "156f49d3-cea8-4ba3-8dec-55ec4acdf0dc",
+  "countryAlfa2ISO3166": "EC",
+  "countryNumericISO3166": 218,
+  "countryName": "ECUADOR",
+  "currency": {
+    "idCurrency": "a486974c-6888-4422-aab3-9a7c160b8ef2",
+    "currencyName": "Dólar estadounidense",
+    "currencyCodeISO4217": "USD",
+    "currencyNumberISO4217": 840,
+    "currencySymbol": "$"
+  },
+  "thirdLevel": [
+    {
+      "idLevels3": "01e832fa-3a5c-44ee-a54c-4cbe5fdc2385",
+      "level3Name": "AZUAY",
+      "secondLevel": [
+        {
+          "idLevel2": "185c9b68-0f80-4c55-9718-b64f79413b98",
+          "level2Name": "CAMILO PONCE ENRÍQUEZ",
+          "firstLevel": [
+            {
+              "idLevel1": "5aa7b6bb-072a-40d9-a77a-d310be3edc82",
+              "level1Name": "CAMILO PONCE ENRÍQUEZ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "f04ea103-76f6-4324-8eb6-8c0837dd9e82",
+          "level2Name": "CHORDELEG",
+          "firstLevel": [
+            {
+              "idLevel1": "ce4702c0-08c0-41ab-8c82-f2d14b29a949",
+              "level1Name": "CHORDELEG",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "becf27ee-6280-48fc-b216-bbb7a1c26d60",
+              "level1Name": "LA UNIÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "8f79e0d3-27fb-4a64-a010-a6d1a43db939",
+          "level2Name": "CUENCA",
+          "firstLevel": [
+            {
+              "idLevel1": "e7c71ed9-56e4-4e80-acee-d6ceea5b2078",
+              "level1Name": "BAÑOS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "ccf32b93-6181-40b6-9205-370c11aeec1d",
+              "level1Name": "CUENCA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "eec29843-adc8-4591-af35-d135db565dfc",
+              "level1Name": "CUMBE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "b77e1b2f-1673-4bd4-bcea-3fa5a12e8bab",
+              "level1Name": "OCTAVIO CORDERO PALACIOS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "02d4f1e4-cee9-4a69-812d-0c0ea8db8ad6",
+              "level1Name": "RICAURTE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "66597bb9-df03-4f98-bfb4-2195629744e1",
+              "level1Name": "SAN JOAQUÍN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "c5c57d0f-e457-49cc-af86-a4a56e220234",
+              "level1Name": "SANTA ANA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "913ea433-b994-4d21-91c6-6c0418386d28",
+              "level1Name": "SAYAUSÍ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "a2e850fb-7307-43df-80a1-bfd2f8c78bfc",
+              "level1Name": "SIDCAY",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "e635f8ac-a07f-47cc-89b1-f6f7e7f93086",
+              "level1Name": "TARQUI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "82f27349-2bd6-4653-821a-2e8d8ffdf989",
+              "level1Name": "TURI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "08888f87-25b3-4e7c-9a05-920f86f97472",
+              "level1Name": "VALLE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "e6ad5183-612b-45ec-9728-8137c07c5658",
+              "level1Name": "VICTORIA DEL PORTETE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "2b066b49-20c6-4fb3-b05a-119ac6630aab",
+          "level2Name": "EL PAN",
+          "firstLevel": [
+            {
+              "idLevel1": "34a4a79d-3229-424a-8bf9-a6db30a0c0bf",
+              "level1Name": "EL PAN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "5a46ab00-f6f0-4eca-8278-1ed49748484a",
+          "level2Name": "GIRÓN",
+          "firstLevel": [
+            {
+              "idLevel1": "7d33586f-bbcd-4027-8d88-ed60bae063bf",
+              "level1Name": "GIRÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "ca66f0fe-c636-45b1-b4c2-132dfb993e92",
+          "level2Name": "GUACHAPALA",
+          "firstLevel": [
+            {
+              "idLevel1": "b0fed7e2-7770-4b5e-b208-de5f7dbb8b7f",
+              "level1Name": "GUACHAPALA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "25f21b92-c6c1-4be6-bf1e-a3aefa19b865",
+          "level2Name": "GUALACEO",
+          "firstLevel": [
+            {
+              "idLevel1": "ebb2be32-0f5c-4f91-8849-1a3a8ed88bfd",
+              "level1Name": "GUALACEO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "573d31fd-d6cb-4e20-85c2-9b3f8023d2a9",
+              "level1Name": "REMIGIO CRESPO TORAL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "e09a3fe6-87f6-4bf8-9d31-9887c43410bc",
+              "level1Name": "SIMÓN BOLÍVAR",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "4907840a-8cfc-4280-9620-0163750a6c03",
+          "level2Name": "NABÓN",
+          "firstLevel": [
+            {
+              "idLevel1": "f886e0f4-5aa8-4935-871e-bb0694ed966c",
+              "level1Name": "NABÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "0e4794be-bc63-4eac-ae16-2a81a1706ccf",
+          "level2Name": "OÑA",
+          "firstLevel": [
+            {
+              "idLevel1": "178d232d-ba5f-4c68-a3c6-f6a897218f3b",
+              "level1Name": "SAN FELIPE DE OÑA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "d5dec14e-b4f8-4fba-99fc-9ac7e3c09332",
+          "level2Name": "PAUTE",
+          "firstLevel": [
+            {
+              "idLevel1": "727b67f4-7461-43b5-8831-1ecb34c07488",
+              "level1Name": "PAUTE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "cfb6f45f-bbd7-4139-b7d7-085300a001f7",
+              "level1Name": "TOMEBAMBA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "4af44590-bab4-4f9a-816a-bdc651e9bdb0",
+          "level2Name": "SAN FERNANDO",
+          "firstLevel": [
+            {
+              "idLevel1": "f80267e2-8f5c-4a04-a80b-0a0c37e2475b",
+              "level1Name": "SAN FERNANDO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "a2380808-e248-4aeb-b4ee-cd2a0ee46395",
+          "level2Name": "SANTA ISABEL",
+          "firstLevel": [
+            {
+              "idLevel1": "43ca763f-43dc-4b86-a4d1-12320bc70b9a",
+              "level1Name": "SANTA ISABEL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "5c40a820-ef38-4561-a2da-530d80c9bf0d",
+          "level2Name": "SEVILLA DE ORO",
+          "firstLevel": [
+            {
+              "idLevel1": "cd607fda-9442-4f58-af39-925c6a743dec",
+              "level1Name": "SEVILLA DE ORO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "968a4230-9953-4a6e-a5e2-62dc278cf492",
+          "level2Name": "SÍGSIG",
+          "firstLevel": [
+            {
+              "idLevel1": "77761234-80e2-4014-a12e-b92de999b2df",
+              "level1Name": "SÍGSIG",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "b7629a30-1f62-406f-a208-2c75b7ee2e33",
+      "level3Name": "BOLÍVAR",
+      "secondLevel": [
+        {
+          "idLevel2": "28cc8543-5c72-4cdc-a01f-00a89c93b009",
+          "level2Name": "CALUMA",
+          "firstLevel": [
+            {
+              "idLevel1": "1a210d61-0dc9-42df-9343-2c26feebed01",
+              "level1Name": "CALUMA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "c6f04069-fa65-4ff6-a63c-9e44373de3bb",
+          "level2Name": "CHILLANES",
+          "firstLevel": [
+            {
+              "idLevel1": "a150b525-af1f-43b2-831c-5a11d3bf1360",
+              "level1Name": "CHILLANES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "581f0dbe-0756-4701-a5a2-661c42d75952",
+          "level2Name": "CHIMBO",
+          "firstLevel": [
+            {
+              "idLevel1": "72800d6f-f1d2-4dd2-8887-6d21658e6ae7",
+              "level1Name": "ASUNCIÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "18d99a42-7ac1-49fa-aa18-bf9eee542734",
+              "level1Name": "LA MAGDALENA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "542f747c-84f0-4adc-9a4d-dab7d1b695b8",
+              "level1Name": "SAN JOSÉ DE CHIMBO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "dfe6ba2c-1a6f-4277-aa31-db3b1edbe63c",
+              "level1Name": "SAN SEBASTIÁN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "647e2b16-07a4-4e0c-8909-680afa7d9ef3",
+          "level2Name": "ECHEANDÍA",
+          "firstLevel": [
+            {
+              "idLevel1": "91871d77-6fb6-452e-9cfc-99ff6490c395",
+              "level1Name": "ECHEANDÍA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "1404ad91-4bd4-436d-b3a8-c3e591f8b21a",
+          "level2Name": "GUARANDA",
+          "firstLevel": [
+            {
+              "idLevel1": "83463745-ffb1-4eda-aa31-5dd8a2f1d5a7",
+              "level1Name": "GUARANDA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "ecdac07c-d969-4cbe-98e8-e0bc16f42876",
+              "level1Name": "JULIO E. MORENO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "01c7146e-d494-43d2-bfda-a77877d25b4c",
+              "level1Name": "SALINAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "d25a6e3a-ae65-4127-aa80-a155df8143ea",
+              "level1Name": "SAN LORENZO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "2192a56a-ad6c-4c8f-84fa-3eb434619fe2",
+              "level1Name": "SAN SIMÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "50b73069-464d-4089-9244-aff0da4b65d2",
+              "level1Name": "SANTA FE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "6052d71f-6d22-4eb5-b8c5-93f8937c44be",
+          "level2Name": "SAN MIGUEL",
+          "firstLevel": [
+            {
+              "idLevel1": "43a27bf0-d2db-476a-9bc1-6ce2e0b05cb4",
+              "level1Name": "BILOVÁN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "d4ac19a5-1eef-41a0-95e3-7f138182dcbd",
+              "level1Name": "RÉGULO DE MORA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "d76a6aee-c4fe-4734-bda9-a70a421bbdc7",
+              "level1Name": "SAN MIGUEL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "5a8115f0-0678-46a4-b20d-fb65cbb421fa",
+              "level1Name": "SAN PABLO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "7ba1c678-212c-4a22-a1d3-da01f656ef9c",
+              "level1Name": "SANTIAGO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "1f224f15-1829-4094-85a7-42d38634af2f",
+              "level1Name": "SAN VICENTE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "fd223554-90b6-409e-85f3-b9f3562a0aed",
+      "level3Name": "CAÑAR",
+      "secondLevel": [
+        {
+          "idLevel2": "db799e1e-8e92-4bf6-972b-cd5286fc5a6b",
+          "level2Name": "AZOGUES",
+          "firstLevel": [
+            {
+              "idLevel1": "30d4d375-bc25-4825-8424-619164f0f31c",
+              "level1Name": "AZOGUES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "511c05b3-65a3-4a3a-b62b-f1df6561b2f2",
+              "level1Name": "COJITAMBO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "aeafe8b6-08e9-4887-9ad5-04116887b018",
+              "level1Name": "GUAPÁN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "66d8f7f2-6c01-4b2c-a1cb-488a8afdc1f7",
+              "level1Name": "JAVIER LOYOLA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "58996948-451d-4aeb-841d-019e74e23897",
+              "level1Name": "LUIS CORDERO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "4ec85156-2a83-4a8a-bf26-b062c00a21a7",
+          "level2Name": "BIBLIÁN",
+          "firstLevel": [
+            {
+              "idLevel1": "6357ef3c-5885-479b-a892-73fb642fc279",
+              "level1Name": "BIBLIÁN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "a98bb5e6-68e3-41a2-9007-917308a25273",
+              "level1Name": "SAN FRANCISCO DE SAGEO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "4f7e0c22-9be8-4318-8dc0-01db3f3a363d",
+          "level2Name": "CAÑAR",
+          "firstLevel": [
+            {
+              "idLevel1": "e7c3305d-4554-4f83-8371-37b58b3ee499",
+              "level1Name": "CAÑAR",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "fe419335-a5ec-435e-af3a-82b1835895cf",
+              "level1Name": "HONORATO VÁSQUEZ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "b39d095a-fb20-4a59-a17e-fd455ae13181",
+              "level1Name": "INGAPIRCA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "b3ce62f6-7f8f-4227-ac6c-9048f8bac896",
+              "level1Name": "JUNCAL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "abdb4bf4-28a1-4fb7-b7a3-9a4a76884821",
+              "level1Name": "ZHUD",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "9fc8a588-c375-4f8a-8e66-6787bd59730c",
+          "level2Name": "DÉLEG",
+          "firstLevel": [
+            {
+              "idLevel1": "5a3c899e-d960-4480-91b0-12380e28129f",
+              "level1Name": "DÉLEG",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "e0f6b60a-0e5a-472f-8cf1-b43e94a8c082",
+          "level2Name": "EL TAMBO",
+          "firstLevel": [
+            {
+              "idLevel1": "bd7436b9-b866-4661-8329-d2004bee27ce",
+              "level1Name": "EL TAMBO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "ff85607b-c11b-4f15-ad7f-ff105f17561f",
+          "level2Name": "LA TRONCAL",
+          "firstLevel": [
+            {
+              "idLevel1": "43d471bd-fb27-4c8e-a081-9d5c22d8d72b",
+              "level1Name": "LA TRONCAL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "fb7f3429-b30f-4688-bbf5-5e92068380a3",
+          "level2Name": "SUSCAL",
+          "firstLevel": [
+            {
+              "idLevel1": "2f23a60b-ddd1-4d0a-a9de-3352cdc5451f",
+              "level1Name": "SUSCAL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "b5a9b6f3-ede6-4ba2-a404-dbcc145546cb",
+      "level3Name": "CARCHI",
+      "secondLevel": [
+        {
+          "idLevel2": "f60b32d1-026e-4583-a900-c4d054acec5d",
+          "level2Name": "BOLÍVAR",
+          "firstLevel": [
+            {
+              "idLevel1": "5d4e8004-dd8a-4864-aa7e-3f5851dc3a83",
+              "level1Name": "BOLÍVAR",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "4cbef229-1493-4271-a916-c7be2a185e2e",
+          "level2Name": "ESPEJO",
+          "firstLevel": [
+            {
+              "idLevel1": "84100eae-680b-45d9-b66a-969fd68dc897",
+              "level1Name": "EL ÁNGEL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "1c857063-8dbd-4fcd-98c9-4d8c63fe11bd",
+              "level1Name": "SAN ISIDRO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "db55df00-3934-43cd-bac5-85fae770f212",
+          "level2Name": "MIRA",
+          "firstLevel": [
+            {
+              "idLevel1": "101a5ee4-4609-496a-9fc3-97057ed1010c",
+              "level1Name": "MIRA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "4a573fe9-b42f-498f-b29a-b5b06f3deede",
+          "level2Name": "MONTÚFAR",
+          "firstLevel": [
+            {
+              "idLevel1": "48f2e004-5764-4060-b92f-48b5619ac2ea",
+              "level1Name": "CRISTÓBAL COLÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "b5a5474b-fd66-4e75-8d15-bec805d040f7",
+              "level1Name": "LA PAZ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "8253afad-9199-47ce-b0b5-68e8c40cadc8",
+              "level1Name": "SAN GABRIEL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "0344ee5e-0807-4432-9f14-2d028ea42480",
+          "level2Name": "SAN PEDRO DE HUACA",
+          "firstLevel": [
+            {
+              "idLevel1": "0c1224e7-e09a-41b7-b36d-dfe61b68fcef",
+              "level1Name": "HUACA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "89041b30-7eb8-4e9e-a95c-787ac836dfb1",
+          "level2Name": "TULCÁN",
+          "firstLevel": [
+            {
+              "idLevel1": "b18d00b6-fc79-423c-899e-cffff4f392e0",
+              "level1Name": "JULIO ANDRADE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "c8ea8af3-0b60-46dd-97c4-add5ccee6d2e",
+              "level1Name": "SANTA MARTHA DE CUBA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "4f6c8a69-ecbd-4887-bea9-423fc61ce441",
+              "level1Name": "TULCÁN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "6f01492f-0d4c-4197-ab57-e58b304b1a4c",
+      "level3Name": "CHIMBORAZO",
+      "secondLevel": [
+        {
+          "idLevel2": "38211d40-dc87-4664-bc94-3ab4c63a2358",
+          "level2Name": "ALAUSÍ",
+          "firstLevel": [
+            {
+              "idLevel1": "88e138df-d026-442c-9b90-1a8f5351c2e7",
+              "level1Name": "ALAUSÍ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "3422e975-33ce-4ac4-aaf8-ce866777515a",
+          "level2Name": "CHAMBO",
+          "firstLevel": [
+            {
+              "idLevel1": "ff02d516-47d0-406e-8296-fe41e24808b1",
+              "level1Name": "CHAMBO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "61ca0491-c269-4f1f-932d-f8dd5020a627",
+          "level2Name": "CHUNCHI",
+          "firstLevel": [
+            {
+              "idLevel1": "5f527164-5101-444f-a177-5d29a4612c8f",
+              "level1Name": "CHUNCHI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "0f816328-19ab-4764-bb78-058d32fd72de",
+          "level2Name": "COLTA",
+          "firstLevel": [
+            {
+              "idLevel1": "52792e37-5e62-4c98-ad30-2979ee7f4215",
+              "level1Name": "COLUMBE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "9693a363-960b-4ca2-9b3f-21451ac19553",
+          "level2Name": "CUMANDÁ",
+          "firstLevel": [
+            {
+              "idLevel1": "adcd7e06-729f-47fa-900e-f96a246c390d",
+              "level1Name": "CUMANDÁ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "e2e150c5-bc7f-4386-90c2-64fe9dd6817a",
+          "level2Name": "GUAMOTE",
+          "firstLevel": [
+            {
+              "idLevel1": "9d55962b-4b34-4b36-bc92-20210ddd2c02",
+              "level1Name": "GUAMOTE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "21d4893b-e845-4009-80b9-9692f58e3bb2",
+          "level2Name": "GUANO",
+          "firstLevel": [
+            {
+              "idLevel1": "69feaf23-bd81-492d-9534-dfa08b4b7d33",
+              "level1Name": "GUANO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "2061e7c0-48aa-484b-9368-16e148d67c8c",
+              "level1Name": "SAN ANDRÉS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "0a523fd4-c554-40af-b1c8-0ea33b25ad88",
+              "level1Name": "SAN GERARDO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "13a1210a-d590-469c-9095-13d2e25c13db",
+              "level1Name": "SANTA FÉ DE GALÁN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "98cb420a-74fd-42bc-b222-c30c88dab944",
+          "level2Name": "PALLATANGA",
+          "firstLevel": [
+            {
+              "idLevel1": "5a6bda0c-31d2-4f65-aa29-36c49dbcf33f",
+              "level1Name": "PALLATANGA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "193743e0-9e9f-4650-a69b-039adc603532",
+          "level2Name": "PENIPE",
+          "firstLevel": [
+            {
+              "idLevel1": "b8bf1e54-369e-482f-b222-c88e625146f7",
+              "level1Name": "PENIPE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "ed6d6ebe-d114-4e62-82fd-0c2e69440413",
+          "level2Name": "RIOBAMBA",
+          "firstLevel": [
+            {
+              "idLevel1": "cd16493f-8fd5-4dc3-b44a-9acb8589ad4b",
+              "level1Name": "CALPI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "f77f580a-841f-4f1b-b232-4a414bf17989",
+              "level1Name": "CUBIJÍES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "a2ead78f-d915-4984-9c79-c3b7bb494dfd",
+              "level1Name": "LICÁN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "82d2f82f-bf53-4cea-9005-d67fcd903068",
+              "level1Name": "PUNÍN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "d4112ce6-8944-4efa-8325-8b90290d71ae",
+              "level1Name": "RIOBAMBA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "c2276c04-7cf3-40e1-b36e-76ebb8f17b44",
+              "level1Name": "SAN JUAN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "ec8d975e-ba48-4230-a4e8-4fedf1d9e7a5",
+              "level1Name": "SAN LUIS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "0e998670-1b87-447b-8f3b-882ecf791dce",
+      "level3Name": "COTOPAXI",
+      "secondLevel": [
+        {
+          "idLevel2": "88c493f9-983a-4906-8ca9-17a419dfa645",
+          "level2Name": "LA MANÁ",
+          "firstLevel": [
+            {
+              "idLevel1": "35660979-bcf7-40b6-82ba-29c33e4d1681",
+              "level1Name": "LA MANÁ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "dbb40739-4c4e-484a-b42d-5760c138c932",
+          "level2Name": "LATACUNGA",
+          "firstLevel": [
+            {
+              "idLevel1": "042912b3-6fd3-45a6-9abc-55a9a846d404",
+              "level1Name": "ALÁQUEZ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "cb902f63-b4b3-4cc6-8cb6-e67b1de33bed",
+              "level1Name": "BELISARIO QUEVEDO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "138ec0cb-85bd-4b67-9c21-3c580a2cbba8",
+              "level1Name": "GUAYTACAMA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "046409ef-9d83-4971-9ee0-659868a817da",
+              "level1Name": "JOSEGUANGO BAJO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "b23e9fcf-b94d-4de6-9619-500f0decd30c",
+              "level1Name": "LATACUNGA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "efef4a02-e90e-4241-803c-f73635f48597",
+              "level1Name": "MULALÓ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "87c8ee07-89c6-4ce0-9a11-1547d5e54a45",
+              "level1Name": "ONCE DE NOVIEMBRE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "8b135eff-a6c0-42a1-bd12-d4a47b6b7cc8",
+              "level1Name": "POALÓ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "888a24b9-3a5d-4b1b-8ab5-e88157ae54e8",
+              "level1Name": "SAN JUAN DE PASTOCALLE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "5a61a0af-dafa-4373-9b77-e144d7a94ced",
+              "level1Name": "TANICUCHÍ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "0fb50b3e-f345-45cc-97bc-2d558485cba8",
+              "level1Name": "TOACASO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "9abc427e-4036-403d-b740-60f9b81e3c4e",
+          "level2Name": "PANGUA",
+          "firstLevel": [
+            {
+              "idLevel1": "97a27044-1119-41a1-a10b-e0f86037a2c5",
+              "level1Name": "MORASPUNGO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "5e9acb33-a1bf-4dab-a657-c0f765380fd8",
+          "level2Name": "PUJILÍ",
+          "firstLevel": [
+            {
+              "idLevel1": "7a0b7e77-0627-4f34-81bb-7088a9fb1643",
+              "level1Name": "LA VICTORIA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "09dec237-51f4-4344-ad5b-9bde58326c1c",
+              "level1Name": "PUJILÍ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "cf640826-3419-4804-980a-f6c108f46771",
+              "level1Name": "ZUMBAHUA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "79b13f77-256b-4ecb-8d21-9f1637552313",
+          "level2Name": "SALCEDO",
+          "firstLevel": [
+            {
+              "idLevel1": "120c294a-27d6-4740-a99b-a0751ed3f55c",
+              "level1Name": "ANTONIO JOSÉ HOLGUÍN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "466c5bb5-55e5-41d2-976c-e78ddf935d3e",
+              "level1Name": "CUSUBAMBA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "1a67f19e-04f6-41d1-accf-6e9732fdc165",
+              "level1Name": "MULALILLO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "09329263-2c38-4b10-a2f3-acedba7ac9e1",
+              "level1Name": "MULLIQUINDIL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "99f36901-e97b-493c-90e3-bce7556233cd",
+              "level1Name": "PANSALEO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "3ee95a81-22cd-40ae-bf38-89dc6dc2131e",
+              "level1Name": "SAN MIGUEL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "a360ea66-38e7-4812-b4f4-8dcda657b693",
+          "level2Name": "SAQUISILÍ",
+          "firstLevel": [
+            {
+              "idLevel1": "c0caa5a7-81cb-4867-b9c9-b4be2c946ab1",
+              "level1Name": "CANCHAGUA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "1d52b8af-bf13-4d6c-a5e9-dd92061aeaf3",
+              "level1Name": "CHANTILÍN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "69ad9d88-3e61-4523-b858-774e94f8c52e",
+              "level1Name": "COCHAPAMBA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "e86db306-d4a7-4dbb-bf92-96d087021283",
+              "level1Name": "SAQUISILÍ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "4761a5c7-8371-4adc-917d-2cdbe547e831",
+          "level2Name": "SIGCHOS",
+          "firstLevel": [
+            {
+              "idLevel1": "3123d29f-73d8-4359-b40a-0a9198cc730e",
+              "level1Name": "CHUGCHILLÁN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "9b734718-69d6-4bf6-9041-14a727930a7a",
+              "level1Name": "SIGCHOS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "00800d37-2645-4e38-a728-aaa7a5a679e1",
+      "level3Name": "EL ORO",
+      "secondLevel": [
+        {
+          "idLevel2": "45fd65ee-119f-4cc7-b158-044c79668247",
+          "level2Name": "ARENILLAS",
+          "firstLevel": [
+            {
+              "idLevel1": "8cf33b87-4405-4ff5-9e3e-16865ae74eec",
+              "level1Name": "ARENILLAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "80cee0dc-eda3-4801-9837-43348f11baba",
+              "level1Name": "CHACRAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "99d6ae33-e103-42b8-9cbb-706fa1d96150",
+              "level1Name": "PALMALES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "6c7691c3-1cbc-4972-90cf-d625afdf775d",
+          "level2Name": "ATAHUALPA",
+          "firstLevel": [
+            {
+              "idLevel1": "28c86e74-aeba-46ee-90e7-de6105e35613",
+              "level1Name": "PACCHA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "9fbae1c4-9d98-48c3-a5f3-ea10ecd15355",
+          "level2Name": "BALSAS",
+          "firstLevel": [
+            {
+              "idLevel1": "e71a7120-0612-4bf2-935f-ed63d07fea81",
+              "level1Name": "BALSAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "9f132a19-0971-4fb2-af7b-41d8c48a1dfd",
+          "level2Name": "CHILLA",
+          "firstLevel": [
+            {
+              "idLevel1": "cf35ea43-6d1d-403b-9455-f4259c358efe",
+              "level1Name": "CHILLA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "433906b1-6df4-47c6-b6f4-5e6bd0cbd388",
+          "level2Name": "EL GUABO",
+          "firstLevel": [
+            {
+              "idLevel1": "cf7ae64f-6a05-4f39-8ca4-f54977cfb5fb",
+              "level1Name": "BARBONES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "506628a1-07c8-4098-ae05-6e54a3396d82",
+              "level1Name": "EL GUABO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "e22175be-5c9f-449c-9350-567e8c747277",
+              "level1Name": "LA IBERIA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "85724ea4-62dd-4601-960a-5c95aeaf5f2d",
+              "level1Name": "RÍO BONITO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "0f1db2bd-a644-47d5-a2fb-2f28d86b8b26",
+              "level1Name": "TENDALES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "6ccfcd31-a271-4404-a827-383be613f9be",
+          "level2Name": "HUAQUILLAS",
+          "firstLevel": [
+            {
+              "idLevel1": "f1886611-a754-46d1-befa-0ef0ffcae152",
+              "level1Name": "HUAQUILLAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "a5b9e916-df1c-47b7-9355-bb4848985081",
+          "level2Name": "LAS LAJAS",
+          "firstLevel": [
+            {
+              "idLevel1": "7882f89b-e6d6-41be-a13a-fbccce4d40ea",
+              "level1Name": "LA VICTORIA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "b0514c98-295e-40ce-b855-0fa9f728dc33",
+          "level2Name": "MACHALA",
+          "firstLevel": [
+            {
+              "idLevel1": "e8b18041-3800-4c27-acc2-0304c0f82941",
+              "level1Name": "EL RETIRO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "2a42eeaa-0340-4858-8ee6-4104e9856974",
+              "level1Name": "MACHALA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "bd1d8d7f-a056-459d-af08-f96275ea2750",
+          "level2Name": "MARCABELÍ",
+          "firstLevel": [
+            {
+              "idLevel1": "ceb32767-8159-46be-a6f6-6b375a0a6885",
+              "level1Name": "MARCABELÍ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "5af1ad61-bbed-480f-bccc-0edcdca0bc23",
+          "level2Name": "PASAJE",
+          "firstLevel": [
+            {
+              "idLevel1": "8d081aac-f8a9-4276-9fa2-d885b42bd09b",
+              "level1Name": "BUENAVISTA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "13227970-1b45-495a-b9da-0845aa5bfea5",
+              "level1Name": "LA PEAÑA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "61a5ca6a-7dbe-4fb1-9d88-f2e8a74cc3a1",
+              "level1Name": "PASAJE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "a8febb93-0588-4d73-96ae-fab410fd9bbc",
+          "level2Name": "PIÑAS",
+          "firstLevel": [
+            {
+              "idLevel1": "6d27a2c1-fb7b-4c5a-86d3-4297f7f67797",
+              "level1Name": "PIÑAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "4c94308d-04a1-4f82-b66c-3811b7fd0f00",
+          "level2Name": "PORTOVELO",
+          "firstLevel": [
+            {
+              "idLevel1": "d96128c7-65ae-4968-82d4-accbd6ee31e9",
+              "level1Name": "MORALES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "177537a2-b995-41c3-92f7-7b90b306c3c2",
+              "level1Name": "PORTOVELO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "4ecc7c9e-90ce-4675-bfda-6516673c1662",
+          "level2Name": "SANTA ROSA",
+          "firstLevel": [
+            {
+              "idLevel1": "d2505e90-6d30-472c-aaa8-e96462a53e45",
+              "level1Name": "BELLAMARÍA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "01493872-c9d9-49f9-bebf-428f3c1522cb",
+              "level1Name": "BELLAVISTA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "9c4e7ebd-f179-4fca-9d9d-5ae7147d13b1",
+              "level1Name": "LA AVANZADA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "007e3c06-b6ae-4306-ad91-d5d5d9dfb471",
+              "level1Name": "SANTA ROSA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "fa8af335-3f8c-407c-ae30-eeae363ee68b",
+              "level1Name": "VICTORIA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "ec2a53ed-1a1f-4d64-8acf-14d62c424901",
+          "level2Name": "ZARUMA",
+          "firstLevel": [
+            {
+              "idLevel1": "87890feb-75c7-4dfa-abbf-c9bf1ef73dcb",
+              "level1Name": "ZARUMA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "bf0124e0-d0ef-4618-829c-c6cc4267a160",
+      "level3Name": "ESMERALDAS",
+      "secondLevel": [
+        {
+          "idLevel2": "19f7931b-0eaf-493b-8e9c-7b83d55ae1cf",
+          "level2Name": "ATACAMES",
+          "firstLevel": [
+            {
+              "idLevel1": "bcc6d888-9696-46f0-92de-4dd6901a3551",
+              "level1Name": "ATACAMES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "dd73723e-caec-49df-a518-e41b9d8ff0d0",
+              "level1Name": "SÚA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "570aed75-9432-4287-91f9-1201d218fab7",
+              "level1Name": "TONCHIGÜE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "f377be23-e7cb-4ef6-93e2-637f181f5ed2",
+              "level1Name": "TONSUPA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "6ab54f99-8ec2-4610-ab01-19bab386dcd2",
+          "level2Name": "ELOY ALFARO",
+          "firstLevel": [
+            {
+              "idLevel1": "de5efeb2-effe-4386-92a2-a4f91d5ac838",
+              "level1Name": "BORBÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "68f9067f-e775-4a82-aecf-becbbf4b0161",
+              "level1Name": "LUIS VARGAS TORRES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "d58a0291-f9c1-41c6-952c-a6db18f88b30",
+              "level1Name": "MALDONADO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "d5b865a1-3a15-4bef-a815-85605ae4cd5a",
+          "level2Name": "ESMERALDAS",
+          "firstLevel": [
+            {
+              "idLevel1": "95efd475-9024-483f-8400-d4e615724559",
+              "level1Name": "CAMARONES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "fd0e1945-fb87-4dc7-977f-241c9e250189",
+              "level1Name": "ESMERALDAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "cf5ab252-6757-40ed-9442-cbf0889933d8",
+              "level1Name": "MAJUA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "1ca2c1dd-da95-415a-aed4-908f24fb4fb3",
+              "level1Name": "SAN MATEO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "278a8166-5810-42ed-9d83-531a86455ced",
+              "level1Name": "TACHINA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "2857318d-e0b7-4567-ae3d-a69e7b2711d3",
+              "level1Name": "VUELTA LARGA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "fc32fc1e-0851-4b09-8838-8353f1fff8a5",
+          "level2Name": "MUISNE",
+          "firstLevel": [
+            {
+              "idLevel1": "19f8abbb-cd11-461e-a404-77fa56398ebe",
+              "level1Name": "MUISNE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "3e500f10-96a6-4ee7-9cfc-40497dbc4831",
+          "level2Name": "QUININDÉ",
+          "firstLevel": [
+            {
+              "idLevel1": "72e9ed9a-b23d-4ccd-8fa5-41c306992d7a",
+              "level1Name": "LA UNIÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "ede08528-d280-43c1-9834-dd9d6c595f30",
+              "level1Name": "ROSA ZÁRATE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "8ade0fef-f2d5-4ded-98e7-d54ee65a8bd2",
+              "level1Name": "VICHE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "326bed20-5580-4fbe-8e4e-9e8e1b9f1fd8",
+          "level2Name": "RIOVERDE",
+          "firstLevel": [
+            {
+              "idLevel1": "957e6abf-c950-4353-844d-b367dbfb00b0",
+              "level1Name": "LAGARTO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "18f23461-a336-474b-bb20-420794ef6125",
+              "level1Name": "MONTALVO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "7550eca6-e495-49cf-941a-970a794ba993",
+              "level1Name": "RIOVERDE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "f230e798-eef6-4cc5-a7b5-f3f2866e5a8c",
+              "level1Name": "ROCAFUERTE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "08cf4948-e6b1-4b48-93e5-8abc9aea2dec",
+          "level2Name": "SAN LORENZO",
+          "firstLevel": [
+            {
+              "idLevel1": "277f4a56-46a0-4184-8757-7dcfef9a7ae2",
+              "level1Name": "SAN LORENZO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "13e34f1a-6a13-4427-8b6c-18667ae95ce1",
+      "level3Name": "GALAPAGOS",
+      "secondLevel": []
+    },
+    {
+      "idLevels3": "85d854c8-1a1f-4edd-83f7-7463ade9b028",
+      "level3Name": "GUAYAS",
+      "secondLevel": [
+        {
+          "idLevel2": "68054fa4-0ece-4d8b-afbd-b441fe76de0a",
+          "level2Name": "ALFREDO BAQUERIZO MORENO (JUJÁN)",
+          "firstLevel": [
+            {
+              "idLevel1": "a1655002-0b21-4985-a4eb-d88d0dfc62e6",
+              "level1Name": "ALFREDO BAQUERIZO MORENO (JUJÁN)",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "185df33b-95a2-4518-9118-611290313028",
+          "level2Name": "BALAO",
+          "firstLevel": [
+            {
+              "idLevel1": "c717eb5b-0ab2-4f7e-9fe1-ed953336ca95",
+              "level1Name": "BALAO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "59b4a31a-bf8d-46ac-97da-f94a6369a777",
+          "level2Name": "BALZAR",
+          "firstLevel": [
+            {
+              "idLevel1": "cce4f088-eb12-4adb-a118-ce1f1c201ce1",
+              "level1Name": "BALZAR",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "99ed321c-d343-4839-bebb-74e9a2d28d02",
+          "level2Name": "COLIMES",
+          "firstLevel": [
+            {
+              "idLevel1": "1fb4f0b0-f436-41c1-a2da-ae8f28658bfd",
+              "level1Name": "COLIMES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "37613009-fdba-4134-b8ac-5f6fd150c000",
+              "level1Name": "SAN JACINTO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "ee080ebc-5b92-4241-8fe1-da4b6865bae5",
+          "level2Name": "CORONEL MARCELINO MARIDUEÑA",
+          "firstLevel": [
+            {
+              "idLevel1": "8f9afb64-b011-4574-b405-2edbbbe563e9",
+              "level1Name": "CORONEL MARCELINO MARIDUEÑA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "a19dec15-1d00-4d10-b129-810b1a43b887",
+          "level2Name": "DAULE",
+          "firstLevel": [
+            {
+              "idLevel1": "47d277fd-9f3d-43c6-a9e8-088362440135",
+              "level1Name": "DAULE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "06e8fe72-4d03-4f05-a6fe-e9fb87b7e2db",
+              "level1Name": "JUAN BAUTISTA AGUIRRE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "5cd72e44-5c29-4a66-904f-36d16e060cdb",
+              "level1Name": "LAUREL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "dd586eea-d8c3-4d85-a143-7b6a71edde96",
+              "level1Name": "LIMONAL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "46d95c32-be31-4176-8398-67176c5a1c3f",
+          "level2Name": "DURÁN",
+          "firstLevel": [
+            {
+              "idLevel1": "ce180729-8c10-4087-8ae4-d8ded2d370cb",
+              "level1Name": "ELOY ALFARO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "74e32d5e-9c6d-4e43-87b6-5a4ff242123c",
+          "level2Name": "EL EMPALME",
+          "firstLevel": [
+            {
+              "idLevel1": "46fe7f03-c509-4f15-9392-24a7fab4fc4e",
+              "level1Name": "EL ROSARIO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "5551e7f3-6aa6-4ef8-8f26-ca314173dfc2",
+              "level1Name": "GUAYAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "bc7f7605-b032-4e17-a945-3c5bd4b00834",
+              "level1Name": "VELASCO IBARRA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "4142aa42-0178-429a-acd7-a380deea9a34",
+          "level2Name": "EL TRIUNFO",
+          "firstLevel": [
+            {
+              "idLevel1": "55470d74-0a55-4cd5-887d-9ca90870414d",
+              "level1Name": "EL TRIUNFO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "98f4a477-8391-43da-a65e-d1e6a5098010",
+          "level2Name": "GENERAL  ANTONIO ELIZALDE",
+          "firstLevel": [
+            {
+              "idLevel1": "fdd040b7-e269-422f-be0c-420f3fe7de4f",
+              "level1Name": "GENERAL ANTONIO ELIZALDE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "ae94ed8b-ee2a-4ddf-ab88-03f23e70a8f6",
+          "level2Name": "GUAYAQUIL",
+          "firstLevel": [
+            {
+              "idLevel1": "8c05f3fd-bd45-4f04-99af-e89082986702",
+              "level1Name": "GUAYAQUIL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "7247529f-5d9a-46d3-a3fe-23723ff015f6",
+              "level1Name": "JUAN GÓMEZ RENDÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "ebd04d05-753c-47c8-97aa-c6197fbd82fb",
+              "level1Name": "MORRO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "6c4f496a-4e5b-4d0e-9b29-62c7eba0d8e2",
+              "level1Name": "POSORJA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "4bb29b38-153d-41b8-a94c-860521a41a27",
+              "level1Name": "TENGUEL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "c6c33a45-6294-4a78-be57-0b8e94ce1068",
+          "level2Name": "ISIDRO AYORA",
+          "firstLevel": [
+            {
+              "idLevel1": "9fc31568-8c7b-40aa-90e1-a4056cff540e",
+              "level1Name": "ISIDRO AYORA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "9b950006-463f-4214-9ac4-54bb9ef479d7",
+          "level2Name": "LOMAS DE SARGENTILLO",
+          "firstLevel": [
+            {
+              "idLevel1": "3b7d65f1-7393-47f2-88eb-ca6486affb7f",
+              "level1Name": "LOMAS DE SARGENTILLO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "daed06a5-29ca-4cac-9397-6e130f9f9480",
+          "level2Name": "MILAGRO",
+          "firstLevel": [
+            {
+              "idLevel1": "49b359f2-ceea-48ef-94ae-e6a017e7b896",
+              "level1Name": "CHOBO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "79889e1f-8874-42e1-8370-463bdc689c1e",
+              "level1Name": "MARISCAL SUCRE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "6137cd80-dd17-474c-891e-a90b7694aaa8",
+              "level1Name": "MILAGRO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "cdc02884-3e4d-4047-8f1a-f8e9bfad2bdb",
+              "level1Name": "ROBERTO ASTUDILLO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "2f0512c6-b619-4341-b707-26b58117cd8d",
+          "level2Name": "NARANJAL",
+          "firstLevel": [
+            {
+              "idLevel1": "bb58d5b1-7738-4147-998a-0e547c5b79b6",
+              "level1Name": "JESÚS MARÍA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "98717d18-3c37-4cdb-bc94-55b9a05a5a76",
+              "level1Name": "NARANJAL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "02f6f5fe-94db-4b1b-a248-e7b6f8df5384",
+              "level1Name": "SAN CARLOS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "fd8443a0-c7d4-4c5b-a32e-77eff08a6e8c",
+              "level1Name": "SANTA ROSA DE FLANDES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "317f3f30-f4ab-4671-af65-43d8bda04ec1",
+              "level1Name": "TAURA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "ec613c43-66f2-4901-9661-182943dede66",
+          "level2Name": "NARANJITO",
+          "firstLevel": [
+            {
+              "idLevel1": "bf72f4d6-8fc5-440c-a628-fbe516cee7bb",
+              "level1Name": "NARANJITO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "681f9743-0643-423d-aa34-b8457e9884bd",
+          "level2Name": "NOBOL",
+          "firstLevel": [
+            {
+              "idLevel1": "3140376a-2ebd-4088-8281-30525f02f59a",
+              "level1Name": "NARCISA DE JESÚS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "84387679-04d5-47ec-86e3-25da19c0ad31",
+          "level2Name": "PALESTINA",
+          "firstLevel": [
+            {
+              "idLevel1": "581b8609-9837-459e-b787-55acce594119",
+              "level1Name": "PALESTINA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "b0c89dee-822a-4e0a-bc42-6a7054708740",
+          "level2Name": "PEDRO CARBO",
+          "firstLevel": [
+            {
+              "idLevel1": "652b258d-1d60-4ecc-9696-c1fdf38e2ed1",
+              "level1Name": "PEDRO CARBO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "fc948087-0a48-4bc5-8c61-4c7130dde398",
+              "level1Name": "SABANILLA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "05165f94-ec3e-4eec-bbe7-33f84d9ffcbb",
+              "level1Name": "VALLE DE LA VIRGEN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "9305aa3c-80d1-4b6e-8233-8d4cc7390be3",
+          "level2Name": "PLAYAS",
+          "firstLevel": [
+            {
+              "idLevel1": "f7e38bc6-fba5-43b3-92d2-b0e41321482c",
+              "level1Name": "GENERAL VILLAMIL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "85add7ee-871b-44b4-b57c-cc216544d798",
+          "level2Name": "SALITRE",
+          "firstLevel": [
+            {
+              "idLevel1": "4de60119-892a-4843-8ec4-b9a0fd1d3ebd",
+              "level1Name": "EL SALITRE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "c11fe173-2456-4aec-b4dc-519446c590ed",
+              "level1Name": "GENERAL VERNAZA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "41a2de06-efc8-4e4e-aa39-0ebc2cea34e3",
+              "level1Name": "JUNQUILLAL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "0b711ba9-8a2f-4ab3-a9e2-26a789e99e67",
+              "level1Name": "LA VICTORIA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "67006cd9-face-446c-a3d2-d75ed18e0bbf",
+          "level2Name": "SAMBORONDÓN",
+          "firstLevel": [
+            {
+              "idLevel1": "ac90c668-e587-4fd1-a843-0463c9c93d3c",
+              "level1Name": "SAMBORONDÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "e3d10100-41cd-4e3b-ac37-644a1cda922b",
+              "level1Name": "TARIFA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "5415b7fc-f226-4e6e-90ea-07587247ee55",
+          "level2Name": "SAN JACINTO DE YAGUACHI",
+          "firstLevel": [
+            {
+              "idLevel1": "42b4cc0c-2b6c-488b-94b7-986420226b9d",
+              "level1Name": "GENERAL PEDRO J. MONTERO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "65e9d36e-4967-40aa-99ea-4e654cdd1a50",
+              "level1Name": "SAN JACINTO DE YAGUACHI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "74e00801-d7ea-4011-813c-9b3bd09195b5",
+              "level1Name": "VIRGEN DE FÁTIMA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "bf18721f-0c7e-4a67-ae49-b6cc81442fcc",
+              "level1Name": "YAGUACHI VIEJO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "ed551a4a-751b-4571-94c8-67b58c7bf65d",
+          "level2Name": "SANTA LUCÍA",
+          "firstLevel": [
+            {
+              "idLevel1": "d01711aa-8c28-4a3a-83b1-d8264ee74725",
+              "level1Name": "SANTA LUCÍA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "61ab4572-ea81-4d22-a711-c2929ce5a028",
+          "level2Name": "SIMÓN BOLÍVAR",
+          "firstLevel": [
+            {
+              "idLevel1": "6d82dd59-e9eb-4b65-9e57-50a548559298",
+              "level1Name": "CORONEL LORENZO DE GARAYCOA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "b7355b9a-5e26-4331-892e-bd225c795a30",
+              "level1Name": "SIMÓN BOLÍVAR",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "b3e0ea33-aa88-4582-ac74-0a67d7d92df6",
+      "level3Name": "IMBABURA",
+      "secondLevel": [
+        {
+          "idLevel2": "ea0d273f-b1b6-453f-b725-5052b308d981",
+          "level2Name": "ANTONIO ANTE",
+          "firstLevel": [
+            {
+              "idLevel1": "42c9e052-0ca0-4767-80b7-0918e38002e5",
+              "level1Name": "ATUNTAQUI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "03c72ea9-94df-4199-9297-95cc2c5f94fa",
+              "level1Name": "IMBAYA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "5b4a28b3-05fd-4ad7-a8c0-8b394e9d5e5c",
+              "level1Name": "SAN FRANCISCO DE NATABUELA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "76cc4fdf-2074-4780-93e6-a9a0c744415e",
+              "level1Name": "SAN JOSÉ DE CHALTURA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "20484d31-686c-408a-a2ff-45a49f86d3ed",
+              "level1Name": "SAN ROQUE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "a1a75ae0-8881-408d-b2f8-daf004f0ec44",
+          "level2Name": "COTACACHI",
+          "firstLevel": [
+            {
+              "idLevel1": "d646e7f4-d6e6-4395-a5b9-3ab07a71bea9",
+              "level1Name": "COTACACHI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "dd018998-d765-4c61-9a1e-14da26097f1e",
+              "level1Name": "IMANTAG",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "3e7c4a31-55d1-4631-a5fc-35bd750db9e3",
+              "level1Name": "QUIROGA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "c81a8867-d52b-4f48-a2e2-57164d4123b0",
+          "level2Name": "IBARRA",
+          "firstLevel": [
+            {
+              "idLevel1": "bf611bf8-c04a-459d-9dc4-aaacdffd7d27",
+              "level1Name": "SALINAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "81b17958-6773-409e-b592-476bf56b5135",
+              "level1Name": "SAN ANTONIO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "78420ca3-1f1f-4f97-9b4f-04b212fa0534",
+              "level1Name": "SAN MIGUEL DE IBARRA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "37adbfb4-bed9-457a-9c5d-05c37e7251b1",
+          "level2Name": "OTAVALO",
+          "firstLevel": [
+            {
+              "idLevel1": "e516cfc1-aae0-4aa7-a288-098e7e10598a",
+              "level1Name": "DR. MIGUEL EGAS CABEZAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "7432dd88-7cc2-4c7f-9065-b0672ceb040d",
+              "level1Name": "EUGENIO ESPEJO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "248681f8-ba66-4305-9c25-63fde546833a",
+              "level1Name": "GONZÁLEZ SUÁREZ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "8823ea95-2ea0-4919-bf23-4a05995bd2a9",
+              "level1Name": "OTAVALO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "0c3abfe3-5250-4f7c-a9e9-1fb37a7f16bd",
+              "level1Name": "SAN PABLO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "0e23a8df-8f90-4af5-88ea-0da33af4eab9",
+              "level1Name": "SAN RAFAEL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "a260f67f-6b62-442a-8576-7625fef11834",
+          "level2Name": "PIMAMPIRO",
+          "firstLevel": [
+            {
+              "idLevel1": "937a50ef-1507-4fb4-a81a-91b24bbee90e",
+              "level1Name": "PIMAMPIRO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "cbe8f651-9876-4231-8a04-c059b97fe89b",
+          "level2Name": "SAN MIGUEL DE URCUQUÍ",
+          "firstLevel": [
+            {
+              "idLevel1": "17ccdd76-028b-4298-ba6f-46ebbad751ce",
+              "level1Name": "URCUQUÍ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "2aac6f77-f3e4-4d09-9f67-26d7d9043bc5",
+      "level3Name": "LOJA",
+      "secondLevel": [
+        {
+          "idLevel2": "3bf1727e-ac87-4aa6-891c-6b8f936b0bfe",
+          "level2Name": "CALVAS",
+          "firstLevel": [
+            {
+              "idLevel1": "cc9ecab0-ba81-4521-b267-3c37203c89ec",
+              "level1Name": "CARIAMANGA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "618eaede-8d68-45b3-bf0e-e1f8f593aa2b",
+              "level1Name": "EL LUCERO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "b55a3cc4-6df9-4295-a1b2-1322d63709fd",
+          "level2Name": "CATAMAYO",
+          "firstLevel": [
+            {
+              "idLevel1": "224642a9-522e-40b4-be52-6d5c8fc735f5",
+              "level1Name": "CATAMAYO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "731d9f9b-8c10-4604-9f81-e0b45d576de4",
+              "level1Name": "EL TAMBO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "b2f447f0-4ca0-43bc-9452-e90b4eadf942",
+              "level1Name": "GUAYQUICHUMA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "b7837a2b-6233-40dc-915b-20dfe34a9f98",
+              "level1Name": "SAN PEDRO DE LA BENDITA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "28da3bd9-99b2-45b8-a5c2-2dc7159c9784",
+          "level2Name": "CELICA",
+          "firstLevel": [
+            {
+              "idLevel1": "ac9ad229-1904-4ba4-823b-201f5cebfc37",
+              "level1Name": "CELICA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "7a612668-dadd-4c08-b5a0-6a28f60f5f2e",
+              "level1Name": "CRUZPAMBA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "b811e34e-67a8-428a-bd1d-2a0b63c50a59",
+              "level1Name": "PÓZUL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "0e02a8b4-5333-4b2d-8c77-ec27c580e09f",
+              "level1Name": "SABANILLA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "c5752ceb-6da9-42e0-beb1-3c64abdcc302",
+              "level1Name": "TENIENTE MAXIMILIANO RODRÍGUEZ LOAIZA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "1c34c00b-8938-4ad7-abea-ca550e02b80a",
+          "level2Name": "CHAGUARPAMBA",
+          "firstLevel": [
+            {
+              "idLevel1": "266bc70e-b6af-4916-8ca7-c88f4b07c64b",
+              "level1Name": "CHAGUARPAMBA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "ee887851-c624-45c6-b967-7a84739183b5",
+          "level2Name": "ESPÍNDOLA",
+          "firstLevel": [
+            {
+              "idLevel1": "7f8c7bbc-f61b-4dff-8dfd-88dfaad784b4",
+              "level1Name": "27 DE ABRIL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "cd3e6208-e57c-4ac3-931b-fd222e5cf65a",
+              "level1Name": "AMALUZA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "6a74e4b6-9259-40ff-88d0-a2ce704962d8",
+              "level1Name": "EL INGENIO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "cf021f61-468f-4fb1-a46f-28ffe20ef096",
+              "level1Name": "SANTA TERESITA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "2e74b7b8-4609-4437-b6ea-10aa0e3ad7c6",
+          "level2Name": "GONZANAMÁ",
+          "firstLevel": [
+            {
+              "idLevel1": "9f35cd4a-f26f-467c-a602-04aa2485f616",
+              "level1Name": "CHANGAIMINA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "3bae1ff7-91ad-4175-b17d-2bd96990fa93",
+              "level1Name": "GONZANAMÁ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "998d739a-c494-4f39-825e-3780443c55cd",
+              "level1Name": "NAMBACOLA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "4f5d95db-ce5d-48ff-843f-e583c9a2ec23",
+          "level2Name": "LOJA",
+          "firstLevel": [
+            {
+              "idLevel1": "69a592e8-38ab-48ef-ae8e-aa9ad9361378",
+              "level1Name": "EL CISNE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "6cf6150a-0554-4a01-86bd-bda15a20d4fe",
+              "level1Name": "LOJA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "23f017cf-a5a4-4a81-af5e-cc3764e2d752",
+              "level1Name": "MALACATOS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "41f7c88f-4add-4153-8627-910801a513c9",
+              "level1Name": "QUINARA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "4d664ade-31a6-4b0e-81b9-785034f1ac75",
+              "level1Name": "SAN LUCAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "3075e8ec-d7ba-4e6f-881c-8ccdd12ad4dd",
+              "level1Name": "SAN PEDRO DE VILCABAMBA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "33da5355-ab7d-4c19-852b-350990a88fc7",
+              "level1Name": "SANTIAGO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "d5b6c62c-6283-4db9-b043-884fa0365e93",
+              "level1Name": "VILCABAMBA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "179af7ed-5a0a-48f0-94eb-e9550815ff20",
+              "level1Name": "YANGANA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "5203cd3b-a5b9-41ac-a040-f60fcedb90a1",
+          "level2Name": "MACARÁ",
+          "firstLevel": [
+            {
+              "idLevel1": "eee97f46-e4a5-448c-80ae-f2bc1449bbe0",
+              "level1Name": "MACARÁ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "0b60fc04-6f00-4380-b4d9-f27f9e1298d1",
+              "level1Name": "SABIANGO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "074f750b-a535-4985-b436-ba2b39c87f03",
+          "level2Name": "OLMEDO",
+          "firstLevel": [
+            {
+              "idLevel1": "6c0259cb-1432-4fb4-9028-df627de5a0df",
+              "level1Name": "OLMEDO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "68b0516d-5463-474e-85ef-52567791fb46",
+          "level2Name": "PALTAS",
+          "firstLevel": [
+            {
+              "idLevel1": "52010038-438f-41b1-8d55-7d1e507db4dd",
+              "level1Name": "CATACOCHA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "30d1c02d-0638-4afa-a1c2-72673ec977bd",
+          "level2Name": "PINDAL",
+          "firstLevel": [
+            {
+              "idLevel1": "e5566a73-b4e8-40ad-80d4-a8adf28a20fe",
+              "level1Name": "12 DE DICIEMBRE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "5e85e2fd-6fd5-45aa-829d-1b70cf404450",
+              "level1Name": "CHAQUINAL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "5b34ffe2-67d0-4109-8193-1486d1e609bc",
+              "level1Name": "PINDAL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "e500be21-4819-40a9-91ef-c50529b093fe",
+          "level2Name": "PUYANGO",
+          "firstLevel": [
+            {
+              "idLevel1": "db13ff49-7edd-41f5-9be8-38577b02fa4d",
+              "level1Name": "ALAMOR",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "9542505e-b88f-4fba-bdc6-f2ab682e415c",
+              "level1Name": "EL LIMO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "21ce18e0-968c-46d9-8b0c-3b6817d886c9",
+              "level1Name": "MERCADILLO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "07cd5995-bef3-4a60-9388-eeaa2b5f742d",
+          "level2Name": "QUILANGA",
+          "firstLevel": [
+            {
+              "idLevel1": "97feaea8-cf03-49ce-9e29-ff03a16403f8",
+              "level1Name": "QUILANGA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "b87ad089-182c-4bf3-ab43-7d0141e11911",
+          "level2Name": "SARAGURO",
+          "firstLevel": [
+            {
+              "idLevel1": "fc3bba77-39d6-48fd-8539-45725dacdf26",
+              "level1Name": "SARAGURO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "4a7099ce-16a8-4652-b637-b0966b29a991",
+              "level1Name": "URDANETA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "67e47aad-70b8-49b4-9528-13d8ef219b57",
+          "level2Name": "SOZORANGA",
+          "firstLevel": [
+            {
+              "idLevel1": "0e7dd472-783b-42b7-af7a-6d9db6206611",
+              "level1Name": "SOZORANGA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "42169768-d084-4550-be4f-22e99689a47c",
+          "level2Name": "ZAPOTILLO",
+          "firstLevel": [
+            {
+              "idLevel1": "f54e271e-aa63-4a39-a39c-463f1f77b134",
+              "level1Name": "ZAPOTILLO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "43549e44-36b5-4934-a800-10911b15d83e",
+      "level3Name": "LOS RÍOS",
+      "secondLevel": [
+        {
+          "idLevel2": "59b8eaaa-9a71-41d3-9a72-5fcca03732c6",
+          "level2Name": "BABA",
+          "firstLevel": [
+            {
+              "idLevel1": "73fb3916-b5ce-459f-a62a-6eedd167c4b6",
+              "level1Name": "BABA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "1bcd7137-ae82-42a8-b0d1-12ceb6efbc9d",
+              "level1Name": "GUARE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "08ca923b-cf80-46f3-9323-452a4c785d5d",
+              "level1Name": "ISLA DE BEJUCAL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "8b3a3d37-a3f4-44ad-80ab-5cdb2a82effe",
+          "level2Name": "BABAHOYO",
+          "firstLevel": [
+            {
+              "idLevel1": "e2352327-7f29-4a0e-90cd-339b1bf84c2c",
+              "level1Name": "BABAHOYO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "f82e960e-13a0-408c-b7eb-1e097da66127",
+              "level1Name": "CARACOL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "70c51536-fc28-4689-98cc-767b1787c130",
+              "level1Name": "FEBRES CORDERO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "ca8bf4a0-ca70-433f-bb2d-29deda2e2d7a",
+              "level1Name": "LA UNIÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "01faccb6-dc94-4cbf-b549-338acfc908e3",
+              "level1Name": "PIMOCHA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "4fc74dc6-85a8-449f-a8c6-e0d597088565",
+          "level2Name": "BUENA FE",
+          "firstLevel": [
+            {
+              "idLevel1": "35a01148-739a-4dd9-a66c-28fcee8e2155",
+              "level1Name": "PATRICIA PILAR",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "f76efa41-f449-465c-bf63-10cd84fa738b",
+              "level1Name": "SAN JACINTO DE BUENA FE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "a2fb2949-8726-40e0-8c5a-02b6d9d419ba",
+          "level2Name": "MOCACHE",
+          "firstLevel": [
+            {
+              "idLevel1": "c0ec6a12-4b65-4672-a27f-66d1f5f38b6c",
+              "level1Name": "MOCACHE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "33780e4b-a7d9-45ce-a59b-d19deb5d20d6",
+          "level2Name": "MONTALVO",
+          "firstLevel": [
+            {
+              "idLevel1": "78cbe19c-3b23-4355-a327-923c6c75aee4",
+              "level1Name": "LA ESMERALDA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "e048106c-d819-4698-9615-6d574ed55f42",
+              "level1Name": "MONTALVO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "6a56ae96-c788-40ff-a007-6194a1197ff6",
+          "level2Name": "PALENQUE",
+          "firstLevel": [
+            {
+              "idLevel1": "f46b67f7-d750-49d6-8c10-e11ca0d0bafc",
+              "level1Name": "PALENQUE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "629fa7e9-52fb-416b-bf6b-8c477230038d",
+          "level2Name": "PUEBLOVIEJO",
+          "firstLevel": [
+            {
+              "idLevel1": "6623b324-fceb-4f9c-827d-0d65e683cf90",
+              "level1Name": "PUEBLOVIEJO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "c70326cf-bbd1-4d4b-834a-f697544319c1",
+              "level1Name": "SAN JUAN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "54ed0ef9-a1b3-4423-a314-54ccb5a7400c",
+          "level2Name": "QUEVEDO",
+          "firstLevel": [
+            {
+              "idLevel1": "69ebc4c4-0638-43c4-84b0-d8baa4bca66d",
+              "level1Name": "LA ESPERANZA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "e5d0c749-08a8-4cb7-98e3-bde1f9d7550b",
+              "level1Name": "QUEVEDO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "939242e2-0fd2-4410-ab8f-d78eefccc86d",
+              "level1Name": "SAN CARLOS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "3188cda9-a61c-48fa-9446-9b683781051a",
+          "level2Name": "QUINSALOMA",
+          "firstLevel": [
+            {
+              "idLevel1": "56da3006-b69d-4e39-861d-64931428a25c",
+              "level1Name": "QUINSALOMA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "2f04765e-cf97-4ff6-b4e7-de443db5271d",
+          "level2Name": "URDANETA",
+          "firstLevel": [
+            {
+              "idLevel1": "1ae812f6-9393-40d4-8517-9ed6e52687ce",
+              "level1Name": "CATARAMA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "6a67ffda-54bb-4dfd-a5d5-4c97ef645571",
+              "level1Name": "RICAURTE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "6b003b8e-11c1-4fa6-91e7-aa7f53711dd8",
+          "level2Name": "VALENCIA",
+          "firstLevel": [
+            {
+              "idLevel1": "c4c5d811-ca05-4a32-8231-6a83b6460ad3",
+              "level1Name": "VALENCIA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "aec6720f-fd04-455d-95e4-caf6cd6523bd",
+          "level2Name": "VENTANAS",
+          "firstLevel": [
+            {
+              "idLevel1": "6d9f71f1-4357-4226-8403-be2369ffc0d3",
+              "level1Name": "VENTANAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "21c5a9be-6695-4cbe-8617-49a152c3a32e",
+              "level1Name": "ZAPOTAL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "53678081-004f-4f84-bb43-ea6e01b01bf9",
+          "level2Name": "VINCES",
+          "firstLevel": [
+            {
+              "idLevel1": "db55ff7b-7d35-4da7-8db3-0ca951ae2756",
+              "level1Name": "ANTONIO SOTOMAYOR",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "368c2712-b1b8-4d4a-9872-cc8015e0f9bf",
+              "level1Name": "VINCES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "f0f29278-a895-43c9-8929-9f9efd307032",
+      "level3Name": "MANABÍ",
+      "secondLevel": [
+        {
+          "idLevel2": "f4f2daed-7972-4467-a167-e69cd32538c5",
+          "level2Name": "24 DE MAYO",
+          "firstLevel": [
+            {
+              "idLevel1": "3194b55c-f50b-46d1-8556-a8c22878ea4a",
+              "level1Name": "BELLAVISTA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "c9d370eb-91d7-465e-a1eb-be0e76ce6ee1",
+              "level1Name": "SUCRE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "624f186a-b6a6-4818-9470-f548e432480e",
+          "level2Name": "BOLÍVAR",
+          "firstLevel": [
+            {
+              "idLevel1": "31fecdbd-0340-4ab0-b929-a20411212e2f",
+              "level1Name": "CALCETA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "cbd66bc1-607c-4b3e-a6d5-c88b1d001b5b",
+          "level2Name": "CHONE",
+          "firstLevel": [
+            {
+              "idLevel1": "d05a2d5f-f5d8-4f26-97eb-c200e3741139",
+              "level1Name": "CANUTO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "6849271a-86c6-461e-a630-d3df466ff8ea",
+              "level1Name": "CHONE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "3564bbd6-9ee6-41b3-80b2-3fd09b06151d",
+              "level1Name": "RICAURTE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "cda228d5-8222-4fda-b0ac-b4b0309a618a",
+              "level1Name": "SAN ANTONIO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "f66b02eb-db24-45cb-a0de-ae2938ed88fc",
+          "level2Name": "EL CARMEN",
+          "firstLevel": [
+            {
+              "idLevel1": "4a766bf5-674f-4c46-83df-8985e9ee085e",
+              "level1Name": "EL CARMEN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "c05d42e0-b1ae-4b89-8661-d6a93efec434",
+              "level1Name": "EL PARAÍSO LA 14",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "8cdb218f-4afa-4590-b5a9-e02d312d1d7e",
+          "level2Name": "FLAVIO ALFARO",
+          "firstLevel": [
+            {
+              "idLevel1": "018add21-95e6-4bc1-a543-cad8ba208a43",
+              "level1Name": "FLAVIO ALFARO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "b02ebaa0-970c-495e-9d1f-4976872d568b",
+              "level1Name": "ZAPALLO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "66679587-6cd5-4d40-843b-5048aa5883a6",
+          "level2Name": "JAMA",
+          "firstLevel": [
+            {
+              "idLevel1": "68b1ea7f-1a15-4692-9fe2-88265fb99ce5",
+              "level1Name": "JAMA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "89209a87-1e49-4d80-a06c-9fba4e3a1cec",
+          "level2Name": "JARAMIJÓ",
+          "firstLevel": [
+            {
+              "idLevel1": "716ccb5b-d76e-4bd7-9fdd-e49e2cfe8a61",
+              "level1Name": "JARAMIJÓ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "4c9e1c56-62b7-4f25-b976-ca1bd6ebacd0",
+          "level2Name": "JIPIJAPA",
+          "firstLevel": [
+            {
+              "idLevel1": "42b47b9f-a24a-41ef-8e8a-da509ff68160",
+              "level1Name": "JIPIJAPA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "e78676d4-cd08-4b1d-a564-fdb62307d68d",
+              "level1Name": "PUERTO CAYO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "f6818a04-746e-41f8-a878-5c95d7f6aa5c",
+          "level2Name": "JUNÍN",
+          "firstLevel": [
+            {
+              "idLevel1": "8e06ea25-ef48-4d02-a9ab-41c4ecdf0324",
+              "level1Name": "JUNÍN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "d407a3ed-67df-4b04-a8f8-5fdb3dfaca28",
+          "level2Name": "MANTA",
+          "firstLevel": [
+            {
+              "idLevel1": "4c414e65-04ae-4c8c-9e53-7a077914e306",
+              "level1Name": "MANTA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "bb240780-79b3-496d-91c8-e510eacd54ad",
+              "level1Name": "SANTA MARIANITA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "4a557ed5-1e4c-4a36-be7e-828be5d477c5",
+          "level2Name": "MONTECRISTI",
+          "firstLevel": [
+            {
+              "idLevel1": "90c518fe-41a2-4cf4-bdf0-e144fab38a89",
+              "level1Name": "LA PILA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "dab01862-b032-4d6d-9b9c-8b128dc6c9ec",
+              "level1Name": "MONTECRISTI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "e6da18a5-5721-484c-a639-68b3905a8e00",
+          "level2Name": "OLMEDO",
+          "firstLevel": [
+            {
+              "idLevel1": "7ba48c35-5971-40bd-9650-17ac3ee5bf49",
+              "level1Name": "OLMEDO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "cd4bc026-40fe-436c-a82c-d83f555be11b",
+          "level2Name": "PAJÁN",
+          "firstLevel": [
+            {
+              "idLevel1": "be947a48-dd06-437b-ad84-427113287921",
+              "level1Name": "CASCOL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "895dedea-ebe1-4ea6-85a2-71424a1eb11f",
+              "level1Name": "PAJÁN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "6135e796-e8a5-4228-8ba5-ea3ef5dbec57",
+          "level2Name": "PEDERNALES",
+          "firstLevel": [
+            {
+              "idLevel1": "dc5c7ef8-5a56-4142-9247-e0dd764392a4",
+              "level1Name": "COJIMÍES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "514386fc-2da9-41e0-9127-b8a83bf58ff7",
+              "level1Name": "PEDERNALES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "3a5f58a0-2a42-46b2-9084-ae02f18ac278",
+          "level2Name": "PICHINCHA",
+          "firstLevel": [
+            {
+              "idLevel1": "7efa798a-3d30-4ced-bc8a-78e486469b2d",
+              "level1Name": "PICHINCHA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "70eb941f-eb7a-48a6-9db6-0494577f0d06",
+          "level2Name": "PORTOVIEJO",
+          "firstLevel": [
+            {
+              "idLevel1": "2da14f92-5465-4bd9-b67f-79341b5d6884",
+              "level1Name": "ABDÓN CALDERÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "5ed9238d-8ebc-44cb-a768-92c047adcf57",
+              "level1Name": "ALHAJUELA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "1c754b40-cd0e-415c-91c9-6a13fa68aa5c",
+              "level1Name": "CHIRIJOS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "2bd43649-9e5c-4219-9ae0-4c352861d382",
+              "level1Name": "CRUCITA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "98f753a5-15f3-42c0-b7b8-d31106cb5808",
+              "level1Name": "PORTOVIEJO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "76a1eea6-1abe-46c9-8b80-a55c37cb1323",
+              "level1Name": "PUEBLO NUEVO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "52616d3c-a50f-415d-8aa5-9e7baee7c240",
+              "level1Name": "RIOCHICO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "c7b9ec8d-f7ba-419c-ad88-14d18b36459e",
+              "level1Name": "SAN PLÁCIDO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "2fd0d638-259b-4903-88b8-0296e61d30b6",
+          "level2Name": "PUERTO LÓPEZ",
+          "firstLevel": [
+            {
+              "idLevel1": "78c23d6d-7810-4eb8-b12a-4034b322a4de",
+              "level1Name": "MACHALILLA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "a764405d-bbe9-4b1c-aaf3-02c3ca63e970",
+              "level1Name": "PUERTO LÓPEZ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "adb7f2d7-60b4-4675-b34f-6847fb3393de",
+              "level1Name": "SALANGO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "9d315d4e-fffb-40e2-a65e-09ff0afa0c59",
+          "level2Name": "ROCAFUERTE",
+          "firstLevel": [
+            {
+              "idLevel1": "cec46716-36ba-4cdf-b2e4-3aa818807417",
+              "level1Name": "ROCAFUERTE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "9519d0b2-7ce7-4024-81b7-c90ecab16c0e",
+          "level2Name": "SANTA ANA",
+          "firstLevel": [
+            {
+              "idLevel1": "35bf7575-94aa-4be0-9829-133b5be2acc2",
+              "level1Name": "AYACUCHO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "b3f12a1a-f0ea-4610-9914-275094df6eb9",
+              "level1Name": "HONORATO VÁSQUEZ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "d3929ea5-4059-41c1-b843-b5472ffb8a39",
+              "level1Name": "SANTA ANA DE VUELTA LARGA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "e4c2eb67-c3b0-4089-a929-96c77c3c5971",
+          "level2Name": "SAN VICENTE",
+          "firstLevel": [
+            {
+              "idLevel1": "33ac2367-9499-4032-a53f-4f89ea23eade",
+              "level1Name": "CANOA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "74e3945f-7be9-4631-9bb0-c67056f514c0",
+              "level1Name": "SAN VICENTE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "204a1c5d-a5f0-4296-aad2-50b64f3a2096",
+          "level2Name": "SUCRE",
+          "firstLevel": [
+            {
+              "idLevel1": "c5041c78-b2f3-482a-84d2-69f7bf8f533b",
+              "level1Name": "BAHÍA DE CARÁQUEZ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "dedb37d4-42c4-43e4-a262-234d5187415e",
+              "level1Name": "CHARAPOTÓ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "3ee66c74-ceca-4185-a69d-51aeaf89df09",
+              "level1Name": "SAN ISIDRO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "8fd44176-84c8-4d0d-aab6-d715b67c6cbb",
+          "level2Name": "TOSAGUA",
+          "firstLevel": [
+            {
+              "idLevel1": "6b2be8a6-ae0b-4942-bd3c-4b172c7c48ed",
+              "level1Name": "ÁNGEL PEDRO GILER",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "b11e5411-380e-4c81-ac37-461ea430e07a",
+              "level1Name": "BACHILLERO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "c3b58d2f-04f4-4641-a570-caee1eb239ec",
+              "level1Name": "TOSAGUA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "1fa3b2e3-fa2d-4f35-9e69-10872ee7bc46",
+      "level3Name": "MORONA SANTIAGO",
+      "secondLevel": [
+        {
+          "idLevel2": "614ab8f0-224c-47ed-89f3-58931a910509",
+          "level2Name": "GUALAQUIZA",
+          "firstLevel": [
+            {
+              "idLevel1": "f65826c7-8db2-466e-9b50-117ba1e2a656",
+              "level1Name": "BERMEJOS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "41c7321a-a0b2-434d-857f-7b9953e7a963",
+              "level1Name": "BOMBOÍZA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "b84c52c2-f0a4-43c1-adba-93f88d0848bc",
+              "level1Name": "CHIGÜINDA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "3873fe33-053e-4b23-aad2-26a254bd61ba",
+              "level1Name": "EL IDEAL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "d3a8df47-b65b-4307-8d4f-926af7936098",
+              "level1Name": "EL ROSARIO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "df8fe7dd-c4dc-4538-82c0-4844efaf9b3e",
+              "level1Name": "GUALAQUIZA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "43762ee2-463a-4238-b242-c8824395217e",
+              "level1Name": "NUEVA TARQUI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "a62ea452-1fb2-4390-b304-1a8eee9b0412",
+          "level2Name": "HUAMBOYA",
+          "firstLevel": [
+            {
+              "idLevel1": "c85660ca-77c1-4efa-b496-93c28e774e82",
+              "level1Name": "HUAMBOYA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "a73f0207-e31c-470c-98ae-d1fd7db77803",
+          "level2Name": "LIMÓN INDANZA",
+          "firstLevel": [
+            {
+              "idLevel1": "f52dc1f6-2ffb-46cd-b74d-eb5e8b257095",
+              "level1Name": "GENERAL LEONIDAS PLAZA GUTIÉRREZ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "e8ddfa9c-3eba-4c36-8cba-1ce4c07965f3",
+              "level1Name": "INDANZA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "6deed1c5-20ce-408f-bef3-e0d243ec4d69",
+          "level2Name": "LOGROÑO",
+          "firstLevel": [
+            {
+              "idLevel1": "96fd6dff-f46d-46cc-a3ff-5aba042a4068",
+              "level1Name": "LOGROÑO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "667769fc-5123-474d-bf8b-539009dc301a",
+          "level2Name": "MORONA",
+          "firstLevel": [
+            {
+              "idLevel1": "dae1bb7d-e759-47a2-b011-ed570cb47d1c",
+              "level1Name": "GENERAL PROAÑO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "48906e53-5679-4d65-b7c9-964999b17d79",
+              "level1Name": "MACAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "84b5ae4d-c2be-4acb-b746-2512e03a08bd",
+              "level1Name": "RÍO BLANCO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "13818daf-46ed-4033-a159-222056228766",
+          "level2Name": "PABLO SEXTO",
+          "firstLevel": [
+            {
+              "idLevel1": "43ccf29d-77ce-437a-af68-7495ae714d09",
+              "level1Name": "PABLO SEXTO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "cd3438f8-97e2-4018-b9e7-c60475edd65f",
+          "level2Name": "PALORA",
+          "firstLevel": [
+            {
+              "idLevel1": "a4bf1bc8-35ef-4e26-8031-360f671bc7b7",
+              "level1Name": "16 DE AGOSTO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "1503d2d5-90df-4d07-94f0-44ecc450ab24",
+              "level1Name": "PALORA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "2e2d58ce-2ebf-40a6-9713-f205f2d40e11",
+              "level1Name": "SANGAY",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "442604fe-d7a4-4e1e-b21b-9856307dff35",
+          "level2Name": "SAN JUAN BOSCO",
+          "firstLevel": [
+            {
+              "idLevel1": "68480e5b-3126-4d2a-855e-69a2bd8bfd6c",
+              "level1Name": "SAN JUAN BOSCO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "00e4ce5f-5c3e-4dbd-a632-a3fed37828d7",
+          "level2Name": "SANTIAGO",
+          "firstLevel": [
+            {
+              "idLevel1": "be79f1e2-8d96-401c-ab70-cbf2eff39dec",
+              "level1Name": "PATUCA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "6581823c-6b08-427a-a73e-6869255d6447",
+              "level1Name": "SAN FRANCISCO DE CHINIMBIMI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "924f8e09-574f-4770-bb2e-c704e11b6672",
+              "level1Name": "SANTIAGO DE MÉNDEZ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "de4fd695-26f7-452c-af29-80a0ef3e6241",
+              "level1Name": "TAYUZA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "1b5fcfc5-52d7-4dac-ba4a-1c2f4460c531",
+          "level2Name": "SUCÚA",
+          "firstLevel": [
+            {
+              "idLevel1": "e8c95568-779e-44c9-ab8c-002a11ced0da",
+              "level1Name": "ASUNCIÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "0cb5e7f2-5b4a-49f3-a68a-19628dcece28",
+              "level1Name": "HUAMBI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "9956d036-327b-41aa-90b5-6b585d720d08",
+              "level1Name": "SANTA MARIANITA DE JESÚS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "2be14bb7-e804-4722-91ad-feb4643e610c",
+              "level1Name": "SUCÚA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "bb80d2e3-a0cd-4af4-a994-1097428dafd6",
+          "level2Name": "TIWINTZA",
+          "firstLevel": [
+            {
+              "idLevel1": "ae093da5-3248-4373-b45c-84c06f7fcfdb",
+              "level1Name": "SANTIAGO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "08a9d5eb-6a3e-402b-ac6b-d267f6b2374d",
+      "level3Name": "NAPO",
+      "secondLevel": [
+        {
+          "idLevel2": "fa7e8ec3-3376-4ec5-ab82-ac7aa31a445b",
+          "level2Name": "ARCHIDONA",
+          "firstLevel": [
+            {
+              "idLevel1": "94a09396-a543-4828-bcf8-4c98d5df106e",
+              "level1Name": "ARCHIDONA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "620a5454-45c6-4bf4-9454-75c0c2e7f81f",
+              "level1Name": "COTUNDO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "e4a46b9d-d9f1-43ca-b8a9-e0d7c0a98163",
+              "level1Name": "SAN PABLO DE USHPAYACU",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "2bcd272c-c31e-499a-a92f-973a2c08ac8e",
+          "level2Name": "CARLOS JULIO AROSEMENA TOLA",
+          "firstLevel": [
+            {
+              "idLevel1": "dbbfcd9f-478d-40df-99f3-29ca80956e5e",
+              "level1Name": "CARLOS JULIO AROSEMENA TOLA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "7617cacf-c873-4e33-b173-fd91e3b18719",
+          "level2Name": "EL CHACO",
+          "firstLevel": [
+            {
+              "idLevel1": "cdf535b8-280d-428d-b68a-d9cc58646e23",
+              "level1Name": "EL CHACO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "5df1386e-04cb-46c9-bdaa-0f310fa86f5a",
+              "level1Name": "SANTA ROSA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "24ed651c-8a9b-4af5-935a-02e0c071ba46",
+              "level1Name": "SARDINAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "8f4c6e4c-d82e-4a66-99bc-53ec3f511ac6",
+          "level2Name": "QUIJOS",
+          "firstLevel": [
+            {
+              "idLevel1": "5de74000-da7e-4a3a-bbaa-60d6a5583f30",
+              "level1Name": "BAEZA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "07120691-17b7-4522-b4ed-7abb391e91fb",
+              "level1Name": "SAN FRANCISCO DE BORJA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "5ecef75a-d924-4fb1-a1a3-d34fca6c6536",
+          "level2Name": "TENA",
+          "firstLevel": [
+            {
+              "idLevel1": "0ae59cbc-246e-4627-b1e1-d44c17ed4e8c",
+              "level1Name": "PANO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "0b0bfe95-2729-4303-b762-9e9548f1963b",
+              "level1Name": "PUERTO NAPO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "a01dbcb3-8d31-43b7-91ba-14dc04b64f27",
+              "level1Name": "SAN JUAN DE MUYUNA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "f6c874b4-1dc9-41ce-98b8-43f09c916835",
+              "level1Name": "TENA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "c5f212e7-72f7-4b57-8c24-65f9742d3aad",
+      "level3Name": "ORELLANA",
+      "secondLevel": [
+        {
+          "idLevel2": "0b2d62ac-faa5-4959-aa30-2ba868219b77",
+          "level2Name": "FRANCISCO DE ORELLANA",
+          "firstLevel": [
+            {
+              "idLevel1": "8f7da537-e16c-47fb-8b6d-81911195ad34",
+              "level1Name": "EL COCA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "37dc7de5-d92d-4575-9c92-4fe349e3bb30",
+          "level2Name": "LA JOYA DE LOS SACHAS",
+          "firstLevel": [
+            {
+              "idLevel1": "8d9c3bb6-6297-42f5-a5e6-7e1a7c331caa",
+              "level1Name": "ENOKANQUI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "45ad032d-57ff-487c-be51-33c93f416c60",
+              "level1Name": "LA JOYA DE LOS SACHAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "1f5d9e02-22dd-480c-97b2-3dd04adaa923",
+              "level1Name": "SAN SEBASTIÁN DEL COCA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "febc6679-d3e8-4e82-a50c-2e087e6ab84a",
+          "level2Name": "LORETO",
+          "firstLevel": [
+            {
+              "idLevel1": "953d4f8a-63e7-4991-8ce0-18782ff38646",
+              "level1Name": "ÁVILA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "83009389-701f-4c10-9bcb-2ae2b4befe6c",
+              "level1Name": "LORETO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "5985df5d-468b-4fbb-8112-4232187ee438",
+              "level1Name": "PUERTO MURIALDO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "70e55e95-9909-4b83-b1f9-f1a2f0fe5095",
+              "level1Name": "SAN JOSÉ DE DAHUANO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "e5bb7920-fd3e-4f27-bbf4-df246b76e267",
+              "level1Name": "SAN JOSÉ DE PAYAMINO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "418c22be-4597-46bd-aa8b-a3fab86f3612",
+              "level1Name": "SAN VICENTE DE HUATICOCHA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "3fbc0b59-8d2d-4ea0-89c4-6f97c3ea18f7",
+      "level3Name": "PASTAZA",
+      "secondLevel": [
+        {
+          "idLevel2": "26d6e90e-e3b5-4d9a-a6da-fdd0354cfebe",
+          "level2Name": "ARAJUNO",
+          "firstLevel": [
+            {
+              "idLevel1": "0b59f8d0-01ff-47a3-b68a-689ae7834a17",
+              "level1Name": "ARAJUNO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "e5656d63-a453-4610-b324-bdfba654fe4e",
+          "level2Name": "MERA",
+          "firstLevel": [
+            {
+              "idLevel1": "44f8a1d7-6ddb-4427-8116-f932622c46e1",
+              "level1Name": "MERA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "1392b9e2-a9b3-4aa3-8d03-cd2a564d522c",
+              "level1Name": "SHELL",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "e736ec14-446d-4e04-abed-a465fec66292",
+          "level2Name": "PASTAZA",
+          "firstLevel": [
+            {
+              "idLevel1": "03a9f309-9da6-4f45-bcc5-5bead1b6bcad",
+              "level1Name": "DIEZ DE AGOSTO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "75fa9fd3-0ed7-485c-95eb-cb2f1e2c0ee2",
+              "level1Name": "EL TRIUNFO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "557ffd2c-a4be-4ae1-ae4e-1861c025349a",
+              "level1Name": "FÁTIMA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "4f52c97c-cc09-4645-9681-6e1aeaa8e7ed",
+              "level1Name": "PUYO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "f2b9650a-7c71-452f-b354-8d4e45604a72",
+              "level1Name": "SIMÓN BOLÍVAR",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "29e0486a-6c35-4ffb-bb2f-16467b573aed",
+              "level1Name": "TARQUI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "c659d900-7d55-4578-9d9b-b336a4a42165",
+              "level1Name": "TENIENTE HUGO ORTIZ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "f64d3a95-d363-469c-8f18-04da126347fd",
+              "level1Name": "VERACRUZ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "6806acd4-e1ac-467d-b727-72b714ec41f7",
+          "level2Name": "SANTA CLARA",
+          "firstLevel": [
+            {
+              "idLevel1": "9d21e959-6a15-4a55-a1a7-3a32b9114f0e",
+              "level1Name": "SAN JOSÉ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "aad52fe0-3a81-46bb-950b-acab9ddd3060",
+              "level1Name": "SANTA CLARA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "533d778d-cb3f-4ae0-a4eb-6062bac4a947",
+      "level3Name": "PICHINCHA",
+      "secondLevel": [
+        {
+          "idLevel2": "c962a61d-56e7-436b-806b-39c06d184fa7",
+          "level2Name": "CAYAMBE",
+          "firstLevel": [
+            {
+              "idLevel1": "ed6838ee-b7f4-474f-a2a6-9d9b0b5f237d",
+              "level1Name": "CAYAMBE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "13e7fba6-ed5d-431e-8449-ad66e3637ffd",
+          "level2Name": "DISTRITO METROPOLITANO DE QUITO",
+          "firstLevel": [
+            {
+              "idLevel1": "6016a927-4330-4e1c-bf43-e5ee4f475893",
+              "level1Name": "ALANGASÍ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "53a7d8f0-9064-44e2-889a-8601eba84aa0",
+              "level1Name": "AMAGUAÑA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "df8959ea-6b0a-46ca-8b48-6ecff205ee62",
+              "level1Name": "ATAHUALPA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "531a241b-8ac0-467e-8935-d47fe6cd55f8",
+              "level1Name": "CALACALÍ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "9dfa7856-98e3-4298-8877-d6386ba10b0a",
+              "level1Name": "CALDERÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "db24821e-b13a-42ca-86d9-98c87fc808cf",
+              "level1Name": "CHAVEZPAMBA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "b27d20f4-104e-445d-a6b7-f1f3dfb14862",
+              "level1Name": "CHECA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "11adaa0e-589a-4b84-b186-d9f6682f149e",
+              "level1Name": "CONOCOTO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "cf5c74e8-9edf-496c-8ba7-019bcf1d09c4",
+              "level1Name": "CUMBAYÁ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "27ee1192-10bb-4e3e-abe4-c988547a5b5e",
+              "level1Name": "EL QUINCHE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "9b843e36-2424-4050-ba1a-9899b58ec44d",
+              "level1Name": "GUANGOPOLO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "389bab8e-653a-4392-b48d-6f524cbfec6a",
+              "level1Name": "GUAYLLABAMBA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "5982469c-e134-475b-9a4c-f966e45b6069",
+              "level1Name": "LA MERCED",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "27697a13-265d-4d8a-853b-0d7ba0b4a732",
+              "level1Name": "LLANO CHICO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "45eaed29-72cf-4672-b4ce-43c46fa1de00",
+              "level1Name": "NANEGALITO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "7dbd3bf3-0e6e-4cec-8d0b-50bc93e18aef",
+              "level1Name": "NAYÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "6b2bdce4-c44e-4799-bdc4-1ccdcac35d45",
+              "level1Name": "PERUCHO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "0cf0cc25-3246-47d3-a05c-ae6c3b4f31a8",
+              "level1Name": "PIFO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "90a78a47-002e-4e0e-a48a-6c3f94295d8a",
+              "level1Name": "PÍNTAG",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "9d6d7c57-4032-4912-9239-f65d2274e990",
+              "level1Name": "POMASQUI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "d41c041a-c542-44bc-993a-8670be835332",
+              "level1Name": "PUÉLLARO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "c204bc19-2881-4bb9-bee9-5ed5f917e298",
+              "level1Name": "PUEMBO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "44649cd6-6254-4535-959a-93fc58c6f1d0",
+              "level1Name": "QUITO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "e5546156-0391-48f5-ac0f-d382ee90a4cc",
+              "level1Name": "SAN ANTONIO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "959425ea-5a98-4a0c-acd1-ac7e727545b0",
+              "level1Name": "SAN JOSÉ DE MINAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "16c6b39f-78a0-4b9d-bffb-6a9347e74002",
+              "level1Name": "TABABELA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "f9f3eebb-e465-49b6-8bf6-a5d54e4c0ae9",
+              "level1Name": "TUMBACO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "c5be48b5-4f86-4ec6-814d-52cb4b984b13",
+              "level1Name": "YARUQUÍ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "c3c68127-04a9-4cac-a843-8e94991f6312",
+              "level1Name": "ZÁMBIZA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "c33ecb57-36d0-4a67-8e51-e6d5b8060609",
+          "level2Name": "MEJÍA",
+          "firstLevel": [
+            {
+              "idLevel1": "7703840c-23ea-4c12-a536-d04c919f0d6d",
+              "level1Name": "ALOAG",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "eaa3abdd-10e6-44af-ae6a-a8602a2987e8",
+              "level1Name": "ALOASÍ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "0c4fff53-e49a-46b4-a729-0725d3250518",
+              "level1Name": "CUTUGLAHUA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "28d6ea0b-9d1e-4695-af7f-182ad4ef5d12",
+              "level1Name": "MACHACHI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "69a41ad6-5e69-4b8e-9bd1-bd27f040a228",
+              "level1Name": "TAMBILLO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "f67c0077-10fa-4a30-b1d3-a43c9becf4f6",
+              "level1Name": "UYUMBICHO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "702cbc77-8667-4fb3-87f2-7426e21043a6",
+          "level2Name": "PEDRO MONCAYO",
+          "firstLevel": [
+            {
+              "idLevel1": "cceb9226-dcf7-495d-85fa-71746df5231e",
+              "level1Name": "LA ESPERANZA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "753b849e-7532-444d-a50b-605c7247af18",
+              "level1Name": "MALCHINGUÍ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "3db95f7f-08f2-4c1a-a122-d431ff048673",
+              "level1Name": "TABACUNDO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "095866f5-61fd-4864-a597-1f002210cdf2",
+              "level1Name": "TOCACHI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "ec4817e0-f3b8-4ba3-87a4-54630fd02350",
+          "level2Name": "PEDRO VICENTE MALDONADO",
+          "firstLevel": [
+            {
+              "idLevel1": "111d3809-32f1-428f-b211-139ce02e3fe3",
+              "level1Name": "PEDRO VICENTE MALDONADO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "b8037017-0112-440a-8329-38a3cbd8ad71",
+          "level2Name": "PUERTO QUITO",
+          "firstLevel": [
+            {
+              "idLevel1": "0ebcd0a0-dac5-4fc2-8e36-af53b4c4185d",
+              "level1Name": "PUERTO QUITO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "655556b4-7e14-4244-86c8-41d02cc00d77",
+          "level2Name": "RUMIÑAHUI",
+          "firstLevel": [
+            {
+              "idLevel1": "c2789998-9e16-44b6-98f2-a77334935ccf",
+              "level1Name": "COTOGCHOA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "dedc9f17-70f5-440b-9482-b89840200f77",
+              "level1Name": "SANGOLQUÍ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "86e0204c-4f1b-4986-9566-3ca4a8d2e0fd",
+          "level2Name": "SAN MIGUEL DE LOS BANCOS",
+          "firstLevel": [
+            {
+              "idLevel1": "5ff63a0f-fa80-4cec-b7ac-04161a783f74",
+              "level1Name": "SAN MIGUEL DE LOS BANCOS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "05911feb-dc56-4005-9c41-f698e83eb5d1",
+      "level3Name": "SANTA ELENA",
+      "secondLevel": [
+        {
+          "idLevel2": "3c23890c-36d7-4e3f-8423-8f8f084d3001",
+          "level2Name": "LA LIBERTAD",
+          "firstLevel": [
+            {
+              "idLevel1": "3755d60b-5985-4ee5-bc55-c213d09d1cfb",
+              "level1Name": "LA LIBERTAD",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "8e70089f-1e2d-4697-a21e-bdcde1923c07",
+          "level2Name": "SALINAS",
+          "firstLevel": [
+            {
+              "idLevel1": "f2cd4852-73fc-4424-8521-e276edc7a2bf",
+              "level1Name": "ANCONCITO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "2e27030a-f494-45a5-a79f-9dc48c0db985",
+              "level1Name": "JOSÉ LUIS TAMAYO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "960156a6-8be4-4843-9159-b4f73e94d6f1",
+              "level1Name": "SALINAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "be41b65e-f8d2-4d4b-bd05-9581d380e445",
+          "level2Name": "SANTA ELENA",
+          "firstLevel": [
+            {
+              "idLevel1": "faf9e45d-f3e4-411f-b72f-cf16b31d14c1",
+              "level1Name": "ATAHUALPA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "32a89719-68c5-4b4d-872a-771c73363a5a",
+              "level1Name": "CHANDUY",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "ecc83356-b86d-4ce8-9ea2-17e589cf8808",
+              "level1Name": "COLONCHE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "34d9eb7e-0a97-40a1-8070-e44967165115",
+              "level1Name": "MANGLARALTO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "28fdb657-f459-44e6-905d-0138e8812dcd",
+              "level1Name": "SAN JOSÉ DE ANCÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "61ba2e0d-f0e7-4221-8640-f31b1cdf50b2",
+              "level1Name": "SANTA ELENA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "ccf547ba-2597-45f8-8c89-c8e2a7b1ff33",
+              "level1Name": "SIMÓN BOLÍVAR",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "b6e67cbc-84f1-4526-b798-2e246de5125d",
+      "level3Name": "SANTO DOMINGO",
+      "secondLevel": []
+    },
+    {
+      "idLevels3": "92f26a1c-398a-4efd-a339-5aa57fe635ab",
+      "level3Name": "SANTO DOMINGO DE LOS TSÁCHILAS",
+      "secondLevel": [
+        {
+          "idLevel2": "b735d5a7-0a39-4e6c-96d4-a5c3c2571359",
+          "level2Name": "LA CONCORDIA",
+          "firstLevel": [
+            {
+              "idLevel1": "72b2ebd1-92e6-41a2-95a3-c1c06aba057f",
+              "level1Name": "LA CONCORDIA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "c7892fa0-c3ca-4fba-9678-59c9140be1e0",
+          "level2Name": "SANTO DOMINGO",
+          "firstLevel": [
+            {
+              "idLevel1": "ac731f2d-550c-448b-a79d-86289b5a7e17",
+              "level1Name": "ALLURIQUÍN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "590ea40f-1edf-400f-af99-3fe8826a15bc",
+              "level1Name": "LUZ DE AMÉRICA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "37eb2497-d69a-4877-ab4e-71ade7ee1bea",
+              "level1Name": "PUERTO LIMÓN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "6997677e-eeb7-4991-b89e-6ac6ad22b133",
+              "level1Name": "SAN JACINTO DEL BÚA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "d318f6a2-0685-4bec-8f22-60d97cc01256",
+              "level1Name": "SANTO DOMINGO DE LOS COLORADOS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "4a185862-6699-4d0d-9056-cd2feb225be3",
+              "level1Name": "VALLE HERMOSO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "b6f40ba5-d3a5-451c-901f-e1ac6be5778f",
+      "level3Name": "SUCUMBÍOS",
+      "secondLevel": [
+        {
+          "idLevel2": "90914469-97e4-4fac-b373-f29ea1ae5f5c",
+          "level2Name": "CASCALES",
+          "firstLevel": [
+            {
+              "idLevel1": "7a956417-2bc4-47ab-9aac-9b412bdc48a8",
+              "level1Name": "EL DORADO DE CASCALES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "4f4788d5-6a20-4ca7-aac8-03c0c5826a09",
+              "level1Name": "SEVILLA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "321e17f8-73dc-40e2-b288-8dd843292180",
+          "level2Name": "CUYABENO",
+          "firstLevel": [
+            {
+              "idLevel1": "a4a6d7e3-84c9-45ba-9212-967b5c98ce30",
+              "level1Name": "AGUAS NEGRAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "29045d1e-ad49-4740-b928-40a1d6555dce",
+          "level2Name": "GONZALO PIZARRO",
+          "firstLevel": [
+            {
+              "idLevel1": "1b48982d-d7fb-4066-be3c-d4aec01913e1",
+              "level1Name": "EL REVENTADOR",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "db6afda9-556f-4d8b-aebb-b58c59936659",
+              "level1Name": "GONZALO PIZARRO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "da0d93b5-cda8-4d8a-97f0-2ba40e7298a4",
+              "level1Name": "LUMBAQUÍ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "c9ea1767-de9e-431a-bb19-7f1200e8e468",
+          "level2Name": "LAGO AGRIO",
+          "firstLevel": [
+            {
+              "idLevel1": "507acd82-20ed-4242-bb20-cf06ca324803",
+              "level1Name": "DURENO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "6ad72535-3734-4abb-84b8-9f2abb463607",
+              "level1Name": "EL ENO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "507100e8-afae-40cb-ba5d-091f537fad78",
+              "level1Name": "JAMBELÍ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "351391ad-2f5f-46cb-88f0-25a6834a268f",
+              "level1Name": "NUEVA LOJA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "b277792c-9bac-4f08-8a68-d0faf4ac1747",
+              "level1Name": "PACAYACU",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "2689c8c6-ce77-4b47-82a0-c74f27fac62b",
+              "level1Name": "SANTA CECILIA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "c912d18a-97eb-4863-95d8-9af099019341",
+          "level2Name": "SHUSHUFINDI",
+          "firstLevel": [
+            {
+              "idLevel1": "85da73bb-2b2f-4a12-800d-b20f1451093e",
+              "level1Name": "SAN PEDRO DE LOS COFÁNES",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "0ff94ff6-6950-4a43-b649-af3ecfe81e97",
+              "level1Name": "SHUSHUFINDI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "6d19744e-4533-401f-bfc8-4dd603910824",
+              "level1Name": "SIETE DE JULIO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "ff2f8cfc-92a1-4919-b2ed-28a9a30da5e6",
+      "level3Name": "TUNGURAHUA",
+      "secondLevel": [
+        {
+          "idLevel2": "2baa5215-ec63-4422-a46b-5677fb2e3e5f",
+          "level2Name": "AMBATO",
+          "firstLevel": [
+            {
+              "idLevel1": "088bbaea-defb-485c-ace7-e747bc34baf4",
+              "level1Name": "AMBATILLO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "f4262744-f3f9-4671-8092-39c227166835",
+              "level1Name": "AMBATO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "8cf06da0-d463-4402-93cd-ce5fee45d0e8",
+              "level1Name": "ATAHUALPA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "038d1b23-c2ee-4d5e-ac57-377071942f37",
+              "level1Name": "AUGUSTO N. MARTÍNEZ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "49883fed-5e52-45bc-8cec-1125f08fd2f7",
+              "level1Name": "CUNCHIBAMBA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "1133e65c-7129-4ba1-bfd9-381e6cc4e92d",
+              "level1Name": "HUACHI GRANDE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "12affbe0-1a9b-4cb7-b871-79e4efa6bc8c",
+              "level1Name": "IZAMBA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "61737968-51cc-4efe-ac7d-e53dba034f90",
+              "level1Name": "MONTALVO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "20016ef5-611d-43ba-bbc5-286e8179d3b0",
+              "level1Name": "PICAIHUA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "9a38f37e-155a-4c4f-8019-b2257e7cfc31",
+              "level1Name": "QUISAPINCHA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "1da09d49-b737-4130-ac62-53a05507530e",
+              "level1Name": "SAN BARTOLOMÉ DE PINLLO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "1ef62f90-2aad-40b9-bd3d-e3aeec69881a",
+              "level1Name": "SANTA ROSA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "0cd5e14d-f71c-4fc3-82e5-0044910ea246",
+              "level1Name": "TOTORAS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "7d666e27-e54c-4771-937d-0df09250d619",
+              "level1Name": "UNAMUNCHO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "102d47a0-9169-4183-a728-fb6f33a56add",
+          "level2Name": "BAÑOS DE AGUA SANTA",
+          "firstLevel": [
+            {
+              "idLevel1": "5c97194e-dad8-46a0-babb-1f5d45b7ebf0",
+              "level1Name": "BAÑOS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "5045c3e8-3f0f-495f-afb6-9b0fbb88bdf0",
+              "level1Name": "LLIGUA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "76b18997-aa5b-4d02-977c-99c49849901e",
+              "level1Name": "RÍO NEGRO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "1c8fafbd-5c7e-43d8-8035-306636b509b5",
+              "level1Name": "RÍO VERDE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "46a0f232-912c-4a34-8336-5f7ad0a1be6b",
+              "level1Name": "ULBA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "6731ec0e-d1b2-4ebb-a32f-4e7f21d91c7e",
+          "level2Name": "CEVALLOS",
+          "firstLevel": [
+            {
+              "idLevel1": "cc95e2b8-9384-4817-b3e3-b3e0cd35585d",
+              "level1Name": "CEVALLOS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "d07e17dd-70e5-401d-a5d0-cdb0cc422a71",
+          "level2Name": "MOCHA",
+          "firstLevel": [
+            {
+              "idLevel1": "5d4fd364-7c41-4ec4-8ddb-0ff02d995184",
+              "level1Name": "MOCHA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "6395023d-5743-444f-bca3-b37f4e2d06e1",
+          "level2Name": "PATATE",
+          "firstLevel": [
+            {
+              "idLevel1": "6e323f63-b86b-4ea6-a6b8-bee7a0b7d331",
+              "level1Name": "PATATE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "84194aac-5fb2-473c-a353-8dbc103660eb",
+          "level2Name": "QUERO",
+          "firstLevel": [
+            {
+              "idLevel1": "761a3945-e5c3-422a-8090-947017794c5e",
+              "level1Name": "QUERO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "91923c57-1fab-4458-867c-da12335833af",
+              "level1Name": "RUMIPAMBA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "2894f651-2815-43c6-9606-c407fb33fa43",
+          "level2Name": "SAN PEDRO DE PELILEO",
+          "firstLevel": [
+            {
+              "idLevel1": "e05cc577-76e3-4994-91ec-9f0a937b3481",
+              "level1Name": "BENÍTEZ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "8e9b4fd0-1fc6-4b16-b107-a19219fcbef1",
+              "level1Name": "GARCÍA MORENO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "cae349ec-9c74-4d4d-b15b-d47dab0c9c25",
+              "level1Name": "GUAMBALÓ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "31ee9229-6e47-4d6f-88fb-98b29a0aab5c",
+              "level1Name": "PELILEO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "19014ee2-83cc-4f2c-a4d4-7a92daf5f4a5",
+              "level1Name": "SALASACA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "23eff4b8-aa90-43bc-8aa7-e03624b7382e",
+          "level2Name": "SANTIAGO DE PÍLLARO",
+          "firstLevel": [
+            {
+              "idLevel1": "fbbf7361-b298-4881-a572-1e599a1cf93a",
+              "level1Name": "BAQUERIZO MORENO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "1e297593-11b7-475e-8a40-5b985e4a888e",
+              "level1Name": "EMILIO MARÍA TERÁN",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "c9f8187b-2a80-403d-8360-8582ad116953",
+              "level1Name": "PÍLLARO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "b3727ab7-e890-419c-bb2d-bc503fce1166",
+          "level2Name": "TISALEO",
+          "firstLevel": [
+            {
+              "idLevel1": "cc1f6b6d-8c83-424d-b7c7-a41a7d387d06",
+              "level1Name": "TISALEO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "idLevels3": "f3395f74-1698-4f71-a6b6-cf2a8ab6d610",
+      "level3Name": "ZAMORA CHINCHIPE",
+      "secondLevel": [
+        {
+          "idLevel2": "84a0a076-8a00-47a6-8964-f030a0931907",
+          "level2Name": "CENTINELA DEL CÓNDOR",
+          "firstLevel": [
+            {
+              "idLevel1": "aa1f1db1-67b0-42be-8de1-afe2d1fc31a2",
+              "level1Name": "PANGUINTZA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "9faa7f40-857f-4526-88a3-07a08b1dd548",
+              "level1Name": "TRIUNFO DORADO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "d150189d-9c9f-459b-83b4-682257c3df68",
+              "level1Name": "ZUMBI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "5727d9a8-3176-43a9-a967-43f722911895",
+          "level2Name": "CHINCHIPE",
+          "firstLevel": [
+            {
+              "idLevel1": "58731a0d-e43f-4f0f-b242-c938e9866bea",
+              "level1Name": "ZUMBA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "b89845ca-0bbb-4ba7-b26a-cd07e10c1f63",
+          "level2Name": "EL PANGUI",
+          "firstLevel": [
+            {
+              "idLevel1": "5a5debd1-a34c-4d60-9e44-dfb99b3fe252",
+              "level1Name": "EL GUISME",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "96709129-0770-4e99-9d8e-347245e7a07c",
+              "level1Name": "EL PANGUI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "2c3d3e84-53f8-4b53-9d04-fbf22be031a7",
+              "level1Name": "PACHICUTZA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "a506ff0b-e1f5-4e52-b1eb-5aff11297306",
+              "level1Name": "TUNDAYME",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "4e1c24cc-1413-4330-abd7-b4d07270d403",
+          "level2Name": "NANGARITZA",
+          "firstLevel": [
+            {
+              "idLevel1": "ba0aeb86-54d6-44f5-a092-d495f8956879",
+              "level1Name": "GUAYZIMI",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "bde38372-3635-48af-920e-5cbdda21c9c0",
+          "level2Name": "PALANDA",
+          "firstLevel": [
+            {
+              "idLevel1": "35aa02a2-f4c7-425d-a372-3233e9d099c0",
+              "level1Name": "PALANDA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "1d75157d-bef5-4423-ae93-48921e7d7b31",
+              "level1Name": "VALLADOLID",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "ba0c41ac-658c-4281-985f-ae675fb14f66",
+          "level2Name": "PAQUISHA",
+          "firstLevel": [
+            {
+              "idLevel1": "09b3d0a7-c029-4fc7-b1ef-062188c84a61",
+              "level1Name": "PAQUISHA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "d92f59aa-a3d4-4d40-ad86-117bc9562851",
+          "level2Name": "YACUAMBI",
+          "firstLevel": [
+            {
+              "idLevel1": "d3db4981-7290-44c9-bf50-aec96750fb52",
+              "level1Name": "28 DE MAYO",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "28a5e56b-9e68-4633-98c0-7480e0c2503a",
+              "level1Name": "LA PAZ",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "232b39f7-fab2-4983-942d-65a4a7cc2a5b",
+          "level2Name": "YANTZAZA",
+          "firstLevel": [
+            {
+              "idLevel1": "ad3ea1a4-ad5d-445b-af4f-693cda8f7ef1",
+              "level1Name": "LOS ENCUENTROS",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "3626d6b8-bb8a-49f6-9224-2f9d0baad170",
+              "level1Name": "YANTZAZA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "idLevel2": "81e6eb90-9b0d-436c-8a3c-14c44d2c41d2",
+          "level2Name": "ZAMORA",
+          "firstLevel": [
+            {
+              "idLevel1": "02c9832b-437e-4ddd-a79b-7d51d58146c6",
+              "level1Name": "CUMBARATZA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "80373a12-0f61-4696-81c9-302b2e95b256",
+              "level1Name": "GUADALUPE",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "8d76640f-3604-42be-8c50-2ae637f72007",
+              "level1Name": "SABANILLA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "a774df9c-9003-4553-b8db-8035b84bb4e5",
+              "level1Name": "TIMBARA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            },
+            {
+              "idLevel1": "ce8cefd5-73b7-44d8-b2e1-15494d282380",
+              "level1Name": "ZAMORA",
+              "postalCode": [
+                {
+                  "codeZIP": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

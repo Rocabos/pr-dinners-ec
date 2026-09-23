@@ -1,0 +1,371 @@
+{{ 'component-article-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+
+<div class="main-blog page-width section__inner {{ section.settings.top_padding }} {{ section.settings.bottom_padding }}">
+  {%- if section.settings.show_tag_filter and blog.all_tags.size > 0 -%}
+    {{ 'component-section-tabs.css' | asset_url | stylesheet_tag }}
+
+    <div class="md:flex justify-between items-center gap-2 flex-col md:flex-row-reverse mb-3">
+      {%- if section.settings.show_socials -%}
+        <div class="mb-2 md:mb-0">
+          {%- render 'share-button', share_link: blog.url, share_title: blog.title -%}
+        </div>
+      {%- endif -%}
+
+      <div class="flex justify-{{ section.settings.tab_alignment }}">
+        <div class="horizontal-scroll">
+          <div class="block custom-tabs custom-tabs--{{ section.settings.tab_style }} custom-tabs--divided {{ section.settings.tab_text_size }}">
+            <a href="{{ blog.url }}" class="custom-tab{% unless current_tags %} custom-tab--active{% endunless %}">
+              {{- 'blogs.filter.all' | t -}}
+            </a>
+
+            {% for tag in blog.all_tags %}
+              <a  href="{{ tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first }}" class="custom-tab{% if current_tags contains tag %} custom-tab--active{% endif %}">
+                {{- tag -}}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- paginate blog.articles by section.settings.items_per_page -%}
+    <infinite-scroll data-infinite-scroll-enabled="{% if settings.pagination_style == 'infinite' %}true{% else %}false{% endif %}">
+      <div class="blog-articles section-grid grid articles-wrapper contains-card contains-card--article
+        {% if settings.blog_card_style == 'standard' %} contains-card--standard{% endif %}
+        grid--{{ section.settings.columns_desktop }}-col-desktop
+        grid--scaled
+        grid--1-col-tablet-down"
+     >
+        {%- for article in blog.articles -%}
+          {%- if section.settings.blog_card_omit == blank or article.id != section.settings.blog_card_omit.id -%}
+            <div
+              class="blog__post grid__item article js-pagination__item
+                {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+              {% if settings.animations_reveal_on_scroll %}
+                data-cascade
+                style="--animation-order: {{ forloop.index }};"
+              {% endif %}
+            >
+              {%- liquid
+                if article.id == section.settings.blog_card_featured_1.id or article.id == section.settings.blog_card_featured_2.id or article.id == section.settings.blog_card_featured_3.id
+                  assign is_featured = true
+                else
+                  assign is_featured = false
+                endif
+              -%}
+
+              {%- render 'article-card',
+                article: article,
+                show_image: section.settings.show_image,
+                show_date: section.settings.show_date,
+                show_author: section.settings.show_author,
+                excerpt_mode: section.settings.excerpt_mode,
+                show_reading_estimate: section.settings.show_reading_estimate,
+                show_first_tag: section.settings.show_first_tag,
+                is_featured: is_featured,
+                featured_excerpt_mode: section.settings.featured_excerpt_mode,
+                columns_desktop: section.settings.columns_desktop
+              -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        {%- render 'pagination', paginate: paginate -%}
+      {%- endif -%}
+    </infinite-scroll>
+  {%- endpaginate -%}
+</div>
+{% schema %}
+{
+  "name": "Blog posts",
+  "tag": "section",
+  "class": "section section-main-blog",
+  "settings": [
+    {
+      "type": "range",
+      "id": "items_per_page",
+      "label": "Posts per page",
+      "min": 4,
+      "max": 64,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "options": [
+        {
+          "value": "5",
+          "label": "S"
+        },
+        {
+          "value": "4",
+          "label": "M"
+        },
+        {
+          "value": "3",
+          "label": "L"
+        },
+        {
+          "value": "2",
+          "label": "XL"
+        }
+      ],
+      "default": "4",
+      "label": "Card size on desktop"
+    },
+    {
+      "type": "header",
+      "content": "Filter"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag_filter",
+      "default": true,
+      "label": "Show tag filter"
+    },
+    {
+      "type": "text_alignment",
+      "id": "tab_alignment",
+      "default": "left",
+      "label": "Filter alignment"
+    },
+    {
+      "type": "select",
+      "id": "tab_style",
+      "options": [
+        {
+          "value": "simple",
+          "label": "Simple"
+        },
+        {
+          "value": "switch",
+          "label": "Switch"
+        }
+      ],
+      "default": "switch",
+      "label": "Tag style"
+    },
+    {
+      "type": "select",
+      "id": "tab_text_size",
+      "options": [
+        {
+          "value": "t4",
+          "label": "S"
+        },
+        {
+          "value": "t3",
+          "label": "M"
+        },
+        {
+          "value": "t2",
+          "label": "L"
+        },
+        {
+          "value": "t1",
+          "label": "XL"
+        },
+        {
+          "value": "t0",
+          "label": "2XL"
+        }
+      ],
+      "default": "t4",
+      "label": "Tag size"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_socials",
+      "default": true,
+      "label": "Show social share icons",
+      "info": "These can be customized in [Social theme settings](/editor?context=theme&category=socials)"
+    },
+    {
+      "type": "header",
+      "content": "Blog posts"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "default": true,
+      "label": "Show article image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "Show date"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": false,
+      "label": "Show author"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reading_estimate",
+      "default": true,
+      "label": "Show reading estimate"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_first_tag",
+      "default": true,
+      "label": "Show first tag"
+    },
+    {
+      "type": "select",
+      "id": "excerpt_mode",
+      "default": "short",
+      "info": "Article content will be used if the excerpt is empty.",
+      "label": "Excerpt",
+      "options": [
+        {
+          "value": "none",
+          "label": "Hide"
+        },
+        {
+          "value": "short",
+          "label": "Short"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "long",
+          "label": "Long"
+        },
+        {
+          "value": "show",
+          "label": "All"
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "id": "blog_card_omit",
+      "info": "If using another section to feature a particular article, use this setting to ensure that article doesn't show in the results.",
+      "label": "Don't show this article"
+    },
+    {
+      "type": "paragraph",
+      "content": "Change excerpts by editing your blog posts. [Learn more](https://help.shopify.com/manual/online-store/blogs/writing-blogs#display-an-excerpt-from-a-blog-post)"
+    },
+    {
+      "type": "header",
+      "content": "Featured posts"
+    },
+    {
+      "type": "article",
+      "id": "blog_card_featured_1",
+      "label": "Featured blog post 1"
+    },
+    {
+      "type": "article",
+      "id": "blog_card_featured_2",
+      "label": "Featured blog post 2"
+    },
+    {
+      "type": "article",
+      "id": "blog_card_featured_3",
+      "label": "Featured blog post 3"
+    },
+    {
+      "type": "select",
+      "id": "featured_excerpt_mode",
+      "default": "short",
+      "info": "Article content will be used if the excerpt is empty.",
+      "label": "Featured card excerpt",
+      "options": [
+        {
+          "value": "none",
+          "label": "Hide"
+        },
+        {
+          "value": "short",
+          "label": "Short"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "long",
+          "label": "Long"
+        },
+        {
+          "value": "show",
+          "label": "All"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "select",
+      "id": "top_padding",
+      "options": [
+        {
+          "value": "pt-0",
+          "label": "0"
+        },
+        {
+          "value": "pt-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pt-s",
+          "label": "1"
+        },
+        {
+          "value": "pt-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pt-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pt-0",
+      "label": "Top section spacing"
+    },
+    {
+      "type": "select",
+      "id": "bottom_padding",
+      "options": [
+        {
+          "value": "pb-0",
+          "label": "0"
+        },
+        {
+          "value": "pb-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pb-s",
+          "label": "1"
+        },
+        {
+          "value": "pb-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pb-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pb-s",
+      "label": "Bottom section spacing"
+    }
+  ]
+}
+{% endschema %}

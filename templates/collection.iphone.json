@@ -1,0 +1,479 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "disabled": true,
+      "settings": {
+        "spacing": 1,
+        "color_scheme": "",
+        "line_separator": "",
+        "visibility": ""
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "blocks": {
+        "collection_heading_7NCKpt": {
+          "type": "collection_heading",
+          "settings": {
+            "show_collection_title_count": true,
+            "heading_size": "h3",
+            "heading_tag": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "collection_heading_7NCKpt"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_collection_image": false,
+        "show_product_image": false,
+        "image_overlay_opacity": 0,
+        "fix_image": false,
+        "image_ratio": "custom",
+        "desktop_section_height": 200,
+        "mobile_section_height": 100,
+        "full_width": true,
+        "full_width_animate": false,
+        "desktop_content_position": "md:justify-start md:items-start",
+        "mobile_content_position": "justify-start items-start",
+        "content_max_width": "s",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "center",
+        "show_text_box": "off",
+        "color_scheme": "scheme-1",
+        "container_color_scheme": "scheme-1",
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s"
+      }
+    },
+    "logo_list_9n4AeP": {
+      "type": "logo-list",
+      "blocks": {
+        "column_standard_gpqc7t": {
+          "type": "column_standard",
+          "settings": {
+            "image": "shopify://shop_images/Phone_17Pro.png",
+            "image_scale": 100,
+            "text": "<p>iPhone 17 Pro</p>",
+            "text_size": "t3",
+            "card_link": "shopify://products/iphone-17-pro",
+            "custom_background": ""
+          }
+        },
+        "column_standard_3dU9bK": {
+          "type": "column_standard",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/iphone-air-image.png",
+            "image_scale": 100,
+            "text": "<p>iPhone  Air</p>",
+            "text_size": "t3",
+            "card_link": "shopify://products/iphone-15",
+            "custom_background": ""
+          }
+        },
+        "column_standard_q9k3tX": {
+          "type": "column_standard",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/iPhone_17.png",
+            "image_scale": 100,
+            "text": "<p>iPhone 17</p>",
+            "text_size": "t3",
+            "card_link": "shopify://products/iphone-17-a",
+            "custom_background": ""
+          }
+        },
+        "column_standard_tCdUHX": {
+          "type": "column_standard",
+          "settings": {
+            "image": "shopify://shop_images/iPhone_15.png",
+            "image_scale": 100,
+            "text": "<p>iPhone 15</p>",
+            "text_size": "t3",
+            "card_link": "shopify://products/iphone-15",
+            "custom_background": ""
+          }
+        },
+        "column_standard_NfVKrY": {
+          "type": "column_standard",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/iphone-17e-image.png",
+            "image_scale": 100,
+            "text": "<p>iPhone  17e</p>",
+            "text_size": "t3",
+            "card_link": "#",
+            "custom_background": ""
+          }
+        },
+        "column_standard_Rpp6Aq": {
+          "type": "column_standard",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/iphone-16-image.png",
+            "image_scale": 100,
+            "text": "<p>iPhone 16</p>",
+            "text_size": "t3",
+            "card_link": "shopify://products/iphone-17",
+            "custom_background": ""
+          }
+        },
+        "column_standard_xtgaQP": {
+          "type": "column_standard",
+          "settings": {
+            "image": "shopify://shop_images/Comprar.png",
+            "image_scale": 100,
+            "text": "<p>Comprar</p>",
+            "text_size": "t3",
+            "card_link": "https://tiendadiners.com.ec/search?options%5Bprefix%5D=last&q=iPhone",
+            "custom_background": ""
+          }
+        },
+        "column_standard_Kx88pw": {
+          "type": "column_standard",
+          "settings": {
+            "image": "shopify://shop_images/Accesorios.png",
+            "image_scale": 100,
+            "text": "<p>Accesorios</p>",
+            "text_size": "t3",
+            "card_link": "shopify://collections/accesorios",
+            "custom_background": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_standard_gpqc7t",
+        "column_standard_3dU9bK",
+        "column_standard_q9k3tX",
+        "column_standard_tCdUHX",
+        "column_standard_NfVKrY",
+        "column_standard_Rpp6Aq",
+        "column_standard_xtgaQP",
+        "column_standard_Kx88pw"
+      ],
+      "name": "Logo list",
+      "settings": {
+        "column_alignment": "center",
+        "image_ratio": "landscape_wide",
+        "spacing_grid": 4,
+        "content_padding": 0,
+        "desktop_layout": "grid",
+        "mobile_layout": "carousel",
+        "columns_desktop": "4",
+        "columns_mobile": "2",
+        "carousel_width_desktop": "normal",
+        "always_show_arrows": true,
+        "image_overlay_opacity": 0,
+        "content_max_width": "m",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "title": "{{ collection.title }}",
+        "italic_convert": "",
+        "heading_size": "h3",
+        "text": "",
+        "text_size": "t3",
+        "view_all_link": "",
+        "view_all_text": "",
+        "view_all_text_size": "t3",
+        "color_scheme": "",
+        "card_color_scheme": "",
+        "color_scheme_bg_fix": false,
+        "card_shadow": false,
+        "line_separator": "",
+        "horizontal_padding": 14,
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "visibility": "",
+        "hide_when_empty": false,
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true,
+        "heading_tag": "h2"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "blocks": {
+        "inline_promo_gji3mq": {
+          "type": "inline_promo",
+          "settings": {
+            "position": 9,
+            "promo_image_overlay_opacity": 40,
+            "promo_text": "<p><strong>Upgrade your photography game</strong></p>",
+            "promo_url": "",
+            "promo_text_size": "h5-size",
+            "promo_text_position": "justify-center items-center",
+            "promo_text_alignment": "center",
+            "promo_text_padding": 1,
+            "promo_text_color": "#ffffff",
+            "visibility": "",
+            "show_at_specific_time_of_day": false,
+            "show_time_morning": true,
+            "show_time_afternoon": true,
+            "show_time_evening": true,
+            "show_time_night": true
+          }
+        }
+      },
+      "block_order": [
+        "inline_promo_gji3mq"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": false,
+        "products_per_page": 48,
+        "columns_desktop": "5",
+        "columns_mobile": "2",
+        "filter_type": "drawer",
+        "enable_filtering": false,
+        "enable_sorting": false,
+        "show_filter_count": false,
+        "uppercase_filter_titles": true,
+        "open_all_accordions": true,
+        "show_more_number": 8,
+        "filter_text_size": "1.4",
+        "box_filters": "Color\nStorage capacity\nBattery life\nRAM\nAvailability\nRefresh rate",
+        "box_filter_active": "fill",
+        "show_image_box_filter_border": true,
+        "show_image_box_filter_labels": false,
+        "image_box_filter_cols": 2,
+        "image_box_filter_active": "color",
+        "swatch_size": 1.5,
+        "show_swatch_filter_labels": false,
+        "color_scheme": "",
+        "color_scheme_drawer": "",
+        "color_scheme_filter": "",
+        "color_scheme_filter_bar": "scheme-2",
+        "card_shadow": true,
+        "top_padding": "pt-s05",
+        "bottom_padding": "pb-s"
+      }
+    },
+    "video_banner_UT4NMc": {
+      "type": "video-banner",
+      "name": "Video banner",
+      "settings": {
+        "video": "shopify://files/videos/iphone-collection-banner-video-1.mp4",
+        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "show_play_pause": false,
+        "reveal_content_timer": 0,
+        "playback_end": "loop",
+        "section_ratio": "landscape_wide",
+        "desktop_section_height": 500,
+        "mobile_section_height": 400,
+        "full_width": false,
+        "full_width_animate": false,
+        "desktop_content_position": "md:justify-center md:items-center",
+        "mobile_content_position": "justify-center items-center",
+        "content_max_width": "m",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "center",
+        "show_text_box": "always",
+        "show_text_below": false,
+        "color_scheme": "",
+        "container_color_scheme": "",
+        "color_overlay": "#000000",
+        "video_overlay_opacity": 0,
+        "line_separator": "",
+        "horizontal_padding": 18,
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "visibility": "",
+        "hide_when_empty": false,
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true,
+        "lazy_load": true,
+        "heading_tag": "h2",
+        "description": "",
+        "video_aspect_ratio": "1.77"
+      }
+    },
+    "product_list_Wgq7CW": {
+      "type": "product-list",
+      "name": "Product list",
+      "settings": {
+        "products": [
+          "iphone-15",
+          "iphone-17",
+          "iphone-17-a",
+          "iphone-17-pro",
+          "iphone-17-pro-max",
+          "iphone-17-pro-max-a",
+          "iphone-air"
+        ],
+        "desktop_layout": "carousel",
+        "mobile_layout": "carousel",
+        "columns_desktop": "3",
+        "columns_mobile": "2",
+        "show_quick_add": true,
+        "carousel_width_desktop": "normal",
+        "always_show_arrows": true,
+        "content_max_width": "m",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "title": "Conoce a la familia",
+        "italic_convert": "",
+        "heading_size": "h2",
+        "text": "",
+        "text_size": "t3",
+        "show_view_all_link": false,
+        "view_all_link": "",
+        "view_all_text": "View more",
+        "view_all_text_size": "t3",
+        "view_all_card_visibility": "off",
+        "view_all_card_text": "",
+        "color_scheme": "scheme-1",
+        "view_all_color_scheme": "scheme-3",
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "visibility": "",
+        "hide_when_empty": false,
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true,
+        "heading_tag": "h2"
+      }
+    },
+    "gallery_Ga6J6K": {
+      "type": "gallery",
+      "blocks": {
+        "gallery_item_ti9a8X": {
+          "type": "gallery_item",
+          "settings": {
+            "tall": true,
+            "wide": true,
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-start",
+            "content_max_width": "l",
+            "image": "shopify://shop_images/banner_600x600_copia_93accfc3-f3d7-4cf2-9d50-3bedb6b39642.jpg",
+            "image_overlay_opacity": 0,
+            "icon": "",
+            "icon_container": "rounded",
+            "icon_size": 3.4,
+            "icon_color": "#ffffff",
+            "icon_background_color": "#44c3ed",
+            "background_gradient": "linear-gradient(45deg, rgba(54, 149, 250, 1), rgba(68, 195, 237, 1) 100%)",
+            "title": "",
+            "heading_size": "h3",
+            "heading_size_custom": 2.4,
+            "text": "",
+            "button_link_color": "#202020",
+            "text_size": "t3",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "button_style_show_gradient_border": false,
+            "button_border_gradient": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+            "card_link": "",
+            "card_color_scheme": "scheme-1",
+            "custom_background": ""
+          }
+        },
+        "gallery_item_p7YTQY": {
+          "type": "gallery_item",
+          "settings": {
+            "tall": true,
+            "wide": true,
+            "column_alignment": "center",
+            "text_vertical_alignment": "justify-start",
+            "content_max_width": "l",
+            "image": "shopify://shop_images/airtag-background-image.png",
+            "image_overlay_opacity": 0,
+            "icon": "",
+            "icon_container": "rounded",
+            "icon_size": 3.4,
+            "icon_color": "#ffffff",
+            "icon_background_color": "#44c3ed",
+            "background_gradient": "linear-gradient(45deg, rgba(54, 149, 250, 1), rgba(68, 195, 237, 1) 100%)",
+            "title": "AirTag",
+            "heading_size": "h3",
+            "heading_size_custom": 2.4,
+            "text": "<p>Con su parlante un 50% más potente y el rango de Rastreo Preciso hasta 1,5 veces mayor, es más fácil que nunca localizar todo lo que te importa.</p>",
+            "button_link_color": "#202020",
+            "text_size": "t3",
+            "button_text_size": "t3",
+            "button_label": "",
+            "button_link": "https://tiendadiners.com.ec/products/airtag-4-pack",
+            "button_style": "primary",
+            "button_style_show_arrow": false,
+            "button_style_show_gradient_border": false,
+            "button_border_gradient": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+            "card_link": "",
+            "card_color_scheme": "scheme-1",
+            "custom_background": ""
+          }
+        }
+      },
+      "block_order": [
+        "gallery_item_ti9a8X",
+        "gallery_item_p7YTQY"
+      ],
+      "name": "Gallery",
+      "settings": {
+        "columns_desktop": 4,
+        "spacing_grid": 16,
+        "spacing_grid_mobile": 16,
+        "corner_rounding": "inner",
+        "content_padding": 3,
+        "desktop_section_height": 300,
+        "mobile_section_height": 530,
+        "mobile_layout": "grid",
+        "full_width": false,
+        "content_max_width": "xl",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "title": "Consiente a tu iPhone.",
+        "italic_convert": "",
+        "heading_size": "h2",
+        "text": "",
+        "text_size": "t3",
+        "view_all_link": "shopify://collections",
+        "view_all_text": "Todos accessorios de iPhone",
+        "view_all_text_size": "t3",
+        "section_color_scheme": "",
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "visibility": "",
+        "hide_when_empty": false,
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "banner",
+    "logo_list_9n4AeP",
+    "product-grid",
+    "video_banner_UT4NMc",
+    "product_list_Wgq7CW",
+    "gallery_Ga6J6K"
+  ]
+}

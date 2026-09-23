@@ -1,0 +1,166 @@
+{% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
+{% comment %}
+    Renders a product thumbnail with a modal-opener
+
+    Accepts:
+    - media: {Object} Product Media object
+    - media_count: {Number} Number of media objects
+    - position: {String} Position of the media. Used for accessible label.
+    - desktop_layout: {String} Layout of the media for desktop.
+    - loop: {Boolean} Enable video looping (optional)
+    - modal_id: {String} The product modal that will be shown by clicking the thumbnail
+    - xr_button: {Boolean} Renders the "View in your space" button (shopify-xr-button) if the media is a 3D Model
+    - media_fit: {Boolean} True for "cover" false for "contain" to fit image into container
+    - media_width: {Float} The width percentage that the media column occupies on desktop.
+    - lazy_load: {Boolean} Image should be lazy loaded. Default: true (optional)
+    - media_aspect_ratio: {String} Aspect ratio of the image
+
+    Usage:
+    {% render 'product-thumbnail',
+      media: media,
+      position: forloop.index,
+      loop: section.settings.enable_video_looping,
+      modal_id: section.id
+    %}
+{% endcomment %}
+
+{%- liquid
+  unless lazy_load == false or position == 1
+    assign lazy = 'lazy'
+    assign fetch_priority = 'low'
+    assign preload = false
+  else
+    assign lazy = 'eager'
+    assign fetch_priority = 'high'
+    assign preload = true
+  endunless
+
+  if desktop_layout == 'columns' and media_count > 1
+    # Two column image quality. The lower the number, the higher the quality.
+    assign image_divisor = 1.2
+  else
+    # One/slider column image quality. The lower the number, the higher the quality.
+    assign image_divisor = 0.7
+  endif
+
+  assign mobile_columns = 1
+
+  unless media_fit
+    assign image_class = 'object-contain'
+  endunless
+
+  assign zoom_mode = section.settings.image_zoom
+
+  if media.media_type == 'image'
+    assign image_class = image_class | append: ' image-magnify-' | append: zoom_mode
+  endif
+
+  if media_aspect_ratio == 'portrait'
+    assign ratio = 0.8
+  elsif media_aspect_ratio == 'portrait_tall'
+    assign ratio = 0.66
+  elsif media_aspect_ratio == 'landscape_wide'
+    assign ratio = 1.77
+  elsif media_aspect_ratio == 'landscape_wider'
+    assign ratio = 2.33
+  elsif media_aspect_ratio == 'landscape_widest'
+    assign ratio = 3.55
+  elsif media_aspect_ratio == 'landscape'
+    assign ratio = 1.33
+  elsif media_aspect_ratio == 'square'
+    assign ratio = 1
+  elsif media_aspect_ratio == 'adapt'
+    assign ratio = media.aspect_ratio | default: 1.0
+  endif
+-%}
+
+{%- capture sizes -%}
+  (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | times: media_width | divided_by: image_divisor | round }}px,
+  (min-width: 990px) calc({{ media_width | times: 100 | divided_by: image_divisor }}vw - 10rem),
+  (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw / {{ mobile_columns }} - 4rem)
+{%- endcapture -%}
+
+<div
+  class="product-media-container media-type-{{ media.media_type }} media-fit-{% if media_fit %}cover{% else %}contain{% endif %} global-media-settings gradient{% if media_fit %} color-background-transparent{% endif %}{% if media.media_type == 'image' %} hover-image-magnify-{{ zoom_mode }}{% endif %}"
+  style="--ratio: {{ ratio }}; --ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%; --preview-ratio: {{ ratio }};"
+>
+  <modal-opener class="product__modal-opener product__modal-opener--{{ media.media_type }} no-js-hidden" data-modal="#ProductModal-{{ modal_id }}">
+    {% unless media.media_type == 'image' %}
+    <span class="button-control tap-target product__media-icon motion-reduce" aria-hidden="true">
+      {%- liquid
+        case media.media_type
+        when 'video' or 'external_video'
+          render 'icon-play'
+        when 'model'
+          render 'icon-3d-model'
+        endcase
+      -%}
+    </span>
+    {% endunless %}
+
+    {%- render 'loading-spinner' -%}
+    <div class="product__media media ratio media--transparent{% if section.settings.image_replace_background %} mix-blend-multiply{% endif %}">
+      {{ media.preview_image | image_url: width: 1946 | image_tag:
+        class: image_class,
+        loading: lazy,
+        fetchpriority: fetch_priority,
+        sizes: sizes,
+        widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+      }}
+    </div>
+    <button class="product__media-toggle{% unless media.media_type == 'image' %} product__media-toggle-play{% endunless %} product__media-zoom-{{ zoom_mode }}" type="button" aria-haspopup="dialog" data-media-section-id="{{ section.id }}-{{ media.id }}" data-media-id="{{ media.id }}" tabindex="-1">
+      <span class="visually-hidden">
+        {{ 'products.product.media.open_media' | t: index: position }}
+      </span>
+    </button>
+  </modal-opener>
+
+  {%- if media.media_type != 'image' -%}
+    {%- if media.media_type == 'model' -%}
+      <product-model class="deferred-media media ratio media--transparent no-js-hidden" data-media-id="{{ media.id }}">
+    {%- else -%}
+      <deferred-media class="deferred-media media ratio media--transparent no-js-hidden" data-media-id="{{ media.id }}">
+    {%- endif -%}
+    <button id="Deferred-Poster-Modal-{{ media.id }}" class="deferred-media__poster" type="button" tabindex="-1">
+      <span class="deferred-media__poster-button deferred-media__poster-button--center deferred-media__poster-button--standard button-control tap-target motion-reduce">
+        {%- if media.media_type == 'model' -%}
+          <span class="visually-hidden">{{ 'products.product.media.play_model' | t }}</span>
+          {%- render 'icon-3d-model' -%}
+        {%- else -%}
+          <span class="visually-hidden">{{ 'products.product.media.play_video' | t }}</span>
+          {%- render 'icon-play' -%}
+        {%- endif -%}
+      </span>
+      {{ media.preview_image | image_url: width: 1946 | image_tag:
+        class: image_class,
+        loading: lazy,
+        fetchpriority: fetch_priority,
+        sizes: sizes,
+        widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+      }}
+    </button>
+    <template data-prevent-interpolation>
+      {%- liquid
+        case media.media_type
+        when 'external_video'
+          assign video_class = 'js-' | append: media.host
+          if media.host == 'youtube'
+            echo media | external_video_url: autoplay: true, loop: loop, playlist: media.external_id | external_video_tag: class: video_class, loading: "lazy"
+          else
+            echo media | external_video_url: autoplay: true, loop: loop | external_video_tag: class: video_class, loading: "lazy"
+          endif
+        when 'video'
+          echo media | media_tag: image_size: "2048x", autoplay: true, loop: loop, controls: true, preload: "none"
+        when 'model'
+          echo media | media_tag: image_size: "2048x", toggleable: true
+        endcase
+      -%}
+    </template>
+
+    {%- if media.media_type == 'model' -%}
+      </product-model>
+    {%- else -%}
+      </deferred-media>
+    {%- endif -%}
+  {%- endif -%}
+</div>

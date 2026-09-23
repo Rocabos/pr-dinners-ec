@@ -1,0 +1,7 @@
+.DS_Store
+Thumbs.db
+.shopify/
+node_modules/
+*.log
+.env
+.env.*

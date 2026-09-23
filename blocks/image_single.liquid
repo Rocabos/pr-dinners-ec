@@ -1,0 +1,63 @@
+{% render 'standard-blocks', type: 'image_single' %}
+
+{% schema %}
+{
+  "name": "Image",
+  "tag": null,
+  "settings": [
+    
+  {
+    "type": "image_picker",
+    "id": "image",
+    "label": "Image"
+  },
+  {
+    "type": "range",
+    "id": "max_width",
+    "min": 60,
+    "max": 1200,
+    "step": 20,
+    "unit": "px",
+    "label": "Maximum width",
+    "default": 1200
+  },
+  {
+    "type": "checkbox",
+    "id": "round_corners",
+    "label": "Rounded corners",
+    "default": true,
+    "info": "As set in [Theme Settings > Appearance](/editor?context=theme&category=appearance)."
+  },
+  {
+    "type": "url",
+    "id": "image_link",
+    "label": "Image link"
+  },
+  {
+    "type": "checkbox",
+    "id": "zoom_on_hover",
+    "visible_if": "{{ block.settings.image_link != blank }}",
+    "default": true,
+    "label": "Zoom effect on hover"
+  },
+  {
+    "type": "header",
+    "content": "Advanced"
+  },
+  {
+    "type": "checkbox",
+    "id": "hide_when_empty",
+    "default": false,
+    "label": "Hide this block when there's no image to show",
+    "info": "This allows metafields to selectively show this section. Always shows in the Theme Editor."
+  }
+
+  ],
+  "presets": [
+    {
+      "name": "Image",
+      "category": "Basic"
+    }
+  ]
+}
+{% endschema %}

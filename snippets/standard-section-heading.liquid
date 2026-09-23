@@ -1,0 +1,61 @@
+{% comment %}
+  Renders standard section heading
+
+  Accepts:
+  - section_name: {String} The name of the section
+  - section: {Object} The section object
+  - custom_class: {Stirng} Replaces the standard CSS clases for the title wrapper
+  - view_all: {String} The HTML to render for the 'View more' link (Optional)
+
+  Usage:
+  {% render 'standard-section-heading', section_name: 'collection', section: section %}
+{% endcomment %}
+
+{%- if section.settings.title != blank or section.settings.text != blank or view_all != blank -%}
+  <div class="{{ section_name }}__title{% if custom_class %} {{ custom_class }}{% else %} title-wrapper page-width{% endif %} title-wrapper--no-top-margin text-{{ section.settings.mobile_heading_alignment }} md:text-{{ section.settings.desktop_heading_alignment }}">
+    <div class="max-w-{{ section.settings.content_max_width }} {% if section.settings.content_max_width == "xl" %}flex align-center justify-between{% else %}inline-block{% endif %}">
+      {%- if section.settings.title != blank -%}
+        <{{ section.settings.heading_tag | default: 'h2' }} class="section-title title inline-richtext{% if section.settings.italic_convert != blank %} italics-convert italics-{{ section.settings.italic_convert }}{% endif %}  {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}{% if section.settings.text == blank and view_all == blank %} mb-0{% endif %}">
+          {%- assign text = section.settings.title -%}
+          {%- if text contains '[' and text contains ']' and text contains '|' -%}
+  <lazy-script src="{{ 'animated-list.js' | asset_url }}" defer="defer"></lazy-script>
+  {%- liquid
+    assign before_bracket = text | split: "[" | first
+    assign inside_bracket = text | split: "[" | last | split: "]" | first
+    assign after_bracket = text | split: "]" | last
+
+    assign inside_em = inside_bracket | split: "<em>" | last | split: "</em>" | first
+    assign inside_strong = inside_bracket | split: "<strong>" | last | split: "</strong>" | first
+
+    assign items = inside_bracket | split: "|"
+    assign first_item = items | first
+    assign remaining_items = items | slice: 1, items.size | join: "|"
+  -%}
+
+  {%- if inside_bracket contains '<em>' and inside_em contains '|' -%}
+    {{ text | replace: '++', '<br>' }}
+  {%- elsif inside_bracket contains '<strong>' and inside_strong contains '|' -%}
+    {{ text | replace: '++', '<br>' }}
+  {%- else -%}
+    {{- before_bracket | replace: '++', '<br>' -}}
+    <animated-list class="relative inline-flex" data-list="{{ remaining_items }}">{{ first_item }}</animated-list>
+    {%- unless after_bracket contains '[' -%}{{ after_bracket | replace: '++', '<br>' }}{%- endunless -%}
+  {%- endif -%}
+{%- else -%}
+  {{ text | replace: '++', '<br>' }}
+{%- endif -%}
+        </{{ section.settings.heading_tag | default: 'h2' }}>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <div class="section-text {{ section_name }}__description rte {{ section.settings.text_style }} {{ section.settings.text_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+          {{ section.settings.text -}}
+        </div>
+      {%- endif -%}
+
+      {%- if view_all -%}
+        {{ view_all }}
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}

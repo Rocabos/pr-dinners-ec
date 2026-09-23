@@ -1,0 +1,169 @@
+{% comment %}
+  Text promotion
+
+  Accepts:
+  - show_promo: {Boolean} Whether to show the promo or not. Defaults to true.
+  - url: {String} URL of the promo (Required)
+  - heading: {String} Heading of the promo (Optional)
+  - text: {String} Text content of the promo (Optional)
+  - image: {Object} The Shopfiy image object (Optional)
+  - image_position: {String} The position of the image in relation to the text. Can be below_text, below_heading or above_heading. Optional (defaults to above_heading)
+  - image_width: {Number} The width of the space where the image lives. Optional, defaults to 300.
+  - media_aspect_ratio: {String} Size of the image card. Optional, defaults to original image ratio.
+  - accent: {Color} The accent color of the promo (Optional, defaults to current text color).
+  - placeholder_image: {String} The default placeholder to render (if applicable). Optional, defaults to 'collection-3'.
+
+  Usage:
+  {%- render 'promo-text',
+    show_promo: true,
+    url: promo.settings.promo_1_url,
+    heading: promo.settings.promo_1_heading,
+    text: promo.settings.promo_1_text,
+    image_width: image_width_to_request,
+    image: promo.settings.promo_1_image,
+    media_aspect_ratio: promo.settings.promo_image_ratio,
+    accent: promo.settings.promo_1_accent,
+    image_position: promo.settings.promo_image_position
+-%}
+{% endcomment %}
+
+{%- liquid
+  assign ratio = 1
+  if media_aspect_ratio == 'portrait'
+    assign ratio = 0.8
+  elsif media_aspect_ratio == 'portrait_tall'
+    assign ratio = 0.66
+  elsif media_aspect_ratio == 'landscape_wide'
+    assign ratio = 1.77
+  elsif media_aspect_ratio == 'landscape_wider'
+    assign ratio = 2.33
+  elsif media_aspect_ratio == 'landscape_widest'
+    assign ratio = 3.55
+  elsif media_aspect_ratio == 'landscape'
+    assign ratio = 1.33
+  elsif media_aspect_ratio == 'square'
+    assign ratio = 1
+  elsif image and media_aspect_ratio == 'adapt'
+    assign ratio = image.aspect_ratio
+  endif
+  if ratio == 0 or ratio == null
+    assign ratio = 1
+  endif
+
+  assign show_as_link = url
+  if text contains "<a"
+    assign show_as_link = false
+  endif
+
+  unless image_position
+    assign image_position = 'above_heading'
+  endunless
+
+  unless placeholder_image
+    assign placeholder_image = 'collection-3'
+  endunless
+
+  if show_promo == nil
+    assign show_promo = true
+  endif
+
+  unless image_width
+    assign image_width = 300
+  endunless
+  assign image_width_double = image_width | times: 2
+-%}
+
+{%- if show_promo and image != blank or heading != blank or text != blank -%}
+  {%- if image != blank or heading == "Promo text here" -%}
+    {%- capture image_markup -%}
+      <div
+        class="image-overlay promo-image overflow-hidden {% if show_as_link %} hover-zoom{% endif %}{% unless media_aspect_ratio == 'adapt' %} ratio{% endunless %}"
+          {% if media_aspect_ratio == 'adapt' and image %}
+            style="padding-bottom: {{ 1 | divided_by: image.aspect_ratio | times: 100 }}%;"
+          {% elsif media_aspect_ratio == 'adapt' %}
+            style="padding-bottom: {{ 1 | divided_by: ratio | times: 100 }}%;"
+          {% endif %}
+      >
+        {%- if image == blank -%}
+          {{ placeholder_image | placeholder_svg_tag: 'placeholder-svg promo-image img-cover' }}
+        {%- else -%}
+          <img
+            class="promo-image img-cover"
+            src="{{ image | image_url: width: image_width_double }}"
+            {% if image.presentation %}style="object-position: {{ image.presentation.focal_point }}" {% endif -%}
+            alt="{{ image.alt | escape }}"
+            loading="lazy"
+            fetchpriority="low"
+            width="{{ image_width }}"
+            height="{{ image_width | divided_by: image.aspect_ratio | ceil }}"
+          >
+        {%- endif -%}
+      </div>
+    {%- endcapture -%}
+  {%- endif -%}
+
+  <div class="promo-card promo-card--text w-full"
+    style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;--color-accent: {% if accent == blank or accent.alpha == 0 %}var(--color-foreground){% else %}{{ accent.red }},{{ accent.green }},{{ accent.blue }}{% endif %};" >
+    {% if show_as_link %}
+      <a href="{{ url }}" class="promo-card--text-container w-full">
+    {% else %}
+      <div class="promo-card--text-container w-full">
+    {% endif %}
+
+      <div class="w-full">
+        {%- if image_position == 'above_heading' and image_markup -%}
+          <div class="mb-15 last-child:mb-0">{{ image_markup }}</div>
+        {%- endif -%}
+
+        {%- if heading -%}
+          <div class="promo-card--text__heading mb-05 last-child:mb-0">{{ heading }}</div>
+        {%- endif -%}
+
+        {%- if image_position == 'below_heading' and image_markup -%}
+          <div class="mt-1 mb-1 last-child:mb-0">{{ image_markup }}</div>
+        {%- endif -%}
+
+        {%- if text -%}
+          <div class="promo-card--text__text rte mb-05 last-child:mb-0">
+            {%- if text contains '[' and text contains ']' and text contains '|' -%}
+  <lazy-script src="{{ 'animated-list.js' | asset_url }}" defer="defer"></lazy-script>
+  {%- liquid
+    assign before_bracket = text | split: "[" | first
+    assign inside_bracket = text | split: "[" | last | split: "]" | first
+    assign after_bracket = text | split: "]" | last
+
+    assign inside_em = inside_bracket | split: "<em>" | last | split: "</em>" | first
+    assign inside_strong = inside_bracket | split: "<strong>" | last | split: "</strong>" | first
+
+    assign items = inside_bracket | split: "|"
+    assign first_item = items | first
+    assign remaining_items = items | slice: 1, items.size | join: "|"
+  -%}
+
+  {%- if inside_bracket contains '<em>' and inside_em contains '|' -%}
+    {{ text | replace: '++', '<br>' }}
+  {%- elsif inside_bracket contains '<strong>' and inside_strong contains '|' -%}
+    {{ text | replace: '++', '<br>' }}
+  {%- else -%}
+    {{- before_bracket | replace: '++', '<br>' -}}
+    <animated-list class="relative inline-flex" data-list="{{ remaining_items }}">{{ first_item }}</animated-list>
+    {%- unless after_bracket contains '[' -%}{{ after_bracket | replace: '++', '<br>' }}{%- endunless -%}
+  {%- endif -%}
+{%- else -%}
+  {{ text | replace: '++', '<br>' }}
+{%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if image_position == 'below_text' and image_markup -%}
+          <div class="mt-1">{{ image_markup }}</div>
+        {%- endif -%}
+      </div>
+
+    {% if show_as_link %}
+      </a>
+    {% else %}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

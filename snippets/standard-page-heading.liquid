@@ -1,0 +1,67 @@
+{% comment %}
+  Renders standard section heading
+
+  Accepts:
+  - page__name: {String} The name of the section
+  - section: {Object} The section object
+  - custom_class: {Stirng} Replaces the standard CSS clases for the title wrapper
+  - view_all: {String} The HTML to render for the 'View more' link (Optional)
+  - page_title: {String} The default page title
+  - page_description: {String} The default page description
+  - show_text: {Boolean} Where to show the text
+  - show_header: {Boolean} Where to show the header
+
+  Usage:
+  {% render 'standard-section-heading', page__name: 'collection', section: section %}
+{% endcomment %}
+
+{%- liquid
+  unless show_header != blank
+    assign show_header = false
+  endunless
+
+  if section.settings.custom_page_header and section.settings.title != blank
+    assign show_header = true
+  elsif section.settings.custom_page_header == false and page_title != blank
+    assign show_header = true
+  endif
+
+  unless show_text != blank
+    assign show_text = false
+    if section.settings.custom_page_text and section.settings.text != blank
+      assign show_text = true
+    elsif section.settings.custom_page_text == false and page_description != blank
+      assign show_text = true
+    endif
+  endunless
+-%}
+
+{%- if show_header or show_text -%}
+  <div class="{{ page__name }}__title{% if custom_class %} {{ custom_class }}{% else %} title-wrapper page-width{% endif %} title-wrapper--no-top-margin text-{{ section.settings.mobile_heading_alignment }} md:text-{{ section.settings.desktop_heading_alignment }}">
+    <div class="inline-block max-w-{{ section.settings.content_max_width }}">
+      {%- if show_header -%}
+        <{{ section.settings.heading_tag | default: 'h2' }} class="b-main-title inline-richtext{% if section.settings.italic_convert != blank %} italics-convert italics-{{ section.settings.italic_convert }}{% endif %} {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}{% if section.settings.enable_top_padding == false %} mt-0{% endif %}{% if section.settings.enable_bottom_padding == false %} mb-0{% endif %}">
+          {%- if section.settings.custom_page_header -%}
+            {{ section.settings.title }}
+          {%- else -%}
+            {{ page_title }}
+          {%- endif -%}
+        </{{ section.settings.heading_tag | default: 'h2' }}>
+      {%- endif -%}
+
+      {%- if show_text -%}
+        <div class="section-text {{ page__name }}__description rte {{ section.settings.text_style }} {{ section.settings.text_size }}{% if section.settings.text_italic_convert != blank %} italics-convert italics-{{ section.settings.text_italic_convert }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+          {%- if section.settings.custom_page_text -%}
+            {{ section.settings.text }}
+          {%- else -%}
+            {{ page_description }}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if view_all -%}
+        {{ view_all }}
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}

@@ -1,0 +1,171 @@
+{% render 'standard-blocks', type: 'countdown' %}
+
+{% schema %}
+{
+  "name": "Countdown",
+  "tag": null,
+  "settings": [
+    
+  {
+    "type": "text",
+    "id": "end_date",
+    "label": "End date",
+    "placeholder": "Tomorrow",
+    "info": "Use format yyyy-mm-dd, e.g. 2025-12-25. Leave empty to count down to midnight or the time set below (if set)."
+  },
+  {
+    "type": "text",
+    "id": "end_time",
+    "label": "End time",
+    "info": "Optional. Use 24 hour format, e.g. 23:59"
+  },
+  {
+    "type": "select",
+    "id": "end_action",
+    "options": [
+      {
+        "value": "zero",
+        "label": "Show zero countdown"
+      },
+      {
+        "value": "hide",
+        "label": "Hide"
+      },
+      {
+        "value": "message",
+        "label": "Show end message (below)"
+      }
+    ],
+    "default": "hide",
+    "label": "When the timer ends"
+  },
+  {
+    "type": "inline_richtext",
+    "id": "end_message",
+    "default": "You just missed it!",
+    "label": "End message"
+  },
+  {
+    "type": "header",
+    "content": "Appearance"
+  },
+  {
+    "type": "checkbox",
+    "id": "abbreviate_units",
+    "default": false,
+    "label": "Show units next to count"
+  },
+  {
+    "type": "range",
+    "id": "countdown_size",
+    "min": 20,
+    "max": 50,
+    "step": 2,
+    "unit": "px",
+    "default": 26,
+    "label": "Count size",
+    "info": "Make your browser small to check that the countdown timer is not too large."
+  },
+  {
+    "type": "select",
+    "id": "separator",
+    "options": [
+      {
+        "value": ":",
+        "label": ":"
+      },
+      {
+        "value": ".",
+        "label": "."
+      },
+      {
+        "value": "|",
+        "label": "|"
+      },
+      {
+        "value": "",
+        "label": "None"
+      }
+    ],
+    "default": ":",
+    "label": "Separator"
+  },
+  {
+    "type": "select",
+    "id": "countdown_font_weight",
+    "default": "bold",
+    "label": "Font weight",
+    "options": [
+      {
+        "value": "normal",
+        "label": "Standard"
+      },
+      {
+        "value": "bold",
+        "label": "Bold"
+      }
+    ]
+  },
+  {
+    "type": "text_alignment",
+    "id": "text_alignment",
+    "default": "center",
+    "label": "Text alignment"
+  },
+  {
+    "type": "select",
+    "id": "countdown_container",
+    "options": [
+      {
+        "value": "none",
+        "label": "None"
+      },
+      {
+        "value": "rounded",
+        "label": "Rounded"
+      },
+      {
+        "value": "sharp",
+        "label": "Sharp"
+      }
+    ],
+    "default": "none",
+    "label": "Count background"
+  },
+  {
+    "type": "header",
+    "content": "Style"
+  },
+  {
+    "type": "color",
+    "id": "countdown_color",
+    "label": "Count color",
+    "info": "Set to transparent to use text color."
+  },
+  {
+    "type": "color",
+    "default": "#EDEDED",
+    "id": "countdown_background_color",
+    "label": "Background color"
+  },
+  {
+    "type": "color_background",
+    "id": "countdown_background_gradient",
+    "label": "Background gradient",
+    "info": "Background gradient replaces background where possible."
+  }
+
+  ],
+  "presets": [
+    {
+      "name": "Countdown",
+      "category": "Specialized",
+      "settings": {
+        "countdown_size": 34,
+        "countdown_container": "rounded",
+        "countdown_background_color": "#ffffff"
+      }
+    }
+  ]
+}
+{% endschema %}

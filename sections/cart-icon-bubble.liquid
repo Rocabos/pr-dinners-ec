@@ -1,0 +1,16 @@
+{%- liquid
+  if settings.cart_icon == 'cart'
+    render 'icon-cart-cart'
+  elsif settings.cart_icon == 'bag'
+    render 'icon-cart-bag'
+  elsif settings.cart_icon == 'basket'
+    render 'icon-cart-basket'
+  endif
+-%}
+<span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+{%- if cart != empty -%}
+  <div class="cart-count-bubble font-bold">
+    <span aria-hidden="true"{% if cart.item_count > 999 %} style="font-size: 8px; white-space: nowrap;"{% endif %}>{{ cart.item_count }}</span>
+    <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+  </div>
+{%- endif -%}

@@ -1,0 +1,261 @@
+{% comment %}
+  Renders an article card for a given blog with settings to either show the image or not.
+
+  Accepts:
+  - blog: {Object} Blog object
+  - article: {Object} Article object
+  - media_aspect_ratio: {String} Size of the image card. Defaults to settings.blog_card_image_ratio (optional)
+  - image_cover {Boolean} if the image should object-fit: cover. Defaults to settings.blog_card_image_cover (optional)
+  - image_position {String} The images object-position. Defaults to settings.blog_card_image_position (optional)
+  - media_height: {String} The setting changes the height of the article image. Overrides media_aspect_ratio.
+  - excerpt_mode: {String} Can be: 'none', 'short', 'medium', 'long' or 'show' (Optional)
+  - show_image: {String} The setting either show the article image or not. If it's not included it will show the image by default
+  - show_date: {String} The setting either show the article date or not. If it's not included it will not show the image by default
+  - show_author: {String} The setting either show the article author or not. If it's not included it will not show the author by default
+  - lazy_load: {Boolean} Image should be lazy loaded. Default: true (optional)
+  - show_reading_estimate: {Boolean} Shows a reading estimate based on the word count of the article. Default: false (optional)
+  - show_first_tag: {Boolean} Shows the first tag of the article. Default: false (optional)
+  - is_featured: {Boolean} True if the card should be shown as a featured post. Default: false (optional)
+  - featured_excerpt_mode: {String} How long the exceprt should be on the featured blog post. (Optional)
+  - placeholder_image: {String} The placeholder image to use when no article exists. (Optional)
+  - columns_desktop: {Number} - The number of desktop columns per row this card shows in (ie the card size). (Optiona, defaults to 4).
+
+  Usage:
+  {% render 'article-card' blog: blog, article: article, show_image: section.settings.show_image %}
+{% endcomment %}
+
+{%- liquid
+  unless media_aspect_ratio
+    assign media_aspect_ratio = settings.blog_card_image_ratio
+  endunless
+
+  unless is_featured == true
+    assign is_featured = false
+  endunless
+
+  assign ratio = 1
+  if media_aspect_ratio == 'portrait'
+    assign ratio = 0.8
+  elsif media_aspect_ratio == 'portrait_tall'
+    assign ratio = 0.66
+  elsif media_aspect_ratio == 'landscape_wide'
+    assign ratio = 1.77
+  elsif media_aspect_ratio == 'landscape'
+    assign ratio = 1.33
+  elsif media_aspect_ratio == 'square' or media_aspect_ratio == 'grow'
+    assign ratio = 1
+  elsif article.image and media_aspect_ratio == 'adapt' and placeholder_image == blank
+    assign ratio = article.image.aspect_ratio
+  endif
+  if ratio == 0 or ratio == null
+    assign ratio = 1
+  endif
+
+  unless image_position
+    assign image_position = settings.blog_card_image_position
+  endunless
+
+  unless image_cover
+    assign image_cover = settings.blog_card_image_cover
+  endunless
+
+  if is_featured
+    assign excerpt_mode = featured_excerpt_mode | default: 'medium'
+  endif
+
+  if excerpt_mode and excerpt_mode != "none"
+    assign fallback_excerpt = article.content | strip_html | truncatewords: 100
+    assign excerpt = article.excerpt | default: fallback_excerpt
+    if excerpt_mode == 'short'
+      assign excerpt = excerpt | strip_html | truncatewords: 10
+    elsif excerpt_mode == 'medium'
+      assign excerpt = excerpt | strip_html | truncatewords: 20
+    elsif excerpt_mode == 'long'
+      assign excerpt = excerpt | strip_html | truncatewords: 30
+    endif
+  endif
+
+  if show_first_tag
+    assign first_tag = article.tags.first
+  endif
+
+  if show_reading_estimate
+    assign read_estimate = article.content | strip_html | split: ' ' | size | times: 1.0 | divided_by: 250 | ceil
+  endif
+  
+  if is_featured
+    assign image_cover = true
+    assign show_image = true
+    assign blog_card_style = "standard"
+  else
+    assign blog_card_style = settings.blog_card_style
+  endif
+
+  if columns_desktop
+    assign columns_desktop = columns_desktop | plus: 0
+  else
+    assign columns_desktop = 4
+  endif
+
+  assign columns_desktop_min = columns_desktop | minus: 1
+-%}
+
+{%- if article and article != empty -%}
+  <div class="article-card-wrapper card-wrapper w-full">
+    <div
+      class="
+        card article-card card--{{ blog_card_style }}
+        {% if is_featured %} article-card--featured{% endif %}
+        {% if article.image and show_image %} card--media{% else %} card--text{% endif %}
+        {% if blog_card_style == 'card' and settings.blog_card_shadow %} card--shadow{% endif %}
+        {% if blog_card_style == 'card' %} color-{{ settings.blog_card_color_scheme }} gradient{% endif %}
+        {% if blog_card_style == 'card' and media_height == nil and article.image == empty or show_image == false %} ratio{% endif %}
+      "
+      style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+    >
+      <div
+        class="card__inner
+          {% if blog_card_style == 'standard' %} color-{{ settings.blog_card_color_scheme }} gradient{% endif %}
+          {% if article.image and show_image or blog_card_style == 'standard' %} ratio{% endif %}
+          {% if media_aspect_ratio == 'grow' %} h-full{% endif %}"
+        style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+      >
+        {%- if show_image == true and article.image -%}
+          <div class="article-card__image-wrapper card__media">
+            <div
+              class="article-card__image media media--hover-effect{% if image_cover %} media--hover-zoom{% endif %}{% if media_aspect_ratio == 'adapt' and is_featured != true %} article-card__image-relative{% endif %}"
+              {% if media_aspect_ratio == 'adapt' %}
+                style="padding-bottom: {{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;"
+              {% endif %}
+            >
+              {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
+              <img
+                srcset="
+                  {%- if article.image.src.width >= 165 -%}{{ article.image.src | image_url: width: 165 }} 165w,{%- endif -%}
+                  {%- if article.image.src.width >= 360 -%}{{ article.image.src | image_url: width: 360 }} 360w,{%- endif -%}
+                  {%- if article.image.src.width >= 533 -%}{{ article.image.src | image_url: width: 533 }} 533w,{%- endif -%}
+                  {%- if article.image.src.width >= 720 -%}{{ article.image.src | image_url: width: 720 }} 720w,{%- endif -%}
+                  {%- if article.image.src.width >= 1000 -%}{{ article.image.src | image_url: width: 1000 }} 1000w,{%- endif -%}
+                  {%- if article.image.src.width >= 1500 -%}{{ article.image.src | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {{ article.image.src | image_url }} {{ article.image.src.width }}w
+                "
+                src="{{ article.image.src | image_url: width: 533 }}"
+                sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: columns_desktop_min }}px,
+                  (min-width: 990px) calc((100vw - 130px) / {{ columns_desktop_min | minus: 1 | at_least: 1 }}),
+                  (min-width: 750px) calc((100vw - 130px) / {{ columns_desktop_min }}),
+                  calc((100vw - 50px))"
+                alt="{{ article.image.src.alt | escape }}"
+                class="motion-reduce object-{{ image_position }}
+                  {% if image_cover == false %} object-contain{% endif %}"
+                {% unless lazy_load == false %}
+                  loading="lazy"
+                  fetchpriority="low"
+                {% endunless %}
+                width="{{ article.image.width }}"
+                height="{{ article.image.height }}"
+              >
+              {% comment %}theme-check-enable ImgLazyLoading{% endcomment %}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="card__content{% if is_featured %} p-0{% endif %}">
+        <div class="card__information flex flex-col{% if is_featured %} justify-end{% endif %}">
+          {%- if is_featured == false and show_date -%}
+            <div class="article-card__info caption-with-letter-spacing opacity-90 color-foreground mb-1 t7">
+              <span>{{ article.published_at | time_tag: format: 'date' }}</span>
+            </div>
+          {%- endif -%}
+
+          <h3 class="card__heading text-body t1">
+            <a href="{{ article.url }}" class="article-card__title font-medium full-unstyled-link">
+              {{ article.title | escape }}
+            </a>
+          </h3>
+
+          {%- if is_featured == false and show_author -%}
+            <div class="article-card__info caption-with-letter-spacing mt-05 mb-05 last-child:mb-0 opacity-90">
+              <span>{{ 'blogs.article.author' | t: author: article.author }}</span>
+            </div>
+          {%- endif -%}
+
+          {%- if excerpt and excerpt.size > 0 -%}
+            <div class="article-card__excerpt opacity-90 mt-1 mb-1 last-child-inner:mb-0 last-child-inner:mt-0">
+              {{ excerpt }}
+            </div>
+          {%- endif -%}
+
+          {%- if is_featured != true and read_estimate or first_tag -%}
+            <div class="flex gap-1 justify-between{% unless is_featured or blog_card_style == "standard" %} grow{% endunless %} items-end{% if excerpt and excerpt.size > 0 %} mt-1{% else %} mt-2{% endif %}">
+              {% if show_reading_estimate %}
+                <div class="t7 opacity-90 lh-1">
+                  {% if read_estimate %}
+                    {{ 'blogs.article.read_estimate' | t: minutes: read_estimate }}
+                  {% endif %}
+                </div>
+              {% endif %}
+
+              {% if first_tag %}
+                <div class="t7 uppercase{% if show_reading_estimate %} text-right{% endif %} lh-1 font-medium color-foreground">
+                  {{ first_tag }}
+                </div>
+              {% endif %}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{%- else -%}
+
+  <div class="article-card-wrapper card-wrapper w-full">
+    <div class="card article-card card--{{ blog_card_style }}
+        {% if section.settings.show_image %} card--media{% else %} card--text{% endif %}
+        {% if blog_card_style == 'card' and settings.blog_card_shadow %} card--shadow{% endif %}
+        {% if blog_card_style == 'card' %} color-{{ settings.blog_card_color_scheme }} gradient{% endif %}
+        {% if blog_card_style == 'card' and media_height == nil and false or show_image == false %} ratio{% endif %}"
+       style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+    >
+      <div
+          class="card__inner ratio
+          {% if blog_card_style == 'standard' %} color-{{ settings.blog_card_color_scheme }} gradient{% endif %}
+          {% if media_aspect_ratio == 'grow' %} h-full{% endif %}"
+          style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+      >
+        {%- if section.settings.show_image == true -%}
+          <div class="article-card__image-wrapper card__media">
+            <div
+                class="article-card__image media placeholder media--hover-effect{% if image_cover %} media--hover-zoom{% endif %}"
+                {% if media_aspect_ratio == 'adapt' %} style="padding-bottom: 100%;" {% endif %}>
+              {{ placeholder_image | placeholder_svg_tag: 'blog-placeholder-svg h-full' }}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="card__content">
+        <div class="card__information flex flex-col">
+          <h3 class="card__heading text-body t1">
+            {{ 'sections.featured_blog.onboarding_title' | t }}
+          </h3>
+          <p class="article-card__excerpt opacity-90 last-child:mb-0">
+            {{ 'sections.featured_blog.onboarding_content' | t }}
+          </p>
+          <div class="flex justify-between mt-1">
+            <div class="t7 opacity-90 text-right lh-1">
+              {%- liquid
+                assign min = 1
+                assign max = 14
+                assign diff = max | minus: min
+                assign random_number = "now" | date: "%N" | modulo: diff | plus: min
+              -%}
+              {{ 'blogs.article.read_estimate' | t: minutes: random_number }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}

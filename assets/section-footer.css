@@ -1,0 +1,150 @@
+.bmrk-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.copyright__content a {
+  color: rgb(var(--color-foreground));
+  text-decoration: none;
+}
+
+@media screen and (min-width: 750px) {
+  .footer-block_details-content-group {
+    display: flex;
+    flex-direction: row;
+    gap: var(--grid-desktop-horizontal-spacing);
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .footer__column-summary {
+    display: flex;
+  }
+
+  .footer__column-heading {
+    padding: 0 0.6rem 1rem 0.6rem;
+  }
+
+  .grid-double-size .footer__column-heading {
+    width: calc(100% - var(--grid-desktop-horizontal-spacing));
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+.footer-block__image-wrapper {
+  font-size: 0;
+  overflow: hidden !important;
+}
+
+.footer-block__image-wrapper img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.footer__content-bottom .disclosure__list-wrapper {
+  inset-inline-end: 0;
+}
+
+.footer__content-bottom {
+  background-color: rgba(var(--color-foreground), 1);
+  color: var(--color-heading-gradient-fill, currentColor);
+}
+
+.footer__content-bottom-spacer {
+  width: 1px;
+  height: 25px;
+  margin: 0 24px;
+  background-color: #000;
+}
+
+@media screen and (min-width: 750px) {
+  .footer__content-bottom-spacer {
+    display: inline-block !important;
+  }
+}
+
+/* SCAFFOLDING */
+@media screen and (max-width: 749.98px) {
+  .footer-block .accordion__content .footer__link {
+    margin: 0.2em 0;
+  }
+
+  .footer__blocks-wrapper {
+    row-gap: 0;
+  }
+
+  .footer-block.grid__item {
+    width: 100%;
+  }
+
+  footer-accordion {
+    display: block;
+    border-top: 0.1rem solid rgba(var(--color-foreground), 0.08);
+    border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  footer-accordion summary {
+    padding: 1rem 2rem;
+    padding-inline-start: 0;
+  }
+
+  footer-accordion .accordion__title {
+    margin: 0;
+  }
+
+  .footer-block:not(:last-child) .footer-block--not-collapsible {
+    margin-bottom: 3rem;
+  }
+
+  .footer-block:has(footer-accordion)+.footer-block:not(:has(footer-accordion)) {
+    padding-top: 3rem;
+  }
+
+  .footer-block:has(footer-accordion)+.footer-block:has(footer-accordion) footer-accordion {
+    border-top: 0;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .footer-block summary {
+    line-height: 1;
+  }
+
+  .footer-block summary .icon-caret {
+    display: none;
+  }
+
+  .footer__blocks-wrapper:has(.footer-block--wider) .footer-block:not(.footer-block--wider) {
+    width: calc(20% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
+  }
+
+  .footer-block--wider {
+    width: calc(40% - var(--grid-desktop-horizontal-spacing) * 3 / 4) !important;
+    padding-inline-end: 40px;
+  }
+
+  .policies li a {
+    padding: 0;
+  }
+
+  .footer__blocks-wrapper+.footer__payment {
+    margin-top: 4rem;
+    margin-bottom: -2rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .footer__blocks-wrapper {
+    --grid-desktop-horizontal-spacing: 32px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .footer__blocks-wrapper {
+    --grid-desktop-horizontal-spacing: 48px;
+  }
+}

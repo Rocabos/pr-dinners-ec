@@ -1,0 +1,210 @@
+variant-selects {
+  display: block;
+  container-type: inline-size;
+  container-name: variant-container;
+}
+
+:is(.product-form__input--pill, .product-form__input--swatch) .form__label {
+  margin-bottom: 0.2rem;
+}
+
+.product-form__input input[type='radio'] {
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+  position: absolute;
+  height: 1px;
+  width: 1px;
+}
+
+.product-form__input input[type='radio']:not(.disabled):not(.visually-disabled)+label>.label-unavailable {
+  display: none;
+}
+
+.product-form__input--dropdown {
+  --swatch-input--size: var(--swatch-size, 2rem);
+  max-width: none;
+}
+
+.product-form__input--dropdown:has(.dropdown-swatch) .current {
+  padding-inline-start: calc(0.2rem + var(--swatch-input--size, 2rem));
+}
+
+.product-form__input--dropdown .dropdown-swatch {
+  position: absolute;
+  inset-inline-start: 1.6rem;
+  top: calc(50% - var(--swatch-input--size) / 2);
+  width: var(--swatch-input--size);
+  height: var(--swatch-input--size);
+  z-index: 1;
+}
+
+
+/* Custom styles for Pill display type */
+.product-form__input--pill input[type='radio']+label {
+  border: 0;
+  box-shadow: 0 0 0 1px rgb(var(--color-button), 0.2);
+  background-color: rgb(var(--color-background));
+  color: rgba(var(--color-foreground));
+  border-radius: var(--variant-pills-radius);
+  color: rgb(var(--color-foreground));
+  display: inline-block;
+  margin: 0;
+  padding: 0.7em 1.5em;
+  text-align: center;
+  font-weight: var(--variant-pill-font-weight, 400);
+  text-transform: var(--variant-pill-text-transform, none);
+  transition: box-shadow var(--duration-default) ease;
+  cursor: pointer;
+  position: relative;
+  overflow-wrap: anywhere;
+}
+
+.product-form__input--pill input[type='radio']+label:before {
+  content: '';
+  position: absolute;
+  top: calc(var(--variant-pills-border-width) * -1);
+  inset-inline-end: calc(var(--variant-pills-border-width) * -1);
+  bottom: calc(var(--variant-pills-border-width) * -1);
+  inset-inline-start: calc(var(--variant-pills-border-width) * -1);
+  z-index: -1;
+  border-radius: var(--variant-pills-radius);
+  box-shadow: var(--variant-pills-shadow-horizontal-offset) var(--variant-pills-shadow-vertical-offset) var(--variant-pills-shadow-blur-radius) rgba(var(--color-shadow), var(--variant-pills-shadow-opacity));
+}
+
+.product-form__input--pill input[type='radio']+label:hover {
+  box-shadow: 0 0 0 1px rgb(var(--color-button));
+}
+
+.product-form__input--pill input[type='radio']:checked+label {
+  box-shadow: 0 0 0 2px rgb(var(--color-button));
+}
+
+@media screen and (forced-colors: active) {
+  .product-form__input--pill input[type='radio']:checked+label {
+    text-decoration: underline;
+  }
+
+  .product-form__input--pill input[type='radio']:focus-visible+label {
+    outline: transparent solid 1px;
+    outline-offset: 2px;
+  }
+}
+
+.product-form__input--pill input[type='radio']:checked+label::selection {
+  box-shadow: 0 0 0 2px rgb(var(--color-foreground));
+}
+
+.product-form__input--pill input[type='radio']:disabled+label,
+.product-form__input--pill input[type='radio'].disabled+label {
+  box-shadow: 0 0 0 1px rgba(var(--color-foreground), 0.1);
+  color: rgba(var(--color-foreground), 0.6);
+  position: relative;
+}
+
+.product-form__input--pill input[type='radio'].disabled+label .swatch::after {
+  display: none;
+}
+
+.product-form__input--pill input[type='radio']:disabled+label::after,
+.product-form__input--pill input[type='radio'].disabled+label::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top left, transparent calc(50% - 1px), rgba(var(--color-foreground), 0.1) 50%, rgba(var(--color-foreground), 0.1) 50%, transparent calc(50% + 1px)) no-repeat;
+  border-radius: inherit;
+}
+
+.product-form__input .swatch-input__label {
+  height: 4rem;
+}
+
+.product-form__input--pill input.disabled+label .swatch-input__label-inner {
+  background: radial-gradient(circle, rgba(var(--color-background), 1) 0%, rgba(var(--color-background), 1) 80%, rgba(var(--color-background), 0) 100%);
+  z-index: 1;
+  position: relative;
+  line-height: 150%;
+  font-size: 1.2rem;
+}
+
+.product-form__input--pill input[type=radio].disabled:checked+label,
+.product-form__input--pill input[type=radio]:disabled:checked+label {
+  box-shadow: 0 0 0 2px rgba(var(--color-button), 0.3);
+}
+
+.product-form__input--pill input[type='radio']:focus-visible+label {
+  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0 0.5rem rgba(var(--color-foreground), 0.55);
+}
+
+/* Fallback */
+.product-form__input--pill input[type='radio'].focused+label {
+  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0 0.5rem rgba(var(--color-foreground), 0.55);
+}
+
+/* No outline when focus-visible is available in the browser */
+.no-js .product-form__input--pill input[type='radio']:focus:not(:focus-visible)+label {
+  box-shadow: none;
+}
+
+/* End custom styles for Pill display type  */
+
+/* Custom styles for Box display type */
+.variant-form__label,
+.product-form__input--box legend {
+  margin-bottom: 1rem !important;
+}
+
+.product-form__input--box {
+  display: grid;
+  grid-template-columns: repeat(max(calc(var(--max-boxes, 3) - 1), 1), 1fr);
+  grid-auto-rows: 1fr;
+  gap: 0.7em;
+}
+
+.product-form__input--box input[type=radio]+label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.1rem 1.2rem;
+  margin: 0;
+}
+
+/* End custom styles for Box display type */
+
+/* Custom styles for Swatch display type */
+.product-form__input--swatch {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product-form__input--swatch .swatch-input__input+.swatch-input__label {
+  --swatch-input--size: var(--swatch-size, 3.6rem);
+  margin: 1rem 1.2rem 0.2rem;
+  margin-inline-start: 0;
+}
+
+.product-form__input--swatch-box .swatch-input__input+.swatch-input__label {
+  --swatch-input--size: var(--swatch-size, 3.6rem);
+}
+
+.product-form__input--swatch-box .swatch-input__input+.swatch-input__label .swatch {
+  margin: 0.8rem 0;
+  outline: none !important;
+}
+
+@media screen and (min-width: 750px) {
+
+  .product-form__input--swatch .swatch-input__input+.swatch-input__label,
+  .product-form__input--swatch-box .swatch-input__input+.swatch-input__label {
+    --swatch-input--size: var(--swatch-size, 2.8rem);
+  }
+}
+
+/* End custom styles for Swatch display type */
+
+@container variant-container (min-width: 300px) {
+
+  .product-form__input--box,
+  .product-form__input--swatch-box {
+    grid-template-columns: repeat(var(--max-boxes, 3), 1fr);
+  }
+}

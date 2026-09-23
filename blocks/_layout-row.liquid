@@ -1,0 +1,25 @@
+<div class="block-grid-item__flex-wrapper flex flex-wrap w-full relative" style="--num-blocks: {{ block.blocks.size }};" {{ block.shopify_attributes }}>
+  {% content_for 'blocks' %}
+</div>
+
+{% schema %}
+{
+  "name": "Row",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Think of rows as blocks that contain only columns. They allow you to place multiple pieces of content side by side."
+    }
+  ],
+  "blocks": [
+    { "type": "_layout-column" }
+  ],
+  "presets": [
+    {
+      "name": "Row",
+      "category": " Layout"
+    }
+  ]
+}
+{% endschema %}

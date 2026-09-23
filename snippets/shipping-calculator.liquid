@@ -1,0 +1,93 @@
+{%- comment -%}
+  Parameters:
+  - id {String} - Id of the context in which the calculator is being used
+
+  Usage:
+  {%- render 'shipping-calculator', id: 'cart' -%}
+{%- endcomment -%}
+
+{%- liquid
+  assign default_country = localization.country
+  if shop.customer_accounts_enabled and customer
+    assign default_country = customer.default_address.country
+  endif
+
+  if default_country == blank
+    assign default_country = settings.cart_shipping_calculator_country
+  endif
+-%}
+
+<script src="{{ 'shipping-calculator.js' | asset_url }}" defer="defer"></script>
+
+<shipping-calculator>
+  <form method="POST">
+    <country-selector class="flex flex-col gap-2 pt-1 pb-2">
+      <div class="shipping_calc--row flex flex-row gap-1">
+        <div class="field field--small select relative basis-1/2">
+          <select class="select__select js-shipping-country"
+            id="{{ id }}-shipping-country"
+            data-default="{{ default_country }}"
+            autocomplete="country"
+            aria-required="true"
+            required
+            placeholder="{{ 'sections.cart.shipping_calculator.country' | t | escape }}">
+            {{ all_country_option_tags }}
+          </select>
+          {% render 'icon-caret' %}
+          <label class="visually-hidden" for="{{ id }}-shipping-country">{{ 'sections.cart.shipping_calculator.country' | t }}</label>
+        </div>
+
+        <div class="field field--small select relative basis-1/2 js-province-container" hidden>
+          <select class="select__select js-shipping-province"
+            id="{{ id }}-shipping-province"
+            data-default="{{ customer.default_address.province }}"
+            autocomplete="address-level1"
+            placeholder="{{ 'sections.cart.shipping_calculator.province' | t | escape }}"></select>
+          {% render 'icon-caret' %}
+          <label class="visually-hidden" for="{{ id }}-shipping-province">{{ 'sections.cart.shipping_calculator.province' | t }}</label>
+        </div>
+      </div>
+
+      {%- if settings.cart_shipping_calculator_show_city_and_address -%}
+        <div class="shipping_calc--row flex flex-row gap-1">
+          <div class="field field--small basis-1/2">
+            <input type="text" class="field__input js-address-input" id="{{ id }}-shipping-address" autocomplete="street-address">
+            <label class="field__label" for="{{ id }}-shipping-address">{{ 'sections.cart.shipping_calculator.street_address' | t }}</label>
+          </div>
+          <div class="field field--small basis-1/2">
+            <input type="text" class="field__input js-city-input" id="{{ id }}-shipping-city" autocomplete="address-level2">
+            <label class="field__label" for="{{ id }}-shipping-city">{{ 'sections.cart.shipping_calculator.city' | t }}</label>
+          </div>
+        </div>
+      {%- endif -%}
+
+      <div class="shipping_calc--row flex flex-row gap-1">
+        <div class="field field--small basis-1/2">
+          <input type="text" class="field__input js-zip-input" id="{{ id }}-shipping-zip" autocomplete="postal-code" aria-required="true" required>
+          <label class="field__label" for="{{ id }}-shipping-zip">{{ 'sections.cart.shipping_calculator.zip' | t }}</label>
+        </div>
+
+        <div class="basis-1/2">
+          <button type="submit" class="button button--primary button--small w-full">
+            {{- 'sections.cart.shipping_calculator.submit' | t -}}
+            {%- render 'loading-spinner' -%}
+          </button>
+        </div>
+      </div>
+    </country-selector>
+
+    <div class="mb-2 js-shipping-rate" hidden>
+      <p class="mt-0 mb-0 t4 js-shipping-rate-heading"></p>
+      <div class="t4 js-shipping-rate-text"></div>
+    </div>
+
+    <div class="mb-2 js-shipping-error" hidden>
+      <p class="form__message mb-0 mt-0 t4 flex items-center" tabindex="-1" autofocus>
+        <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+        {% render 'icon-error' %}
+        {{ 'sections.cart.shipping_calculator.error' | t }}
+      </p>
+      <div class="t4 js-shipping-error-content"></div>
+    </div>
+  </form>
+</shipping-calculator>

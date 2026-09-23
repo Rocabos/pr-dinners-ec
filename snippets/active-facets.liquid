@@ -1,0 +1,45 @@
+{% comment %}
+  Renders the active facet filters
+
+  Accepts:
+  - results: {Object} Collection or Search object
+  - results_url: {String} The filter result URL
+
+  Usage:
+  {% render 'active-facets', results: results, results_url: results_url %}
+{% endcomment %}
+
+{%- for filter in results.filters -%}
+  {%- for value in filter.active_values -%}
+    <facet-remove>
+      <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light" data-no-instant>
+        <span class="active-facets__button-inner button button--tertiary">
+          {{ filter.label | escape }}: {{ value.label | escape }}
+          {% render 'icon-close-small' %}
+          <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+        </span>
+      </a>
+    </facet-remove>
+  {%- endfor -%}
+  {%- if filter.type == 'price_range' -%}
+    {% assign min = filter.min_value.value %}
+    {% assign max = filter.max_value.value %}
+    {%- if min != null or max != null -%}
+      <facet-remove>
+        <a href="{{ filter.url_to_remove }}" class="active-facets__button active-facets__button--light" data-no-instant>
+          <span class="active-facets__button-inner button button--tertiary">
+            {{ min | default: 0 | money }} - {{ max | default: filter.range_max | money }}
+            {% render 'icon-close-small' %}
+            <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+          </span>
+        </a>
+      </facet-remove>
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<facet-remove class="active-facets__button-wrapper">
+  <a href="{{ results_url }}" class="active-facets__button-remove un-underlined-link">
+    <span>{{ 'products.facets.clear_all' | t }}</span>
+  </a>
+</facet-remove>

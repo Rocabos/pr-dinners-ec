@@ -1,0 +1,659 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "disabled": true,
+      "settings": {
+        "spacing": 0,
+        "color_scheme": "scheme-2",
+        "line_separator": "border-bottom",
+        "visibility": ""
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "product_badges_XGaTzY": {
+          "type": "product_badges",
+          "settings": {
+            "show_in_quickbuy": true
+          }
+        },
+        "title_r4Yfcn": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h1",
+            "heading_size": "h3",
+            "visibility": ""
+          }
+        },
+        "sku_ibJQtJ": {
+          "type": "sku",
+          "disabled": true,
+          "settings": {
+            "text_style": "body",
+            "text_size": "t3"
+          }
+        },
+        "product_availability_info_RayMqa": {
+          "type": "product_availability_info",
+          "settings": {
+            "in_stock_text": "En stock",
+            "free_shipping_text": "Envío sin costo"
+          }
+        },
+        "spacer_yabJcX": {
+          "type": "spacer",
+          "settings": {
+            "show_line_separator": false,
+            "full_width": true,
+            "line_separator_style": "solid",
+            "spacing_top": 1.8,
+            "spacing_bottom": 1.8,
+            "spacer_visibility": "both",
+            "stock_visibility": "either",
+            "show_in_quickbuy": false,
+            "line_color": ""
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_tax_info": false,
+            "price_color": "#0071e3",
+            "text_size": "h5-size"
+          }
+        },
+        "product_installment_info_rdGxyX": {
+          "type": "product_installment_info",
+          "settings": {}
+        },
+        "text_RDJ7eX": {
+          "type": "text",
+          "settings": {
+            "text": "<a href=\"/pages/pago-diferido-sin-intereses\" target=\"_blank\" title=\"Pago diferido sin intereses\">Distribuye el costo en 6-18 meses</a>",
+            "text_style": "body",
+            "text_size": "t5",
+            "hide_if_no_installments": true
+          }
+        },
+        "spacer_KEzDVU": {
+          "type": "spacer",
+          "settings": {
+            "show_line_separator": false,
+            "full_width": true,
+            "line_separator_style": "solid",
+            "spacing_top": 2,
+            "spacing_bottom": 2,
+            "spacer_visibility": "both",
+            "stock_visibility": "either",
+            "show_in_quickbuy": false,
+            "line_color": ""
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "box",
+            "show_availability": true,
+            "hide_unavailable_variants": true,
+            "box_size": "5",
+            "pill_text_size": "t7",
+            "pill_text_weight": "normal",
+            "pill_text_transform": "none",
+            "prefix": "Seleccionar",
+            "variant_label_text_size": "t5",
+            "variant_label_text_weight": "medium",
+            "variant_label_text_transform": "",
+            "swatch_enabled": true,
+            "swatch_size": 1.2,
+            "swatch_box": true,
+            "size_chart_options": "Size",
+            "popup_style": "side",
+            "size_chart_icon": "question_mark",
+            "size_chart_label": "",
+            "size_chart_page": "",
+            "stock_visibility": "in_stock"
+          }
+        },
+        "spacer_UYdQbz": {
+          "type": "spacer",
+          "settings": {
+            "show_line_separator": false,
+            "full_width": true,
+            "line_separator_style": "solid",
+            "spacing_top": 2,
+            "spacing_bottom": 2,
+            "spacer_visibility": "both",
+            "stock_visibility": "in_stock",
+            "show_in_quickbuy": true,
+            "line_color": ""
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "button_text_transform": "none",
+            "button_text_font_weight": "bold",
+            "icon": "cart",
+            "icon_position": "none",
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": true,
+            "show_quantity": true,
+            "show_price": false,
+            "show_pickup_availability": false
+          }
+        },
+        "spacer_gBXtRY": {
+          "type": "spacer",
+          "settings": {
+            "show_line_separator": true,
+            "full_width": true,
+            "line_separator_style": "solid",
+            "spacing_top": 4,
+            "spacing_bottom": 4,
+            "spacer_visibility": "both",
+            "stock_visibility": "either",
+            "show_in_quickbuy": false,
+            "line_color": ""
+          }
+        },
+        "icon_with_text_BHNnm7": {
+          "type": "icon_with_text",
+          "disabled": true,
+          "settings": {
+            "icon_heading_gap": 1,
+            "text_max_width": 400,
+            "link": "",
+            "icon": "chat_bubbles",
+            "icon_container": "rounded",
+            "icon_size": 2.4,
+            "icon_vertical_position": 0,
+            "icon_color": "",
+            "icon_background_color": "#ffffff",
+            "background_gradient": "",
+            "heading": "<strong>Obtén ayuda al comprar</strong>",
+            "heading_italic_convert": "",
+            "heading_size": "h6",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h3",
+            "text": "<p><a href=\"/pages/contact\" title=\"Contact\">Chatea ahora</a></p>",
+            "text_size": "t6"
+          }
+        },
+        "panel_8URXGi": {
+          "type": "panel",
+          "name": "--- PANEL (BACK IN STOCK) ---",
+          "settings": {
+            "padding": 2.8,
+            "panel_icon": "",
+            "panel_heading": "",
+            "heading_tag": "h2",
+            "heading_style": "text-body",
+            "heading_text_size": "t4",
+            "heading_text_weight": "bold",
+            "below_media": false,
+            "visibility": "",
+            "show_at_specific_time_of_day": false,
+            "show_time_morning": true,
+            "show_time_afternoon": true,
+            "show_time_evening": true,
+            "show_time_night": true,
+            "stock_visibility": "out_of_stock",
+            "show_in_quickbuy": true,
+            "color_scheme": "scheme-5"
+          }
+        },
+        "enquiry_back_in_stock_mCfrfB": {
+          "type": "enquiry_back_in_stock",
+          "settings": {
+            "icon": "",
+            "text": "<h4>Lo sentimos, está agotado.</h4><p>Pero le avisaremos cuando vuelva a estar disponible.</p>",
+            "text_size": "t4",
+            "text_padding": 0.2,
+            "stock_visibility": "out_of_stock",
+            "show_in_quickbuy": true,
+            "color_scheme": "scheme-5",
+            "image_overlay_opacity": 6,
+            "card_shadow": false
+          }
+        },
+        "panel_CUQjtB": {
+          "type": "panel",
+          "name": "--- PANEL (BELOW MEDIA) ---",
+          "settings": {
+            "padding": 0,
+            "panel_icon": "",
+            "panel_heading": "",
+            "heading_tag": "h2",
+            "heading_style": "text-body",
+            "heading_text_size": "t4",
+            "heading_text_weight": "bold",
+            "below_media": true,
+            "visibility": "",
+            "show_at_specific_time_of_day": false,
+            "show_time_morning": true,
+            "show_time_afternoon": true,
+            "show_time_evening": true,
+            "show_time_night": true,
+            "stock_visibility": "either",
+            "show_in_quickbuy": true,
+            "color_scheme": ""
+          }
+        },
+        "product_information_N9QNBY": {
+          "type": "product_information",
+          "disabled": true,
+          "settings": {
+            "heading": "Información del producto",
+            "row_1_title": "Descripción",
+            "row_1_metafield": "{{ product.description }}",
+            "row_2_title": "Características principales",
+            "row_2_metafield": "<p>{{ product.metafields.custom.caracteristicas_principales | metafield_tag }}</p>",
+            "row_3_title": "Requisitos del sistema",
+            "row_3_metafield": "<p>{{ product.metafields.custom.requisitos_del_sistema | metafield_tag }}</p>"
+          }
+        },
+        "panel_gQ7GzV": {
+          "type": "panel",
+          "name": "--- PANEL (COMPLEMENTARY PRODUCTS) ---",
+          "settings": {
+            "padding": 0,
+            "panel_icon": "",
+            "panel_heading": "",
+            "heading_tag": "h2",
+            "heading_style": "text-body",
+            "heading_text_size": "t4",
+            "heading_text_weight": "bold",
+            "below_media": false,
+            "visibility": "",
+            "show_at_specific_time_of_day": false,
+            "show_time_morning": true,
+            "show_time_afternoon": true,
+            "show_time_evening": true,
+            "show_time_night": true,
+            "stock_visibility": "either",
+            "show_in_quickbuy": false,
+            "color_scheme": "scheme-1"
+          }
+        },
+        "complementary_V7Ew3r": {
+          "type": "complementary",
+          "settings": {
+            "layout": "stack",
+            "product_list_limit": 4,
+            "block_heading": "Often bought with",
+            "label_text_size": "t2",
+            "label_text_weight": "bold",
+            "color_scheme": "scheme-2",
+            "card_shadow": true
+          }
+        },
+        "panel_bWz9dJ": {
+          "type": "panel",
+          "name": "--- PANEL (SHOP SAFELY) ---",
+          "settings": {
+            "padding": 2.4,
+            "panel_icon": "",
+            "panel_heading": "",
+            "heading_tag": "h2",
+            "heading_style": "text-body",
+            "heading_text_size": "t2",
+            "heading_text_weight": "bold",
+            "below_media": false,
+            "visibility": "hidden-xs",
+            "show_at_specific_time_of_day": false,
+            "show_time_morning": true,
+            "show_time_afternoon": true,
+            "show_time_evening": true,
+            "show_time_night": true,
+            "stock_visibility": "either",
+            "show_in_quickbuy": false,
+            "color_scheme": "scheme-6c86e387-3661-4d62-9c57-9700f90cd21c"
+          }
+        },
+        "image_single_idm4q4": {
+          "type": "image_single",
+          "disabled": true,
+          "settings": {
+            "image": "{{ product.metafields.custom.imagen_en_la_pdp.value }}",
+            "max_width": 1200,
+            "round_corners": true,
+            "image_link": "",
+            "zoom_on_hover": true,
+            "hide_when_empty": true
+          }
+        }
+      },
+      "block_order": [
+        "product_badges_XGaTzY",
+        "title_r4Yfcn",
+        "sku_ibJQtJ",
+        "product_availability_info_RayMqa",
+        "spacer_yabJcX",
+        "price",
+        "product_installment_info_rdGxyX",
+        "text_RDJ7eX",
+        "spacer_KEzDVU",
+        "variant_picker",
+        "spacer_UYdQbz",
+        "buy_buttons",
+        "spacer_gBXtRY",
+        "icon_with_text_BHNnm7",
+        "panel_8URXGi",
+        "enquiry_back_in_stock_mCfrfB",
+        "panel_CUQjtB",
+        "product_information_N9QNBY",
+        "panel_gQ7GzV",
+        "complementary_V7Ew3r",
+        "panel_bWz9dJ",
+        "image_single_idm4q4"
+      ],
+      "custom_css": [],
+      "settings": {
+        "gallery_layout": "slider",
+        "info_fullwidth_mob": true,
+        "scroll_to_active_variant": true,
+        "sticky_panel_enable": true,
+        "sticky_panel": "",
+        "page_title_enabled": false,
+        "page_title_vendor": false,
+        "page_title_price": true,
+        "page_title_review_stars": true,
+        "page_title_size": "h2",
+        "page_title_visibility": "",
+        "scroll_to_active_variant_on_change": true,
+        "highlight_active_media": true,
+        "slider_controls": "hover",
+        "slider_controls_mobile": true,
+        "slider_full_width_mobile": false,
+        "enable_sticky_info": true,
+        "media_size": "large",
+        "main_image_ratio": "landscape",
+        "media_fit": false,
+        "product_media_radius": 16,
+        "product_media_scale": 100,
+        "enable_video_looping": false,
+        "show_media_shadow": true,
+        "image_zoom": "lightbox",
+        "image_zoom_level": "4",
+        "thumbnail_layout": "desktop",
+        "thumbnail_radius": 8,
+        "thumbnail_scale": 100,
+        "thumbnail_image_ratio": "landscape",
+        "thumbnail_cover": false,
+        "section_color_scheme": "scheme-1",
+        "media_color_scheme": "scheme-1e9c1e91-7716-4983-9c2e-dbf5f44e7811",
+        "thumbnail_color_scheme": "scheme-1e9c1e91-7716-4983-9c2e-dbf5f44e7811",
+        "info_color_scheme": "scheme-1",
+        "cta_color_scheme": "scheme-1",
+        "star_color": "#f5e121",
+        "card_shadow": true,
+        "image_replace_background": false,
+        "top_padding": "pt-0",
+        "bottom_padding": "pb-s"
+      }
+    },
+    "section_tabs_BhNiCz": {
+      "type": "section-tabs",
+      "name": "Section tabs",
+      "settings": {
+        "section_tabs": "4",
+        "tab1": "Descripción",
+        "tab2": "Informacion del producto",
+        "tab3": "Características",
+        "tab4": "Requisitos del sistema",
+        "tab_style": "simple",
+        "tab_alignment": "center",
+        "tab_text_size": "t2",
+        "content_max_width": "m",
+        "desktop_heading_alignment": "center",
+        "mobile_heading_alignment": "center",
+        "title": "",
+        "italic_convert": "",
+        "heading_size": "h2",
+        "text": "",
+        "text_size": "t3",
+        "color_scheme": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-0",
+        "heading_tag": "h2"
+      }
+    },
+    "rich_text_thdwbH": {
+      "type": "rich-text",
+      "blocks": {
+        "text_thhi6M": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.description }}",
+            "text_size": "t3"
+          }
+        }
+      },
+      "block_order": [
+        "text_thhi6M"
+      ],
+      "name": "Description",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_max_width": "xl",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "container_color_scheme": "",
+        "show_content_shadow": false,
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "visibility": "",
+        "hide_when_empty": false,
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true
+      }
+    },
+    "rich_text_mnXTjK": {
+      "type": "rich-text",
+      "blocks": {
+        "text_X8fhYe": {
+          "type": "text",
+          "settings": {
+            "text": "<p>{{ product.metafields.custom.informacion_del_producto | metafield_tag }}</p>",
+            "text_size": "t3"
+          }
+        }
+      },
+      "block_order": [
+        "text_X8fhYe"
+      ],
+      "name": "Informacion del producto",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_max_width": "xl",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "container_color_scheme": "",
+        "show_content_shadow": false,
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "visibility": "",
+        "hide_when_empty": false,
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true
+      }
+    },
+    "rich_text_9RX4jB": {
+      "type": "rich-text",
+      "blocks": {
+        "text_QBRcDh": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.metafields.custom.caracteristicas_principales | metafield_tag }}",
+            "text_size": "t3"
+          }
+        }
+      },
+      "block_order": [
+        "text_QBRcDh"
+      ],
+      "name": "Caracteristicas principales",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_max_width": "xl",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "container_color_scheme": "",
+        "show_content_shadow": false,
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "visibility": "",
+        "hide_when_empty": false,
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true
+      }
+    },
+    "rich_text_cq3eiC": {
+      "type": "rich-text",
+      "blocks": {
+        "text_9iGEbM": {
+          "type": "text",
+          "settings": {
+            "text": "<p>{{ product.metafields.custom.requisitos_del_sistema | metafield_tag }}</p>",
+            "text_size": "t3"
+          }
+        }
+      },
+      "block_order": [
+        "text_9iGEbM"
+      ],
+      "name": "Requisitos del sistema",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_max_width": "m",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "container_color_scheme": "",
+        "show_content_shadow": false,
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "visibility": "",
+        "hide_when_empty": false,
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true
+      }
+    },
+    "video_banner_mQNJpX": {
+      "type": "video-banner",
+      "disabled": true,
+      "settings": {
+        "video": "{{ product.metafields.custom.pdp_video.value }}",
+        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "show_play_pause": false,
+        "reveal_content_timer": 0,
+        "playback_end": "loop",
+        "section_ratio": "landscape_wide",
+        "desktop_section_height": 500,
+        "mobile_section_height": 400,
+        "full_width": true,
+        "full_width_animate": false,
+        "desktop_content_position": "md:justify-center md:items-center",
+        "mobile_content_position": "justify-center items-center",
+        "content_max_width": "xs",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "center",
+        "show_text_box": "desktop",
+        "show_text_below": false,
+        "color_scheme": "scheme-2",
+        "container_color_scheme": "",
+        "color_overlay": "#000000",
+        "video_overlay_opacity": 0,
+        "line_separator": "",
+        "horizontal_padding": 0,
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "visibility": "",
+        "hide_when_empty": true,
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true,
+        "lazy_load": true,
+        "heading_tag": "h2",
+        "description": "",
+        "video_aspect_ratio": "1.77"
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "products_to_show": 5,
+        "desktop_layout": "carousel",
+        "mobile_layout": "carousel",
+        "columns_desktop": "5",
+        "columns_mobile": "2",
+        "carousel_width_desktop": "normal",
+        "show_quick_add_to_cart": true,
+        "show_see_more": false,
+        "always_show_arrows": true,
+        "content_max_width": "m",
+        "desktop_heading_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "title": "Otras recomendaciones",
+        "italic_convert": "",
+        "heading_size": "h4",
+        "text": "",
+        "text_size": "t3",
+        "color_scheme": "scheme-1",
+        "line_separator": "border-top",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "visibility": "",
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "main",
+    "section_tabs_BhNiCz",
+    "rich_text_thdwbH",
+    "rich_text_mnXTjK",
+    "rich_text_9RX4jB",
+    "rich_text_cq3eiC",
+    "video_banner_mQNJpX",
+    "related-products"
+  ]
+}

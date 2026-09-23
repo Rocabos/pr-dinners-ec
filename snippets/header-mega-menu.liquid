@@ -1,0 +1,160 @@
+{%- comment -%}theme-check-disable LiquidTag{%- endcomment -%}
+{% comment %}
+  Renders a megamenu for the header.
+
+  Accepts:
+  - link: {Object} The top level link object
+  - forloop_index: {Number} The counter of which index this item is in the menu object
+  - text_size: {String} The CSS class font size of the mega menu text. Note, text will be made slightly smaller.
+  - promos: {Block Array} Additional mega menus promos which may or not be relevant to this mega menu
+
+  Usage:
+  {% render 'header-mega-menu' %}
+{% endcomment %}
+
+{%- liquid
+  # Make text slightly smaller
+  assign number_part = text_size | slice: 1
+  assign incremented_number = number_part | plus: 1
+  assign text_size = 't' | append: incremented_number
+
+  assign total_cols = 6
+  assign link_title = link.title | downcase | strip
+  assign left_total = 0
+  assign right_total = 0
+  assign above_total = 0
+  assign below_total = 0
+  assign left_cols = ""
+  assign right_cols = ""
+
+  for promo in promos
+    assign columns_wide = promo.settings.columns_wide | plus: 0
+    assign promo_mega_labels = promo.settings.title | downcase | replace: ' ,', ',' | replace: ', ', ',' | split: ','
+    if promo_mega_labels contains link_title and promo.settings.visibility != 'burger'
+      if promo.settings.position == "left"
+        assign left_total = left_total | plus: columns_wide
+        assign left_cols = left_cols | append: columns_wide | append: 'fr' | append: ' '
+      elsif promo.settings.position == "right"
+        assign right_total = right_total | plus: columns_wide
+        assign right_cols = right_cols | append: columns_wide | append: 'fr' | append: ' '
+      elsif promo.settings.position == "above"
+        assign above_total = above_total | plus: columns_wide
+      elsif promo.settings.position == "below"
+        assign below_total = right_total | plus: columns_wide
+      endif
+    endif
+  endfor
+
+  assign link_cols = total_cols | minus: left_total | minus: right_total | at_least: 0
+-%}
+
+<div
+    id="MegaMenu-Content-{{ forloop_index }}"
+    class="mega-menu__content color-{{ section.settings.dropdown_menu_color_scheme }} custom-scrollbar gradient motion-reduce global-settings-popup"
+    tabindex="-1"
+>
+  <div class="page-width">
+    {%- if above_total > 0 -%}
+      {%- for promo in promos -%}
+        {%- assign promo_mega_labels = promo.settings.title | downcase | replace: ' ,', ',' | replace: ', ', ',' | split: ',' -%}
+        {%- if promo_mega_labels contains link_title and promo.settings.visibility != 'burger' -%}
+          {%- if promo.settings.position == "above" -%}
+            <div class="mega-menu__grid mega-menu__grid--above" style="grid-template-columns: repeat({{ total_cols }}, minmax(0, 1fr));">
+              <div class="mega-menu__grid" style="grid-column: span {{ promo.settings.columns_wide }}">
+                {%- render 'header-mega-menu-promo', promo: promo, columns: promo.settings.promos_per_row -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    <div class="mega-menu__grid" style="grid-template-columns: {{ left_cols }} {% if link_cols > 0 %}{{ link_cols }}fr{% endif %} {{ right_cols }}">
+      {%- liquid
+        if left_total > 0
+          for promo in promos
+            assign promo_mega_labels = promo.settings.title | downcase | replace: ' ,', ',' | replace: ', ', ',' | split: ','
+            if promo_mega_labels contains link_title and promo.settings.visibility != 'burger'
+              if promo.settings.position == "left"
+                render 'header-mega-menu-promo', promo: promo, columns: left_cols
+              endif
+            endif
+          endfor
+        endif
+      -%}
+
+      {% if link_cols > 0 %}
+        <div>
+          <ul
+              class="mega-menu__list p-0{% if link.levels == 1 %} mega-menu__list--condensed{% endif %} {{ text_size }}"
+              style="--mega-menu-columns: {{ link_cols }};"
+              role="list"
+          >
+            {%- for childlink in link.links -%}
+              {%- if childlink -%}
+                <li>
+                  <a
+                      id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
+                      href="{{ childlink.url }}"
+                      class="mega-menu__link mega-menu__link--level-2 link"
+                      {% if childlink.current %}
+                        aria-current="page"
+                      {% endif %}
+                  >
+                    {{- childlink.title | escape -}}
+                  </a>
+                  {%- if childlink.links != blank -%}
+                    <ul class="list-unstyled" role="list">
+                      {%- for grandchildlink in childlink.links -%}
+                        <li>
+                          <a
+                              id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                              href="{{ grandchildlink.url }}"
+                              class="mega-menu__link link"
+                              {% if grandchildlink.current %}
+                                aria-current="page"
+                              {% endif %}
+                          >
+                            {{- grandchildlink.title | escape -}}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      {% endif %}
+
+      {%- liquid
+        if right_total > 0
+          for promo in promos
+            assign promo_mega_labels = promo.settings.title | downcase | replace: ' ,', ',' | replace: ', ', ',' | split: ','
+            if promo_mega_labels contains link_title and promo.settings.visibility != 'burger'
+              if promo.settings.position == "right"
+                render 'header-mega-menu-promo', promo: promo, columns: right_cols
+              endif
+            endif
+          endfor
+        endif
+      -%}
+    </div>
+
+    {%- if below_total > 0 -%}
+      {%- for promo in promos -%}
+        {%- assign promo_mega_labels = promo.settings.title | downcase | replace: ' ,', ',' | replace: ', ', ',' | split: ',' -%}
+        {%- if promo_mega_labels contains link_title and promo.settings.visibility != 'burger' -%}
+          {%- if promo.settings.position == "below" -%}
+            <div class="mega-menu__grid mega-menu__grid--below" style="grid-template-columns: repeat({{ total_cols }}, minmax(0, 1fr));">
+              <div class="mega-menu__grid" style="grid-column: span {{ promo.settings.columns_wide }}">
+                {%- render 'header-mega-menu-promo', promo: promo, columns: promo.settings.promos_per_row -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</div>

@@ -1,0 +1,88 @@
+{% comment %}
+  Renders a standard dropdown style menu for the header.
+
+  Accepts:
+  - link: {Object} The top level link object
+  - forloop_index: {Number} The counter of which index this item is in the menu object
+  - text_size: {String} The CSS class font size of the menus text. Note, text will be made slightly smaller.
+
+  Usage:
+  {% render 'header-dropdown-menu' %}
+{% endcomment %}
+
+{%- liquid
+  # Make text slightly smaller
+  assign number_part = text_size | slice: 1
+  assign incremented_number = number_part | plus: 1
+  assign text_size = 't' | append: incremented_number
+-%}
+
+<ul
+  id="HeaderMenu-MenuList-{{ forloop_index }}"
+  class="header__submenu list-menu list-menu--disclosure color-{{ section.settings.dropdown_menu_color_scheme }} gradient motion-reduce global-settings-popup custom-scrollbar {{ text_size }}"
+  role="list"
+  tabindex="-1"
+>
+  {%- for childlink in link.links -%}
+    <li>
+      {%- if childlink.links == blank -%}
+        <a
+          id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
+          href="{{ childlink.url }}"
+          class="header__menu-item list-menu__item link link--text focus-inset{% if childlink.current %} list-menu__item--active{% endif %}"
+          {% if childlink.current %}
+            aria-current="page"
+          {% endif %}
+        >
+          {{ childlink.title | escape }}
+        </a>
+      {%- else -%}
+        <custom-accordion>
+          <details id="Details-HeaderSubMenu-{{ link.handle }}-{{ childlink.handle }}">
+            <summary
+              id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
+              class="header__menu-item link link--text list-menu__item focus-inset"
+            >
+              <span>{{ childlink.title | escape }}</span>
+              {% render 'icon-caret' %}
+            </summary>
+            <div class="custom-accordion__panel">
+              <ul
+                id="HeaderMenu-SubMenuList-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                class="header__submenu list-menu motion-reduce custom-scrollbar"
+              >
+                {%- for grandchildlink in childlink.links -%}
+                  <li>
+                    <a
+                      id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                      href="{{ grandchildlink.url }}"
+                      class="header__menu-item list-menu__item link link--text focus-inset{% if grandchildlink.current %} list-menu__item--active{% endif %}"
+                      {% if grandchildlink.current %}
+                        aria-current="page"
+                      {% endif %}
+                    >
+                      {{ grandchildlink.title | escape }}
+                    </a>
+                  </li>
+                {%- endfor -%}
+                {%- if section.settings.link_headers_third_level -%}
+                  <li>
+                    <a
+                        href="{{ childlink.url }}"
+                        class="header__menu-item list-menu__item link link--text focus-inset{% if childlink.current %} list-menu__item--active{% endif %}"
+                        {% if childlink.current %}
+                          aria-current="page"
+                        {% endif %}
+                    >
+                      <span>{{ 'sections.header.view_all' | t: page: childlink.title }}</span>
+                    </a>
+                  </li>
+                {%- endif -%}
+              </ul>
+            </div>
+          </details>
+        </custom-accordion>
+      {%- endif -%}
+    </li>
+  {%- endfor -%}
+</ul>

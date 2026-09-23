@@ -1,0 +1,979 @@
+{%- comment -%}theme-check-disable SchemaJsonFormat{%- endcomment -%}
+{%- if request.design_mode or section.settings.hide_when_empty == false or section.settings.blog.articles_count > 0 or section.settings.articles.count > 0 -%}
+  {%- if section.index < 3 or request.design_mode -%}
+    {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+    {{ 'component-card.css' | asset_url | stylesheet_tag }}
+    {{ 'component-article-card.css' | asset_url | stylesheet_tag }}
+  {%- else -%}
+    <link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'component-card.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'component-article-card.css' | asset_url }}" media="print" onload="this.media='all'">
+  {%- endif -%}
+
+  {%- liquid
+    assign columns_to_display = section.settings.blog.articles_count
+    assign columns_desktop = section.settings.columns_desktop | plus: 0
+    assign columns_mobile = 1
+
+    if section.settings.blog == blank and section.settings.articles.count == 0
+      assign columns_to_display = section.settings.posts_to_show
+    endif
+
+    if columns_to_display > section.settings.posts_to_show
+      assign columns_to_display = section.settings.posts_to_show
+      assign more_in_blog = true
+    endif
+
+    if section.settings.blog == blank and section.settings.articles.count == 0
+      assign more_in_blog = true
+    endif
+
+    assign show_mobile_slider = false
+    if section.settings.mobile_layout == 'carousel'
+      assign show_mobile_slider = true
+    endif
+
+    assign show_desktop_slider = false
+    if section.settings.desktop_layout == 'carousel'
+      assign show_desktop_slider = true
+    endif
+
+    assign columns_desktop_scale = true
+  -%}
+
+  <div class="color-{{ section.settings.color_scheme }} isolate gradient {{ section.settings.line_separator }} {{ section.settings.visibility }} {%- render 'class-time-of-day-to-show' -%}">
+    <div class="blog section__inner {{ section.settings.top_padding }} {{ section.settings.bottom_padding }}
+      {% if section.settings.carousel_width_desktop == 'wide' %} section-grid-wrapper--full-width{% endif %}">
+
+      {%- if section.settings.show_view_all_link and more_in_blog and section.settings.view_all_text != blank -%}
+        {% capture view_all %}
+          <div class="section-view-all blog__view-all{% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--fade-in{% endif %}">
+            <a
+              href="{{ section.settings.blog.url }}"
+              class="link un-underlined-link button-with-icon button-with-icon--right {{ section.settings.view_all_text_size }}"
+              aria-label="{{ 'sections.featured_blog.view_all' | t }}"
+            >
+              {{ section.settings.view_all_text }}
+              {% render 'icon-arrow' %}
+            </a>
+          </div>
+        {% endcapture %}
+      {%- endif -%}
+
+      {% render 'standard-section-heading',
+          section_name: 'blog',
+          section: section,
+          view_all: view_all
+      %}
+
+      <slider-component class="slider-mobile-gutter page-width-desktop
+          {% if settings.carousel_arrows == false or section.settings.carousel_width_desktop == 'narrow' and section.settings.always_show_arrows == true %} slide-component--show-arrows{% endif %}
+          {% if section.settings.carousel_width_desktop == 'wide' %} slider-component-full-width{% endif %}
+          {% if show_mobile_slider == false %} page-width{% endif %}
+          {% if show_desktop_slider %} slider-component-desktop{% if section.settings.carousel_width_desktop == 'narrow' %} slider-component--narrow-width{% endif %}{% endif %}
+          {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--slide-in{% endif %}"
+      >
+        <ul
+          id="Slider-{{ section.id }}"
+          class="blog__posts section-grid grid articles-wrapper contains-card contains-card--article
+            {% if settings.blog_card_style == 'standard' %} contains-card--standard{% endif %}
+            grid--{{ columns_desktop }}-col-desktop
+            {% if columns_desktop_scale %} grid--scaled{% endif %}
+            grid--{{ columns_mobile }}-col-tablet-down
+            {% if show_mobile_slider or show_desktop_slider %}
+              slider
+              {% if show_desktop_slider %} slider--desktop{% endif %}
+              {% if show_mobile_slider %} slider--tablet grid--peek{% endif %}
+            {% endif %}"
+          role="list"
+          aria-label="{{ 'general.slider.name' | t }}"
+        >
+          {%- if section.settings.articles.count > 0 -%}
+            {%- capture specific_articles -%}
+              {%- for article in section.settings.articles -%}
+                <li
+                  id="Slide-{{ section.id }}-{{ forloop.index }}"
+                  class="blog__post grid__item article
+                    {% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %}
+                    {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--slide-in{% endif %}"
+                  {% if settings.animations_reveal_on_scroll and section.index > 2 %}
+                    data-cascade
+                  {% endif %}
+                >
+
+                  {%- liquid
+                    if article.id == section.settings.blog_card_featured.id
+                      assign is_featured = true
+                    else
+                      assign is_featured = false
+                    endif
+                  -%}
+
+                  {% render 'article-card',
+                    article: article,
+                    show_image: section.settings.show_image,
+                    show_date: section.settings.show_date,
+                    show_author: section.settings.show_author,
+                    excerpt_mode: section.settings.excerpt_mode,
+                    show_reading_estimate: section.settings.show_reading_estimate,
+                    show_first_tag: section.settings.show_first_tag,
+                    is_featured: is_featured,
+                    featured_excerpt_mode: section.settings.featured_excerpt_mode,
+                    columns_desktop: section.settings.columns_desktop
+                  %}
+                </li>
+                {%- assign last_index = forloop.index -%}
+              {%- endfor -%}
+            {%- endcapture -%}
+          {%- endif -%}
+
+          {%- if specific_articles != blank and section.settings.articles_placement == 'before' -%}
+            {{ specific_articles }}
+          {%- endif -%}
+
+          {%- if section.settings.blog != blank -%}
+            {%- for article in section.settings.blog.articles limit: section.settings.posts_to_show -%}
+              <li
+                id="Slide-{{ section.id }}-{{ forloop.index }}"
+                class="blog__post grid__item article
+                  {% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %} 
+                  {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--slide-in{% endif %}"
+                {% if settings.animations_reveal_on_scroll and section.index > 2 %}
+                  data-cascade
+                {% endif %}
+              >
+
+                {%- liquid
+                  if article.id == section.settings.blog_card_featured.id
+                    assign is_featured = true
+                  else
+                    assign is_featured = false
+                  endif
+                -%}
+
+                {% render 'article-card',
+                  blog: section.settings.blog,
+                  article: article,
+                  show_image: section.settings.show_image,
+                  show_date: section.settings.show_date,
+                  show_author: section.settings.show_author,
+                  excerpt_mode: section.settings.excerpt_mode,
+                  show_reading_estimate: section.settings.show_reading_estimate,
+                  show_first_tag: section.settings.show_first_tag,
+                  is_featured: is_featured,
+                  featured_excerpt_mode: section.settings.featured_excerpt_mode,
+                  columns_desktop: section.settings.columns_desktop
+                %}
+              </li>
+              {%- assign last_index = forloop.index -%}
+            {%- endfor -%}
+
+          {%- elsif specific_articles == blank -%}
+
+            {% for i in (1..columns_to_display) -%}
+              <li
+                  id="Slide-{{ section.id }}-{{ forloop.index }}"
+                  class="blog__post grid__item article
+                  {% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %} 
+                  {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--slide-in{% endif %}"
+                  {% if settings.animations_reveal_on_scroll and section.index > 2 %}
+                    data-cascade
+                  {% endif %}
+              >
+                {%- liquid
+                  assign placeholder_image_index = forloop.index0 | modulo: 3 | plus: 1
+                  assign placeholder_image = 'product-' | append: placeholder_image_index
+                  render 'article-card', placeholder_image: placeholder_image
+                -%}
+              </li>
+              {%- assign last_index = forloop.index -%}
+            {%- endfor -%}
+          {%- endif -%}
+
+          {%- if specific_articles != blank and section.settings.articles_placement == 'after' -%}
+            {{ specific_articles }}
+          {%- endif -%}
+          
+          {%- if section.settings.view_all_card_visibility != "off" and more_in_blog -%}
+            <li
+                id="Slide-{{ section.id }}-{{ last_index | plus: 1 }}"
+                class="blog__post grid__item article
+                  {{ section.settings.view_all_card_visibility }}
+                  {% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %} 
+                  {% if settings.animations_reveal_on_scroll and section.index > 2 %} scroll-trigger animate--slide-in{% endif %}"
+                {% if settings.animations_reveal_on_scroll and section.index > 2 %}
+                  data-cascade
+                {% endif %}
+            >
+              <a href="{{ section.settings.blog.url }}"
+                 class="flex flex-col items-center decoration-none justify-center text-center w-full h-full border-radius-blog-card color-{{ section.settings.view_all_color_scheme }} isolate gradient bg-scroll"
+                 aria-label="{{ 'sections.featured_blog.view_all' | t }}"
+              >
+                <div class="card--view-more p-2 {{ section.settings.view_all_text_size }}">
+                  {%- if section.settings.view_all_card_text -%}
+                    <p class="text-heading mt-0 mb-15 last:mb-0">{{ section.settings.view_all_card_text }}</p>
+                  {%- endif -%}
+
+                  {%- if section.settings.view_all_text != blank -%}
+                    <div class="link un-underlined-link button-with-icon button-with-icon--right">
+                      {{ section.settings.view_all_text }}
+                      {% render 'icon-arrow' %}
+                    </div>
+                  {%- endif -%}
+                </div>
+              </a>
+            </li>
+          {%- endif -%}
+        </ul>
+
+        {%- if show_mobile_slider or show_desktop_slider -%}
+          <div class="slider-buttons page-width no-js-hidden">
+            <button
+                type="button"
+                class="slider-button button-control tap-target slider-button--prev"
+                name="previous"
+                aria-label="{{ 'general.slider.previous_slide' | t }}"
+                aria-controls="Slider-{{ section.id }}"
+            >
+              {% render 'icon-caret' %}
+            </button>
+
+            <div class="slider-counter caption visually-hidden">
+              <span class="slider-counter--current">1</span>
+              <span aria-hidden="true"> / </span>
+              <span>{{ 'general.slider.of' | t }}</span>
+              <span class="slider-counter--total">{{ section.settings.posts_to_show }}</span>
+            </div>
+
+            <button
+                type="button"
+                class="slider-button button-control tap-target slider-button--next"
+                name="next"
+                aria-label="{{ 'general.slider.next_slide' | t }}"
+                aria-controls="Slider-{{ section.id }}"
+            >
+              {% render 'icon-caret' %}
+            </button>
+
+            <div class="slider-scrollbar__track" style="--num-slides: {{ last_index }}" data-num-slides="{{ last_index }}">
+              <div class="slider-scrollbar__indicator"></div>
+            </div>
+          </div>
+        {%- endif -%}
+      </slider-component>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Blog posts",
+  "tag": "section",
+  "class": "section section-featured-blog",
+  "disabled_on": {
+    "groups": ["header", "footer", "aside"],
+    "templates": ["password"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Blog"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "posts_to_show",
+      "min": 2,
+      "max": 24,
+      "step": 1,
+      "default": 8,
+      "label": "Maximum blog posts to show"
+    },
+    {
+      "type": "header",
+      "content": "Specific articles"
+    },
+    {
+      "type": "paragraph",
+      "content": "Articles selected below will appear alongside articles from the blog above (if specified)."
+    },
+    {
+      "type": "article_list",
+      "id": "articles",
+      "label": "Articles"
+    },
+    {
+      "type": "select",
+      "id": "articles_placement",
+      "visible_if": "{{ section.settings.blog }}",
+      "default": "before",
+      "label": "Show articles",
+      "options": [
+        {
+          "value": "after",
+          "label": "After blog articles"
+        },
+        {
+          "value": "before",
+          "label": "Before blog articles"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Card layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "default": true,
+      "label": "Show article image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "Show date"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": false,
+      "label": "Show author"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reading_estimate",
+      "default": true,
+      "label": "Show reading estimate"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_first_tag",
+      "default": true,
+      "label": "Show first tag"
+    },
+    {
+      "type": "select",
+      "id": "excerpt_mode",
+      "default": "short",
+      "info": "Article content will be used if the excerpt is empty.",
+      "label": "Excerpt",
+      "options": [
+        {
+          "value": "none",
+          "label": "Hide"
+        },
+        {
+          "value": "short",
+          "label": "Short"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "long",
+          "label": "Long"
+        },
+        {
+          "value": "show",
+          "label": "All"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Featured blog post"
+    },
+    {
+      "type": "article",
+      "id": "blog_card_featured",
+      "label": "Featured blog post"
+    },
+    {
+      "type": "select",
+      "id": "featured_excerpt_mode",
+      "default": "short",
+      "info": "Article content will be used if the excerpt is empty.",
+      "label": "Featured card excerpt",
+      "options": [
+        {
+          "value": "none",
+          "label": "Hide"
+        },
+        {
+          "value": "short",
+          "label": "Short"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "long",
+          "label": "Long"
+        },
+        {
+          "value": "show",
+          "label": "All"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Grid/carousel"
+    },
+    {
+      "type": "select",
+      "id": "desktop_layout",
+      "default": "carousel",
+      "label": "Desktop layout",
+      "options": [
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        },
+        {
+          "value": "grid",
+          "label": "Grid"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "default": "carousel",
+      "label": "Mobile layout",
+      "options": [
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        },
+        {
+          "value": "grid",
+          "label": "Grid"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "options": [
+        {
+          "value": "5",
+          "label": "S"
+        },
+        {
+          "value": "4",
+          "label": "M"
+        },
+        {
+          "value": "3",
+          "label": "L"
+        },
+        {
+          "value": "2",
+          "label": "XL"
+        }
+      ],
+      "default": "3",
+      "label": "Card size on desktop"
+    },
+    {
+      "type": "select",
+      "id": "carousel_width_desktop",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Page width"
+        },
+        {
+          "value": "normal",
+          "label": "Standard"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "default": "normal",
+      "label": "Width on desktop"
+    },
+    {
+      "type": "checkbox",
+      "visible_if": "{{ section.settings.carousel_width_desktop == 'narrow' and settings.carousel_arrows == true and section.settings.desktop_layout == 'carousel' }}",
+      "id": "always_show_arrows",
+      "default": true,
+      "label": "Always show arrows"
+    },
+    {
+      "type": "header",
+      "content": "Header layout"
+    },
+    
+  {
+    "type": "select",
+    "id": "content_max_width",
+    "options": [
+      {
+        "value": "xs",
+        "label": "XS"
+      },
+      {
+        "value": "s",
+        "label": "S"
+      },
+      {
+        "value": "m",
+        "label": "M"
+      },
+      {
+        "value": "l",
+        "label": "L"
+      },
+      {
+        "value": "xl",
+        "label": "XL"
+      }
+    ],
+    "default": "m",
+    "label": "Maximum heading width"
+  },
+  {
+    "type": "text_alignment",
+    "id": "desktop_heading_alignment",
+    "default": "left",
+    "label": "Heading alignment on desktop"
+  },
+  {
+    "type": "text_alignment",
+    "id": "mobile_heading_alignment",
+    "default": "left",
+    "label": "Heading alignment on mobile"
+  }
+,
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    
+  {
+    "type": "inline_richtext",
+    "id": "title",
+    "default": "Blog posts",
+    "info": "Enter ++ for a line break.",
+    "label": "Heading"
+  },
+  {
+    "type": "select",
+    "id": "italic_convert",
+    "visible_if": "{{ section.settings.title != blank }}",
+    "options": [
+      {
+        "value": "",
+        "label": "Off (keep as italics)"
+      },
+      {
+        "value": "light",
+        "label": "Lighter"
+      },
+      {
+        "value": "accent_color",
+        "label": "Accent color"
+      },
+      {
+        "value": "accent",
+        "label": "Accent gradient color"
+      },
+      {
+        "value": "outline",
+        "label": "Outline"
+      },
+      {
+        "value": "outline_accent",
+        "label": "Outline - Accent color"
+      },
+      {
+        "value": "glow",
+        "label": "Glow - Accent color"
+      },
+      {
+        "value": "glow_outline",
+        "label": "Glow with outline - Accent color"
+      }
+    ],
+    "info": "The colors above can be set in the color schemes. 'Outline' may not work with all fonts.",
+    "default": "",
+    "label": "Convert italic text to"
+  },
+  {
+    "type": "select",
+    "id": "heading_size",
+    "visible_if": "{{ section.settings.title != blank }}",
+    "options": [
+      {
+        "value": "h4",
+        "label": "XS"
+      },
+      {
+        "value": "h3",
+        "label": "S"
+      },
+      {
+        "value": "h2",
+        "label": "M"
+      },
+      {
+        "value": "h1",
+        "label": "L"
+      },
+      {
+        "value": "h0",
+        "label": "XL"
+      }
+    ],
+    "default": "h2",
+    "label": "Heading size"
+  }
+,
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    
+  {
+    "type": "richtext",
+    "id": "text",
+    
+    "label": "Description"
+  },
+  {
+    "type": "select",
+    "id": "text_size",
+    "visible_if": "{{ section.settings.text != blank }}",
+    "options": [
+      {
+        "value": "t6",
+        "label": "2XS"
+      },
+      {
+        "value": "t5",
+        "label": "XS"
+      },
+      {
+        "value": "t4",
+        "label": "S"
+      },
+      {
+        "value": "t3",
+        "label": "M"
+      },
+      {
+        "value": "t2",
+        "label": "L"
+      },
+      {
+        "value": "t1",
+        "label": "XL"
+      },
+      {
+        "value": "t0",
+        "label": "2XL"
+      }
+    ],
+    "default": "t3",
+    "label": "Text size"
+  }
+,
+    {
+      "type": "header",
+      "content": "View more"
+    },
+    {
+      "type": "paragraph",
+      "content": "The \"View more\" link and card only show if the blog has more posts than shown."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all_link",
+      "default": true,
+      "label": "Show \"View more\" link"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "default": "View more",
+      "label": "View more link text"
+    },
+    {
+      "type": "select",
+      "id": "view_all_text_size",
+      "options": [
+        {
+          "value": "t6",
+          "label": "2XS"
+        },
+        {
+          "value": "t5",
+          "label": "XS"
+        },
+        {
+          "value": "t4",
+          "label": "S"
+        },
+        {
+          "value": "t3",
+          "label": "M"
+        },
+        {
+          "value": "t2",
+          "label": "L"
+        },
+        {
+          "value": "t1",
+          "label": "XL"
+        },
+        {
+          "value": "t0",
+          "label": "2XL"
+        }
+      ],
+      "default": "t3",
+      "label": "View more text size"
+    },
+    {
+      "type": "select",
+      "id": "view_all_card_visibility",
+      "options": [
+        {
+          "value": "off",
+          "label": "Off"
+        },
+        {
+          "value": "visible-xs",
+          "label": "Mobile"
+        },
+        {
+          "value": "hidden-xs",
+          "label": "Desktop"
+        },
+        {
+          "value": "",
+          "label": "Both"
+        }
+      ],
+      "default": "off",
+      "label": "\"View more\" card",
+      "info": "Shows as a card after the last post."
+    },
+    {
+      "type": "text",
+      "id": "view_all_card_text",
+      "default": "Keep reading",
+      "label": "View more card heading"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Section color scheme",
+      "info": "To change the card color scheme, update your theme settings.",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "view_all_color_scheme",
+      "label": "View more card color scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "select",
+      "id": "line_separator",
+      "options": [
+        {
+          "value": "",
+          "label": "Off"
+        },
+        {
+          "value": "border-top",
+          "label": "Top"
+        },
+        {
+          "value": "border-bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "border-top border-bottom",
+          "label": "Both"
+        }
+      ],
+      "default": "",
+      "label": "Line separator"
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "select",
+      "id": "top_padding",
+      "options": [
+        {
+          "value": "pt-0",
+          "label": "0"
+        },
+        {
+          "value": "pt-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pt-s",
+          "label": "1"
+        },
+        {
+          "value": "pt-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pt-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pt-s",
+      "label": "Top section spacing"
+    },
+    {
+      "type": "select",
+      "id": "bottom_padding",
+      "options": [
+        {
+          "value": "pb-0",
+          "label": "0"
+        },
+        {
+          "value": "pb-s05",
+          "label": "0.5"
+        },
+        {
+          "value": "pb-s",
+          "label": "1"
+        },
+        {
+          "value": "pb-s15",
+          "label": "1.5"
+        },
+        {
+          "value": "pb-s2",
+          "label": "2"
+        }
+      ],
+      "default": "pb-s",
+      "label": "Bottom section spacing"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "options": [
+        {
+          "value": "visible-xs",
+          "label": "Mobile"
+        },
+        {
+          "value": "hidden-xs",
+          "label": "Desktop"
+        },
+        {
+          "value": "",
+          "label": "Both"
+        }
+      ],
+      "default": "",
+      "info": "Lots of hidden content could be harmful for SEO.",
+      "label": "Show on"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_when_empty",
+      "default": false,
+      "label": "Hide this section when there are no posts to show",
+      "info": "This allows metafields to selectively show this section. Always shows in the Theme Editor."
+    },
+    
+  {
+    "type": "checkbox",
+    "id": "show_at_specific_time_of_day",
+    "default": false,
+    "label": "Only show at specific times of the day",
+    "info": "Uses the customers' local time. Always shows in Theme Editor."
+  },
+  {
+    "type": "paragraph",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "content": "Lots of hidden content could be harmful for SEO. Don't overuse this."
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_morning",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show in the morning (5am - 12pm)"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_afternoon",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show in the afternoon (12pm - 5pm)"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_evening",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show in the evening (5pm - 9pm)"
+  },
+  {
+    "type": "checkbox",
+    "id": "show_time_night",
+    "visible_if": "{{ section.settings.show_at_specific_time_of_day }}",
+    "default": true,
+    "label": "Show at night (9pm - 5am)"
+  }
+,
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h2",
+      "info": "For SEO purposes, there should only be one H1 tag on the page.",
+      "label": "Heading tag"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog posts"
+    }
+  ]
+}
+{% endschema %}

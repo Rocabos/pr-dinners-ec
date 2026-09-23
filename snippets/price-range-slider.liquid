@@ -1,0 +1,93 @@
+{%- liquid
+  assign uses_comma_decimals = false
+  assign currency_test_string_unit = 101 | money_without_currency
+  assign currency_test_string_thou = 100000 | money_without_currency
+
+  if currency_test_string_thou == '1.000' or currency_test_string_unit == '1,01'
+    assign uses_comma_decimals = true
+  endif
+
+  # Get the min price, max price and the upper limit of the range slider
+  if uses_comma_decimals
+    assign price_min = filter.min_value.value | money_without_currency | remove: "'" | remove: ' ' | remove: '.' | replace: ',', '.' | floor
+    assign price_max = filter.max_value.value | money_without_currency | remove: "'" | remove: ' ' | remove: '.' | replace: ',', '.' | ceil
+    assign range_max = filter.range_max | money_without_currency | remove: "'" | remove: ' ' | remove: '.' | replace: ',', '.' | ceil
+  else
+    assign price_min = filter.min_value.value | money_without_currency | remove: "'" | remove: ' ' | remove: ',' | floor
+    assign price_max = filter.max_value.value | money_without_currency | remove: "'" | remove: ' ' | remove: ',' | ceil
+    assign range_max = filter.range_max | money_without_currency | remove: "'" | remove: ' ' | remove: ',' | ceil
+  endif
+-%}
+
+<price-range class="facets__price{% unless filter.min_value.value or filter.max_value.value %} facets__price--unset{% endunless %}">
+  <div class="flex items-center gap-1">
+    <div class="field">
+      <span class="field-currency">{{ cart.currency.symbol }}</span>
+      <input
+          class="field__input js-price-min"
+          name="{{ filter.min_value.param_name }}"
+          id="{{ price_prefix }}Filter-{{ filter.label | escape }}-GTE"
+          {% if filter.min_value.value %}value="{{ price_min }}"{% endif %}
+          type="number"
+          placeholder="0"
+          step="1"
+          min="0"
+          max="{{ range_max }}"
+      >
+      <label class="field__label" for="{{ price_prefix }}Filter-{{ filter.label | escape }}-GTE">
+        {{- 'products.facets.from' | t -}}
+      </label>
+    </div>
+
+    <div>-</div>
+
+    <div class="field">
+      <span class="field-currency">{{ cart.currency.symbol }}</span>
+      <input
+          class="field__input js-price-max"
+          name="{{ filter.max_value.param_name }}"
+          id="{{ price_prefix }}Filter-{{ filter.label | escape }}-LTE"
+          {% if filter.max_value.value %}value="{{ price_max }}"{% endif %}
+          placeholder="{{ range_max }}"
+          type="number"
+          step="1"
+          min="0"
+          max="{{ range_max }}"
+      >
+      <label class="field__label" for="{{ price_prefix }}Filter-{{ filter.label | escape }}-LTE">
+        {{- 'products.facets.to' | t -}}
+      </label>
+    </div>
+  </div>
+
+  <div class="price-range relative mt-2 no-js-hidden">
+    <input
+        id="{{ price_prefix }}SliderFilter-{{ filter.label | escape }}-GTE"
+        class="price-range__input absolute h-full pointer-events-none js-price-range-min"
+        value="{% if filter.min_value.value %}{{ price_min }}{% else %}0{% endif %}"
+        type="range"
+        step="1"
+        min="0"
+        max="{{ range_max }}"
+        tabindex="-1"
+    >
+    <label class="visually-hidden" for="{{ price_prefix }}SliderFilter-{{ filter.label | escape }}-GTE">
+      {{- 'products.facets.from' | t -}}
+    </label>
+
+    <input
+        id="{{ price_prefix }}SliderFilter-{{ filter.label | escape }}-LTE"
+        class="price-range__input absolute h-full pointer-events-none js-price-range-max"
+        value="{% if filter.max_value.value %}{{ price_max }}{% else %}{{ range_max }}{% endif %}"
+        type="range"
+        step="1"
+        min="0"
+        max="{{ range_max }}"
+        tabindex="-1"
+    >
+    <label class="visually-hidden" for="{{ price_prefix }}SliderFilter-{{ filter.label | escape }}-LTE">
+      {{- 'products.facets.to' | t -}}
+    </label>
+  </div>
+
+</price-range>
