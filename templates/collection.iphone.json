@@ -367,6 +367,7 @@
             "text_vertical_alignment": "justify-start",
             "content_max_width": "l",
             "image": "shopify://shop_images/banner_600x600_copia_93accfc3-f3d7-4cf2-9d50-3bedb6b39642.jpg",
+            "mobile_image": "shopify://shop_images/banner_mobile.png",
             "image_overlay_opacity": 0,
             "icon": "",
             "icon_container": "rounded",
