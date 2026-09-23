@@ -133,18 +133,14 @@
 
                 if has_desktop_image
                   assign gallery_desktop_image = block.settings.image
-                  assign ratio_desktop = block.settings.image.aspect_ratio
                 elsif has_mobile_image
                   assign gallery_desktop_image = block.settings.mobile_image
-                  assign ratio_desktop = block.settings.mobile_image.aspect_ratio
                 endif
 
                 if has_mobile_image
                   assign gallery_mobile_image = block.settings.mobile_image
-                  assign ratio_mobile = block.settings.mobile_image.aspect_ratio
                 elsif has_desktop_image
                   assign gallery_mobile_image = block.settings.image
-                  assign ratio_mobile = block.settings.image.aspect_ratio
                 endif
 
                 assign image_width = section.settings.columns_desktop
@@ -162,87 +158,86 @@
                   {% if section.settings.full_width %} rounded-none{% endif %}
                   {% if content_has_link == false and block.settings.card_link != blank %} full-unstyled-link--foreground hover-zoom focus-this-inner-inset{% endif %}
                 "
-                style="--responsive-card-padding: {{ section.settings.content_padding }}rem;{% if has_any_image %}--overlay-opacity: {{ block.settings.image_overlay_opacity | divided_by: 100.0 }};--vp-gallery-ratio-mobile: {{ ratio_mobile }};--vp-gallery-ratio-desktop: {{ ratio_desktop }};{% endif %}{% if block.settings.custom_background != blank and block.settings.custom_background.alpha > 0 %}--color-background: {{ block.settings.custom_background.red }},{{ block.settings.custom_background.green }},{{ block.settings.custom_background.blue }};--gradient-background: {{ block.settings.custom_background }};{% endif %}"
+                style="--responsive-card-padding: {{ section.settings.content_padding }}rem;{% if has_any_image %}--overlay-opacity: {{ block.settings.image_overlay_opacity | divided_by: 100.0 }};{% endif %}{% if block.settings.custom_background != blank and block.settings.custom_background.alpha > 0 %}--color-background: {{ block.settings.custom_background.red }},{{ block.settings.custom_background.green }},{{ block.settings.custom_background.blue }};--gradient-background: {{ block.settings.custom_background }};{% endif %}"
               >
                 {%- if has_any_image -%}
-                  <div class="absolute inset image-overlay">
-                    <div class="vp-gallery-media-wrap inline-block w-full h-full{% if section.settings.full_width %} global-media-settings--full-width{% endif %}">
-                      <div class="media media--transparent w-full h-full">
-                        {%- if has_mobile_image -%}
-                          <img
-                            srcset="
-                              {%- if gallery_mobile_image.width >= 165 -%}{{ gallery_mobile_image | image_url: width: 165 }} 165w,{%- endif -%}
-                              {%- if gallery_mobile_image.width >= 360 -%}{{ gallery_mobile_image | image_url: width: 360 }} 360w,{%- endif -%}
-                              {%- if gallery_mobile_image.width >= 533 -%}{{ gallery_mobile_image | image_url: width: 533 }} 533w,{%- endif -%}
-                              {%- if gallery_mobile_image.width >= 750 -%}{{ gallery_mobile_image | image_url: width: 750 }} 750w,{%- endif -%}
-                              {{ gallery_mobile_image | image_url }} {{ gallery_mobile_image.width }}w
-                            "
-                            src="{{ gallery_mobile_image | image_url: width: 750 }}"
-                            sizes="
-                              (min-width: 576px) calc((100vw - 50px) / {{ columns_mobile }}),
-                              calc((100vw - 30px) / {{ columns_mobile }})
-                            "
-                            alt="{{ gallery_mobile_image.alt | default: gallery_desktop_image.alt | escape }}"
-                            class="gallery__image{% if has_desktop_image %} large-up-hide{% endif %}"
-                            loading="{{ img_loading }}"
-                            width="{{ gallery_mobile_image.width }}"
-                            height="{{ gallery_mobile_image.height }}"
-                            {% if gallery_mobile_image.presentation %}
-                              style="object-position: {{ gallery_mobile_image.presentation.focal_point }}"
-                            {% endif %}
-                          >
-                        {%- endif -%}
+                  <div class="vp-gallery-media-wrap image-overlay{% if section.settings.full_width %} global-media-settings--full-width{% endif %}">
+                    {%- if has_mobile_image -%}
+                      <img
+                        srcset="
+                          {%- if gallery_mobile_image.width >= 165 -%}{{ gallery_mobile_image | image_url: width: 165 }} 165w,{%- endif -%}
+                          {%- if gallery_mobile_image.width >= 360 -%}{{ gallery_mobile_image | image_url: width: 360 }} 360w,{%- endif -%}
+                          {%- if gallery_mobile_image.width >= 533 -%}{{ gallery_mobile_image | image_url: width: 533 }} 533w,{%- endif -%}
+                          {%- if gallery_mobile_image.width >= 750 -%}{{ gallery_mobile_image | image_url: width: 750 }} 750w,{%- endif -%}
+                          {{ gallery_mobile_image | image_url }} {{ gallery_mobile_image.width }}w
+                        "
+                        src="{{ gallery_mobile_image | image_url: width: 750 }}"
+                        sizes="
+                          (min-width: 576px) calc((100vw - 50px) / {{ columns_mobile }}),
+                          calc((100vw - 30px) / {{ columns_mobile }})
+                        "
+                        alt="{{ gallery_mobile_image.alt | default: gallery_desktop_image.alt | escape }}"
+                        class="gallery__image{% if has_desktop_image %} large-up-hide{% endif %}"
+                        loading="{{ img_loading }}"
+                        width="{{ gallery_mobile_image.width }}"
+                        height="{{ gallery_mobile_image.height }}"
+                        {% if gallery_mobile_image.presentation %}
+                          style="object-position: {{ gallery_mobile_image.presentation.focal_point }}"
+                        {% endif %}
+                      >
+                    {%- endif -%}
 
-                        {%- if has_desktop_image -%}
-                          <img
-                            srcset="
-                              {%- if gallery_desktop_image.width >= 165 -%}
-                                {{ gallery_desktop_image | image_url: width: 165 }} 165w,
-                              {%- endif -%}
-                              {%- if gallery_desktop_image.width >= 360 -%}
-                                {{ gallery_desktop_image | image_url: width: 360 }} 360w,
-                              {%- endif -%}
-                              {%- if gallery_desktop_image.width >= 533 -%}
-                                {{ gallery_desktop_image | image_url: width: 533 }} 533w,
-                              {%- endif -%}
-                              {%- if gallery_desktop_image.width >= 940 -%}
-                                {{ gallery_desktop_image | image_url: width: 940 }} 940w,
-                              {%- endif -%}
-                              {%- if gallery_desktop_image.width >= 1066 -%}
-                                {{ gallery_desktop_image | image_url: width: 1066 }} 1066w,
-                              {%- endif -%}
-                              {{ gallery_desktop_image | image_url }} {{ gallery_desktop_image.width }}w
-                            "
-                            src="{{ gallery_desktop_image | image_url: width: 720 }}"
-                            sizes="
-                              (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: image_width }}px,
-                              (min-width: 1200px) calc((100vw - 130px) / {{ image_width }}),
-                              (min-width: 992px) calc((100vw - 130px) / {{ image_width | minus: 1 | at_least: 1 }}),
-                              (min-width: 768px) calc((100vw - 120px) / {{ image_width | minus: 1 | at_least: 1 }}),
-                              (min-width: 576px) calc((100vw - 50px) / {{ columns_mobile }}),
-                              calc((100vw - 30px) / {{ columns_mobile }})
-                            "
-                            alt="{{ gallery_desktop_image.alt | escape }}"
-                            class="gallery__image{% if has_mobile_image %} small-hide{% endif %}"
-                            loading="{{ img_loading }}"
-                            width="{{ gallery_desktop_image.width }}"
-                            height="{{ gallery_desktop_image.height }}"
-                            {% if gallery_desktop_image.presentation %}
-                              style="object-position: {{ gallery_desktop_image.presentation.focal_point }}"
-                            {% endif %}
-                          >
-                        {%- endif -%}
-                      </div>
-                    </div>
+                    {%- if has_desktop_image -%}
+                      <img
+                        srcset="
+                          {%- if gallery_desktop_image.width >= 165 -%}
+                            {{ gallery_desktop_image | image_url: width: 165 }} 165w,
+                          {%- endif -%}
+                          {%- if gallery_desktop_image.width >= 360 -%}
+                            {{ gallery_desktop_image | image_url: width: 360 }} 360w,
+                          {%- endif -%}
+                          {%- if gallery_desktop_image.width >= 533 -%}
+                            {{ gallery_desktop_image | image_url: width: 533 }} 533w,
+                          {%- endif -%}
+                          {%- if gallery_desktop_image.width >= 940 -%}
+                            {{ gallery_desktop_image | image_url: width: 940 }} 940w,
+                          {%- endif -%}
+                          {%- if gallery_desktop_image.width >= 1066 -%}
+                            {{ gallery_desktop_image | image_url: width: 1066 }} 1066w,
+                          {%- endif -%}
+                          {{ gallery_desktop_image | image_url }} {{ gallery_desktop_image.width }}w
+                        "
+                        src="{{ gallery_desktop_image | image_url: width: 720 }}"
+                        sizes="
+                          (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: image_width }}px,
+                          (min-width: 1200px) calc((100vw - 130px) / {{ image_width }}),
+                          (min-width: 992px) calc((100vw - 130px) / {{ image_width | minus: 1 | at_least: 1 }}),
+                          (min-width: 768px) calc((100vw - 120px) / {{ image_width | minus: 1 | at_least: 1 }}),
+                          (min-width: 576px) calc((100vw - 50px) / {{ columns_mobile }}),
+                          calc((100vw - 30px) / {{ columns_mobile }})
+                        "
+                        alt="{{ gallery_desktop_image.alt | escape }}"
+                        class="gallery__image{% if has_mobile_image %} small-hide{% endif %}"
+                        loading="{{ img_loading }}"
+                        width="{{ gallery_desktop_image.width }}"
+                        height="{{ gallery_desktop_image.height }}"
+                        {% if gallery_desktop_image.presentation %}
+                          style="object-position: {{ gallery_desktop_image.presentation.focal_point }}"
+                        {% endif %}
+                      >
+                    {%- endif -%}
                   </div>
                 {%- endif -%}
 
                 <div
                   class="
-                    card-padding block-when-empty relative grow
-                    {% unless has_any_image %} section-height-responsive--mobile section-height-responsive--desktop{% endunless %}
+                    card-padding block-when-empty
+                    {% if has_any_image %}
+                      vp-gallery-content absolute inset z-2
+                    {% else %}
+                      relative grow section-height-responsive--mobile section-height-responsive--desktop
+                    {% endif %}
                     max-w-{{ block.settings.content_max_width }} flex flex-col {{ block.settings.text_vertical_alignment }} self-{{ block.settings.column_alignment }}
-                    {% if has_any_image %} z-1{% endif %}
                   "
                 >
                   {%- if block.settings.icon != blank and block.settings.stat_number == blank -%}
