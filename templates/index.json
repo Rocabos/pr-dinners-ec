@@ -141,6 +141,48 @@
         "slide_rxd8KQ": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/Mesa_de_trabajo_1_2_65a01db5-abd2-49d6-b265-125fa487fb02.png",
+            "mobile_image": "shopify://shop_images/Mesa_de_trabajo_2_1_55e31561-082b-44e7-993c-1ebd61dfc3a1.png",
+            "image_overlay_opacity": 0,
+            "image_link": "",
+            "horizontal_offset": 0.4,
+            "vertical_offset": 5.8,
+            "desktop_content_position": "md:justify-start md:items-center",
+            "mobile_content_position": "justify-center items-start",
+            "content_max_width": "s",
+            "desktop_content_alignment": "left",
+            "mobile_content_alignment": "center",
+            "show_text_box": "off",
+            "caption": "",
+            "caption_text_style": "caption-with-letter-spacing",
+            "caption_text_size": "t5",
+            "heading": "",
+            "heading_italic_convert": "accent",
+            "heading_size": "custom",
+            "heading_size_custom": 4,
+            "heading_line_height_custom": 1,
+            "heading_tag": "h1",
+            "text": "",
+            "text_size": "t0",
+            "button_text_size": "t2",
+            "button_label_1": "",
+            "button_link_1": "",
+            "button_style_1": "secondary",
+            "button_style_1_show_arrow": false,
+            "button_style_1_show_gradient_border": false,
+            "button_1_border_gradient": "linear-gradient(117deg, rgba(100, 179, 255, 1) 3%, rgba(234, 145, 254, 1) 98%)",
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_2": "secondary",
+            "button_style_2_show_arrow": false,
+            "button_style_2_show_gradient_border": false,
+            "button_2_border_gradient": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+            "color_scheme": "scheme-1"
+          }
+        },
+        "slide_BJep7n": {
+          "type": "slide",
+          "settings": {
             "image": "shopify://shop_images/Banner_desk_Diners_2500x1000_1.jpg",
             "mobile_image": "shopify://shop_images/Banner_mobile_Diners_1000x1000_1.jpg",
             "image_overlay_opacity": 0,
@@ -185,7 +227,8 @@
         "slide_YggPak",
         "slide_9WgPPM",
         "slide_bMYq4n",
-        "slide_rxd8KQ"
+        "slide_rxd8KQ",
+        "slide_BJep7n"
       ],
       "custom_css": [],
       "settings": {
