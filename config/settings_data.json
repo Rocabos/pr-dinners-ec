@@ -173,7 +173,10 @@
       "main-password-header": {
         "type": "main-password-header",
         "settings": {
-          "color_scheme": "scheme-1"
+          "logo": "shopify://shop_images/DinersClub_NACIONAL_Logo.png",
+          "logo_width": 250,
+          "color_scheme": "scheme-1",
+          "line_separator": "border-bottom"
         }
       },
       "main-password-footer": {
