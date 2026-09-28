@@ -58,154 +58,6 @@
         "bottom_padding": "pb-s"
       }
     },
-    "logo_list_9n4AeP": {
-      "type": "logo-list",
-      "blocks": {
-        "column_standard_gpqc7t": {
-          "type": "column_standard",
-          "settings": {
-            "image": "shopify://shop_images/Phone_17Pro.png",
-            "image_scale": 100,
-            "text": "<p>iPhone 17 Pro</p>",
-            "text_size": "t3",
-            "card_link": "shopify://products/iphone-17-pro",
-            "custom_background": ""
-          }
-        },
-        "column_standard_3dU9bK": {
-          "type": "column_standard",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/iphone-air-image.png",
-            "image_scale": 100,
-            "text": "<p>iPhone  Air</p>",
-            "text_size": "t3",
-            "card_link": "shopify://products/iphone-15",
-            "custom_background": ""
-          }
-        },
-        "column_standard_q9k3tX": {
-          "type": "column_standard",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/iPhone_17.png",
-            "image_scale": 100,
-            "text": "<p>iPhone 17</p>",
-            "text_size": "t3",
-            "card_link": "shopify://products/iphone-17-a",
-            "custom_background": ""
-          }
-        },
-        "column_standard_tCdUHX": {
-          "type": "column_standard",
-          "settings": {
-            "image": "shopify://shop_images/iPhone_15.png",
-            "image_scale": 100,
-            "text": "<p>iPhone 15</p>",
-            "text_size": "t3",
-            "card_link": "shopify://products/iphone-15",
-            "custom_background": ""
-          }
-        },
-        "column_standard_NfVKrY": {
-          "type": "column_standard",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/iphone-17e-image.png",
-            "image_scale": 100,
-            "text": "<p>iPhone  17e</p>",
-            "text_size": "t3",
-            "card_link": "#",
-            "custom_background": ""
-          }
-        },
-        "column_standard_Rpp6Aq": {
-          "type": "column_standard",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/iphone-16-image.png",
-            "image_scale": 100,
-            "text": "<p>iPhone 16</p>",
-            "text_size": "t3",
-            "card_link": "shopify://products/iphone-17",
-            "custom_background": ""
-          }
-        },
-        "column_standard_xtgaQP": {
-          "type": "column_standard",
-          "settings": {
-            "image": "shopify://shop_images/Comprar.png",
-            "image_scale": 100,
-            "text": "<p>Comprar</p>",
-            "text_size": "t3",
-            "card_link": "https://tiendadiners.com.ec/search?options%5Bprefix%5D=last&q=iPhone",
-            "custom_background": ""
-          }
-        },
-        "column_standard_Kx88pw": {
-          "type": "column_standard",
-          "settings": {
-            "image": "shopify://shop_images/Accesorios.png",
-            "image_scale": 100,
-            "text": "<p>Accesorios</p>",
-            "text_size": "t3",
-            "card_link": "shopify://collections/accesorios",
-            "custom_background": ""
-          }
-        }
-      },
-      "block_order": [
-        "column_standard_gpqc7t",
-        "column_standard_3dU9bK",
-        "column_standard_q9k3tX",
-        "column_standard_tCdUHX",
-        "column_standard_NfVKrY",
-        "column_standard_Rpp6Aq",
-        "column_standard_xtgaQP",
-        "column_standard_Kx88pw"
-      ],
-      "name": "Logo list",
-      "settings": {
-        "column_alignment": "center",
-        "image_ratio": "landscape_wide",
-        "spacing_grid": 4,
-        "content_padding": 0,
-        "desktop_layout": "grid",
-        "mobile_layout": "carousel",
-        "columns_desktop": "4",
-        "columns_mobile": "2",
-        "carousel_width_desktop": "normal",
-        "always_show_arrows": true,
-        "image_overlay_opacity": 0,
-        "content_max_width": "m",
-        "desktop_heading_alignment": "left",
-        "mobile_heading_alignment": "left",
-        "title": "{{ collection.title }}",
-        "italic_convert": "",
-        "heading_size": "h3",
-        "text": "",
-        "text_size": "t3",
-        "view_all_link": "",
-        "view_all_text": "",
-        "view_all_text_size": "t3",
-        "color_scheme": "",
-        "card_color_scheme": "",
-        "color_scheme_bg_fix": false,
-        "card_shadow": false,
-        "line_separator": "",
-        "horizontal_padding": 14,
-        "top_padding": "pt-s",
-        "bottom_padding": "pb-s",
-        "visibility": "",
-        "hide_when_empty": false,
-        "show_at_specific_time_of_day": false,
-        "show_time_morning": true,
-        "show_time_afternoon": true,
-        "show_time_evening": true,
-        "show_time_night": true,
-        "heading_tag": "h2"
-      }
-    },
     "product-grid": {
       "type": "main-collection-product-grid",
       "blocks": {
@@ -268,7 +120,7 @@
       "type": "video-banner",
       "name": "Video banner",
       "settings": {
-        "video": "shopify://files/videos/iphone-collection-banner-video-1.mp4",
+        "video": "shopify://files/videos/1.mp4",
         "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
         "show_play_pause": false,
         "reveal_content_timer": 0,
@@ -312,12 +164,12 @@
       "settings": {
         "products": [
           "iphone-15",
-          "iphone-17",
-          "iphone-17-a",
           "iphone-17-pro",
-          "iphone-17-pro-max",
           "iphone-17-pro-max-a",
-          "iphone-air"
+          "airpods-4",
+          "airpods-pro-3",
+          "airtag-4-pack",
+          "apple-240w-usb-c-charge-cable-2-m"
         ],
         "desktop_layout": "carousel",
         "mobile_layout": "carousel",
@@ -471,7 +323,6 @@
   "order": [
     "breadcrumbs",
     "banner",
-    "logo_list_9n4AeP",
     "product-grid",
     "video_banner_UT4NMc",
     "product_list_Wgq7CW",
