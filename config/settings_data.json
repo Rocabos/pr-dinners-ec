@@ -181,6 +181,9 @@
       },
       "main-password-footer": {
         "type": "main-password-footer",
+        "custom_css": [
+          ".password__footer {display: none !important;}"
+        ],
         "settings": {}
       }
     },
