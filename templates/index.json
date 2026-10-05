@@ -18,7 +18,7 @@
             "image": "shopify://shop_images/desk_1920x800_4.png",
             "mobile_image": "shopify://shop_images/mobile_1080x1400_2.png",
             "image_overlay_opacity": 0,
-            "image_link": "shopify://collections/iphone",
+            "image_link": "shopify://products/iphone-17-pro",
             "horizontal_offset": 0.4,
             "vertical_offset": 5.8,
             "desktop_content_position": "md:justify-start md:items-center",
