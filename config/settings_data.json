@@ -144,7 +144,8 @@
     "seo_title_tag_store_name": true,
     "installment_rules": [
       "diferido-3-m-sin-interes",
-      "diferido-6-m-sin-interes"
+      "diferido-6-m-sin-interes",
+      "diferido-12-m-sin-interes"
     ],
     "installment_text": "{{installments_number}} cuotas de {{value}} sin interés con Diners Club.",
     "installments_number": 12,
