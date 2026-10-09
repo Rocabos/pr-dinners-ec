@@ -12,6 +12,48 @@
     "slideshow_hc4nU7": {
       "type": "slideshow",
       "blocks": {
+        "slide_yLYyRi": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/desk_1920x800_ba9b3ebb-d545-47a4-931a-42f6ffa224d2.jpg",
+            "mobile_image": "shopify://shop_images/mobile_1080x1400_e154a30b-3418-467b-8615-73307062dbcd.jpg",
+            "image_overlay_opacity": 0,
+            "image_link": "shopify://products/iphone-17-pro-max-a",
+            "horizontal_offset": -6,
+            "vertical_offset": -4.8,
+            "desktop_content_position": "md:justify-start md:items-center",
+            "mobile_content_position": "justify-center items-start",
+            "content_max_width": "s",
+            "desktop_content_alignment": "left",
+            "mobile_content_alignment": "center",
+            "show_text_box": "off",
+            "caption": "",
+            "caption_text_style": "caption-with-letter-spacing",
+            "caption_text_size": "t5",
+            "heading": "",
+            "heading_italic_convert": "",
+            "heading_size": "h3",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h2",
+            "text": "",
+            "text_size": "t3",
+            "button_text_size": "t3",
+            "button_label_1": "",
+            "button_link_1": "/",
+            "button_style_1": "primary",
+            "button_style_1_show_arrow": false,
+            "button_style_1_show_gradient_border": false,
+            "button_1_border_gradient": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_2": "secondary",
+            "button_style_2_show_arrow": false,
+            "button_style_2_show_gradient_border": false,
+            "button_2_border_gradient": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+            "color_scheme": "scheme-1"
+          }
+        },
         "slide_9WgPPM": {
           "type": "slide",
           "settings": {
@@ -182,6 +224,7 @@
         }
       },
       "block_order": [
+        "slide_yLYyRi",
         "slide_9WgPPM",
         "slide_bMYq4n",
         "slide_rxd8KQ",
