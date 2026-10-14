@@ -15,10 +15,10 @@
         "slide_yLYyRi": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/desk_1920x800_ba9b3ebb-d545-47a4-931a-42f6ffa224d2.jpg",
-            "mobile_image": "shopify://shop_images/mobile_1080x1400_e154a30b-3418-467b-8615-73307062dbcd.jpg",
+            "image": "shopify://shop_images/Lanzamiento_1_-_Banner_Escritorio_1920x800_82f7199f-8667-4c38-8b74-d940cdd96a5c.png",
+            "mobile_image": "shopify://shop_images/Lanzamiento_1_-_Banner_Mobile_1080x1400_bf957d62-9293-48b4-b2d1-4c27ca5df3b4.png",
             "image_overlay_opacity": 0,
-            "image_link": "shopify://products/iphone-17-pro-max-a",
+            "image_link": "",
             "horizontal_offset": -6,
             "vertical_offset": -4.8,
             "desktop_content_position": "md:justify-start md:items-center",
@@ -57,10 +57,10 @@
         "slide_9WgPPM": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Escritorio-_1920_x_800px.jpg",
-            "mobile_image": "shopify://shop_images/Movil-_1080_x_1400px_1.png",
+            "image": "shopify://shop_images/iPhone_17_Pro_Max_256GB_Cosmic_Orange_-_Banner_Escritorio_1920x800_361d1b9f-c0cc-4334-b83a-444f0ef06092.png",
+            "mobile_image": "shopify://shop_images/iPhone_17_Pro_Max_256GB_Cosmic_Orange_-_Banner_Mobile_1080x1400_31294cd2-e2ef-4a9a-8200-5ee50affbd84.png",
             "image_overlay_opacity": 0,
-            "image_link": "",
+            "image_link": "shopify://products/iphone-17-pro-max-a",
             "horizontal_offset": 0.4,
             "vertical_offset": 5.8,
             "desktop_content_position": "md:justify-start md:items-center",
@@ -99,10 +99,10 @@
         "slide_bMYq4n": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/banner_2500x1000_1780a0bd-be8e-4b6a-be68-d5cbacbcb384.png",
-            "mobile_image": "shopify://shop_images/banner_1100x1100_311be5d8-3ab9-402e-9114-6e821ea5803f.png",
+            "image": "shopify://shop_images/iPad_11_A16_256GB_Silver_-_Banner_Escritorio_1920x800_1b1fb6f3-cc4d-4011-bfb6-1fa590921cff.png",
+            "mobile_image": "shopify://shop_images/iPad_11_A16_256GB_Silver_-_Banner_Mobile_1080x1400_300ac749-359b-45bb-9cc3-069020aef16c.png",
             "image_overlay_opacity": 0,
-            "image_link": "shopify://collections/iphone",
+            "image_link": "shopify://products/ipad",
             "horizontal_offset": 0.4,
             "vertical_offset": 5.8,
             "desktop_content_position": "md:justify-start md:items-center",
@@ -141,10 +141,10 @@
         "slide_rxd8KQ": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Mesa_de_trabajo_1_2_65a01db5-abd2-49d6-b265-125fa487fb02.png",
-            "mobile_image": "shopify://shop_images/Mesa_de_trabajo_2_1_55e31561-082b-44e7-993c-1ebd61dfc3a1.png",
+            "image": "shopify://shop_images/MacBook_Neo_13_A18_Pro_512GB_Silver_-_Banner_Escritorio_1920x800_de29142d-4f60-43b1-897c-18cd5ac89705.png",
+            "mobile_image": "shopify://shop_images/MacBook_Neo_13_A18_Pro_512GB_Silver_-_Banner_Mobile_1080x1400_3eb96c8e-b679-4216-8ecf-0a4d4e0ace67.png",
             "image_overlay_opacity": 0,
-            "image_link": "",
+            "image_link": "shopify://products/macbook-neo",
             "horizontal_offset": 0.4,
             "vertical_offset": 5.8,
             "desktop_content_position": "md:justify-start md:items-center",
@@ -183,8 +183,8 @@
         "slide_BJep7n": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Banner_desk_Diners_2500x1000_1.jpg",
-            "mobile_image": "shopify://shop_images/Banner_mobile_Diners_1000x1000_1.jpg",
+            "image": "shopify://shop_images/iPad_11_A16_128GB_Silver_-_Banner_Escritorio_1920x800_e49755be-8307-46e2-a975-47dc7cc9cdee.png",
+            "mobile_image": "shopify://shop_images/iPad_11_A16_128GB_Silver_-_Banner_Mobile_1080x1400_aa7984f7-f82e-4558-af8a-e91e33419e8a.png",
             "image_overlay_opacity": 0,
             "image_link": "shopify://collections/apple-watch",
             "horizontal_offset": 0.4,
