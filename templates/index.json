@@ -98,6 +98,7 @@
         },
         "slide_bMYq4n": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/iPad_11_A16_256GB_Silver_-_Banner_Escritorio_1920x800_1b1fb6f3-cc4d-4011-bfb6-1fa590921cff.png",
             "mobile_image": "shopify://shop_images/iPad_11_A16_256GB_Silver_-_Banner_Mobile_1080x1400_300ac749-359b-45bb-9cc3-069020aef16c.png",
