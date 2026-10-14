@@ -98,10 +98,9 @@
         },
         "slide_rxd8KQ": {
           "type": "slide",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/MacBook_Neo_13_A18_Pro_512GB_Silver_-_Banner_Escritorio_1920x800_de29142d-4f60-43b1-897c-18cd5ac89705.png",
-            "mobile_image": "shopify://shop_images/MacBook_Neo_13_A18_Pro_512GB_Silver_-_Banner_Mobile_1080x1400_3eb96c8e-b679-4216-8ecf-0a4d4e0ace67.png",
+            "image": "shopify://shop_images/MacBook_Neo_13_A18_Pro_512GB_Silver_-_Banner_Escritorio_1920x800_1.png",
+            "mobile_image": "shopify://shop_images/MacBook_Neo_13_A18_Pro_512GB_Silver_-_Banner_Mobile_1080x1400_1.png",
             "image_overlay_opacity": 0,
             "image_link": "shopify://products/macbook-neo",
             "horizontal_offset": 0.4,
