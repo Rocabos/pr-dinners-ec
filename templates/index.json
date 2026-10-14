@@ -18,7 +18,7 @@
             "image": "shopify://shop_images/Lanzamiento_2_-_Banner_Escritorio_1920x800_1.png",
             "mobile_image": "shopify://shop_images/Lanzamiento_2_-_Banner_Mobile_1080x1400_1.png",
             "image_overlay_opacity": 0,
-            "image_link": "",
+            "image_link": "shopify://collections/ofertas",
             "horizontal_offset": -6,
             "vertical_offset": -4.8,
             "desktop_content_position": "md:justify-start md:items-center",
