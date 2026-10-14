@@ -187,7 +187,7 @@
             "image": "shopify://shop_images/iPad_11_A16_128GB_Silver_-_Banner_Escritorio_1920x800_e49755be-8307-46e2-a975-47dc7cc9cdee.png",
             "mobile_image": "shopify://shop_images/iPad_11_A16_128GB_Silver_-_Banner_Mobile_1080x1400_aa7984f7-f82e-4558-af8a-e91e33419e8a.png",
             "image_overlay_opacity": 0,
-            "image_link": "shopify://collections/apple-watch",
+            "image_link": "shopify://products/ipad",
             "horizontal_offset": 0.4,
             "vertical_offset": 5.8,
             "desktop_content_position": "md:justify-start md:items-center",
