@@ -188,7 +188,7 @@
             "image": "shopify://shop_images/Escritorio-_1920_x_800px_f5659654-dc41-4467-ae1e-11a8a729e44f.jpg",
             "mobile_image": "shopify://shop_images/Movil-_1080_x_1400px_1_2206693c-65dd-47f1-8c01-a46e4496e495.png",
             "image_overlay_opacity": 0,
-            "image_link": "shopify://products/ipad",
+            "image_link": "",
             "horizontal_offset": 0.4,
             "vertical_offset": 5.8,
             "desktop_content_position": "md:justify-start md:items-center",
