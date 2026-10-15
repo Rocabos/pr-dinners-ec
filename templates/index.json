@@ -14,6 +14,7 @@
       "blocks": {
         "slide_yLYyRi": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Lanzamiento_2_-_Banner_Escritorio_1920x800_1.png",
             "mobile_image": "shopify://shop_images/Lanzamiento_2_-_Banner_Mobile_1080x1400_1.png",
