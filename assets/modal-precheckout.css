@@ -438,7 +438,7 @@
   background: #ffffff !important;
   background-image: none !important;
   border-color: var(--s-color-text) !important;
-  color: #000 !important;
+  color: var(--s-color-text) !important;
 }
 
 #btn-save-pre-checkout:active:not(:disabled) {
