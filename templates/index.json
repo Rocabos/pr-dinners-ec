@@ -12,49 +12,6 @@
     "slideshow_hc4nU7": {
       "type": "slideshow",
       "blocks": {
-        "slide_yLYyRi": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/Lanzamiento_2_-_Banner_Escritorio_1920x800_1.png",
-            "mobile_image": "shopify://shop_images/Lanzamiento_2_-_Banner_Mobile_1080x1400_1.png",
-            "image_overlay_opacity": 0,
-            "image_link": "shopify://collections/ofertas",
-            "horizontal_offset": -6,
-            "vertical_offset": -4.8,
-            "desktop_content_position": "md:justify-start md:items-center",
-            "mobile_content_position": "justify-center items-start",
-            "content_max_width": "s",
-            "desktop_content_alignment": "left",
-            "mobile_content_alignment": "center",
-            "show_text_box": "off",
-            "caption": "",
-            "caption_text_style": "caption-with-letter-spacing",
-            "caption_text_size": "t5",
-            "heading": "",
-            "heading_italic_convert": "",
-            "heading_size": "h3",
-            "heading_size_custom": 2.4,
-            "heading_line_height_custom": 1.2,
-            "heading_tag": "h2",
-            "text": "",
-            "text_size": "t3",
-            "button_text_size": "t3",
-            "button_label_1": "",
-            "button_link_1": "/",
-            "button_style_1": "primary",
-            "button_style_1_show_arrow": false,
-            "button_style_1_show_gradient_border": false,
-            "button_1_border_gradient": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_2": "secondary",
-            "button_style_2_show_arrow": false,
-            "button_style_2_show_gradient_border": false,
-            "button_2_border_gradient": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
-            "color_scheme": "scheme-1"
-          }
-        },
         "slide_9WgPPM": {
           "type": "slide",
           "settings": {
@@ -97,14 +54,13 @@
             "color_scheme": "scheme-1"
           }
         },
-        "slide_BJep7n": {
+        "slide_rxd8KQ": {
           "type": "slide",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/iPad_11_A16_128GB_Silver_-_Banner_Escritorio_1920x800_f8385add-e4cc-4db8-8188-289a6fc0bd58.png",
-            "mobile_image": "shopify://shop_images/iPad_11_A16_128GB_Silver_-_Banner_Mobile_1080x1400_bf36877f-abd8-4419-ac1a-818cb0628198.png",
+            "image": "shopify://shop_images/Escritorio-_1920_x_800px_a08e9513-6c01-457b-809f-b9a902d5fcfb.jpg",
+            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px.jpg",
             "image_overlay_opacity": 0,
-            "image_link": "shopify://products/ipad",
+            "image_link": "shopify://collections/mac-1",
             "horizontal_offset": 0.4,
             "vertical_offset": 5.8,
             "desktop_content_position": "md:justify-start md:items-center",
@@ -140,13 +96,56 @@
             "color_scheme": "scheme-1"
           }
         },
-        "slide_rxd8KQ": {
+        "slide_yLYyRi": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Escritorio-_1920_x_800px_a08e9513-6c01-457b-809f-b9a902d5fcfb.jpg",
-            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px.jpg",
+            "image": "shopify://shop_images/Lanzamiento_2_-_Banner_Escritorio_1920x800_1.png",
+            "mobile_image": "shopify://shop_images/Lanzamiento_2_-_Banner_Mobile_1080x1400_1.png",
             "image_overlay_opacity": 0,
-            "image_link": "shopify://collections/mac-1",
+            "image_link": "shopify://collections/ofertas",
+            "horizontal_offset": -6,
+            "vertical_offset": -4.8,
+            "desktop_content_position": "md:justify-start md:items-center",
+            "mobile_content_position": "justify-center items-start",
+            "content_max_width": "s",
+            "desktop_content_alignment": "left",
+            "mobile_content_alignment": "center",
+            "show_text_box": "off",
+            "caption": "",
+            "caption_text_style": "caption-with-letter-spacing",
+            "caption_text_size": "t5",
+            "heading": "",
+            "heading_italic_convert": "",
+            "heading_size": "h3",
+            "heading_size_custom": 2.4,
+            "heading_line_height_custom": 1.2,
+            "heading_tag": "h2",
+            "text": "",
+            "text_size": "t3",
+            "button_text_size": "t3",
+            "button_label_1": "",
+            "button_link_1": "/",
+            "button_style_1": "primary",
+            "button_style_1_show_arrow": false,
+            "button_style_1_show_gradient_border": false,
+            "button_1_border_gradient": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_2": "secondary",
+            "button_style_2_show_arrow": false,
+            "button_style_2_show_gradient_border": false,
+            "button_2_border_gradient": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+            "color_scheme": "scheme-1"
+          }
+        },
+        "slide_BJep7n": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/iPad_11_A16_128GB_Silver_-_Banner_Escritorio_1920x800_f8385add-e4cc-4db8-8188-289a6fc0bd58.png",
+            "mobile_image": "shopify://shop_images/iPad_11_A16_128GB_Silver_-_Banner_Mobile_1080x1400_bf36877f-abd8-4419-ac1a-818cb0628198.png",
+            "image_overlay_opacity": 0,
+            "image_link": "shopify://products/ipad",
             "horizontal_offset": 0.4,
             "vertical_offset": 5.8,
             "desktop_content_position": "md:justify-start md:items-center",
@@ -226,10 +225,10 @@
         }
       },
       "block_order": [
-        "slide_yLYyRi",
         "slide_9WgPPM",
-        "slide_BJep7n",
         "slide_rxd8KQ",
+        "slide_yLYyRi",
+        "slide_BJep7n",
         "slide_bMYq4n"
       ],
       "custom_css": [],
