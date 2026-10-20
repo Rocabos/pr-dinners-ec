@@ -60,7 +60,7 @@
             "image": "shopify://shop_images/Escritorio-_1920_x_800px_a08e9513-6c01-457b-809f-b9a902d5fcfb.jpg",
             "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px.jpg",
             "image_overlay_opacity": 0,
-            "image_link": "shopify://collections/mac-1",
+            "image_link": "shopify://products/macbook-neo",
             "horizontal_offset": 0.4,
             "vertical_offset": 5.8,
             "desktop_content_position": "md:justify-start md:items-center",
