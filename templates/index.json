@@ -99,6 +99,7 @@
         },
         "slide_BJep7n": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/iPad_11_A16_128GB_Silver_-_Banner_Escritorio_1920x800_f8385add-e4cc-4db8-8188-289a6fc0bd58.png",
             "mobile_image": "shopify://shop_images/iPad_11_A16_128GB_Silver_-_Banner_Mobile_1080x1400_bf36877f-abd8-4419-ac1a-818cb0628198.png",
@@ -142,10 +143,10 @@
         "slide_rxd8KQ": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Lanzamiento_2_-_Banner_Escritorio_1920x800_bcf49a49-4058-4a0f-bd1e-472c5c00dba6.png",
-            "mobile_image": "shopify://shop_images/Lanzamiento_2_-_Banner_Mobile_1080x1400_f70b427c-e9f7-4ee8-b012-7312c9da098e.png",
+            "image": "shopify://shop_images/Escritorio-_1920_x_800px_a08e9513-6c01-457b-809f-b9a902d5fcfb.jpg",
+            "mobile_image": "shopify://shop_images/Escritorio-_1920_x_800px_a08e9513-6c01-457b-809f-b9a902d5fcfb.jpg",
             "image_overlay_opacity": 0,
-            "image_link": "shopify://collections/ofertas",
+            "image_link": "shopify://collections/mac-1",
             "horizontal_offset": 0.4,
             "vertical_offset": 5.8,
             "desktop_content_position": "md:justify-start md:items-center",
