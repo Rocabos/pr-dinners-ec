@@ -140,10 +140,9 @@
         },
         "slide_BJep7n": {
           "type": "slide",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/iPad_11_A16_128GB_Silver_-_Banner_Escritorio_1920x800_f8385add-e4cc-4db8-8188-289a6fc0bd58.png",
-            "mobile_image": "shopify://shop_images/iPad_11_A16_128GB_Silver_-_Banner_Mobile_1080x1400_bf36877f-abd8-4419-ac1a-818cb0628198.png",
+            "image": "shopify://shop_images/Escritorio-_1920_x_800px_2.jpg",
+            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px_1.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://products/ipad",
             "horizontal_offset": 0.4,
