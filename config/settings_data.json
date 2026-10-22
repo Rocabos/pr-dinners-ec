@@ -189,6 +189,23 @@
       }
     },
     "content_for_index": [],
+    "blocks": {
+      "940388356285384148": {
+        "type": "shopify://apps/connectif/blocks/app-embed/2b4f4d30-7186-4bfa-b3d9-3e3cbf2f8a81",
+        "disabled": false,
+        "settings": {
+          "CartVariants": false,
+          "CustomCartProductImageHeight": 300,
+          "CustomCartProductImageWidth": 300,
+          "ProductId": "id",
+          "CustomProductImageHeight": 300,
+          "CustomProductImageWidth": 300,
+          "ShowNewsletterSubscriptionStatus": true,
+          "CustomCustomerTags": "",
+          "CustomProductTags": ""
+        }
+      }
+    },
     "color_schemes": {
       "scheme-1": {
         "settings": {
