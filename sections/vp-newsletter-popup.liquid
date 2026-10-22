@@ -1,0 +1,698 @@
+{%- comment -%}theme-check-disable ImgLazyLoading{%- endcomment -%}
+{{ 'component-popup.css' | asset_url | stylesheet_tag }}
+{{ 'vp-newsletter-popup.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign form_id = 'vp-newsletter-' | append: section.id
+  assign show_immediately = false
+
+  form 'customer', id: form_id
+    if form.posted_successfully?
+      assign show_immediately = true
+    endif
+  endform
+
+  assign has_image = false
+  if section.settings.image != blank
+    assign has_image = true
+  endif
+
+  assign has_mobile_image = false
+  if section.settings.mobile_image != blank
+    assign has_mobile_image = true
+  endif
+
+  assign aria_label = section.settings.heading | strip_html | escape
+  if aria_label == blank
+    assign aria_label = 'accessibility.popup' | t
+  endif
+
+  assign email_placeholder = section.settings.email_placeholder
+  if email_placeholder == blank
+    assign email_placeholder = 'newsletter.label' | t
+  endif
+
+  assign button_label = section.settings.button_label
+  if button_label == blank
+    assign button_label = 'newsletter.button_label' | t
+  endif
+-%}
+
+<custom-popup
+  id="PopupModal-{{ section.id }}"
+  class="
+    popup-modal vp-newsletter-popup p-2 flex
+    {{ section.settings.mobile_content_position }}
+    {{ section.settings.desktop_content_position }}
+    {% unless has_image %} vp-newsletter-popup--no-image{% endunless %}
+    {% if section.settings.hide_image_mobile %} vp-newsletter-popup--hide-image-mobile{% endif %}
+  "
+  data-trigger="{{ section.settings.show_trigger }}"
+  data-delay-seconds="{% if show_immediately %}0{% else %}{{ section.settings.show_delay }}{% endif %}"
+  data-visibility="{{ section.settings.visibility }}"
+  data-popup-trigger-id="{{ section.settings.popup_id | escape }}"
+  data-popup-id="{{ section.id }}"
+  data-mode="{{ section.settings.mode }}"
+  {% if section.settings.show_at_specific_time_of_day and request.design_mode == false %}
+    data-time-of-day-to-show="{% if section.settings.show_time_morning %}morning,{% endif %}{% if section.settings.show_time_afternoon %}afternoon,{% endif %}{% if section.settings.show_time_evening %}evening,{% endif %}{% if section.settings.show_time_night %}night{% endif %}"
+  {% endif %}
+  style="visibility: hidden;"
+>
+  <div
+    role="dialog"
+    aria-label="{{ aria_label }}"
+    aria-modal="true"
+    tabindex="-1"
+    class="popup-modal__content vp-newsletter-popup__content custom-scrollbar"
+    style="
+      --vp-np-panel-bg: {{ section.settings.panel_background }};
+      --vp-np-text: {{ section.settings.text_color }};
+      --vp-np-input-bg: {{ section.settings.input_background }};
+      --vp-np-button-bg: {{ section.settings.button_background }};
+      --vp-np-button-text: {{ section.settings.button_text_color }};
+      --vp-np-link: {{ section.settings.link_color }};
+      --vp-np-close: {{ section.settings.close_color }};
+      --vp-np-corner-radius: {{ section.settings.corner_radius }}px;
+      --vp-np-input-radius: {{ section.settings.input_radius }}px;
+      --vp-np-button-radius: {{ section.settings.button_radius }}px;
+      --vp-np-panel-padding: {{ section.settings.panel_padding }}rem;
+    "
+  >
+    {% if section.settings.show_close %}
+      <button
+        id="ModalClose-{{ section.id }}"
+        type="button"
+        class="popup-modal__toggle"
+        aria-label="{{ 'accessibility.close' | t }}"
+      >
+        {% render 'icon-close' %}
+      </button>
+    {% endif %}
+
+    <div
+      class="
+        vp-newsletter-popup__layout
+        {% if section.settings.image_position == 'right' %} vp-newsletter-popup__layout--image-right{% endif %}
+      "
+    >
+      {%- if has_image -%}
+        <div class="vp-newsletter-popup__media">
+          {%- liquid
+            assign desktop_alt = section.settings.image.alt | default: section.settings.heading | strip_html | escape
+            if has_mobile_image
+              assign mobile_alt = section.settings.mobile_image.alt | default: desktop_alt | escape
+            endif
+          -%}
+          {%- if has_mobile_image -%}
+            {{
+              section.settings.mobile_image
+              | image_url: width: 1200
+              | image_tag:
+                class: 'vp-newsletter-popup__media-img large-up-hide',
+                loading: 'lazy',
+                widths: '400, 600, 800, 1000, 1200',
+                sizes: '(min-width: 750px) 0px, 100vw',
+                alt: mobile_alt
+            }}
+            {{
+              section.settings.image
+              | image_url: width: 1600
+              | image_tag:
+                class: 'vp-newsletter-popup__media-img small-hide',
+                loading: 'lazy',
+                widths: '600, 800, 1000, 1200, 1400, 1600',
+                sizes: '(min-width: 750px) 48vw, 100vw',
+                alt: desktop_alt
+            }}
+          {%- else -%}
+            {{
+              section.settings.image
+              | image_url: width: 1600
+              | image_tag:
+                class: 'vp-newsletter-popup__media-img',
+                loading: 'lazy',
+                widths: '400, 600, 800, 1000, 1200, 1400, 1600',
+                sizes: '(min-width: 750px) 48vw, 100vw',
+                alt: desktop_alt
+            }}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="vp-newsletter-popup__panel text-{{ section.settings.content_alignment }}">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="vp-newsletter-popup__heading {{ section.settings.heading_size }}">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.text != blank -%}
+          <div class="vp-newsletter-popup__text rte {{ section.settings.text_size }}">
+            {{ section.settings.text }}
+          </div>
+        {%- endif -%}
+
+        {%- form 'customer', id: form_id, return_to: section.settings.return_to -%}
+          {%- if form.posted_successfully? -%}
+            <p class="vp-newsletter-popup__message {{ section.settings.text_size }}">
+              {%- if section.settings.success_message != blank -%}
+                {{ section.settings.success_message }}
+              {%- else -%}
+                {{ 'newsletter.success' | t }}
+              {%- endif -%}
+            </p>
+          {%- else -%}
+            <div class="vp-newsletter-popup__form">
+              <input type="hidden" name="contact[tags]" value="newsletter">
+
+              <label class="visually-hidden" for="NewsletterForm--{{ section.id }}">
+                {{ email_placeholder | escape }}
+              </label>
+              <input
+                id="NewsletterForm--{{ section.id }}"
+                class="vp-newsletter-popup__input"
+                type="email"
+                name="contact[email]"
+                value="{{ form.email }}"
+                placeholder="{{ email_placeholder | escape }}"
+                autocomplete="email"
+                autocorrect="off"
+                autocapitalize="off"
+                aria-required="true"
+                required
+                {% if form.errors %}
+                  autofocus
+                  aria-invalid="true"
+                  aria-describedby="Newsletter-error--{{ section.id }}"
+                {% endif %}
+              >
+
+              {%- if form.errors -%}
+                <small class="vp-newsletter-popup__message" id="Newsletter-error--{{ section.id }}">
+                  {{- form.errors.translated_fields.email | capitalize }}
+                  {{ form.errors.messages.email -}}
+                </small>
+              {%- endif -%}
+
+              <button
+                type="submit"
+                class="vp-newsletter-popup__submit"
+                name="commit"
+                id="Subscribe-{{ section.id }}"
+              >
+                {{ button_label | escape }}
+              </button>
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+
+        {%- if section.settings.privacy_text != blank or section.settings.privacy_link_label != blank -%}
+          <p class="vp-newsletter-popup__privacy">
+            {%- if section.settings.privacy_text != blank -%}
+              {{ section.settings.privacy_text | escape }}
+            {%- endif -%}
+            {%- if section.settings.privacy_link_label != blank -%}
+              {%- if section.settings.privacy_text != blank %} {% endif -%}
+              <a
+                class="vp-newsletter-popup__privacy-link"
+                href="{{ section.settings.privacy_link_url | default: routes.root_url }}"
+                {% if section.settings.privacy_link_new_tab %}
+                  target="_blank"
+                  rel="noopener"
+                {% endif %}
+              >
+                {{- section.settings.privacy_link_label | escape -}}
+              </a>
+            {%- endif -%}
+          </p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</custom-popup>
+
+{% schema %}
+{
+  "name": "VP Newsletter popup",
+  "tag": "section",
+  "class": "section section-vp-newsletter-popup no-move",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Popup de newsletter a dos columnas. Reutiliza el comportamiento del Popup del tema (custom-popup)."
+    },
+    {
+      "type": "header",
+      "content": "Comportamiento"
+    },
+    {
+      "type": "select",
+      "id": "mode",
+      "label": "Modo",
+      "options": [
+        {
+          "value": "enabled",
+          "label": "Normal"
+        },
+        {
+          "value": "test",
+          "label": "Prueba"
+        }
+      ],
+      "default": "enabled",
+      "info": "El modo prueba muestra el popup aunque se haya cerrado antes."
+    },
+    {
+      "type": "select",
+      "id": "show_trigger",
+      "label": "Mostrar al",
+      "options": [
+        {
+          "value": "delay",
+          "label": "Pasados unos segundos"
+        },
+        {
+          "value": "exit_intent",
+          "label": "Intentar salir (solo escritorio)"
+        },
+        {
+          "value": "copy_to_clipboard",
+          "label": "Copiar texto"
+        },
+        {
+          "value": "click",
+          "label": "Clic en un enlace"
+        }
+      ],
+      "default": "delay"
+    },
+    {
+      "type": "range",
+      "id": "show_delay",
+      "label": "Segundos de espera",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "s",
+      "default": 4,
+      "visible_if": "{{ section.settings.show_trigger == 'delay' }}"
+    },
+    {
+      "type": "text",
+      "id": "popup_id",
+      "label": "ID del popup",
+      "info": "Una sola palabra, sin espacios. Usa #ID en un enlace para abrirlo.",
+      "visible_if": "{{ section.settings.show_trigger == 'click' }}"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "label": "Visibilidad",
+      "options": [
+        {
+          "value": "both",
+          "label": "Móvil y escritorio"
+        },
+        {
+          "value": "mobile",
+          "label": "Solo móvil"
+        },
+        {
+          "value": "desktop",
+          "label": "Solo escritorio"
+        }
+      ],
+      "default": "both"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_close",
+      "label": "Mostrar botón cerrar",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Posición"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "label": "Posición en escritorio",
+      "options": [
+        {
+          "value": "md:justify-start md:items-start",
+          "label": "Arriba izquierda"
+        },
+        {
+          "value": "md:justify-center md:items-start",
+          "label": "Arriba centro"
+        },
+        {
+          "value": "md:justify-end md:items-start",
+          "label": "Arriba derecha"
+        },
+        {
+          "value": "md:justify-start md:items-center",
+          "label": "Medio izquierda"
+        },
+        {
+          "value": "md:justify-center md:items-center",
+          "label": "Medio centro"
+        },
+        {
+          "value": "md:justify-end md:items-center",
+          "label": "Medio derecha"
+        },
+        {
+          "value": "md:justify-start md:items-end",
+          "label": "Abajo izquierda"
+        },
+        {
+          "value": "md:justify-center md:items-end",
+          "label": "Abajo centro"
+        },
+        {
+          "value": "md:justify-end md:items-end",
+          "label": "Abajo derecha"
+        }
+      ],
+      "default": "md:justify-center md:items-center"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_position",
+      "label": "Posición en móvil",
+      "options": [
+        {
+          "value": "justify-center items-start",
+          "label": "Arriba"
+        },
+        {
+          "value": "justify-center items-center",
+          "label": "Medio"
+        },
+        {
+          "value": "justify-center items-end",
+          "label": "Abajo"
+        }
+      ],
+      "default": "justify-center items-center"
+    },
+    {
+      "type": "header",
+      "content": "Imagen"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen (escritorio)"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Imagen móvil (opcional)",
+      "info": "Si no se sube, se usa la imagen de escritorio."
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Posición de la imagen (escritorio)",
+      "options": [
+        {
+          "value": "left",
+          "label": "Izquierda"
+        },
+        {
+          "value": "right",
+          "label": "Derecha"
+        }
+      ],
+      "default": "left",
+      "visible_if": "{{ section.settings.image != blank }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_image_mobile",
+      "label": "Ocultar imagen en móvil",
+      "default": false,
+      "visible_if": "{{ section.settings.image != blank }}"
+    },
+    {
+      "type": "header",
+      "content": "Contenido"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Título",
+      "default": "Entérate primero de las mejores ofertas"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "options": [
+        {
+          "value": "h3",
+          "label": "S"
+        },
+        {
+          "value": "h2",
+          "label": "M"
+        },
+        {
+          "value": "h1",
+          "label": "L"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texto",
+      "default": "<p>Únete a la comunidad de iClub y recibe novedades y beneficios exclusivos directo en tu correo.</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "label": "Tamaño del texto",
+      "options": [
+        {
+          "value": "caption",
+          "label": "Caption"
+        },
+        {
+          "value": "text-body",
+          "label": "Body"
+        },
+        {
+          "value": "subtitle",
+          "label": "Subtitle"
+        }
+      ],
+      "default": "text-body"
+    },
+    {
+      "type": "text_alignment",
+      "id": "content_alignment",
+      "label": "Alineación del contenido",
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Formulario"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Placeholder del email",
+      "default": "Ingresa tu correo electrónico"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón",
+      "default": "Suscribirme"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "success_message",
+      "label": "Mensaje de éxito",
+      "default": "Gracias por suscribirte."
+    },
+    {
+      "type": "url",
+      "id": "return_to",
+      "label": "Página tras suscribirse",
+      "info": "Opcional."
+    },
+    {
+      "type": "header",
+      "content": "Privacidad"
+    },
+    {
+      "type": "text",
+      "id": "privacy_text",
+      "label": "Texto de privacidad",
+      "default": "Respetamos tu privacidad. Consulta nuestra"
+    },
+    {
+      "type": "text",
+      "id": "privacy_link_label",
+      "label": "Texto del enlace",
+      "default": "política de privacidad."
+    },
+    {
+      "type": "url",
+      "id": "privacy_link_url",
+      "label": "URL del enlace",
+      "visible_if": "{{ section.settings.privacy_link_label != blank }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "privacy_link_new_tab",
+      "label": "Abrir enlace en nueva pestaña",
+      "default": true,
+      "visible_if": "{{ section.settings.privacy_link_label != blank }}"
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "panel_background",
+      "label": "Fondo del panel",
+      "default": "#1d1d1f"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color del texto",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_background",
+      "label": "Fondo del input",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Fondo del botón",
+      "default": "#0071e3"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Texto del botón",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Color del enlace",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "close_color",
+      "label": "Color del icono cerrar",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Estilo"
+    },
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "label": "Radio del popup",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "input_radius",
+      "label": "Radio del input",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Radio del botón",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "panel_padding",
+      "label": "Padding del panel",
+      "min": 1.5,
+      "max": 6,
+      "step": 0.1,
+      "unit": "rem",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Horario"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_at_specific_time_of_day",
+      "label": "Solo en horarios específicos",
+      "default": false,
+      "info": "Usa la hora local del visitante. En el editor siempre se muestra."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_time_morning",
+      "label": "Mañana (5am - 12pm)",
+      "default": true,
+      "visible_if": "{{ section.settings.show_at_specific_time_of_day }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_time_afternoon",
+      "label": "Tarde (12pm - 5pm)",
+      "default": true,
+      "visible_if": "{{ section.settings.show_at_specific_time_of_day }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_time_evening",
+      "label": "Noche temprana (5pm - 9pm)",
+      "default": true,
+      "visible_if": "{{ section.settings.show_at_specific_time_of_day }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_time_night",
+      "label": "Noche (9pm - 5am)",
+      "default": true,
+      "visible_if": "{{ section.settings.show_at_specific_time_of_day }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "VP Newsletter popup"
+    }
+  ]
+}
+{% endschema %}
