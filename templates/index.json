@@ -14,6 +14,7 @@
       "blocks": {
         "slide_9WgPPM": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/iPhone_17_Pro_Max_256GB_Cosmic_Orange_-_Banner_Escritorio_1920x800_361d1b9f-c0cc-4334-b83a-444f0ef06092.png",
             "mobile_image": "shopify://shop_images/iPhone_17_Pro_Max_256GB_Cosmic_Orange_-_Banner_Mobile_1080x1400_31294cd2-e2ef-4a9a-8200-5ee50affbd84.png",
