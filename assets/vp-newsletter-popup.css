@@ -125,6 +125,24 @@
   margin: 0;
 }
 
+.vp-newsletter-popup__message--success {
+  display: block;
+  width: 100%;
+  margin: 0.4rem 0 0;
+  color: inherit;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.vp-newsletter-popup__form-host.is-success .vp-newsletter-popup__form {
+  display: none;
+}
+
+.vp-newsletter-popup__submit[disabled] {
+  opacity: 0.7;
+  cursor: wait;
+}
+
 .vp-newsletter-popup__privacy {
   margin: 0.4rem 0 0;
   color: inherit;

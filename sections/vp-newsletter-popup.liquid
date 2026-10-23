@@ -6,8 +6,10 @@
   assign form_id = 'vp-newsletter-' | append: section.id
   assign show_immediately = false
 
+  assign posted_successfully = false
   form 'customer', id: form_id
     if form.posted_successfully?
+      assign posted_successfully = true
       assign show_immediately = true
     endif
   endform
@@ -152,18 +154,37 @@
           </div>
         {%- endif -%}
 
-        {%- form 'customer', id: form_id, return_to: section.settings.return_to -%}
-          {%- if form.posted_successfully? -%}
-            <p class="vp-newsletter-popup__message {{ section.settings.text_size }}">
-              {%- if section.settings.success_message != blank -%}
-                {{ section.settings.success_message }}
-              {%- else -%}
-                {{ 'newsletter.success' | t }}
-              {%- endif -%}
-            </p>
-          {%- else -%}
-            <div class="vp-newsletter-popup__form">
-              <input type="hidden" name="contact[tags]" value="newsletter">
+        {%- liquid
+          assign success_message = section.settings.success_message
+          if success_message == blank
+            assign success_message = 'Gracias por escribirte'
+          endif
+        -%}
+        <vp-newsletter-form
+          class="vp-newsletter-popup__form-host{% if posted_successfully %} is-success{% endif %}"
+          data-success-message="{{ success_message | escape }}"
+          data-inline-success="{% if section.settings.show_success_in_popup %}true{% else %}false{% endif %}"
+        >
+          {%- form 'customer', id: form_id, return_to: section.settings.return_to -%}
+            {%- if posted_successfully or section.settings.show_success_in_popup -%}
+              <p
+                class="vp-newsletter-popup__message vp-newsletter-popup__message--success {{ section.settings.text_size }}"
+                id="Newsletter-success--{{ section.id }}"
+                {% unless posted_successfully %}
+                  hidden
+                {% endunless %}
+                tabindex="-1"
+              >
+                {{ success_message }}
+              </p>
+            {%- endif -%}
+
+            <div class="vp-newsletter-popup__form" {% if posted_successfully %}hidden{% endif %}>
+              <input
+                type="hidden"
+                name="contact[tags]"
+                value="{{ section.settings.customer_tags | default: 'newsletter' | escape }}"
+              >
 
               <label class="visually-hidden" for="NewsletterForm--{{ section.id }}">
                 {{ email_placeholder | escape }}
@@ -203,8 +224,8 @@
                 {{ button_label | escape }}
               </button>
             </div>
-          {%- endif -%}
-        {%- endform -%}
+          {%- endform -%}
+        </vp-newsletter-form>
 
         {%- if section.settings.privacy_text != blank or section.settings.privacy_link_label != blank -%}
           <p class="vp-newsletter-popup__privacy">
@@ -230,6 +251,66 @@
     </div>
   </div>
 </custom-popup>
+
+{% javascript %}
+if (!customElements.get('vp-newsletter-form')) {
+  class VPNewsletterForm extends HTMLElement {
+    connectedCallback() {
+      this.form = this.querySelector('form');
+      if (!this.form || this.dataset.inlineSuccess !== 'true') return;
+
+      this.fields = this.querySelector('.vp-newsletter-popup__form');
+      this.success = this.querySelector('.vp-newsletter-popup__message--success');
+      this.submitButton = this.form.querySelector('[type="submit"]');
+      this.onSubmit = this.handleSubmit.bind(this);
+      this.form.addEventListener('submit', this.onSubmit);
+    }
+
+    disconnectedCallback() {
+      if (!this.form || !this.onSubmit) return;
+      this.form.removeEventListener('submit', this.onSubmit);
+    }
+
+    async handleSubmit(event) {
+      event.preventDefault();
+      if (!this.form.checkValidity()) {
+        this.form.reportValidity();
+        return;
+      }
+
+      if (this.submitButton) this.submitButton.disabled = true;
+
+      try {
+        const response = await fetch(this.form.action || window.location.pathname, {
+          method: 'POST',
+          body: new FormData(this.form),
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
+
+        if (!response.ok) throw new Error('request-failed');
+        this.showSuccess();
+      } catch (error) {
+        if (this.submitButton) this.submitButton.disabled = false;
+        this.form.submit();
+      }
+    }
+
+    showSuccess() {
+      this.classList.add('is-success');
+      if (this.fields) this.fields.hidden = true;
+      if (this.success) {
+        if (!this.success.textContent.trim()) {
+          this.success.textContent = this.dataset.successMessage || '';
+        }
+        this.success.hidden = false;
+        this.success.focus();
+      }
+    }
+  }
+
+  customElements.define('vp-newsletter-form', VPNewsletterForm);
+}
+{% endjavascript %}
 
 {% schema %}
 {
@@ -519,16 +600,33 @@
       "default": "Suscribirme"
     },
     {
+      "type": "text",
+      "id": "customer_tags",
+      "label": "Etiquetas de cliente",
+      "default": "newsletter",
+      "info": "Separadas por coma. Ejemplo: newsletter, iclub, popup."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_success_in_popup",
+      "label": "Mostrar mensaje de éxito en el popup",
+      "default": true,
+      "info": "Si está desactivado, el formulario se envía como antes (recarga o redirección)."
+    },
+    {
       "type": "inline_richtext",
       "id": "success_message",
       "label": "Mensaje de éxito",
-      "default": "Gracias por suscribirte."
+      "default": "Gracias por escribirte",
+      "info": "Se muestra dentro del popup al completar el formulario.",
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
     },
     {
       "type": "url",
       "id": "return_to",
       "label": "Página tras suscribirse",
-      "info": "Opcional."
+      "info": "Opcional. Solo aplica si el mensaje de éxito en el popup está desactivado.",
+      "visible_if": "{{ section.settings.show_success_in_popup == false }}"
     },
     {
       "type": "header",
