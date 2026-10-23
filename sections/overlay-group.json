@@ -245,6 +245,54 @@
         "show_time_evening": true,
         "show_time_night": true
       }
+    },
+    "vp_newsletter_popup_g3RqLf": {
+      "type": "vp-newsletter-popup",
+      "disabled": true,
+      "name": "Newsletter popup",
+      "settings": {
+        "mode": "enabled",
+        "show_trigger": "delay",
+        "show_delay": 4,
+        "popup_id": "",
+        "visibility": "both",
+        "show_close": true,
+        "desktop_content_position": "md:justify-center md:items-center",
+        "mobile_content_position": "justify-center items-center",
+        "image": "shopify://shop_images/iClub_popup_foto_escritorio_660x880_0cabeceb-e822-4ab3-9067-18a2acb799c8.jpg",
+        "mobile_image": "shopify://shop_images/iClub_popup_foto_movil_780x520_6ab330fd-f723-4391-86de-dab70133f17b.jpg",
+        "image_position": "left",
+        "hide_image_mobile": false,
+        "heading": "Entérate primero de las mejores ofertas",
+        "heading_size": "h2",
+        "text": "<p>Únete a la comunidad de iClub y recibe novedades y beneficios exclusivos directo en tu correo.</p>",
+        "text_size": "text-body",
+        "content_alignment": "left",
+        "email_placeholder": "Ingresa tu correo electrónico",
+        "button_label": "Suscribirme",
+        "success_message": "Gracias por suscribirte.",
+        "return_to": "",
+        "privacy_text": "Respetamos tu privacidad. Consulta nuestra",
+        "privacy_link_label": "política de privacidad.",
+        "privacy_link_url": "",
+        "privacy_link_new_tab": true,
+        "panel_background": "#1d1d1f",
+        "text_color": "#ffffff",
+        "input_background": "#ffffff",
+        "button_background": "#0071e3",
+        "button_text_color": "#ffffff",
+        "link_color": "#ffffff",
+        "close_color": "#ffffff",
+        "corner_radius": 16,
+        "input_radius": 40,
+        "button_radius": 40,
+        "panel_padding": 4,
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true
+      }
     }
   },
   "order": [
@@ -252,6 +300,7 @@
     "scroll-to-top",
     "age_verifier_47qffQ",
     "popup_EJ8KWa",
-    "popup_Hepgfg"
+    "popup_Hepgfg",
+    "vp_newsletter_popup_g3RqLf"
   ]
 }
