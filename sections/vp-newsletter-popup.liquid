@@ -38,6 +38,11 @@
   if button_label == blank
     assign button_label = 'newsletter.button_label' | t
   endif
+
+  assign popup_width = section.settings.popup_width | default: 880
+  assign popup_height = section.settings.popup_height | default: 440
+  assign popup_width_mobile = section.settings.popup_width_mobile | default: 343
+  assign popup_height_mobile = section.settings.popup_height_mobile | default: 407
 -%}
 
 <custom-popup
@@ -77,14 +82,14 @@
       --vp-np-corner-radius: {{ section.settings.corner_radius }}px;
       --vp-np-input-radius: {{ section.settings.input_radius }}px;
       --vp-np-button-radius: {{ section.settings.button_radius }}px;
-      --vp-np-d-width: {{ section.settings.popup_width }}px;
-      --vp-np-d-height: {{ section.settings.popup_height }}px;
-      --vp-np-d-scale-x: {{ section.settings.popup_width | times: 1.0 | divided_by: 880.0 }};
-      --vp-np-d-scale-y: {{ section.settings.popup_height | times: 1.0 | divided_by: 440.0 }};
-      --vp-np-m-width: {{ section.settings.popup_width_mobile }}px;
-      --vp-np-m-height: {{ section.settings.popup_height_mobile }}px;
-      --vp-np-m-scale-x: {{ section.settings.popup_width_mobile | times: 1.0 | divided_by: 343.0 }};
-      --vp-np-m-scale-y: {{ section.settings.popup_height_mobile | times: 1.0 | divided_by: 407.0 }};
+      --vp-np-d-width: {{ popup_width }}px;
+      --vp-np-d-height: {{ popup_height }}px;
+      --vp-np-d-scale-x: {{ popup_width | times: 1.0 | divided_by: 880.0 }};
+      --vp-np-d-scale-y: {{ popup_height | times: 1.0 | divided_by: 440.0 }};
+      --vp-np-m-width: {{ popup_width_mobile }}px;
+      --vp-np-m-height: {{ popup_height_mobile }}px;
+      --vp-np-m-scale-x: {{ popup_width_mobile | times: 1.0 | divided_by: 343.0 }};
+      --vp-np-m-scale-y: {{ popup_height_mobile | times: 1.0 | divided_by: 407.0 }};
     "
   >
     {% if section.settings.show_close %}
@@ -317,6 +322,22 @@ if (!customElements.get('vp-newsletter-form')) {
   customElements.define('vp-newsletter-form', VPNewsletterForm);
 }
 {% endjavascript %}
+
+{% stylesheet %}
+.popup-modal.vp-newsletter-popup .vp-newsletter-popup__content {
+  width: min(var(--vp-np-m-width, 343px), calc(100vw - 32px));
+  min-height: var(--vp-np-m-height, 407px);
+}
+
+@media screen and (min-width: 750px) {
+  .popup-modal.vp-newsletter-popup .vp-newsletter-popup__content {
+    width: min(var(--vp-np-d-width, 880px), calc(100vw - 80px));
+    height: var(--vp-np-d-height, 440px);
+    min-height: var(--vp-np-d-height, 440px);
+    max-height: min(var(--vp-np-d-height, 440px), calc(100dvh - 80px));
+  }
+}
+{% endstylesheet %}
 
 {% schema %}
 {
@@ -791,9 +812,9 @@ if (!customElements.get('vp-newsletter-form')) {
       "type": "range",
       "id": "popup_width_mobile",
       "label": "Ancho (móvil)",
-      "min": 280,
-      "max": 420,
-      "step": 1,
+      "min": 243,
+      "max": 443,
+      "step": 2,
       "unit": "px",
       "default": 343,
       "info": "El contenido se ajusta al ancho. No afecta escritorio."
@@ -802,9 +823,9 @@ if (!customElements.get('vp-newsletter-form')) {
       "type": "range",
       "id": "popup_height_mobile",
       "label": "Alto (móvil)",
-      "min": 320,
-      "max": 560,
-      "step": 1,
+      "min": 307,
+      "max": 507,
+      "step": 2,
       "unit": "px",
       "default": 407,
       "info": "Independiente del ancho. No afecta escritorio."
