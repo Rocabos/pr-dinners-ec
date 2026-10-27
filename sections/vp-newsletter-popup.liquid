@@ -77,7 +77,10 @@
       --vp-np-corner-radius: {{ section.settings.corner_radius }}px;
       --vp-np-input-radius: {{ section.settings.input_radius }}px;
       --vp-np-button-radius: {{ section.settings.button_radius }}px;
-      --vp-np-panel-padding: {{ section.settings.panel_padding }}rem;
+      --vp-np-panel-padding-x: {{ section.settings.panel_padding_x }}rem;
+      --vp-np-panel-padding-y: {{ section.settings.panel_padding_y }}rem;
+      --vp-np-max-width: {{ section.settings.popup_max_width }}rem;
+      --vp-np-min-height: {{ section.settings.popup_min_height }}rem;
     "
   >
     {% if section.settings.show_close %}
@@ -108,33 +111,33 @@
           {%- if has_mobile_image -%}
             {{
               section.settings.mobile_image
-              | image_url: width: 1200
+              | image_url: width: 686
               | image_tag:
                 class: 'vp-newsletter-popup__media-img large-up-hide',
                 loading: 'lazy',
-                widths: '400, 600, 800, 1000, 1200',
-                sizes: '(min-width: 750px) 0px, 100vw',
+                widths: '343, 686',
+                sizes: '(min-width: 750px) 0px, 343px',
                 alt: mobile_alt
             }}
             {{
               section.settings.image
-              | image_url: width: 1600
+              | image_url: width: 660
               | image_tag:
                 class: 'vp-newsletter-popup__media-img small-hide',
                 loading: 'lazy',
-                widths: '600, 800, 1000, 1200, 1400, 1600',
-                sizes: '(min-width: 750px) 48vw, 100vw',
+                widths: '330, 660',
+                sizes: '330px',
                 alt: desktop_alt
             }}
           {%- else -%}
             {{
               section.settings.image
-              | image_url: width: 1600
+              | image_url: width: 880
               | image_tag:
                 class: 'vp-newsletter-popup__media-img',
                 loading: 'lazy',
-                widths: '400, 600, 800, 1000, 1200, 1400, 1600',
-                sizes: '(min-width: 750px) 48vw, 100vw',
+                widths: '343, 660, 686, 880',
+                sizes: '(min-width: 750px) 330px, 343px',
                 alt: desktop_alt
             }}
           {%- endif -%}
@@ -142,14 +145,15 @@
       {%- endif -%}
 
       <div class="vp-newsletter-popup__panel text-{{ section.settings.content_alignment }}">
+        <div class="vp-newsletter-popup__panel-main">
         {%- if section.settings.heading != blank -%}
-          <h2 class="vp-newsletter-popup__heading {{ section.settings.heading_size }}">
+          <h2 class="vp-newsletter-popup__heading">
             {{ section.settings.heading }}
           </h2>
         {%- endif -%}
 
         {%- if section.settings.text != blank -%}
-          <div class="vp-newsletter-popup__text rte {{ section.settings.text_size }}">
+          <div class="vp-newsletter-popup__text rte">
             {{ section.settings.text }}
           </div>
         {%- endif -%}
@@ -166,20 +170,17 @@
           data-inline-success="{% if section.settings.show_success_in_popup %}true{% else %}false{% endif %}"
         >
           {%- form 'customer', id: form_id, return_to: section.settings.return_to -%}
-            {%- if posted_successfully or section.settings.show_success_in_popup -%}
+            {%- if section.settings.show_success_in_popup -%}
               <p
-                class="vp-newsletter-popup__message vp-newsletter-popup__message--success {{ section.settings.text_size }}"
+                class="vp-newsletter-popup__message vp-newsletter-popup__message--success"
                 id="Newsletter-success--{{ section.id }}"
-                {% unless posted_successfully %}
-                  hidden
-                {% endunless %}
                 tabindex="-1"
               >
                 {{ success_message }}
               </p>
             {%- endif -%}
 
-            <div class="vp-newsletter-popup__form" {% if posted_successfully %}hidden{% endif %}>
+            <div class="vp-newsletter-popup__form">
               <input
                 type="hidden"
                 name="contact[tags]"
@@ -247,6 +248,7 @@
             {%- endif -%}
           </p>
         {%- endif -%}
+        </div>
       </div>
     </div>
   </div>
@@ -581,7 +583,7 @@ if (!customElements.get('vp-newsletter-form')) {
       "type": "text_alignment",
       "id": "content_alignment",
       "label": "Alineación del contenido",
-      "default": "left"
+      "default": "center"
     },
     {
       "type": "header",
@@ -739,13 +741,46 @@ if (!customElements.get('vp-newsletter-form')) {
     },
     {
       "type": "range",
-      "id": "panel_padding",
-      "label": "Padding del panel",
-      "min": 1.5,
-      "max": 6,
+      "id": "panel_padding_x",
+      "label": "Espacio horizontal del panel",
+      "min": 1,
+      "max": 8,
       "step": 0.1,
       "unit": "rem",
-      "default": 4
+      "default": 4,
+      "info": "Padding izquierdo y derecho."
+    },
+    {
+      "type": "range",
+      "id": "panel_padding_y",
+      "label": "Espacio vertical del panel",
+      "min": 1,
+      "max": 8,
+      "step": 0.1,
+      "unit": "rem",
+      "default": 2.2,
+      "info": "Padding superior e inferior, iguales."
+    },
+    {
+      "type": "range",
+      "id": "popup_max_width",
+      "label": "Ancho del popup",
+      "min": 40,
+      "max": 120,
+      "step": 2,
+      "unit": "rem",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "popup_min_height",
+      "label": "Alto mínimo del popup",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "rem",
+      "default": 0,
+      "info": "0 = el popup termina debajo del texto. En móvil el alto siempre se adapta al contenido."
     },
     {
       "type": "header",
