@@ -77,10 +77,14 @@
       --vp-np-corner-radius: {{ section.settings.corner_radius }}px;
       --vp-np-input-radius: {{ section.settings.input_radius }}px;
       --vp-np-button-radius: {{ section.settings.button_radius }}px;
-      --vp-np-panel-padding-x: {{ section.settings.panel_padding_x }}rem;
-      --vp-np-panel-padding-y: {{ section.settings.panel_padding_y }}rem;
-      --vp-np-max-width: {{ section.settings.popup_max_width }}rem;
-      --vp-np-min-height: {{ section.settings.popup_min_height }}rem;
+      --vp-np-d-width: {{ section.settings.popup_width }}px;
+      --vp-np-d-height: {{ section.settings.popup_height }}px;
+      --vp-np-d-scale-x: {{ section.settings.popup_width | times: 1.0 | divided_by: 880.0 }};
+      --vp-np-d-scale-y: {{ section.settings.popup_height | times: 1.0 | divided_by: 440.0 }};
+      --vp-np-m-width: {{ section.settings.popup_width_mobile }}px;
+      --vp-np-m-height: {{ section.settings.popup_height_mobile }}px;
+      --vp-np-m-scale-x: {{ section.settings.popup_width_mobile | times: 1.0 | divided_by: 343.0 }};
+      --vp-np-m-scale-y: {{ section.settings.popup_height_mobile | times: 1.0 | divided_by: 407.0 }};
     "
   >
     {% if section.settings.show_close %}
@@ -763,24 +767,47 @@ if (!customElements.get('vp-newsletter-form')) {
     },
     {
       "type": "range",
-      "id": "popup_max_width",
-      "label": "Ancho del popup",
-      "min": 40,
-      "max": 120,
-      "step": 2,
-      "unit": "rem",
-      "default": 96
+      "id": "popup_width",
+      "label": "Ancho (escritorio)",
+      "min": 640,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "default": 880,
+      "info": "El contenido se ajusta al ancho. No afecta móvil."
     },
     {
       "type": "range",
-      "id": "popup_min_height",
-      "label": "Alto mínimo del popup",
-      "min": 0,
-      "max": 80,
-      "step": 2,
-      "unit": "rem",
-      "default": 0,
-      "info": "0 = el popup termina debajo del texto. En móvil el alto siempre se adapta al contenido."
+      "id": "popup_height",
+      "label": "Alto (escritorio)",
+      "min": 320,
+      "max": 720,
+      "step": 10,
+      "unit": "px",
+      "default": 440,
+      "info": "Independiente del ancho. No afecta móvil."
+    },
+    {
+      "type": "range",
+      "id": "popup_width_mobile",
+      "label": "Ancho (móvil)",
+      "min": 280,
+      "max": 420,
+      "step": 1,
+      "unit": "px",
+      "default": 343,
+      "info": "El contenido se ajusta al ancho. No afecta escritorio."
+    },
+    {
+      "type": "range",
+      "id": "popup_height_mobile",
+      "label": "Alto (móvil)",
+      "min": 320,
+      "max": 560,
+      "step": 1,
+      "unit": "px",
+      "default": 407,
+      "info": "Independiente del ancho. No afecta escritorio."
     },
     {
       "type": "header",
