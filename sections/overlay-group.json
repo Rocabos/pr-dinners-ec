@@ -288,7 +288,6 @@
         "corner_radius": 16,
         "input_radius": 40,
         "button_radius": 40,
-        "panel_padding": 4,
         "popup_width": 880,
         "popup_height": 440,
         "popup_width_mobile": 343,
