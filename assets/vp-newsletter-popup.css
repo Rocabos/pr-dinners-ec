@@ -3,6 +3,12 @@
   padding: 16px;
 }
 
+@media screen and (max-width: 749.98px) {
+  .popup-modal.vp-newsletter-popup {
+    align-items: flex-start;
+  }
+}
+
 .vp-newsletter-popup .vp-newsletter-popup__content {
   --vp-np-radius: 16px;
   --vp-np-scale-x: var(--vp-np-m-scale-x, 1);
