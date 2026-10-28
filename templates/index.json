@@ -140,10 +140,9 @@
         },
         "slide_yLYyRi": {
           "type": "slide",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/Lanzamiento_2_-_Banner_Escritorio_1920x800_1.png",
-            "mobile_image": "shopify://shop_images/Lanzamiento_2_-_Banner_Mobile_1080x1400_1.png",
+            "image": "shopify://shop_images/Banner_Escritorio_1920x800_a65a7be0-16d5-42c1-acb4-2b1690dc0065.jpg",
+            "mobile_image": "shopify://shop_images/1_Banner_Mobile_1080x1400_02fad56c-075b-483c-9042-94fa88e51dd1.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://collections/ofertas",
             "horizontal_offset": -6,
