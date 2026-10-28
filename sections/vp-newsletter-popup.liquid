@@ -43,6 +43,7 @@
   assign popup_height = section.settings.popup_height | default: 440
   assign popup_width_mobile = section.settings.popup_width_mobile | default: 343
   assign popup_height_mobile = section.settings.popup_height_mobile | default: 407
+  assign popup_offset_y_mobile = section.settings.popup_offset_y_mobile | default: 0
 -%}
 
 <custom-popup
@@ -90,6 +91,7 @@
       --vp-np-m-height: {{ popup_height_mobile }}px;
       --vp-np-m-scale-x: {{ popup_width_mobile | times: 1.0 | divided_by: 343.0 }};
       --vp-np-m-scale-y: {{ popup_height_mobile | times: 1.0 | divided_by: 407.0 }};
+      --vp-np-m-offset-y: {{ popup_offset_y_mobile }}px;
     "
   >
     {% if section.settings.show_close %}
@@ -327,6 +329,7 @@ if (!customElements.get('vp-newsletter-form')) {
 .popup-modal.vp-newsletter-popup .vp-newsletter-popup__content {
   width: min(var(--vp-np-m-width, 343px), calc(100vw - 32px));
   min-height: var(--vp-np-m-height, 407px);
+  margin-top: calc(var(--vp-np-m-offset-y, 0px) * -1);
 }
 
 @media screen and (min-width: 750px) {
@@ -335,6 +338,7 @@ if (!customElements.get('vp-newsletter-form')) {
     height: var(--vp-np-d-height, 440px);
     min-height: var(--vp-np-d-height, 440px);
     max-height: min(var(--vp-np-d-height, 440px), calc(100dvh - 80px));
+    margin-top: 0;
   }
 }
 {% endstylesheet %}
@@ -507,7 +511,18 @@ if (!customElements.get('vp-newsletter-form')) {
           "label": "Abajo"
         }
       ],
-      "default": "justify-center items-start"
+      "default": "justify-center items-center"
+    },
+    {
+      "type": "range",
+      "id": "popup_offset_y_mobile",
+      "label": "Desplazamiento vertical (móvil)",
+      "min": -100,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 0,
+      "info": "0 = centrado. Positivo sube el popup, negativo lo baja."
     },
     {
       "type": "header",
