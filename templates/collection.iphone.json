@@ -128,7 +128,7 @@
             "image_scale": 100,
             "text": "<p>iPhone 16</p>",
             "text_size": "t3",
-            "card_link": "shopify://products/iphone-17",
+            "card_link": "shopify://products/iphone-16",
             "custom_background": ""
           }
         },
@@ -313,7 +313,7 @@
       "settings": {
         "products": [
           "iphone-15",
-          "iphone-17",
+          "iphone-16",
           "iphone-17-a",
           "iphone-17-pro",
           "iphone-17-pro-max",
