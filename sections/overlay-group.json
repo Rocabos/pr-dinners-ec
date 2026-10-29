@@ -248,7 +248,6 @@
     },
     "vp_newsletter_popup_g3RqLf": {
       "type": "vp-newsletter-popup",
-      "disabled": true,
       "name": "Newsletter popup",
       "settings": {
         "mode": "enabled",
@@ -259,6 +258,7 @@
         "show_close": true,
         "desktop_content_position": "md:justify-center md:items-center",
         "mobile_content_position": "justify-center items-center",
+        "popup_offset_y_mobile": 0,
         "image": "shopify://shop_images/iClub_popup_foto_escritorio_660x880_0cabeceb-e822-4ab3-9067-18a2acb799c8.jpg",
         "mobile_image": "shopify://shop_images/iClub_popup_foto_movil_780x520_6ab330fd-f723-4391-86de-dab70133f17b.jpg",
         "image_position": "left",
@@ -288,6 +288,8 @@
         "corner_radius": 16,
         "input_radius": 40,
         "button_radius": 40,
+        "panel_padding_x": 4,
+        "panel_padding_y": 2.2,
         "popup_width": 880,
         "popup_height": 440,
         "popup_width_mobile": 343,
