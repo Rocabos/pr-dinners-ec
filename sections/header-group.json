@@ -41,16 +41,16 @@
       "settings": {
         "text_size": "t5",
         "change_slides_speed": 7,
-        "enable_accounts": true,
-        "link_1_icon": "question_mark",
-        "link_1_label": "Help",
+        "enable_accounts": false,
+        "link_1_icon": "alert",
+        "link_1_label": "",
         "link_1_url": "/",
         "link_2_icon": "",
         "link_2_label": "",
         "link_2_url": "",
-        "enable_country_selector": true,
+        "enable_country_selector": false,
         "show_country_filter": false,
-        "enable_language_selector": true,
+        "enable_language_selector": false,
         "text_padding": 0.8,
         "show_line_separator": true
       }
