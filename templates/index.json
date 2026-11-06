@@ -57,8 +57,8 @@
         "slide_rxd8KQ": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Escritorio-_1920_x_800px_3.jpg",
-            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px_2.jpg",
+            "image": "shopify://shop_images/Escritorio-_1920_x_800px_1.jpg",
+            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px_5.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://products/macbook-neo",
             "horizontal_offset": 0.4,
@@ -141,8 +141,8 @@
         "slide_yLYyRi": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Mesa_de_trabajo_1_70c11d57-81ea-47c0-abf8-4dd62d1db4d6.jpg",
-            "mobile_image": "shopify://shop_images/Banner_Mobile_1080x1400_3adcfe3b-f3e6-4b37-91cb-aaada8c0fb6f.jpg",
+            "image": "shopify://shop_images/Mesa_de_trabajo_1_3c04f705-4b2f-41cd-bc31-6a2fd0571a93.jpg",
+            "mobile_image": "shopify://shop_images/Banner_Mobile_1080x1400_afbcee43-4e65-41d1-a2de-74e8fe8c9841.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://collections/ofertas",
             "horizontal_offset": -6,
