@@ -139,7 +139,7 @@
             "image_scale": 100,
             "text": "<p>Comprar</p>",
             "text_size": "t3",
-            "card_link": "https://tiendadiners.com.ec/search?options%5Bprefix%5D=last&q=iPhone",
+            "card_link": "/search?options%5Bprefix%5D=last&q=iPhone",
             "custom_background": ""
           }
         },
