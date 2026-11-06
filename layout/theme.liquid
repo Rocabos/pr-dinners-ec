@@ -881,5 +881,7 @@
     {%- unless request.design_mode or settings.enable_instant_page == false -%}
       <script src="{{ 'instant-page.js' | asset_url }}" defer="defer"></script>
     {%- endunless -%}
+
+    {% render 'vp-consent-analytics' %}
   </body>
 </html>

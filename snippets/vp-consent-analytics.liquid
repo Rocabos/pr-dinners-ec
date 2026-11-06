@@ -1,0 +1,27 @@
+<!-- Consentimiento analytics por defecto (GA4) -->
+<script>
+(function () {
+  function mostrarBanner(intentos) {
+    if (window.privacyBanner && window.privacyBanner.showBanner) {
+      window.privacyBanner.showBanner();
+    } else if (intentos > 0) {
+      setTimeout(function () { mostrarBanner(intentos - 1); }, 500);
+    }
+  }
+  window.Shopify && window.Shopify.loadFeatures && window.Shopify.loadFeatures(
+    [{ name: 'consent-tracking-api', version: '0.1' }],
+    function (error) {
+      if (error) return;
+      var cp = window.Shopify.customerPrivacy;
+      if (!cp) return;
+      var c = cp.currentVisitorConsent();
+      if (c.analytics === '') {
+        cp.setTrackingConsent({ analytics: true }, function () {});
+      }
+      if (c.marketing === '' && cp.shouldShowBanner()) {
+        mostrarBanner(10);
+      }
+    }
+  );
+})();
+</script>
