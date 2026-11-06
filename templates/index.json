@@ -15,8 +15,8 @@
         "slide_9WgPPM": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/iPhone_17_Pro_Max_256GB_Cosmic_Orange_-_Banner_Escritorio_1920x800_361d1b9f-c0cc-4334-b83a-444f0ef06092.png",
-            "mobile_image": "shopify://shop_images/iPhone_17_Pro_Max_256GB_Cosmic_Orange_-_Banner_Mobile_1080x1400_31294cd2-e2ef-4a9a-8200-5ee50affbd84.png",
+            "image": "shopify://shop_images/iphone_17promax_DESK_1920_x_800px.jpg",
+            "mobile_image": "shopify://shop_images/iphone_17promax_MOB_1080_x_1400px.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://products/iphone-17-pro-max-a",
             "horizontal_offset": 0.4,
@@ -98,10 +98,9 @@
         },
         "slide_BJep7n": {
           "type": "slide",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/Escritorio-_1920_x_800px_2.jpg",
-            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px_1.jpg",
+            "image": "shopify://shop_images/Escritorio-_1920_x_800px_531133df-fc73-4eff-a2ed-03dd35c1312e.jpg",
+            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px_4.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://products/ipad",
             "horizontal_offset": 0.4,
