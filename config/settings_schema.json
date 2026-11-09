@@ -4503,6 +4503,56 @@
     ]
   },
   {
+    "name": "Cookie banner",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Estilos del banner de privacidad de Shopify (cookies). No cambia el HTML inyectado por Shopify."
+      },
+      {
+        "type": "checkbox",
+        "id": "vp_cookie_banner_enable",
+        "label": "Aplicar estilos personalizados",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "vp_cookie_banner_accept_bg",
+        "label": "Color del botón Aceptar",
+        "default": "#0071e3"
+      },
+      {
+        "type": "color",
+        "id": "vp_cookie_banner_accept_text",
+        "label": "Texto del botón Aceptar",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "vp_cookie_banner_decline_bg",
+        "label": "Fondo del botón Rechazar",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "vp_cookie_banner_decline_text",
+        "label": "Texto y borde de Rechazar",
+        "default": "#1d1d1f"
+      },
+      {
+        "type": "range",
+        "id": "vp_cookie_banner_btn_height",
+        "label": "Alto de los botones",
+        "min": 28,
+        "max": 48,
+        "step": 1,
+        "unit": "px",
+        "default": 34,
+        "info": "Aceptar y Rechazar comparten el mismo alto."
+      }
+    ]
+  },
+  {
     "name": "Extras",
     "settings": [
       {

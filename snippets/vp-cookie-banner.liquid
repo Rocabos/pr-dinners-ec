@@ -1,0 +1,72 @@
+{%- comment -%}
+  Styles Shopify Customer Privacy banner (#shopify-pc__banner).
+  Selectors target Shopify-injected classes and may change with platform updates.
+{%- endcomment -%}
+{%- if settings.vp_cookie_banner_enable -%}
+  {%- liquid
+    assign accept_bg = settings.vp_cookie_banner_accept_bg | default: '#0071e3'
+    assign accept_text = settings.vp_cookie_banner_accept_text | default: '#ffffff'
+    assign decline_bg = settings.vp_cookie_banner_decline_bg | default: '#ffffff'
+    assign decline_text = settings.vp_cookie_banner_decline_text | default: '#1d1d1f'
+    assign btn_height = settings.vp_cookie_banner_btn_height | default: 34
+  -%}
+  <style>
+    #shopify-pc__banner .shopify-pc__banner__btns {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      gap: 0.75rem;
+    }
+
+    #shopify-pc__banner .shopify-pc__banner__btn-manage-prefs {
+      order: 1;
+    }
+
+    #shopify-pc__banner .shopify-pc__banner__btn-decline {
+      order: 2;
+    }
+
+    #shopify-pc__banner .shopify-pc__banner__btn-accept {
+      order: 3;
+    }
+
+    #shopify-pc__banner .shopify-pc__banner__btn-accept,
+    #shopify-pc__banner .shopify-pc__banner__btn-decline {
+      box-sizing: border-box;
+      min-height: {{ btn_height }}px;
+      height: {{ btn_height }}px;
+      padding: 0 1.25rem;
+      border-radius: 2px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    /* Shopify injects banner button styles that need overriding */
+    #shopify-pc__banner .shopify-pc__banner__btn-accept {
+      background-color: {{ accept_bg }} !important;
+      border: 1px solid {{ accept_bg }} !important;
+      color: {{ accept_text }} !important;
+    }
+
+    #shopify-pc__banner .shopify-pc__banner__btn-accept:hover,
+    #shopify-pc__banner .shopify-pc__banner__btn-accept:focus-visible {
+      filter: brightness(1.06);
+      color: {{ accept_text }} !important;
+    }
+
+    #shopify-pc__banner .shopify-pc__banner__btn-decline {
+      background-color: {{ decline_bg }} !important;
+      border: 1px solid {{ decline_text }} !important;
+      color: {{ decline_text }} !important;
+    }
+
+    #shopify-pc__banner .shopify-pc__banner__btn-decline:hover,
+    #shopify-pc__banner .shopify-pc__banner__btn-decline:focus-visible {
+      filter: brightness(0.97);
+      border-color: {{ decline_text }} !important;
+      color: {{ decline_text }} !important;
+    }
+  </style>
+{%- endif -%}
