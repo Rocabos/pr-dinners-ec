@@ -15,8 +15,8 @@
         "slide_9WgPPM": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/iphone_17promax_DESK_1920_x_800px.jpg",
-            "mobile_image": "shopify://shop_images/iphone_17promax_MOB_1080_x_1400px.jpg",
+            "image": "shopify://shop_images/iphone_17promax_DESK_1920_x_800px_3.jpg",
+            "mobile_image": "shopify://shop_images/iphone_17promax_MOB_1080_x_1400px_2.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://products/iphone-17-pro-max-a",
             "horizontal_offset": 0.4,
