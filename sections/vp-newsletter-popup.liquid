@@ -175,10 +175,19 @@
             assign success_message = 'Gracias por escribirte'
           endif
         -%}
+        {%- liquid
+          assign privacy_customer_tag = section.settings.privacy_customer_tag | default: 'Acepto-Politica'
+          assign show_privacy_consent = false
+          if section.settings.privacy_text != blank or section.settings.privacy_link_label != blank
+            assign show_privacy_consent = true
+          endif
+        -%}
         <vp-newsletter-form
           class="vp-newsletter-popup__form-host{% if posted_successfully %} is-success{% endif %}"
           data-success-message="{{ success_message | escape }}"
           data-inline-success="{% if section.settings.show_success_in_popup %}true{% else %}false{% endif %}"
+          data-base-tags="{{ section.settings.customer_tags | default: 'newsletter' | escape }}"
+          data-privacy-tag="{{ privacy_customer_tag | escape }}"
         >
           {%- form 'customer', id: form_id, return_to: section.settings.return_to -%}
             {%- if section.settings.show_success_in_popup -%}
@@ -232,17 +241,20 @@
                 class="vp-newsletter-popup__submit"
                 name="commit"
                 id="Subscribe-{{ section.id }}"
+                {% if show_privacy_consent %}
+                  disabled
+                  aria-disabled="true"
+                {% endif %}
               >
                 {{ button_label | escape }}
               </button>
 
-              {%- if section.settings.privacy_text != blank or section.settings.privacy_link_label != blank -%}
+              {%- if show_privacy_consent -%}
                 <div class="vp-newsletter-popup__privacy">
                   <input
                     id="Newsletter-privacy--{{ section.id }}"
                     class="vp-newsletter-popup__privacy-input"
                     type="checkbox"
-                    name="contact[privacy_accepted]"
                     value="1"
                     required
                     aria-required="true"
@@ -283,22 +295,58 @@ if (!customElements.get('vp-newsletter-form')) {
   class VPNewsletterForm extends HTMLElement {
     connectedCallback() {
       this.form = this.querySelector('form');
-      if (!this.form || this.dataset.inlineSuccess !== 'true') return;
+      if (!this.form) return;
 
       this.fields = this.querySelector('.vp-newsletter-popup__form');
       this.success = this.querySelector('.vp-newsletter-popup__message--success');
       this.submitButton = this.form.querySelector('[type="submit"]');
-      this.onSubmit = this.handleSubmit.bind(this);
-      this.form.addEventListener('submit', this.onSubmit);
+      this.tagsInput = this.form.querySelector('[name="contact[tags]"]');
+      this.privacyInput = this.form.querySelector('.vp-newsletter-popup__privacy-input');
+      this.baseTags = this.dataset.baseTags || '';
+      this.privacyTag = this.dataset.privacyTag || 'Acepto-Politica';
+
+      if (this.privacyInput) {
+        this.onPrivacyChange = this.syncPrivacyState.bind(this);
+        this.privacyInput.addEventListener('change', this.onPrivacyChange);
+        this.syncPrivacyState();
+      }
+
+      if (this.dataset.inlineSuccess === 'true') {
+        this.onSubmit = this.handleSubmit.bind(this);
+        this.form.addEventListener('submit', this.onSubmit);
+      }
     }
 
     disconnectedCallback() {
-      if (!this.form || !this.onSubmit) return;
-      this.form.removeEventListener('submit', this.onSubmit);
+      if (this.privacyInput && this.onPrivacyChange) {
+        this.privacyInput.removeEventListener('change', this.onPrivacyChange);
+      }
+      if (this.form && this.onSubmit) {
+        this.form.removeEventListener('submit', this.onSubmit);
+      }
+    }
+
+    syncPrivacyState() {
+      const accepted = Boolean(this.privacyInput && this.privacyInput.checked);
+
+      if (this.submitButton) {
+        this.submitButton.disabled = !accepted;
+        this.submitButton.setAttribute('aria-disabled', accepted ? 'false' : 'true');
+      }
+
+      if (this.tagsInput) {
+        const tags = [this.baseTags, accepted ? this.privacyTag : '']
+          .map((tag) => String(tag || '').trim())
+          .filter(Boolean)
+          .join(', ');
+        this.tagsInput.value = tags;
+      }
     }
 
     async handleSubmit(event) {
       event.preventDefault();
+      this.syncPrivacyState();
+
       if (!this.form.checkValidity()) {
         this.form.reportValidity();
         return;
@@ -316,7 +364,7 @@ if (!customElements.get('vp-newsletter-form')) {
         if (!response.ok) throw new Error('request-failed');
         this.showSuccess();
       } catch (error) {
-        if (this.submitButton) this.submitButton.disabled = false;
+        this.syncPrivacyState();
         this.form.submit();
       }
     }
@@ -715,6 +763,13 @@ if (!customElements.get('vp-newsletter-form')) {
       "label": "Abrir enlace en nueva pestaña",
       "default": true,
       "visible_if": "{{ section.settings.privacy_link_label != blank }}"
+    },
+    {
+      "type": "text",
+      "id": "privacy_customer_tag",
+      "label": "Etiqueta al aceptar",
+      "default": "Acepto-Politica",
+      "info": "Se añade a las etiquetas del cliente solo si el checkbox está marcado."
     },
     {
       "type": "header",

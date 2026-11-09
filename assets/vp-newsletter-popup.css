@@ -155,7 +155,7 @@
 
 .vp-newsletter-popup__submit[disabled] {
   opacity: 0.7;
-  cursor: wait;
+  cursor: default;
 }
 
 .vp-newsletter-popup__message {
