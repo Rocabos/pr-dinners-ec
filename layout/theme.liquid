@@ -882,6 +882,7 @@
       <script src="{{ 'instant-page.js' | asset_url }}" defer="defer"></script>
     {%- endunless -%}
 
+    {% render 'vp-cookie-banner' %}
     {% render 'vp-consent-analytics' %}
   </body>
 </html>
