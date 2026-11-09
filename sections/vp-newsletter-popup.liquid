@@ -235,30 +235,43 @@
               >
                 {{ button_label | escape }}
               </button>
+
+              {%- if section.settings.privacy_text != blank or section.settings.privacy_link_label != blank -%}
+                <div class="vp-newsletter-popup__privacy">
+                  <input
+                    id="Newsletter-privacy--{{ section.id }}"
+                    class="vp-newsletter-popup__privacy-input"
+                    type="checkbox"
+                    name="contact[privacy_accepted]"
+                    value="1"
+                    required
+                    aria-required="true"
+                  >
+                  <span class="vp-newsletter-popup__privacy-text">
+                    <label for="Newsletter-privacy--{{ section.id }}">
+                      {%- if section.settings.privacy_text != blank -%}
+                        {{ section.settings.privacy_text | escape }}
+                      {%- endif -%}
+                    </label>
+                    {%- if section.settings.privacy_link_label != blank -%}
+                      {%- if section.settings.privacy_text != blank %} {% endif -%}
+                      <a
+                        class="vp-newsletter-popup__privacy-link"
+                        href="{{ section.settings.privacy_link_url | default: routes.root_url }}"
+                        {% if section.settings.privacy_link_new_tab %}
+                          target="_blank"
+                          rel="noopener"
+                        {% endif %}
+                      >
+                        {{- section.settings.privacy_link_label | escape -}}
+                      </a>
+                    {%- endif -%}
+                  </span>
+                </div>
+              {%- endif -%}
             </div>
           {%- endform -%}
         </vp-newsletter-form>
-
-        {%- if section.settings.privacy_text != blank or section.settings.privacy_link_label != blank -%}
-          <p class="vp-newsletter-popup__privacy">
-            {%- if section.settings.privacy_text != blank -%}
-              {{ section.settings.privacy_text | escape }}
-            {%- endif -%}
-            {%- if section.settings.privacy_link_label != blank -%}
-              {%- if section.settings.privacy_text != blank %} {% endif -%}
-              <a
-                class="vp-newsletter-popup__privacy-link"
-                href="{{ section.settings.privacy_link_url | default: routes.root_url }}"
-                {% if section.settings.privacy_link_new_tab %}
-                  target="_blank"
-                  rel="noopener"
-                {% endif %}
-              >
-                {{- section.settings.privacy_link_label | escape -}}
-              </a>
-            {%- endif -%}
-          </p>
-        {%- endif -%}
         </div>
       </div>
     </div>
@@ -675,16 +688,20 @@ if (!customElements.get('vp-newsletter-form')) {
       "content": "Privacidad"
     },
     {
+      "type": "paragraph",
+      "content": "Se muestra como checkbox obligatorio junto al formulario. Vacío = no se muestra."
+    },
+    {
       "type": "text",
       "id": "privacy_text",
       "label": "Texto de privacidad",
-      "default": "Respetamos tu privacidad. Consulta nuestra"
+      "default": "Acepta nuestra"
     },
     {
       "type": "text",
       "id": "privacy_link_label",
       "label": "Texto del enlace",
-      "default": "política de privacidad."
+      "default": "política de privacidad"
     },
     {
       "type": "url",
