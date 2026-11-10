@@ -1,0 +1,190 @@
+/* Same typeface across announcement bar + header */
+.shopify-section-group-header-group .utility-bar,
+.shopify-section-group-header-group .header-wrapper {
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  letter-spacing: calc(var(--font-heading-scale) * var(--font-heading-letter-spacing));
+}
+
+.shopify-section-group-header-group .utility-bar :where(p, a, span, div, button, summary, li, label, input),
+.shopify-section-group-header-group .header-wrapper :where(p, a, span, div, button, summary, li, label, input) {
+  font-family: inherit;
+  letter-spacing: inherit;
+}
+
+.vp-header__logo-group {
+  display: flex;
+  align-items: center;
+  gap: var(--vp-header-divider-gap, 16px);
+  min-width: 0;
+  flex-grow: 0;
+  grid-area: heading;
+}
+
+.vp-header__logo-group .header__heading-link {
+  grid-area: auto;
+  flex-grow: 0;
+  line-height: 0;
+}
+
+.vp-header__divider {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 2px;
+  height: var(--vp-header-divider-height, 22px);
+  background-color: #ffffff;
+  opacity: 1;
+  align-self: center;
+}
+
+.vp-header__divider--before-search {
+  margin-inline-end: calc(var(--vp-header-divider-gap, 16px) * 0.5);
+}
+
+.vp-header__logo-right {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  margin-inline-start: 35px;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.vp-header__logo-right-img {
+  display: block;
+  width: var(--vp-header-logo-right-mobile-width, 90px);
+  height: auto;
+  max-height: 2.8rem;
+  object-fit: contain;
+}
+
+@media screen and (min-width: 750px) {
+  .vp-header__logo-right-img {
+    width: var(--vp-header-logo-right-width, 120px);
+    max-height: 3.2rem;
+  }
+}
+
+@media screen and (max-width: 749.98px) {
+  .vp-header__divider--after-logo,
+  .vp-header__divider--before-search {
+    display: none;
+  }
+
+  /*
+    Mobile header row (5 items):
+    burger | left logo | search | cart | right logo
+  */
+  .header {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) max-content;
+    grid-template-areas: "burger heading icons";
+    align-items: center;
+    column-gap: 0.5rem;
+    overflow: visible;
+  }
+
+  .header.header--keep-mobile-search,
+  .header.header--keep-mobile-search.header--mobile-center {
+    grid-template-areas:
+      "burger heading icons"
+      "navigation navigation navigation";
+    grid-template-columns: auto minmax(0, 1fr) max-content;
+  }
+
+  .header > * {
+    flex-grow: 0;
+  }
+
+  /* Do not set position:relative here — it traps .menu-drawer inside the burger cell */
+  .header > header-drawer {
+    grid-area: burger;
+    justify-self: start;
+    z-index: 4;
+    min-width: 4.4rem;
+    overflow: visible;
+  }
+
+  .header > header-drawer .menu-drawer {
+    z-index: 10;
+  }
+
+  .header__inline-menu {
+    display: none;
+  }
+
+  .vp-header__logo-group {
+    grid-area: heading;
+    justify-self: stretch;
+    justify-content: center;
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+
+  .vp-header__logo-group .header__heading-link {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+  }
+
+  .header__icons {
+    grid-area: icons;
+    justify-self: end;
+    flex-wrap: nowrap;
+    gap: 0;
+    min-width: max-content;
+    overflow: visible;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Match right logo size, but never wider than the free space between burger and icons */
+  .vp-header--has-right-logo .header__heading-logo-wrapper {
+    width: auto;
+    max-width: min(100%, var(--vp-header-logo-right-mobile-width, 90px));
+  }
+
+  .vp-header--has-right-logo .header__heading-logo {
+    width: auto !important;
+    max-width: min(100%, var(--vp-header-logo-right-mobile-width, 90px)) !important;
+    height: auto;
+  }
+
+  .vp-header__logo-right-img {
+    width: var(--vp-header-logo-right-mobile-width, 90px);
+    max-height: none;
+  }
+
+  /* Theme uses .visible-md { display:none } under 990px; keep search icon by the cart */
+  .header__icons > div:has(.header__search) {
+    display: flex !important;
+    order: 20;
+    flex-shrink: 0;
+  }
+
+  .header__icons .header__icon--account,
+  .header__icons shopify-account {
+    display: none !important;
+  }
+
+  .header__icons .header__icon--cart {
+    order: 21;
+    flex-shrink: 0;
+  }
+
+  .vp-header--has-right-logo .header__icons .vp-header__logo-right {
+    display: flex !important;
+    order: 22;
+    flex-shrink: 0;
+    margin-inline-start: 35px;
+  }
+}
+
+/* When the mobile menu is open, lift the header section above the announcement */
+.shopify-section-group-header-group .shopify-section:has(.header-wrapper):has(details[open]) {
+  z-index: 20;
+}
