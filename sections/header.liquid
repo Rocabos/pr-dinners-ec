@@ -1,4 +1,5 @@
 {%- comment -%}theme-check-disable SchemaJsonFormat,LiquidTag{%- endcomment -%}
+{{ 'vp-header.css' | asset_url | stylesheet_tag }}
 {%- if request.design_mode -%}
   {{ 'component-search.css' | asset_url | stylesheet_tag }}
   {{ 'component-menu-drawer.css' | asset_url | stylesheet_tag }}
@@ -280,7 +281,10 @@
     </custom-nav>
   {%- endcapture -%}
 
-  <header class="header header--{{ logo_position }} header--mobile-{{ section.settings.mobile_logo_position }}{% if section.settings.let_it_snow %} let-it-snow-let-it-snow-let-it-snow{% endif %} page-width{% if drawer_on_desktop != 'off' %} drawer-menu{% if drawer_on_desktop == 'replace_on_scroll' %} drawer-menu--on-scroll{% endif %}{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if social_icons %} header--has-social{% endif %}{% if shop.customer_accounts_enabled and section.settings.enable_accounts or section.settings.enable_accounts_mobile %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}{% if section.settings.search != 'off' and section.settings.search_mobile_open %} header--keep-mobile-search{% endif %}">
+  <header
+    class="header header--{{ logo_position }} header--mobile-{{ section.settings.mobile_logo_position }}{% if section.settings.let_it_snow %} let-it-snow-let-it-snow-let-it-snow{% endif %} page-width{% if drawer_on_desktop != 'off' %} drawer-menu{% if drawer_on_desktop == 'replace_on_scroll' %} drawer-menu--on-scroll{% endif %}{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if social_icons %} header--has-social{% endif %}{% if shop.customer_accounts_enabled and section.settings.enable_accounts or section.settings.enable_accounts_mobile %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}{% if section.settings.search != 'off' and section.settings.search_mobile_open %} header--keep-mobile-search{% endif %}{% if section.settings.vp_logo_right != blank %} vp-header--has-right-logo{% endif %}"
+    style="--vp-header-divider-height: {{ section.settings.vp_divider_height | default: 22 }}px; --vp-header-divider-gap: {{ section.settings.vp_divider_gap | default: 16 }}px; --vp-header-logo-right-mobile-width: {{ section.settings.vp_logo_right_mobile_width | default: 90 }}px; --vp-header-logo-right-width: {{ section.settings.vp_logo_right_width | default: 120 }}px;"
+  >
   
   {% if section.settings.burger_menu_enabled %}
     {%- liquid
@@ -295,36 +299,41 @@
   {% endif %}
 
     {%- if logo_position != 'middle-center' -%}
-      <a href="{{ routes.root_url }}" class="header__heading-link text-center md:text-left link link--text focus-inset">
-        {%- if section.settings.logo != blank -%}
-          <div class="header__heading-logo-wrapper">
-            {%- assign logo_alt = section.settings.logo.alt | default: shop.name | escape -%}
-            {%- assign logo_height = section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio -%}
-            {% capture sizes %}(max-width: {{ section.settings.logo_width | times: 2 }}px) 50vw, {{ section.settings.logo_width }}px{% endcapture %}
-            {% capture widths %}{{ section.settings.logo_width }}, {{ section.settings.logo_width | times: 1.5 | round }}, {{ section.settings.logo_width | times: 2 }}{% endcapture %}
-            {{ section.settings.logo | image_url: width: 600 | image_tag:
-              class: 'header__heading-logo motion-reduce',
-              widths: widths,
-              height: logo_height,
-              width: section.settings.logo_width,
-              alt: logo_alt,
-              sizes: sizes,
-              preload: true
-            }}
-          </div>
-        {%- else -%}
-          <span class="h4">{{ shop.name }}</span>
+      <div class="vp-header__logo-group">
+        <a href="{{ routes.root_url }}" class="header__heading-link text-center md:text-left link link--text focus-inset">
+          {%- if section.settings.logo != blank -%}
+            <div class="header__heading-logo-wrapper">
+              {%- assign logo_alt = section.settings.logo.alt | default: shop.name | escape -%}
+              {%- assign logo_height = section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio -%}
+              {% capture sizes %}(max-width: {{ section.settings.logo_width | times: 2 }}px) 50vw, {{ section.settings.logo_width }}px{% endcapture %}
+              {% capture widths %}{{ section.settings.logo_width }}, {{ section.settings.logo_width | times: 1.5 | round }}, {{ section.settings.logo_width | times: 2 }}{% endcapture %}
+              {{ section.settings.logo | image_url: width: 600 | image_tag:
+                class: 'header__heading-logo motion-reduce',
+                widths: widths,
+                height: logo_height,
+                width: section.settings.logo_width,
+                alt: logo_alt,
+                sizes: sizes,
+                preload: true
+              }}
+            </div>
+          {%- else -%}
+            <span class="h4">{{ shop.name }}</span>
+          {%- endif -%}
+          {%- if section.settings.logo_strap != blank -%}
+            <p class="header__strap visible-md rte opacity-90 {{ section.settings.logo_strap_text_size }}">
+              {%- if section.settings.logo_strap contains '<a ' -%}
+                {{ section.settings.logo_strap | strip_html }}
+              {%- else -%}
+                {{ section.settings.logo_strap }}
+              {%- endif -%}
+            </p>
+          {%- endif -%}
+        </a>
+        {%- if section.settings.vp_show_logo_divider -%}
+          <span class="vp-header__divider vp-header__divider--after-logo" aria-hidden="true"></span>
         {%- endif -%}
-        {%- if section.settings.logo_strap != blank -%}
-          <p class="header__strap visible-md rte opacity-90 {{ section.settings.logo_strap_text_size }}">
-            {%- if section.settings.logo_strap contains '<a ' -%}
-              {{ section.settings.logo_strap | strip_html }}
-            {%- else -%}
-              {{ section.settings.logo_strap }}
-            {%- endif -%}
-          </p>
-        {%- endif -%}
-      </a>
+      </div>
     {%- endif -%}
       
     {%- if section.settings.menu != blank and logo_position == 'middle-left' -%}
@@ -393,6 +402,10 @@
         </div>
       {%- endif -%}
 
+      {%- if section.settings.vp_show_search_divider -%}
+        <span class="vp-header__divider vp-header__divider--before-search" aria-hidden="true"></span>
+      {%- endif -%}
+
       {%- if section.settings.search != 'off' -%}
         {%- unless section.settings.search == 'bar' and section.settings.search_mobile_open -%}
           <div class="{% if section.settings.search == 'bar' %}large-up-hide{% endif %}{% if section.settings.search_mobile_open %} visible-md{% endif %}">
@@ -459,6 +472,35 @@
           </div>
         {%- endif -%}
       </a>
+
+      {%- if section.settings.vp_logo_right != blank -%}
+        {%- liquid
+          assign vp_logo_right_alt = section.settings.vp_logo_right.alt | default: shop.name | escape
+          assign vp_logo_right_width = section.settings.vp_logo_right_width | default: 120
+          assign vp_logo_right_height = vp_logo_right_width | divided_by: section.settings.vp_logo_right.aspect_ratio
+          assign vp_logo_right_mobile_width = section.settings.vp_logo_right_mobile_width | default: 90
+        -%}
+        <{% if section.settings.vp_logo_right_link != blank %}a href="{{ section.settings.vp_logo_right_link }}"{% else %}div{% endif %}
+          class="vp-header__logo-right"
+          style="--vp-header-logo-right-width: {{ vp_logo_right_width }}px; --vp-header-logo-right-mobile-width: {{ vp_logo_right_mobile_width }}px;"
+          {% if section.settings.vp_logo_right_link != blank %}
+            aria-label="{{ vp_logo_right_alt }}"
+          {% endif %}
+        >
+          {{
+            section.settings.vp_logo_right
+            | image_url: width: 600
+            | image_tag:
+              class: 'vp-header__logo-right-img motion-reduce',
+              widths: '90, 120, 180, 240, 360, 480, 600',
+              width: vp_logo_right_width,
+              height: vp_logo_right_height,
+              alt: vp_logo_right_alt,
+              sizes: '(max-width: 749px) var(--vp-header-logo-right-mobile-width), var(--vp-header-logo-right-width)',
+              loading: 'lazy'
+          }}
+        </{% if section.settings.vp_logo_right_link != blank %}a{% else %}div{% endif %}>
+      {%- endif -%}
     </div>
   </header>
 
@@ -894,7 +936,7 @@
     {
       "type": "image_picker",
       "id": "logo",
-      "label": "Logo"
+      "label": "Logo izquierda"
     },
     {
       "type": "range",
@@ -904,7 +946,7 @@
       "step": 5,
       "default": 100,
       "unit": "px",
-      "label": "Logo width on desktop"
+      "label": "Ancho logo izquierda (escritorio)"
     },
     {
       "type": "range",
@@ -914,7 +956,7 @@
       "step": 5,
       "default": 100,
       "unit": "px",
-      "label": "Logo width on mobile"
+      "label": "Ancho logo izquierda (móvil)"
     },
     {
       "type": "select",
@@ -937,6 +979,87 @@
       "id": "logo_strap",
       "label": "Strap line",
       "info": "Text stays on one line, so keep it short. Links are not permitted. Visible on desktop only."
+    },
+    {
+      "type": "header",
+      "content": "Logo derecha"
+    },
+    {
+      "type": "image_picker",
+      "id": "vp_logo_right",
+      "label": "Logo derecha",
+      "info": "Se muestra a la derecha del header, junto a los iconos. Compatible con el logo izquierda."
+    },
+    {
+      "type": "url",
+      "id": "vp_logo_right_link",
+      "label": "Enlace del logo derecha",
+      "visible_if": "{{ section.settings.vp_logo_right != blank }}"
+    },
+    {
+      "type": "range",
+      "id": "vp_logo_right_width",
+      "min": 40,
+      "max": 220,
+      "step": 5,
+      "default": 120,
+      "unit": "px",
+      "label": "Ancho logo derecha (escritorio)",
+      "visible_if": "{{ section.settings.vp_logo_right != blank }}"
+    },
+    {
+      "type": "range",
+      "id": "vp_logo_right_mobile_width",
+      "min": 30,
+      "max": 160,
+      "step": 5,
+      "default": 90,
+      "unit": "px",
+      "label": "Ancho logo derecha (móvil)",
+      "visible_if": "{{ section.settings.vp_logo_right != blank }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "vp_logo_right_show_mobile",
+      "label": "Mostrar logo derecha en móvil",
+      "default": true,
+      "visible_if": "{{ section.settings.vp_logo_right != blank }}"
+    },
+    {
+      "type": "header",
+      "content": "Separadores del header"
+    },
+    {
+      "type": "checkbox",
+      "id": "vp_show_logo_divider",
+      "label": "Raya vertical después del logo izquierda",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "vp_show_search_divider",
+      "label": "Raya vertical antes de la lupa",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "vp_divider_height",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 22,
+      "label": "Alto de las rayas"
+    },
+    {
+      "type": "range",
+      "id": "vp_divider_gap",
+      "min": 8,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 16,
+      "label": "Espacio alrededor de las rayas"
     },
     {
       "type": "select",

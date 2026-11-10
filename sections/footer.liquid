@@ -24,6 +24,7 @@
 
 <link rel="stylesheet" href="{{ 'section-footer.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-accordion.css' | asset_url }}" media="print" onload="this.media='all'">
+{{ 'vp-footer.css' | asset_url | stylesheet_tag }}
 
 <footer
   {% if section.settings.let_it_snow %}
@@ -220,17 +221,38 @@
           {% endif %}
         </div>
 
-        <div class="md:pl-3">
-          {% assign footer_image_url = section.settings.footer_image | image_url: width: 406, height: 150 %}
-          <img
-            src="{{ footer_image_url }}"
-            alt="{{ section.settings.contact_text | default: '' | escape }}"
-            width="203"
-            height="75"
-            loading="lazy"
-            fetchpriority="low"
+        {%- if section.settings.footer_image != blank -%}
+          {%- liquid
+            assign vp_footer_image_width = section.settings.footer_image_width | default: 200
+            assign vp_footer_image_width_mobile = section.settings.footer_image_width_mobile | default: vp_footer_image_width
+            if section.settings.footer_image.aspect_ratio != blank
+              assign vp_footer_image_height = vp_footer_image_width | divided_by: section.settings.footer_image.aspect_ratio
+            else
+              assign vp_footer_image_height = vp_footer_image_width | times: 0.37
+            endif
+            assign vp_footer_image_alt = section.settings.footer_image.alt | default: shop.name | escape
+          -%}
+          <div
+            class="vp-footer__image md:pl-3"
+            style="
+              --vp-footer-image-width: {{ vp_footer_image_width }}px;
+              --vp-footer-image-width-mobile: {{ vp_footer_image_width_mobile }}px;
+            "
           >
-        </div>
+            {{
+              section.settings.footer_image
+              | image_url: width: 800
+              | image_tag:
+                class: 'vp-footer__image-img',
+                widths: '100, 150, 200, 300, 406, 600, 800',
+                sizes: '(max-width: 749px) var(--vp-footer-image-width-mobile), var(--vp-footer-image-width)',
+                width: vp_footer_image_width,
+                height: vp_footer_image_height,
+                alt: vp_footer_image_alt,
+                loading: 'lazy'
+            }}
+          </div>
+        {%- endif -%}
 
         {% if section.settings.contact_text != blank and shop.phone != blank %}
           <div class="flex items-center gap-2 md:pr-3 font-body-bold">
@@ -359,6 +381,30 @@
       "id": "footer_image",
       "label": "Footer image",
       "info": "Image to display in the footer below links."
+    },
+    {
+      "type": "range",
+      "id": "footer_image_width",
+      "min": 40,
+      "max": 400,
+      "step": 5,
+      "unit": "px",
+      "label": "Ancho Footer image (escritorio)",
+      "default": 200,
+      "info": "El alto se adapta a la proporción de la imagen.",
+      "visible_if": "{{ section.settings.footer_image != blank }}"
+    },
+    {
+      "type": "range",
+      "id": "footer_image_width_mobile",
+      "min": 40,
+      "max": 320,
+      "step": 5,
+      "unit": "px",
+      "label": "Ancho Footer image (móvil)",
+      "default": 160,
+      "info": "Independiente del escritorio. El alto se adapta a la imagen.",
+      "visible_if": "{{ section.settings.footer_image != blank }}"
     },
     {
       "type": "header",

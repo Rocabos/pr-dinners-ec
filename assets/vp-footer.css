@@ -1,0 +1,22 @@
+.vp-footer__image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.vp-footer__image-img {
+  display: block;
+  width: var(--vp-footer-image-width-mobile, var(--vp-footer-image-width, 203px));
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+@media screen and (min-width: 750px) {
+  .vp-footer__image-img {
+    width: var(--vp-footer-image-width, 203px);
+  }
+}

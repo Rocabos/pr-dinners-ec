@@ -1,4 +1,5 @@
 {%- comment -%}theme-check-disable SchemaJsonFormat{%- endcomment -%}
+{{ 'vp-announcement-bar.css' | asset_url | stylesheet_tag }}
 {%- liquid
   assign announcements_size = 0
   assign announcements_to_show = ""
@@ -6,7 +7,16 @@
 
   for block in section.blocks
     assign show_this_announcement = false
-    if block.settings.text != blank
+    assign has_announcement_content = false
+    assign vp_ab_check_text = block.settings.text | strip_html | strip
+    assign vp_ab_check_text_after = block.settings.text_after | strip_html | strip
+    assign vp_ab_check_mobile_text = block.settings.mobile_text | strip_html | strip
+    assign vp_ab_check_mobile_text_after = block.settings.mobile_text_after | strip_html | strip
+    if vp_ab_check_text != blank or vp_ab_check_text_after != blank or block.settings.image != blank or vp_ab_check_mobile_text != blank or vp_ab_check_mobile_text_after != blank
+      assign has_announcement_content = true
+    endif
+
+    if has_announcement_content
       unless block.settings.announcement_pages == blank
         assign match = block.settings.announcement_pages.links | where: 'url', request.path
         if match != blank
@@ -87,14 +97,83 @@
                   aria-label="{{ 'sections.header.announcement' | t }}"
                   {{ block.shopify_attributes }}
                 >
-                  {%- if block.settings.text != blank -%}
-                    <div class="announcement-bar__message xs:text-center rte">
-                      {% if block.settings.mobile_text != blank %}
-                        <span class="hidden-xs">{{ block.settings.text }}</span>
-                        <span class="visible-xs">{{ block.settings.mobile_text }}</span>
-                      {% else %}
-                        {{ block.settings.text }}
-                      {% endif %}
+                  {%- liquid
+                    assign vp_ab_text = block.settings.text | strip_html | strip
+                    assign vp_ab_mobile_text = block.settings.mobile_text | strip_html | strip
+                    assign vp_ab_text_after = block.settings.text_after | strip_html | strip
+                    assign vp_ab_mobile_text_after = block.settings.mobile_text_after | strip_html | strip
+                  -%}
+                  {%- if vp_ab_text != blank or vp_ab_text_after != blank or block.settings.image != blank or vp_ab_mobile_text != blank or vp_ab_mobile_text_after != blank -%}
+                    {%- liquid
+                      assign announcement_image_height = block.settings.image_height | default: 18
+                      assign announcement_image_height_mobile = block.settings.image_height_mobile | default: announcement_image_height
+                      if block.settings.image != blank and block.settings.image.aspect_ratio != blank
+                        assign announcement_image_width = announcement_image_height | times: block.settings.image.aspect_ratio | round
+                        assign announcement_image_width_mobile = announcement_image_height_mobile | times: block.settings.image.aspect_ratio | round
+                      else
+                        assign announcement_image_width = announcement_image_height | times: 4
+                        assign announcement_image_width_mobile = announcement_image_height_mobile | times: 4
+                      endif
+                      assign announcement_image_alt = block.settings.image_alt | default: block.settings.image.alt | escape
+                      assign announcement_image_sizes = '(max-width: 749px) ' | append: announcement_image_width_mobile | append: 'px, ' | append: announcement_image_width | append: 'px'
+                      assign text_before_size = block.settings.text_before_size | default: 14
+                      assign text_before_size_mobile = block.settings.text_before_size_mobile | default: text_before_size
+                      assign text_after_size = block.settings.text_after_size | default: 12
+                      assign text_after_size_mobile = block.settings.text_after_size_mobile | default: text_after_size
+                    -%}
+                    <div
+                      class="announcement-bar__message vp-announcement-bar__message xs:text-center rte"
+                      style="
+                        --vp-ab-image-height: {{ announcement_image_height }}px;
+                        --vp-ab-image-width: {{ announcement_image_width }}px;
+                        --vp-ab-image-height-mobile: {{ announcement_image_height_mobile }}px;
+                        --vp-ab-image-width-mobile: {{ announcement_image_width_mobile }}px;
+                        --vp-ab-text-before-size: {{ text_before_size }}px;
+                        --vp-ab-text-before-size-mobile: {{ text_before_size_mobile }}px;
+                        --vp-ab-text-after-size: {{ text_after_size }}px;
+                        --vp-ab-text-after-size-mobile: {{ text_after_size_mobile }}px;
+                      "
+                    >
+                      <div class="vp-announcement-bar__row">
+                        {%- if vp_ab_text != blank or vp_ab_mobile_text != blank -%}
+                          <div class="vp-announcement-bar__text vp-announcement-bar__text--before">
+                            {% if vp_ab_mobile_text != blank %}
+                              <div class="hidden-xs">{{ block.settings.text }}</div>
+                              <div class="visible-xs">{{ block.settings.mobile_text }}</div>
+                            {% elsif vp_ab_text != blank %}
+                              {{ block.settings.text }}
+                            {% endif %}
+                          </div>
+                        {%- endif -%}
+
+                        {%- if block.settings.image != blank -%}
+                          <span class="vp-announcement-bar__image-slot">
+                            {{
+                              block.settings.image
+                              | image_url: width: 400
+                              | image_tag:
+                                class: 'vp-announcement-bar__image',
+                                widths: '80, 120, 160, 240, 320, 400',
+                                sizes: announcement_image_sizes,
+                                width: announcement_image_width,
+                                height: announcement_image_height,
+                                alt: announcement_image_alt,
+                                loading: 'lazy'
+                            }}
+                          </span>
+                        {%- endif -%}
+
+                        {%- if vp_ab_text_after != blank or vp_ab_mobile_text_after != blank -%}
+                          <div class="vp-announcement-bar__text vp-announcement-bar__text--after">
+                            {% if vp_ab_mobile_text_after != blank %}
+                              <div class="hidden-xs">{{ block.settings.text_after }}</div>
+                              <div class="visible-xs">{{ block.settings.mobile_text_after }}</div>
+                            {% elsif vp_ab_text_after != blank %}
+                              {{ block.settings.text_after }}
+                            {% endif %}
+                          </div>
+                        {%- endif -%}
+                      </div>
                     </div>
                   {%- endif -%}
                 </div>
@@ -2076,16 +2155,103 @@
       "name": "Announcement",
       "settings": [
         {
-          "type": "inline_richtext",
+          "type": "richtext",
           "id": "text",
-          "default": "Welcome to our store",
-          "label": "Text on desktop"
+          "default": "<p>Welcome to our store</p>",
+          "label": "Texto izquierda (escritorio)",
+          "info": "Ejemplo: 0% interés pagando con tarjetas"
         },
         {
-          "type": "inline_richtext",
+          "type": "range",
+          "id": "text_before_size",
+          "min": 0,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "label": "Tamaño texto izquierda (escritorio)",
+          "default": 14
+        },
+        {
+          "type": "richtext",
           "id": "mobile_text",
-          "info": "If empty, the \"Text on desktop\" will be used.",
-          "label": "Text on mobile"
+          "info": "Si está vacío, se usa el texto de escritorio.",
+          "label": "Texto izquierda (móvil)"
+        },
+        {
+          "type": "range",
+          "id": "text_before_size_mobile",
+          "min": 0,
+          "max": 22,
+          "step": 1,
+          "unit": "px",
+          "label": "Tamaño texto izquierda (móvil)",
+          "default": 13
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen entre el texto",
+          "info": "Se muestra entre el texto anterior y el texto posterior."
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Texto alternativo de la imagen",
+          "info": "Si está vacío, se usa el alt de la imagen."
+        },
+        {
+          "type": "range",
+          "id": "image_height",
+          "min": 12,
+          "max": 120,
+          "step": 2,
+          "unit": "px",
+          "label": "Alto de la imagen (escritorio)",
+          "default": 18,
+          "info": "Solo escala la imagen. No cambia la altura de la barra."
+        },
+        {
+          "type": "range",
+          "id": "image_height_mobile",
+          "min": 12,
+          "max": 120,
+          "step": 2,
+          "unit": "px",
+          "label": "Alto de la imagen (móvil)",
+          "default": 18,
+          "info": "Independiente del escritorio. No cambia la altura de la barra."
+        },
+        {
+          "type": "richtext",
+          "id": "text_after",
+          "label": "Texto derecha (escritorio)",
+          "info": "Ejemplo: Aplican condiciones"
+        },
+        {
+          "type": "range",
+          "id": "text_after_size",
+          "min": 0,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "label": "Tamaño texto derecha (escritorio)",
+          "default": 12
+        },
+        {
+          "type": "richtext",
+          "id": "mobile_text_after",
+          "label": "Texto derecha (móvil)",
+          "info": "Si está vacío, se usa el texto de escritorio."
+        },
+        {
+          "type": "range",
+          "id": "text_after_size_mobile",
+          "min": 0,
+          "max": 22,
+          "step": 1,
+          "unit": "px",
+          "label": "Tamaño texto derecha (móvil)",
+          "default": 11
         },
         {
           "type": "link_list",

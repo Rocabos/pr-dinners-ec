@@ -1,0 +1,153 @@
+/* Theme slider/slideshow clips overflow-y; allow tall announcement images to show fully */
+.utility-bar,
+.utility-bar .page-width,
+.utility-bar .announcement-bar,
+.utility-bar .announcement-bar-slider,
+.utility-bar .announcement-bar-slider .slider,
+.utility-bar .slider.slider--everywhere,
+.utility-bar .slideshow__slide,
+.utility-bar .announcement-bar__announcement,
+.utility-bar .announcement-bar__message {
+  overflow: visible !important;
+}
+
+/* Theme header section uses z-index: 5 and covers overflowing announcement images */
+.shopify-section-group-header-group .shopify-section:has(.utility-bar) {
+  position: relative;
+  z-index: 6;
+}
+
+.shopify-section-group-header-group .shopify-section:has(.header-wrapper) {
+  position: relative;
+  z-index: 5;
+}
+
+.utility-bar,
+.utility-bar .vp-announcement-bar__message,
+.utility-bar .vp-announcement-bar__text {
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  letter-spacing: calc(var(--font-heading-scale) * var(--font-heading-letter-spacing));
+}
+
+.vp-announcement-bar__message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.vp-announcement-bar__row {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 0.5rem 0.75rem;
+  max-width: 100%;
+  position: relative;
+}
+
+.vp-announcement-bar__text {
+  position: relative;
+  z-index: 2;
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.vp-announcement-bar__text p,
+.vp-announcement-bar__text ul,
+.vp-announcement-bar__text ol {
+  margin: 0;
+}
+
+.vp-announcement-bar__text a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.vp-announcement-bar__text--before {
+  font-size: var(--vp-ab-text-before-size, 14px);
+  line-height: 1.2;
+}
+
+.vp-announcement-bar__text--after {
+  font-size: var(--vp-ab-text-after-size, 12px);
+  line-height: 1.2;
+  opacity: 0.95;
+}
+
+/* Reserve full image width so logo never overlaps adjacent text */
+.vp-announcement-bar__image-slot {
+  position: relative;
+  display: block;
+  flex: 0 0 var(--vp-ab-image-width, 48px);
+  align-self: center;
+  width: var(--vp-ab-image-width, 48px);
+  height: 1em;
+  overflow: visible;
+  z-index: 1;
+}
+
+/* Beat theme .rte img (margin/height:auto) that pushed the logo down */
+.vp-announcement-bar__message.rte .vp-announcement-bar__image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  width: auto;
+  height: var(--vp-ab-image-height, 18px);
+  max-width: none;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  object-fit: contain;
+  object-position: center center;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+@media screen and (max-width: 749.98px) {
+  /* Icons/links are desktop-only; keep them out of mobile flex so content centers */
+  .utility-bar .page-width.flex {
+    justify-content: center;
+  }
+
+  .utility-bar .announcement__icons {
+    display: none;
+  }
+
+  .utility-bar .announcement-bar,
+  .utility-bar slideshow-component.announcement-bar {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .announcement-bar__announcement,
+  .announcement-bar__announcement-left,
+  .vp-announcement-bar__message,
+  .vp-announcement-bar__row {
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .vp-announcement-bar__text--before {
+    font-size: var(--vp-ab-text-before-size-mobile, 13px);
+  }
+
+  .vp-announcement-bar__text--after {
+    font-size: var(--vp-ab-text-after-size-mobile, 11px);
+  }
+
+  .vp-announcement-bar__image-slot {
+    flex-basis: var(--vp-ab-image-width-mobile, 48px);
+    width: var(--vp-ab-image-width-mobile, 48px);
+  }
+
+  .vp-announcement-bar__message.rte .vp-announcement-bar__image {
+    height: var(--vp-ab-image-height-mobile, 18px);
+  }
+}
