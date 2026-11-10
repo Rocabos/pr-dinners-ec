@@ -17,8 +17,8 @@
         "announcement_7zLFcK": {
           "type": "announcement",
           "settings": {
-            "text": "Our mid-season sale is now on.<strong> </strong><a href=\"/\" title=\"/\">Shop Phones</a> / <a href=\"/\" title=\"/\">Shop Watches</a>",
-            "mobile_text": "Our mid-season sale is on.<strong> </strong><a href=\"/\" title=\"/\">Shop Phones</a>",
+            "text": "<p>Our mid-season sale is now on.<strong> </strong><a href=\"/\" title=\"/\">Shop Phones</a> / <a href=\"/\" title=\"/\">Shop Watches</a></p>",
+            "mobile_text": "<p>Our mid-season sale is on.<strong> </strong><a href=\"/\" title=\"/\">Shop Phones</a></p>",
             "announcement_pages": "",
             "color_scheme": "scheme-5"
           }
@@ -26,8 +26,8 @@
         "announcement_kwmC4H": {
           "type": "announcement",
           "settings": {
-            "text": "Trade in your old device for up to $100 off. <a href=\"/\" title=\"/\">Trade ins</a>",
-            "mobile_text": "Trade in for up to $100 off. <a href=\"/\" title=\"/\">Trade ins</a>",
+            "text": "<p>Trade in your old device for up to $100 off. <a href=\"/\" title=\"/\">Trade ins</a></p>",
+            "mobile_text": "<p>Trade in for up to $100 off. <a href=\"/\" title=\"/\">Trade ins</a></p>",
             "announcement_pages": "",
             "color_scheme": "scheme-11"
           }

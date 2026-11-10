@@ -28,13 +28,18 @@
 }
 
 .vp-header__divider {
-  display: inline-block;
+  display: none;
   flex: 0 0 auto;
   width: 2px;
   height: var(--vp-header-divider-height, 22px);
   background-color: #ffffff;
   opacity: 1;
   align-self: center;
+}
+
+.vp-header--show-logo-divider .vp-header__divider--after-logo,
+.vp-header--show-search-divider .vp-header__divider--before-search {
+  display: inline-block;
 }
 
 .vp-header__divider--before-search {
