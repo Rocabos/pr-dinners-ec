@@ -15,8 +15,8 @@
         "slide_9WgPPM": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/iphone_17promax_DESK_1920_x_800px_3.jpg",
-            "mobile_image": "shopify://shop_images/iphone_17promax_MOB_1080_x_1400px_2.jpg",
+            "image": "shopify://shop_images/iphone_17promax_DESK_1920_x_800px_020b2f49-7626-47ca-bee4-e0d08e65ac95.jpg",
+            "mobile_image": "shopify://shop_images/iphone_17promax_MOB_1080_x_1400px_bb171965-873a-438b-a8a5-b6ceb0945bfb.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://products/iphone-17-pro-max-a",
             "horizontal_offset": 0.4,
@@ -57,8 +57,8 @@
         "slide_rxd8KQ": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Escritorio-_1920_x_800px_5.jpg",
-            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px_4_fc36aa2e-710b-49d1-9258-97a3c1486e1c.jpg",
+            "image": "shopify://shop_images/MAC_BOOK_NEO_Escritorio-_1920_x_800px.jpg",
+            "mobile_image": "shopify://shop_images/MACBOOK_NEO_Mobile-_1080_x_1400px.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://products/macbook-neo",
             "horizontal_offset": 0.4,
@@ -99,8 +99,8 @@
         "slide_BJep7n": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Escritorio-_1920_x_800px_6.jpg",
-            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px_5_777ca351-ea6e-4cea-9c4e-d34a08e976b3.jpg",
+            "image": "shopify://shop_images/Escritorio-_1920_x_800px_1_71720828-de41-436c-9170-f2947160b0cf.jpg",
+            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px_6.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://products/ipad",
             "horizontal_offset": 0.4,
@@ -141,8 +141,8 @@
         "slide_yLYyRi": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/LANZAMIENTO_DEK_2.jpg",
-            "mobile_image": "shopify://shop_images/Banner_Mobile_1080x1400_1e8571f7-f76f-40d9-904b-e5ecc4c2ebb0.jpg",
+            "image": "shopify://shop_images/LANZAMIENTO_DEK.jpg",
+            "mobile_image": "shopify://shop_images/Banner_Mobile_1080x1400_1.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://collections/ofertas",
             "horizontal_offset": -6,
@@ -183,8 +183,8 @@
         "slide_bMYq4n": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Escritorio-_1920_x_800px_8.jpg",
-            "mobile_image": "shopify://shop_images/Movil-_1080_x_1400px.jpg",
+            "image": "shopify://shop_images/Escritorio-_1920_x_800px_ba60a388-d6bc-48a4-a4df-3ee31d3c39e7.jpg",
+            "mobile_image": "shopify://shop_images/Movil-_1080_x_1400px_1.jpg",
             "image_overlay_opacity": 0,
             "image_link": "",
             "horizontal_offset": 0.4,
@@ -296,6 +296,7 @@
         },
         "column_standard_kmHPPX": {
           "type": "column_standard",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/apple-watch-collection.png",
             "image_scale": 100,
@@ -307,6 +308,7 @@
         },
         "column_standard_QTEnGF": {
           "type": "column_standard",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/airtag-collection.png",
             "image_scale": 100,
