@@ -371,7 +371,7 @@
         "content_padding": 0,
         "desktop_layout": "grid",
         "mobile_layout": "carousel",
-        "columns_desktop": "6",
+        "columns_desktop": "4",
         "columns_mobile": "2",
         "carousel_width_desktop": "normal",
         "always_show_arrows": true,
