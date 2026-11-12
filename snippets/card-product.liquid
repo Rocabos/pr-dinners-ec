@@ -52,6 +52,8 @@
   endif
 -%}
 
+{{ 'vp-product-badge.css' | asset_url | stylesheet_tag }}
+
 {%- if card_product.quantity_price_breaks_configured? -%}
   <link
     rel="stylesheet"
@@ -226,6 +228,12 @@
         data-product-template="{{ card_product.template_suffix | handleize }}"
       {% endif %}
     >
+      {%- capture vp_card_badges -%}
+        {%- render 'product-badge', badge_product: card_product -%}
+      {%- endcapture -%}
+      {%- if vp_card_badges != blank -%}
+        <div class="vp-card__badge-bar">{{ vp_card_badges }}</div>
+      {%- endif -%}
       <div
         class="
           card__inner
@@ -304,10 +312,6 @@
             </div>
           </div>
         {%- endif -%}
-
-        <div class="card__content card__content--badge">
-          {%- render 'product-badge', badge_product: card_product -%}
-        </div>
 
         {%- if show_quick_add and quick_add_icon_over_image != 'never' and horizontal_class == blank -%}
           <button
