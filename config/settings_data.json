@@ -49,7 +49,7 @@
     "card_show_inventory": "never",
     "card_show_inventory_quantity": false,
     "card_highlight_badge_show": true,
-    "card_highlight_badge_label": "NUEVO",
+    "card_highlight_badge_label": "",
     "card_highlight_badge_max": 0,
     "card_highlight_badge_weight": "bold",
     "card_highlight_badge_color": "#146DCD",
