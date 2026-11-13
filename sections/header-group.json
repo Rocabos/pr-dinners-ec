@@ -17,17 +17,73 @@
         "announcement_7zLFcK": {
           "type": "announcement",
           "settings": {
+            "text": "<p>Llévalo a 12 cuotas con 0% de interés pagando con tu Diners</p>",
+            "text_before_size": 14,
+            "mobile_text": "<p>Llévalo a 12 cuotas con 0% de interés pagando con tu Diners</p>",
+            "text_before_size_mobile": 13,
+            "image_alt": "",
+            "image_height": 18,
+            "image_height_mobile": 18,
+            "text_after": "",
+            "text_after_size": 12,
+            "mobile_text_after": "",
+            "text_after_size_mobile": 11,
+            "announcement_pages": "",
+            "color_scheme": "scheme-5"
+          }
+        },
+        "announcement_k7cE8n": {
+          "type": "announcement",
+          "settings": {
+            "text": "<p>Envío gratis a todo el Ecuador</p>",
+            "text_before_size": 14,
+            "mobile_text": "<p>Envío gratis a todo el Ecuador</p>",
+            "text_before_size_mobile": 13,
+            "image_alt": "",
+            "image_height": 18,
+            "image_height_mobile": 18,
+            "text_after": "",
+            "text_after_size": 12,
+            "mobile_text_after": "",
+            "text_after_size_mobile": 11,
+            "announcement_pages": "",
+            "color_scheme": "scheme-5"
+          }
+        },
+        "announcement_MxWXNX": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
             "text": "<p>Our mid-season sale is now on.<strong> </strong><a href=\"/\" title=\"/\">Shop Phones</a> / <a href=\"/\" title=\"/\">Shop Watches</a></p>",
+            "text_before_size": 14,
             "mobile_text": "<p>Our mid-season sale is on.<strong> </strong><a href=\"/\" title=\"/\">Shop Phones</a></p>",
+            "text_before_size_mobile": 13,
+            "image_alt": "",
+            "image_height": 18,
+            "image_height_mobile": 18,
+            "text_after": "",
+            "text_after_size": 12,
+            "mobile_text_after": "",
+            "text_after_size_mobile": 11,
             "announcement_pages": "",
             "color_scheme": "scheme-5"
           }
         },
         "announcement_kwmC4H": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "text": "<p>Trade in your old device for up to $100 off. <a href=\"/\" title=\"/\">Trade ins</a></p>",
+            "text_before_size": 14,
             "mobile_text": "<p>Trade in for up to $100 off. <a href=\"/\" title=\"/\">Trade ins</a></p>",
+            "text_before_size_mobile": 13,
+            "image_alt": "",
+            "image_height": 18,
+            "image_height_mobile": 18,
+            "text_after": "",
+            "text_after_size": 12,
+            "mobile_text_after": "",
+            "text_after_size_mobile": 11,
             "announcement_pages": "",
             "color_scheme": "scheme-11"
           }
@@ -35,9 +91,10 @@
       },
       "block_order": [
         "announcement_7zLFcK",
+        "announcement_k7cE8n",
+        "announcement_MxWXNX",
         "announcement_kwmC4H"
       ],
-      "disabled": true,
       "settings": {
         "text_size": "t5",
         "change_slides_speed": 7,
@@ -165,6 +222,14 @@
         "mobile_logo_width": 95,
         "mobile_logo_position": "left",
         "logo_strap": "",
+        "vp_logo_right_link": "",
+        "vp_logo_right_width": 120,
+        "vp_logo_right_mobile_width": 90,
+        "vp_logo_right_show_mobile": true,
+        "vp_show_logo_divider": false,
+        "vp_show_search_divider": false,
+        "vp_divider_height": 22,
+        "vp_divider_gap": 16,
         "logo_strap_text_size": "t7",
         "menu": "main-menu-2",
         "text_size": "t5",
