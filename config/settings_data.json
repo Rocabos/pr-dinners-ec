@@ -85,7 +85,7 @@
     "badge_shape": "pill",
     "badge_text_size": "m",
     "badge_text_weight": "bold",
-    "badge_sale_show": true,
+    "badge_sale_show": false,
     "badge_sale_type": "percent",
     "badge_sale_border_color": "rgba(0,0,0,0)",
     "badge_sale_bg_color": "rgba(0,0,0,0)",
