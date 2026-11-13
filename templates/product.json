@@ -51,13 +51,6 @@
             "free_shipping_text": "Envío sin costo"
           }
         },
-        "custom_liquid_7TyzfF": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "{% assign sticker = product.metafields.custom.sticker_de_descuento %}\n\n{% if sticker != blank %}\n  <div style=\"margin: 10px 0;\">\n    <span style=\"\n      background-color: #FFFFFF;\n      color: #111111;\n      padding: 4px 12px;\n      border-radius: 20px;\n      font-size: 12px;\n      font-weight: bold;\n      display: inline-block;\n      border: 1px solid #D0D0D0;\n    \">\n      {{ sticker }}\n    </span>\n  </div>\n{% endif %}",
-            "stock_visibility": "either"
-          }
-        },
         "spacer_yabJcX": {
           "type": "spacer",
           "settings": {
@@ -78,6 +71,13 @@
             "show_tax_info": false,
             "price_color": "#0071e3",
             "text_size": "h5-size"
+          }
+        },
+        "custom_liquid_7TyzfF": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% assign sticker = product.metafields.custom.sticker_de_descuento %}\n\n{% if sticker != blank %}\n  <div style=\"margin: 10px 0;\">\n    <span style=\"\n      background-color: #FFFFFF;\n      color: #111111;\n      padding: 4px 12px;\n      border-radius: 20px;\n      font-size: 12px;\n      font-weight: bold;\n      display: inline-block;\n      border: 1px solid #D0D0D0;\n    \">\n      {{ sticker }}\n    </span>\n  </div>\n{% endif %}",
+            "stock_visibility": "either"
           }
         },
         "product_installment_info_rdGxyX": {
@@ -348,9 +348,9 @@
         "title_r4Yfcn",
         "sku_ibJQtJ",
         "product_availability_info_RayMqa",
-        "custom_liquid_7TyzfF",
         "spacer_yabJcX",
         "price",
+        "custom_liquid_7TyzfF",
         "product_installment_info_rdGxyX",
         "text_RDJ7eX",
         "spacer_KEzDVU",
