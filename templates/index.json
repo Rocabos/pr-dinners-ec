@@ -257,6 +257,42 @@
         "show_time_night": true
       }
     },
+    "image_banner_d6Dwre": {
+      "type": "image-banner",
+      "disabled": true,
+      "name": "Banner beneficios",
+      "settings": {
+        "image_overlay_opacity": 0,
+        "image_link": "",
+        "fix_image": false,
+        "skew_images": false,
+        "stack_images_on_mobile": true,
+        "image_ratio": "landscape_wide",
+        "desktop_section_height": 500,
+        "mobile_section_height": 400,
+        "full_width": false,
+        "full_width_animate": false,
+        "desktop_content_position": "md:justify-center md:items-center",
+        "mobile_content_position": "justify-center items-center",
+        "content_max_width": "m",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "center",
+        "show_text_box": "always",
+        "show_text_below": false,
+        "color_scheme": "",
+        "container_color_scheme": "",
+        "line_separator": "",
+        "top_padding": "pt-s",
+        "bottom_padding": "pb-s",
+        "visibility": "",
+        "hide_when_empty": false,
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true
+      }
+    },
     "logo_list_y8Df3Y": {
       "type": "logo-list",
       "blocks": {
@@ -773,6 +809,7 @@
   },
   "order": [
     "slideshow_hc4nU7",
+    "image_banner_d6Dwre",
     "logo_list_y8Df3Y",
     "featured_collection_aCXTDn",
     "video_3Xw66K",
