@@ -22,6 +22,13 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "custom_liquid_7TyzfF": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% assign sticker = product.metafields.custom.sticker_de_descuento %}\n\n{% if sticker != blank %}\n  <div style=\"margin: 10px 0;\">\n    <span style=\"\n      background-color: #FFFFFF;\n      color: #111111;\n      padding: 4px 12px;\n      border-radius: 20px;\n      font-size: 12px;\n      font-weight: bold;\n      display: inline-block;\n      border: 1px solid #D0D0D0;\n    \">\n      {{ sticker }}\n    </span>\n  </div>\n{% endif %}",
+            "stock_visibility": "either"
+          }
+        },
         "product_badges_XGaTzY": {
           "type": "product_badges",
           "settings": {
@@ -337,6 +344,7 @@
         }
       },
       "block_order": [
+        "custom_liquid_7TyzfF",
         "product_badges_XGaTzY",
         "title_r4Yfcn",
         "sku_ibJQtJ",
