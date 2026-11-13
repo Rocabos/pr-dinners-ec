@@ -14,12 +14,12 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
-        "announcement_7zLFcK": {
+        "announcement_k7cE8n": {
           "type": "announcement",
           "settings": {
-            "text": "<p>Llévalo a 12 cuotas con 0% de interés pagando con tu Diners</p>",
+            "text": "<p>Envío gratis a todo el Ecuador</p>",
             "text_before_size": 14,
-            "mobile_text": "<p>Llévalo a 12 cuotas con 0% de interés pagando con tu Diners</p>",
+            "mobile_text": "<p>Envío gratis a todo el Ecuador</p>",
             "text_before_size_mobile": 13,
             "image_alt": "",
             "image_height": 18,
@@ -32,12 +32,12 @@
             "color_scheme": "scheme-5"
           }
         },
-        "announcement_k7cE8n": {
+        "announcement_7zLFcK": {
           "type": "announcement",
           "settings": {
-            "text": "<p>Envío gratis a todo el Ecuador</p>",
+            "text": "<p>Llévalo a 12 cuotas con 0% de interés pagando con tu Diners</p>",
             "text_before_size": 14,
-            "mobile_text": "<p>Envío gratis a todo el Ecuador</p>",
+            "mobile_text": "<p>Llévalo a 12 cuotas con 0% de interés pagando con tu Diners</p>",
             "text_before_size_mobile": 13,
             "image_alt": "",
             "image_height": 18,
@@ -90,8 +90,8 @@
         }
       },
       "block_order": [
-        "announcement_7zLFcK",
         "announcement_k7cE8n",
+        "announcement_7zLFcK",
         "announcement_MxWXNX",
         "announcement_kwmC4H"
       ],
