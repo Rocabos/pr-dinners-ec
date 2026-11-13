@@ -196,6 +196,24 @@
             "color_scheme": "scheme-5"
           }
         },
+        "announcement_UFKDFP": {
+          "type": "announcement",
+          "settings": {
+            "text": "<p>Welcome to our store</p>",
+            "text_before_size": 14,
+            "mobile_text": "",
+            "text_before_size_mobile": 13,
+            "image_alt": "",
+            "image_height": 18,
+            "image_height_mobile": 18,
+            "text_after": "",
+            "text_after_size": 12,
+            "mobile_text_after": "",
+            "text_after_size_mobile": 11,
+            "announcement_pages": "",
+            "color_scheme": "scheme-4"
+          }
+        },
         "announcement_7zLFcK": {
           "type": "announcement",
           "settings": {
@@ -273,6 +291,7 @@
       },
       "block_order": [
         "announcement_k7cE8n",
+        "announcement_UFKDFP",
         "announcement_7zLFcK",
         "announcement_MxWXNX",
         "announcement_kwmC4H",
