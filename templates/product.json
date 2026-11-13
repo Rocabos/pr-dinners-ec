@@ -76,7 +76,7 @@
         "custom_liquid_7TyzfF": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "{% assign sticker = product.metafields.custom.sticker_de_descuento %}\n\n{% if sticker != blank %}\n  <div style=\"margin-top: 5px; margin-bottom: 10px;\">\n    <span style=\"\n      background-color: #8B0000;\n      color: #FFFFFF;\n      padding: 3px 8px;\n      border-radius: 12px;\n      font-size: 11px;\n      font-weight: bold;\n      display: inline-block;\n    \">\n      {{ sticker }}\n    </span>\n  </div>\n{% endif %}",
+            "custom_liquid": "{% assign sticker = product.metafields.custom.sticker_de_descuento %}\n\n{% if sticker != blank %}\n  <div style=\"display: inline-block; vertical-align: middle; margin-left: 10px; margin-bottom: 4px;\">\n    <span style=\"\n      background-color: #8B0000;\n      color: #FFFFFF;\n      padding: 3px 8px;\n      border-radius: 12px;\n      font-size: 11px;\n      font-weight: bold;\n      display: inline-block;\n    \">\n      {{ sticker }}\n    </span>\n  </div>\n{% endif %}",
             "stock_visibility": "either"
           }
         },
