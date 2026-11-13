@@ -4631,5 +4631,28 @@
         "label": "Store pickup icon"
       }
     ]
+  },
+    {
+    "name": "Sticker envío gratis",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "free_shipping_badge_enabled",
+        "label": "Mostrar sticker \"Envío gratis\"",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_badge_text",
+        "label": "Texto",
+        "default": "Envío gratis"
+      },
+      {
+        "type": "color",
+        "id": "free_shipping_badge_color",
+        "label": "Color de fondo",
+        "default": "#7b1e3a"
+      }
+    ]
   }
 ]
