@@ -22,6 +22,14 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "custom_liquid_tLCEL9": {
+          "type": "custom_liquid",
+          "name": "Envío gratis",
+          "settings": {
+            "custom_liquid": "<div style=\"display: inline-flex; align-items: center; gap: 6px; background-color: #9e1b24; color: #ffffff; padding: 5px 12px; border-radius: 6px; font-size: 13px; font-weight: 500; margin: 4px 0;\">\n  <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n    <path d=\"M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2\"/>\n    <path d=\"M15 18H9\"/>\n    <path d=\"M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14\"/>\n    <circle cx=\"17\" cy=\"18\" r=\"2\"/>\n    <circle cx=\"7\" cy=\"18\" r=\"2\"/>\n  </svg>\n  <span>Envío gratis a todo el Ecuador</span>\n</div>",
+            "stock_visibility": "either"
+          }
+        },
         "product_badges_XGaTzY": {
           "type": "product_badges",
           "settings": {
@@ -344,6 +352,7 @@
         }
       },
       "block_order": [
+        "custom_liquid_tLCEL9",
         "product_badges_XGaTzY",
         "title_r4Yfcn",
         "sku_ibJQtJ",
