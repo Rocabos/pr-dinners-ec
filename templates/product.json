@@ -79,6 +79,7 @@
         },
         "text_RDJ7eX": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "<a href=\"/pages/pago-diferido-sin-intereses\" target=\"_blank\" title=\"Pago diferido sin intereses\">Distribuye el costo en 3-12 meses</a>",
             "text_style": "body",
