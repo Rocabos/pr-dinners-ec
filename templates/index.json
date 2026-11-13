@@ -98,6 +98,7 @@
         },
         "slide_BJep7n": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Escritorio-_1920_x_800px_1_71720828-de41-436c-9170-f2947160b0cf.jpg",
             "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px_6.jpg",
