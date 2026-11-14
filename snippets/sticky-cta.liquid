@@ -70,7 +70,36 @@
         {{ current_variant.price | money }}
       </strong>
 
-      {% render 'product-installment-info', product: product %}
+            {%- capture info_cuotas -%}
+        {%- render 'product-installment-info', product: product -%}
+      {%- endcapture -%}
+
+      {%- liquid
+        assign limpio = info_cuotas | strip_html | strip_newlines | strip
+        assign palabras = limpio | split: ' '
+        assign num_cuotas = ''
+        assign valor_cuota = ''
+
+        for palabra in palabras
+          assign i = forloop.index0 | minus: 1
+          if palabra == 'cuotas' and num_cuotas == '' and i >= 0
+            assign num_cuotas = palabras[i]
+          endif
+          if palabra contains '$' and valor_cuota == '' and i >= 0
+            if palabras[i] == 'US'
+              assign valor_cuota = 'US ' | append: palabra
+            else
+              assign valor_cuota = palabra
+            endif
+          endif
+        endfor
+      -%}
+
+      {%- if num_cuotas != '' and valor_cuota != '' -%}
+        <span class="sticky-cta__installments" style="font-size:12px; line-height:1.3;">
+          Hasta <strong>{{ num_cuotas }} cuotas de {{ valor_cuota }}</strong> a <strong>0% de interés</strong> Con tu Diners
+        </span>
+      {%- endif -%}
     </div>
   </div>
 
