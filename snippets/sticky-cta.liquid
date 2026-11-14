@@ -193,8 +193,8 @@
 
       {%- if num_cuotas != '' and valor_cuota != '' -%}
         {%- assign valor_sin_us = valor_cuota | remove: 'US ' -%}
-        <span class="sticky-cta__installments" style="font-size:14px; line-height:1.3; white-space:nowrap; font-weight:400; color:rgba(0,0,0,.75);">
-          Hasta {{ num_cuotas }} cuotas de {{ valor_sin_us }} a 0% de interés Con tu Diners
+          <span class="sticky-cta__installments" style="font-size:13px; line-height:1.3; white-space:nowrap; font-weight:400; color:rgba(0,0,0,.75);">
+          Hasta {{ num_cuotas }} cuotas de <strong style="font-weight:700;">{{ valor_sin_us }}</strong> a <strong style="font-weight:700;">0%</strong> de interés Con tu <strong style="font-weight:700;">Diners</strong>
         </span>
       {%- endif -%}
     </div>
