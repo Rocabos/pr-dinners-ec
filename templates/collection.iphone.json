@@ -98,7 +98,6 @@
         },
         "column_standard_tCdUHX": {
           "type": "column_standard",
-          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/iPhone_15.png",
             "image_scale": 100,
@@ -122,7 +121,6 @@
         },
         "column_standard_Rpp6Aq": {
           "type": "column_standard",
-          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/iphone-16-image.png",
             "image_scale": 100,
@@ -173,7 +171,7 @@
         "content_padding": 0,
         "desktop_layout": "grid",
         "mobile_layout": "carousel",
-        "columns_desktop": "3",
+        "columns_desktop": "5",
         "columns_mobile": "2",
         "carousel_width_desktop": "normal",
         "always_show_arrows": true,
