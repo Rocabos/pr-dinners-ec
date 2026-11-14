@@ -15,8 +15,8 @@
         "slide_9WgPPM": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/WhatsApp_Image_2026-11-13_at_7.01.04_PM.jpg",
-            "mobile_image": "shopify://shop_images/WhatsApp_Image_2026-11-13_at_7.01.04_PM_1.jpg",
+            "image": "shopify://shop_images/Escritorio-_1920_x_800px_10.jpg",
+            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px_8.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://products/iphone-17-pro-max-a",
             "horizontal_offset": 0.4,
@@ -57,8 +57,8 @@
         "slide_BJep7n": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/WhatsApp_Image_2026-11-13_at_7.01.03_PM.jpg",
-            "mobile_image": "shopify://shop_images/WhatsApp_Image_2026-11-13_at_7.01.50_PM.jpg",
+            "image": "shopify://shop_images/Escritorio-_1920_x_800px_12.jpg",
+            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px_11.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://products/ipad",
             "horizontal_offset": 0.4,
@@ -98,10 +98,9 @@
         },
         "slide_rxd8KQ": {
           "type": "slide",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/MAC_BOOK_NEO_Escritorio-_1920_x_800px.jpg",
-            "mobile_image": "shopify://shop_images/MACBOOK_NEO_Mobile-_1080_x_1400px.jpg",
+            "image": "shopify://shop_images/Escritorio-_1920_x_800px_11.jpg",
+            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px_9.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://products/macbook-neo",
             "horizontal_offset": 0.4,
