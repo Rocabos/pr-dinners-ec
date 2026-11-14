@@ -5,60 +5,78 @@
 ></script>
 
 <style>
+  /* Cuadrícula de 2 filas: arriba el precio tachado; abajo nombre + precio + cuotas */
   #sticky-cta-{{ section.id }}.sticky-cta {
-    display: flex !important;
+    display: grid !important;
+    grid-template-columns: auto auto 1fr auto !important;
+    grid-template-rows: auto auto !important;
+    column-gap: 28px !important;
+    row-gap: 0 !important;
     align-items: center !important;
-    gap: 28px !important;
     max-width: 1400px !important;
     padding-top: 8px !important;
     padding-bottom: 8px !important;
     padding-right: 76px !important; /* espacio para la flecha de subir */
   }
 
-  /* Nombre: no se encoge, no se corta salvo que sea muy largo */
-  #sticky-cta-{{ section.id }} .sticky-cta__info {
-    flex: 0 0 auto !important;
-    max-width: 420px !important;
-    min-width: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-  }
-  #sticky-cta-{{ section.id }} .sticky-cta__title {
-    font-size: 15px !important;
-    font-weight: 600 !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+  /* Los contenedores internos se "disuelven" para ubicar sus piezas en la cuadrícula */
+  #sticky-cta-{{ section.id }} .sticky-cta__info,
+  #sticky-cta-{{ section.id }} .sticky-cta__pricing {
+    display: contents !important;
   }
 
   /* Oculta el texto "NUEVO" */
   #sticky-cta-{{ section.id }} .sticky-cta__badges { display: none !important; }
 
-  /* Precio: tachado arriba; precio y cuotas en la misma línea */
-  #sticky-cta-{{ section.id }} .sticky-cta__pricing {
-    flex: 0 1 auto !important;
-    min-width: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
+  /* Fila 2, columna 1: nombre */
+  #sticky-cta-{{ section.id }} .sticky-cta__title {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 420px !important;
+    align-self: center !important;
   }
-  #sticky-cta-{{ section.id }} .sticky-cta__pricing-row {
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-  }
-  #sticky-cta-{{ section.id }} .sticky-cta__price { font-size: 22px !important; white-space: nowrap !important; }
-  #sticky-cta-{{ section.id }} .sticky-cta__compare-price { font-size: 12px !important; line-height: 1 !important; }
 
-  /* Cantidad y botón a la derecha */
+  /* Fila 1, columna 2: precio tachado, justo encima del precio */
+  #sticky-cta-{{ section.id }} .sticky-cta__compare-price {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    justify-self: start !important;
+    align-self: end !important;
+    font-size: 12px !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Fila 2, columnas 2-3: precio y cuotas en la misma línea que el nombre */
+  #sticky-cta-{{ section.id }} .sticky-cta__pricing-row {
+    grid-column: 2 / 4 !important;
+    grid-row: 2 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    min-width: 0 !important;
+  }
+  #sticky-cta-{{ section.id }} .sticky-cta__price {
+    font-size: 22px !important;
+    white-space: nowrap !important;
+  }
+
+  /* Cantidad y botón a la derecha, ocupando las dos filas */
   #sticky-cta-{{ section.id }} .sticky-cta__actions {
-    flex: 0 0 auto !important;
-    margin-left: auto !important;
+    grid-column: 4 !important;
+    grid-row: 1 / span 2 !important;
     display: flex !important;
     align-items: center !important;
     gap: 12px !important;
   }
-  #sticky-cta-{{ section.id }} .sticky-cta__button { min-height: 38px !important; font-size: 14px !important; }
+  #sticky-cta-{{ section.id }} .sticky-cta__button {
+    min-height: 38px !important;
+    font-size: 14px !important;
+  }
 </style>
 
 {%- liquid
