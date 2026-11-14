@@ -183,10 +183,9 @@
         },
         "slide_bMYq4n": {
           "type": "slide",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/Escritorio-_1920_x_800px_ba60a388-d6bc-48a4-a4df-3ee31d3c39e7.jpg",
-            "mobile_image": "shopify://shop_images/Movil-_1080_x_1400px_1.jpg",
+            "image": "shopify://shop_images/Escritorio-_1920_x_800px_9.jpg",
+            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px_7.jpg",
             "image_overlay_opacity": 0,
             "image_link": "",
             "horizontal_offset": 0.4,
