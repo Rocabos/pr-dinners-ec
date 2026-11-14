@@ -3,6 +3,7 @@
   src="{{ 'component-sticky-cta.js' | asset_url }}"
   defer="defer"
 ></script>
+
 <style>
   #sticky-cta-{{ section.id }}.sticky-cta {
     display: flex !important;
@@ -11,11 +12,13 @@
     max-width: 1400px !important;
     padding-top: 8px !important;
     padding-bottom: 8px !important;
+    padding-right: 76px !important; /* espacio para la flecha de subir */
   }
 
-  /* Nombre */
+  /* Nombre: no se encoge, no se corta salvo que sea muy largo */
   #sticky-cta-{{ section.id }} .sticky-cta__info {
-    flex: 0 1 auto !important;
+    flex: 0 0 auto !important;
+    max-width: 420px !important;
     min-width: 0 !important;
     display: flex !important;
     align-items: center !important;
@@ -26,15 +29,14 @@
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
-    max-width: 380px !important;
   }
 
   /* Oculta el texto "NUEVO" */
   #sticky-cta-{{ section.id }} .sticky-cta__badges { display: none !important; }
 
-  /* Precio: tachado arriba, precio y cuotas en la misma línea */
+  /* Precio: tachado arriba; precio y cuotas en la misma línea */
   #sticky-cta-{{ section.id }} .sticky-cta__pricing {
-    flex: 1 1 auto !important;
+    flex: 0 1 auto !important;
     min-width: 0 !important;
     display: flex !important;
     flex-direction: column !important;
@@ -48,7 +50,7 @@
   #sticky-cta-{{ section.id }} .sticky-cta__price { font-size: 22px !important; white-space: nowrap !important; }
   #sticky-cta-{{ section.id }} .sticky-cta__compare-price { font-size: 12px !important; line-height: 1 !important; }
 
-  /* Cantidad y botón a la derecha, sin encimarse */
+  /* Cantidad y botón a la derecha */
   #sticky-cta-{{ section.id }} .sticky-cta__actions {
     flex: 0 0 auto !important;
     margin-left: auto !important;
@@ -58,6 +60,7 @@
   }
   #sticky-cta-{{ section.id }} .sticky-cta__button { min-height: 38px !important; font-size: 14px !important; }
 </style>
+
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
   assign installment_price = current_variant.price | divided_by: 12.0 | round
@@ -124,7 +127,7 @@
         {{ current_variant.price | money }}
       </strong>
 
-            {%- capture info_cuotas -%}
+      {%- capture info_cuotas -%}
         {%- render 'product-installment-info', product: product -%}
       {%- endcapture -%}
 
@@ -149,9 +152,10 @@
         endfor
       -%}
 
-        {%- if num_cuotas != '' and valor_cuota != '' -%}
-        <span class="sticky-cta__installments" style="font-size:13px; line-height:1.3;">
-          Hasta <strong>{{ num_cuotas }} cuotas de {{ valor_cuota }}</strong> a <strong>0% de interés</strong> Con tu Diners
+      {%- if num_cuotas != '' and valor_cuota != '' -%}
+        {%- assign valor_sin_us = valor_cuota | remove: 'US ' -%}
+        <span class="sticky-cta__installments" style="font-size:14px; line-height:1.3; white-space:nowrap; font-weight:400; color:rgba(0,0,0,.75);">
+          Hasta {{ num_cuotas }} cuotas de {{ valor_sin_us }} a 0% de interés Con tu Diners
         </span>
       {%- endif -%}
     </div>
