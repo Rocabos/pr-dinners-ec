@@ -5,16 +5,58 @@
 ></script>
 <style>
   #sticky-cta-{{ section.id }}.sticky-cta {
-    max-width: 1100px !important;
-    padding-top: 6px !important;
-    padding-bottom: 6px !important;
-    gap: 14px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 28px !important;
+    max-width: 1400px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
   }
-  #sticky-cta-{{ section.id }} .sticky-cta__title { font-size: 14px !important; }
-  #sticky-cta-{{ section.id }} .sticky-cta__price { font-size: 20px !important; }
-  #sticky-cta-{{ section.id }} .sticky-cta__compare-price { font-size: 11px !important; }
-  #sticky-cta-{{ section.id }} .sticky-cta__quantity { transform: scale(0.85); transform-origin: center; }
-  #sticky-cta-{{ section.id }} .sticky-cta__button { min-height: 36px !important; font-size: 13px !important; }
+
+  /* Nombre */
+  #sticky-cta-{{ section.id }} .sticky-cta__info {
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  #sticky-cta-{{ section.id }} .sticky-cta__title {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 380px !important;
+  }
+
+  /* Oculta el texto "NUEVO" */
+  #sticky-cta-{{ section.id }} .sticky-cta__badges { display: none !important; }
+
+  /* Precio: tachado arriba, precio y cuotas en la misma línea */
+  #sticky-cta-{{ section.id }} .sticky-cta__pricing {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  #sticky-cta-{{ section.id }} .sticky-cta__pricing-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+  #sticky-cta-{{ section.id }} .sticky-cta__price { font-size: 22px !important; white-space: nowrap !important; }
+  #sticky-cta-{{ section.id }} .sticky-cta__compare-price { font-size: 12px !important; line-height: 1 !important; }
+
+  /* Cantidad y botón a la derecha, sin encimarse */
+  #sticky-cta-{{ section.id }} .sticky-cta__actions {
+    flex: 0 0 auto !important;
+    margin-left: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+  #sticky-cta-{{ section.id }} .sticky-cta__button { min-height: 38px !important; font-size: 14px !important; }
 </style>
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
@@ -107,8 +149,8 @@
         endfor
       -%}
 
-      {%- if num_cuotas != '' and valor_cuota != '' -%}
-        <span class="sticky-cta__installments" style="font-size:17px; line-height:1.35;">
+        {%- if num_cuotas != '' and valor_cuota != '' -%}
+        <span class="sticky-cta__installments" style="font-size:13px; line-height:1.3;">
           Hasta <strong>{{ num_cuotas }} cuotas de {{ valor_cuota }}</strong> a <strong>0% de interés</strong> Con tu Diners
         </span>
       {%- endif -%}
