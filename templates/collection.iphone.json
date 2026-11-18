@@ -61,6 +61,17 @@
     "logo_list_9n4AeP": {
       "type": "logo-list",
       "blocks": {
+        "column_standard_3dU9bK": {
+          "type": "column_standard",
+          "settings": {
+            "image": "shopify://shop_images/1500_x_1500_copia_6.png",
+            "image_scale": 100,
+            "text": "<p>iPhone 18 Pro</p>",
+            "text_size": "t3",
+            "card_link": "shopify://collections/iphone-18",
+            "custom_background": ""
+          }
+        },
         "column_standard_gpqc7t": {
           "type": "column_standard",
           "settings": {
@@ -69,18 +80,6 @@
             "text": "<p>iPhone 17 Pro</p>",
             "text_size": "t3",
             "card_link": "shopify://products/iphone-17-pro",
-            "custom_background": ""
-          }
-        },
-        "column_standard_3dU9bK": {
-          "type": "column_standard",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/iphone-air-image.png",
-            "image_scale": 100,
-            "text": "<p>iPhone  Air</p>",
-            "text_size": "t3",
-            "card_link": "shopify://products/iphone-15",
             "custom_background": ""
           }
         },
@@ -154,8 +153,8 @@
         }
       },
       "block_order": [
-        "column_standard_gpqc7t",
         "column_standard_3dU9bK",
+        "column_standard_gpqc7t",
         "column_standard_q9k3tX",
         "column_standard_tCdUHX",
         "column_standard_NfVKrY",
@@ -171,7 +170,7 @@
         "content_padding": 0,
         "desktop_layout": "grid",
         "mobile_layout": "carousel",
-        "columns_desktop": "5",
+        "columns_desktop": "6",
         "columns_mobile": "2",
         "carousel_width_desktop": "normal",
         "always_show_arrows": true,
