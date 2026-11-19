@@ -485,7 +485,7 @@
       "type": "video",
       "name": "Video",
       "settings": {
-        "video_url": "https://www.youtube.com/watch?v=_87NLDMHp_I",
+        "video_url": "https://www.youtube.com/watch?v=DDnNc60onT4",
         "cover_image": "shopify://shop_images/Portada_Video_iPhone_17.jpg",
         "enable_video_autoplay": true,
         "controls_position": "bottom_right",
@@ -681,6 +681,23 @@
       "blocks": {
         "social_video_QQ8UNX": {
           "type": "social_video",
+          "name": "Iphone 18",
+          "settings": {
+            "video": "shopify://files/videos/iPhone_18_Pro_Social_Video_9x16_eSIM__MX-ES (1).mp4",
+            "on_click_page": "",
+            "icon": "add",
+            "icon_size": 36,
+            "icon_link": "shopify://collections/iphone",
+            "caption": "",
+            "caption_size": "t5",
+            "caption_link": "",
+            "caption_image_width": 30,
+            "caption_image_corner_radius": 50
+          }
+        },
+        "social_video_b3HQKK": {
+          "type": "social_video",
+          "name": "Iphone 15",
           "settings": {
             "video": "shopify://files/videos/iPhone_15_Social_Video_9x16__LA-ES.mp4",
             "on_click_page": "",
@@ -696,6 +713,7 @@
         },
         "social_video_77Rdbt": {
           "type": "social_video",
+          "name": "Iphon 17 pro",
           "settings": {
             "video": "shopify://files/videos/iPhone_17_Pro_Social_Video_Dur_9x16.mp4",
             "on_click_page": "",
@@ -711,6 +729,7 @@
         },
         "social_video_RcW4YY": {
           "type": "social_video",
+          "name": "Iphone 17 2",
           "settings": {
             "video": "shopify://files/videos/iPhone_17_Social_Video_9x16_pSIM__LA-ES.mp4",
             "on_click_page": "",
@@ -758,6 +777,7 @@
       },
       "block_order": [
         "social_video_QQ8UNX",
+        "social_video_b3HQKK",
         "social_video_77Rdbt",
         "social_video_RcW4YY",
         "social_video_aJdYAz",
