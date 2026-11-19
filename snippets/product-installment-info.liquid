@@ -1,3 +1,5 @@
+{{ 'vp-installment-info.css' | asset_url | stylesheet_tag }}
+
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
   assign current_installments_number = 0
@@ -34,9 +36,9 @@
   assign installment_template = installment_template | replace: '{{ value }}', '{{value}}'
 
   capture installments_number_markup
-    echo '<span data-installments-number>'
+    echo '<strong class="vp-installment-emphasis" data-installments-number>'
     echo current_installments_number
-    echo '</span>'
+    echo '</strong>'
   endcapture
 
   assign installment_template = installment_template | replace: '{{installments_number}}', installments_number_markup
@@ -48,6 +50,10 @@
     assign installment_text_parts = installment_template | split: '{{value}}'
     assign installment_text_before = installment_text_parts | first
     assign installment_text_after = installment_text_parts | last
+  endif
+
+  if installment_text_after contains 'Diners'
+    assign installment_text_after = installment_text_after | replace: 'Diners', '<strong class="vp-installment-emphasis">Diners</strong>'
   endif
 -%}
 
@@ -61,11 +67,10 @@
     {{ block.shopify_attributes }}
   >
     <span class="installment-text-before">{{ installment_text_before }}</span
-    ><span
+    ><strong
       data-installment-price
-      class="installment-price"
-    >
-      {{- current_installment_price | money -}}</span
+      class="installment-price vp-installment-emphasis"
+    >{{- current_installment_price | money -}}</strong
     ><span class="installment-text-after">
       {{- installment_text_after -}}
     </span>
