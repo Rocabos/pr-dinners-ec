@@ -1,0 +1,13 @@
+/* Only emphasize number, price, and Diners — not the whole after line */
+.product-installment-info .installment-text-after {
+  font-weight: inherit;
+}
+
+.card__content .card__installment-info .installment-text-after {
+  font-weight: inherit;
+}
+
+.vp-installment-emphasis,
+.product-installment-info .installment-price.vp-installment-emphasis {
+  font-weight: 700;
+}
