@@ -486,6 +486,7 @@
       "name": "Video",
       "settings": {
         "video_url": "https://www.youtube.com/watch?v=DDnNc60onT4",
+        "cover_image": "shopify://shop_images/img_iphone_18_pro_degradado.png",
         "enable_video_autoplay": true,
         "controls_position": "bottom_right",
         "playback_controls": "standard",
