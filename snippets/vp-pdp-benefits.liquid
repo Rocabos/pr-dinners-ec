@@ -1,0 +1,362 @@
+{% doc %}
+  Renders PDP benefits trigger + modal (installments, shipping, warranty, coupons).
+
+  @param {object} block - Block settings
+  @param {object} product - Product
+  @param {object} section - Parent section
+
+  @example
+  {% render 'vp-pdp-benefits', block: block, product: product, section: section %}
+{% enddoc %}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign current_installments_number = 0
+  assign installments_min = 0
+  assign installments_max = 0
+  assign product_has_installments = false
+
+  if settings.installments_enabled and settings.installment_rules != blank
+    for rule in settings.installment_rules
+      assign rule_installments = rule.installments.value | plus: 0
+
+      if rule_installments > 0
+        if installments_min == 0 or rule_installments < installments_min
+          assign installments_min = rule_installments
+        endif
+        if rule_installments > installments_max
+          assign installments_max = rule_installments
+        endif
+      endif
+
+      assign rule_minimum_price = rule.minimum_price.value
+      assign rule_maximum_price = rule.maximum_price.value
+
+      if rule_minimum_price != blank and current_variant.price >= rule_minimum_price
+        if rule_maximum_price != blank and current_variant.price <= rule_maximum_price
+          if rule_installments > 0
+            assign current_installments_number = rule_installments
+            assign product_has_installments = true
+          endif
+        endif
+      endif
+    endfor
+  endif
+
+  if current_installments_number <= 0 and settings.installments_number != blank
+    assign current_installments_number = settings.installments_number | plus: 0
+  endif
+
+  if installments_min == 0 and current_installments_number > 0
+    assign installments_min = current_installments_number
+  endif
+  if installments_max == 0 and current_installments_number > 0
+    assign installments_max = current_installments_number
+  endif
+
+  assign hide_when_unavailable = block.settings.hide_if_no_installments
+  if hide_when_unavailable == true and product_has_installments == false and request.design_mode == false
+    assign skip_render = true
+  else
+    assign skip_render = false
+  endif
+
+  assign trigger_template = block.settings.trigger_text | default: 'Distribuye el costo en 3-12 meses'
+
+  capture installments_number_markup
+    echo '<span data-vp-installments-number>'
+    echo current_installments_number
+    echo '</span>'
+  endcapture
+
+  assign trigger_text = trigger_template
+  assign trigger_text = trigger_text | replace: '[installments_number]', installments_number_markup
+  assign trigger_text = trigger_text | replace: '{{installments_number}}', installments_number_markup
+  assign trigger_text = trigger_text | replace: '[installments_min]', installments_min
+  assign trigger_text = trigger_text | replace: '{{installments_min}}', installments_min
+  assign trigger_text = trigger_text | replace: '[installments_max]', installments_max
+  assign trigger_text = trigger_text | replace: '{{installments_max}}', installments_max
+
+  assign installment_title_template = block.settings.installment_title | default: 'Hasta [installments_number] cuotas sin intereses.'
+  assign installment_title = installment_title_template | replace: '[installments_number]', installments_number_markup | replace: '{{installments_number}}', installments_number_markup
+
+  assign installment_text_template = block.settings.installment_text | default: 'Paga tu compra con tu Diners y difiere hasta [installments_number] meses sin intereses. Tú eliges el plazo al momento de pagar.'
+  assign installment_body = installment_text_template | replace: '[installments_number]', installments_number_markup | replace: '{{installments_number}}', installments_number_markup
+
+  assign modal_heading = block.settings.modal_heading
+  assign modal_width = block.settings.modal_width | default: 920
+  assign modal_id = 'VpPdpBenefitsModal-' | append: block.id
+-%}
+
+{%- unless skip_render -%}
+  {{ 'component-popup.css' | asset_url | stylesheet_tag }}
+  {{ 'vp-pdp-benefits.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'vp-pdp-benefits.js' | asset_url }}" defer></script>
+
+  <vp-pdp-benefits
+    class="vp-pdp-benefits"
+    data-section-id="{{ section.id }}"
+    data-hide-when-unavailable="{% if hide_when_unavailable %}true{% else %}false{% endif %}"
+    {% if hide_when_unavailable and product_has_installments == false %}
+      hidden
+    {% endif %}
+    {{ block.shopify_attributes }}
+  >
+    <modal-opener
+      class="vp-pdp-benefits__opener popup-modal__opener no-js-hidden quick-add-hidden"
+      data-modal-class="popup-modal--pdp"
+      data-modal="#{{ modal_id }}"
+    >
+      <button
+        id="VpPdpBenefitsTrigger-{{ block.id }}"
+        class="vp-pdp-benefits__trigger"
+        type="button"
+        aria-haspopup="dialog"
+      >
+        <span class="vp-pdp-benefits__trigger-label">{{ trigger_text }}</span>
+        <svg
+          class="vp-pdp-benefits__trigger-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path
+            d="M6.5 3.5H3.5A1.5 1.5 0 0 0 2 5v7.5A1.5 1.5 0 0 0 3.5 14H11a1.5 1.5 0 0 0 1.5-1.5V9.5M9.5 2H14m0 0v4.5M14 2 7 9"
+            stroke="currentColor"
+            stroke-width="1.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </modal-opener>
+
+    <modal-dialog
+      id="{{ modal_id }}"
+      class="popup-modal popup-modal--small vp-pdp-benefits__modal"
+    >
+      <div
+        role="dialog"
+        aria-label="{{ modal_heading | default: trigger_template | strip_html | escape }}"
+        aria-modal="true"
+        class="popup-modal__content custom-scrollbar"
+        tabindex="-1"
+        style="--vp-pb-modal-width: {{ modal_width }}px;"
+      >
+        <button
+          id="ModalClose-{{ block.id }}"
+          type="button"
+          class="popup-modal__toggle"
+          aria-label="{{ 'accessibility.close' | t }}"
+        >
+          {% render 'icon-close' %}
+        </button>
+
+        {%- if modal_heading != blank -%}
+          <h2 class="vp-pdp-benefits__heading">{{ modal_heading | escape }}</h2>
+        {%- endif -%}
+
+        <div class="vp-pdp-benefits__grid">
+          {%- if block.settings.coupon_title != blank or request.design_mode -%}
+            <article class="vp-pdp-benefits__card">
+              <div class="vp-pdp-benefits__card-header">
+                <span
+                  class="vp-pdp-benefits__icon"
+                  style="--vp-pb-icon-from: {{ block.settings.coupon_icon_from | default: '#ff7a45' }}; --vp-pb-icon-to: {{ block.settings.coupon_icon_to | default: '#e3002b' }};"
+                >
+                  {%- if block.settings.coupon_icon != blank -%}
+                    {{
+                      block.settings.coupon_icon
+                      | image_url: width: 80
+                      | image_tag: loading: 'lazy', widths: '40, 80', alt: ''
+                    }}
+                  {%- else -%}
+                    <img
+                      src="{{ 'vp-benefit-icon-coupon.svg' | asset_url }}"
+                      alt=""
+                      width="40"
+                      height="40"
+                      loading="lazy"
+                    >
+                  {%- endif -%}
+                </span>
+                <h3 class="vp-pdp-benefits__card-title">
+                  {{ block.settings.coupon_title | default: 'Cupones disponibles.' | escape }}
+                </h3>
+              </div>
+              <div class="vp-pdp-benefits__card-body">
+                {%- if block.settings.coupon_text != blank -%}
+                  <p class="vp-pdp-benefits__card-text">{{ block.settings.coupon_text | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.coupon_link_label != blank and block.settings.coupon_link != blank -%}
+                  <a class="vp-pdp-benefits__card-link" href="{{ block.settings.coupon_link }}">
+                    <span>{{ block.settings.coupon_link_label | escape }}</span>
+                    <span class="vp-pdp-benefits__card-chevron" aria-hidden="true">›</span>
+                  </a>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endif -%}
+
+          {%- if installment_title != blank or request.design_mode -%}
+            <article class="vp-pdp-benefits__card">
+              <div class="vp-pdp-benefits__card-header">
+                <span
+                  class="vp-pdp-benefits__icon"
+                  style="--vp-pb-icon-from: {{ block.settings.installment_icon_from | default: '#2e9bff' }}; --vp-pb-icon-to: {{ block.settings.installment_icon_to | default: '#0040dd' }};"
+                >
+                  {%- if block.settings.installment_icon != blank -%}
+                    {{
+                      block.settings.installment_icon
+                      | image_url: width: 80
+                      | image_tag: loading: 'lazy', widths: '40, 80', alt: ''
+                    }}
+                  {%- else -%}
+                    <img
+                      src="{{ 'vp-benefit-icon-card.svg' | asset_url }}"
+                      alt=""
+                      width="40"
+                      height="40"
+                      loading="lazy"
+                    >
+                  {%- endif -%}
+                </span>
+                <h3 class="vp-pdp-benefits__card-title">{{ installment_title }}</h3>
+              </div>
+              <div class="vp-pdp-benefits__card-body">
+                {%- if installment_body != blank -%}
+                  <p class="vp-pdp-benefits__card-text">{{ installment_body }}</p>
+                {%- endif -%}
+                {%- if block.settings.installment_link_label != blank and block.settings.installment_link != blank -%}
+                  <a class="vp-pdp-benefits__card-link" href="{{ block.settings.installment_link }}">
+                    <span>{{ block.settings.installment_link_label | escape }}</span>
+                    <span class="vp-pdp-benefits__card-chevron" aria-hidden="true">›</span>
+                  </a>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endif -%}
+
+          {%- if block.settings.shipping_title != blank or request.design_mode -%}
+            <article class="vp-pdp-benefits__card">
+              <div class="vp-pdp-benefits__card-header">
+                <span
+                  class="vp-pdp-benefits__icon"
+                  style="--vp-pb-icon-from: {{ block.settings.shipping_icon_from | default: '#3dd27a' }}; --vp-pb-icon-to: {{ block.settings.shipping_icon_to | default: '#1e8e3e' }};"
+                >
+                  {%- if block.settings.shipping_icon != blank -%}
+                    {{
+                      block.settings.shipping_icon
+                      | image_url: width: 80
+                      | image_tag: loading: 'lazy', widths: '40, 80', alt: ''
+                    }}
+                  {%- else -%}
+                    <img
+                      src="{{ 'vp-benefit-icon-truck.svg' | asset_url }}"
+                      alt=""
+                      width="40"
+                      height="40"
+                      loading="lazy"
+                    >
+                  {%- endif -%}
+                </span>
+                <h3 class="vp-pdp-benefits__card-title">
+                  {{ block.settings.shipping_title | default: 'Envío gratis a todo el Ecuador.' | escape }}
+                </h3>
+              </div>
+              <div class="vp-pdp-benefits__card-body">
+                {%- if block.settings.shipping_text != blank -%}
+                  <p class="vp-pdp-benefits__card-text">{{ block.settings.shipping_text | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.shipping_link_label != blank and block.settings.shipping_link != blank -%}
+                  <a class="vp-pdp-benefits__card-link" href="{{ block.settings.shipping_link }}">
+                    <span>{{ block.settings.shipping_link_label | escape }}</span>
+                    <span class="vp-pdp-benefits__card-chevron" aria-hidden="true">›</span>
+                  </a>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endif -%}
+
+          {%- if block.settings.warranty_title != blank or request.design_mode -%}
+            <article class="vp-pdp-benefits__card">
+              <div class="vp-pdp-benefits__card-header">
+                <span
+                  class="vp-pdp-benefits__icon"
+                  style="--vp-pb-icon-from: {{ block.settings.warranty_icon_from | default: '#c86bfa' }}; --vp-pb-icon-to: {{ block.settings.warranty_icon_to | default: '#6e3cff' }};"
+                >
+                  {%- if block.settings.warranty_icon != blank -%}
+                    {{
+                      block.settings.warranty_icon
+                      | image_url: width: 80
+                      | image_tag: loading: 'lazy', widths: '40, 80', alt: ''
+                    }}
+                  {%- else -%}
+                    <img
+                      src="{{ 'vp-benefit-icon-shield.svg' | asset_url }}"
+                      alt=""
+                      width="40"
+                      height="40"
+                      loading="lazy"
+                    >
+                  {%- endif -%}
+                </span>
+                <h3 class="vp-pdp-benefits__card-title">
+                  {{ block.settings.warranty_title | default: '1 año de garantía.' | escape }}
+                </h3>
+              </div>
+              <div class="vp-pdp-benefits__card-body">
+                {%- if block.settings.warranty_text != blank -%}
+                  <p class="vp-pdp-benefits__card-text">{{ block.settings.warranty_text | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.warranty_link_label != blank and block.settings.warranty_link != blank -%}
+                  <a class="vp-pdp-benefits__card-link" href="{{ block.settings.warranty_link }}">
+                    <span>{{ block.settings.warranty_link_label | escape }}</span>
+                    <span class="vp-pdp-benefits__card-chevron" aria-hidden="true">›</span>
+                  </a>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endif -%}
+        </div>
+      </div>
+    </modal-dialog>
+
+    <script type="application/json" data-vp-installment-variants>
+      {
+        "variants": [
+          {%- for variant in product.variants -%}
+            {%- liquid
+              assign variant_installments_number = 0
+              assign variant_has_installments = false
+
+              for rule in settings.installment_rules
+                assign rule_minimum_price = rule.minimum_price.value
+                assign rule_maximum_price = rule.maximum_price.value
+                assign rule_installments = rule.installments.value | plus: 0
+
+                if rule_minimum_price != blank and variant.price >= rule_minimum_price
+                  if rule_maximum_price != blank and variant.price <= rule_maximum_price
+                    assign variant_installments_number = rule_installments
+                    break
+                  endif
+                endif
+              endfor
+
+              if variant_installments_number > 0
+                assign variant_has_installments = true
+              endif
+            -%}
+            {
+              "id": {{ variant.id | json }},
+              "hasInstallments": {{ variant_has_installments | json }},
+              "installmentsNumber": {{ variant_installments_number | json }}
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      }
+    </script>
+  </vp-pdp-benefits>
+{%- endunless -%}

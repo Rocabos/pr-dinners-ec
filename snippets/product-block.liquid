@@ -1096,6 +1096,8 @@
   </div>
 {%- elsif block.type == 'product_installment_info' -%}
   {% render 'product-installment-info' %}
+{%- elsif block.type == 'vp_pdp_benefits' -%}
+  {% render 'vp-pdp-benefits', block: block, product: product, section: section %}
 {%- elsif block.type == 'breadcrumbs' -%}
   {%- if collection -%}
     <div class="product__breadcrumbs">
