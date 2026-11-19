@@ -15563,6 +15563,226 @@
       "limit": 1
     },
     {
+      "type": "vp_pdp_benefits",
+      "name": "VP Beneficios PDP",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Link bajo cuotas que abre un modal con 4 beneficios. Placeholders: [installments_number], [installments_min], [installments_max]."
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_if_no_installments",
+          "label": "Ocultar si no hay cuotas",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "trigger_text",
+          "label": "Texto del link",
+          "default": "Distribuye el costo en 3-12 meses"
+        },
+        {
+          "type": "text",
+          "id": "modal_heading",
+          "label": "Título del modal",
+          "default": "Más beneficios en cada compra."
+        },
+        {
+          "type": "range",
+          "id": "modal_width",
+          "min": 480,
+          "max": 1200,
+          "step": 20,
+          "unit": "px",
+          "label": "Ancho del modal",
+          "default": 920
+        },
+        {
+          "type": "header",
+          "content": "Cupones"
+        },
+        {
+          "type": "image_picker",
+          "id": "coupon_icon",
+          "label": "Ícono"
+        },
+        {
+          "type": "color",
+          "id": "coupon_icon_from",
+          "label": "Gradiente ícono · inicio",
+          "default": "#ff7a45"
+        },
+        {
+          "type": "color",
+          "id": "coupon_icon_to",
+          "label": "Gradiente ícono · fin",
+          "default": "#e3002b"
+        },
+        {
+          "type": "text",
+          "id": "coupon_title",
+          "label": "Título",
+          "default": "Cupones disponibles."
+        },
+        {
+          "type": "textarea",
+          "id": "coupon_text",
+          "label": "Descripción",
+          "default": "Ahorra en tu compra con los cupones y descuentos que tienes disponibles. Aplícalos al pagar y el descuento se refleja al instante."
+        },
+        {
+          "type": "text",
+          "id": "coupon_link_label",
+          "label": "Texto del enlace",
+          "default": "Ver mis cupones"
+        },
+        {
+          "type": "url",
+          "id": "coupon_link",
+          "label": "Enlace"
+        },
+        {
+          "type": "header",
+          "content": "Cuotas (dinámico)"
+        },
+        {
+          "type": "paragraph",
+          "content": "El número de cuotas se calcula con las mismas reglas que Product installment info."
+        },
+        {
+          "type": "image_picker",
+          "id": "installment_icon",
+          "label": "Ícono"
+        },
+        {
+          "type": "color",
+          "id": "installment_icon_from",
+          "label": "Gradiente ícono · inicio",
+          "default": "#2e9bff"
+        },
+        {
+          "type": "color",
+          "id": "installment_icon_to",
+          "label": "Gradiente ícono · fin",
+          "default": "#0040dd"
+        },
+        {
+          "type": "text",
+          "id": "installment_title",
+          "label": "Título",
+          "default": "Hasta [installments_number] cuotas sin intereses.",
+          "info": "Usa [installments_number]"
+        },
+        {
+          "type": "textarea",
+          "id": "installment_text",
+          "label": "Descripción",
+          "default": "Paga tu compra con tu Diners y difiere hasta [installments_number] meses sin intereses. Tú eliges el plazo al momento de pagar."
+        },
+        {
+          "type": "text",
+          "id": "installment_link_label",
+          "label": "Texto del enlace",
+          "default": "Conoce cómo funciona"
+        },
+        {
+          "type": "url",
+          "id": "installment_link",
+          "label": "Enlace"
+        },
+        {
+          "type": "header",
+          "content": "Envío"
+        },
+        {
+          "type": "image_picker",
+          "id": "shipping_icon",
+          "label": "Ícono"
+        },
+        {
+          "type": "color",
+          "id": "shipping_icon_from",
+          "label": "Gradiente ícono · inicio",
+          "default": "#3dd27a"
+        },
+        {
+          "type": "color",
+          "id": "shipping_icon_to",
+          "label": "Gradiente ícono · fin",
+          "default": "#1e8e3e"
+        },
+        {
+          "type": "text",
+          "id": "shipping_title",
+          "label": "Título",
+          "default": "Envío gratis a todo el Ecuador."
+        },
+        {
+          "type": "textarea",
+          "id": "shipping_text",
+          "label": "Descripción",
+          "default": "Compra online y recibe tu pedido en la puerta de tu casa, sin cargos de envío."
+        },
+        {
+          "type": "text",
+          "id": "shipping_link_label",
+          "label": "Texto del enlace",
+          "default": "Explorar productos"
+        },
+        {
+          "type": "url",
+          "id": "shipping_link",
+          "label": "Enlace"
+        },
+        {
+          "type": "header",
+          "content": "Garantía"
+        },
+        {
+          "type": "image_picker",
+          "id": "warranty_icon",
+          "label": "Ícono"
+        },
+        {
+          "type": "color",
+          "id": "warranty_icon_from",
+          "label": "Gradiente ícono · inicio",
+          "default": "#c86bfa"
+        },
+        {
+          "type": "color",
+          "id": "warranty_icon_to",
+          "label": "Gradiente ícono · fin",
+          "default": "#6e3cff"
+        },
+        {
+          "type": "text",
+          "id": "warranty_title",
+          "label": "Título",
+          "default": "1 año de garantía."
+        },
+        {
+          "type": "textarea",
+          "id": "warranty_text",
+          "label": "Descripción",
+          "default": "Compra con tranquilidad: tu Apple tiene 1 año de garantía. Además, puedes hacer cambios y devoluciones. Conoce la política aquí*"
+        },
+        {
+          "type": "text",
+          "id": "warranty_link_label",
+          "label": "Texto del enlace",
+          "default": "Conoce la política"
+        },
+        {
+          "type": "url",
+          "id": "warranty_link",
+          "label": "Enlace"
+        }
+      ]
+    },
+    {
       "type": "product_availability_info",
       "name": "Product availability info",
       "limit": 1,

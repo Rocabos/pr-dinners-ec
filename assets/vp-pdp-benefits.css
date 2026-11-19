@@ -1,0 +1,189 @@
+.vp-pdp-benefits {
+  --vp-pb-link: #0071E3;
+  --vp-pb-title: #1d1d1f;
+  --vp-pb-text: #6e6e73;
+  --vp-pb-card-bg: #f5f5f7;
+  --vp-pb-radius: 1.6rem;
+  --vp-pb-icon-radius: 0.85rem;
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: var(--font-body-weight);
+  letter-spacing: var(--font-body-letter-spacing);
+}
+
+.vp-pdp-benefits__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--vp-pb-link);
+  font-family: inherit;
+  font-style: inherit;
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: inherit;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.vp-pdp-benefits__trigger:hover,
+.vp-pdp-benefits__trigger:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.vp-pdp-benefits__trigger-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  flex-shrink: 0;
+}
+
+.vp-pdp-benefits__modal.popup-modal--small:not(.popup-modal--side) .popup-modal__content {
+  width: min(var(--vp-pb-modal-width, 92rem), 94vw);
+  max-height: min(90vh, 90%);
+  padding: 2rem 1.6rem 2.4rem;
+}
+
+@media screen and (min-width: 750px) {
+  .vp-pdp-benefits__modal.popup-modal--small:not(.popup-modal--side) .popup-modal__content {
+    padding: 2.4rem 2.8rem 3.2rem;
+  }
+}
+
+.vp-pdp-benefits__modal .popup-modal__toggle {
+  margin-inline-start: auto;
+  margin-bottom: 0.8rem;
+}
+
+.vp-pdp-benefits__heading {
+  margin: 0 0 1.6rem;
+  color: var(--vp-pb-title);
+  font-family: inherit;
+  font-size: clamp(2rem, 2.2vw, 2.8rem);
+  font-weight: var(--font-body-weight-bold, 700);
+  letter-spacing: inherit;
+  line-height: 1.15;
+}
+
+.vp-pdp-benefits__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+}
+
+@media screen and (min-width: 750px) {
+  .vp-pdp-benefits__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.6rem;
+  }
+}
+
+.vp-pdp-benefits__card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  min-width: 0;
+  padding: 1.6rem;
+  border-radius: var(--vp-pb-radius);
+  background: var(--vp-pb-card-bg);
+}
+
+@media screen and (min-width: 750px) {
+  .vp-pdp-benefits__card {
+    gap: 1.6rem;
+    padding: 2rem 2.4rem;
+  }
+}
+
+.vp-pdp-benefits__card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+.vp-pdp-benefits__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: var(--vp-pb-icon-radius);
+  background: linear-gradient(90deg, var(--vp-pb-icon-from), var(--vp-pb-icon-to));
+  overflow: hidden;
+}
+
+@media screen and (min-width: 750px) {
+  .vp-pdp-benefits__icon {
+    width: 5.2rem;
+    height: 5.2rem;
+  }
+}
+
+.vp-pdp-benefits__icon img,
+.vp-pdp-benefits__icon svg {
+  display: block;
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+@media screen and (min-width: 750px) {
+  .vp-pdp-benefits__icon img,
+  .vp-pdp-benefits__icon svg {
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+}
+
+.vp-pdp-benefits__card-title {
+  margin: 0;
+  color: var(--vp-pb-title);
+  font-family: inherit;
+  font-size: clamp(1.8rem, 1.8vw, 2.4rem);
+  font-weight: var(--font-body-weight-bold, 700);
+  letter-spacing: inherit;
+  line-height: 1.15;
+}
+
+.vp-pdp-benefits__card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  flex: 1;
+}
+
+.vp-pdp-benefits__card-text {
+  margin: 0;
+  color: var(--vp-pb-text);
+  font-family: inherit;
+  font-size: clamp(1.4rem, 1.3vw, 1.6rem);
+  line-height: 1.45;
+}
+
+.vp-pdp-benefits__card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: auto;
+  color: #0071E3;
+  font-family: inherit;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.3;
+  text-decoration: none;
+}
+
+.vp-pdp-benefits__card-link:hover,
+.vp-pdp-benefits__card-link:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.vp-pdp-benefits__card-chevron {
+  font-size: 1.6rem;
+  line-height: 1;
+}
