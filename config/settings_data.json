@@ -149,7 +149,7 @@
       "diferido-6-m-sin-interes",
       "diferido-12-m-sin-interes"
     ],
-    "installment_text": "Hasta {{installments_number}} cuotas a {{value}} de interés con tu Diners",
+    "installment_text": "Hasta {{installments_number}} de {{value}} a 0% de interés con tu Diners",
     "installments_number": 12,
     "badge_bulk_show_cart": true,
     "card_image_hover_zoom": true,
