@@ -1,0 +1,65 @@
+/*
+  Theme .badge uses color/border: rgba(var(--color-badge-*))
+  but --badge-*-* already store full rgba() from .rgba — nested rgba() is invalid.
+  Inline styles from settings cover custom badges; keep CSS fallbacks for the rest.
+*/
+/* Custom badge colors come from inline styles (theme settings / product metafields) */
+.badge.badge--custom {
+  border-width: var(--badge-border-width);
+  border-style: var(--badge-border-style);
+}
+
+.badge.badge--sale {
+  color: var(--badge-sale-foreground) !important;
+  border: var(--badge-border-width) var(--badge-border-style) var(--badge-sale-border) !important;
+  background: var(--badge-sale-background) !important;
+}
+
+.badge.badge--sold-out {
+  color: var(--badge-sold-out-foreground) !important;
+  border: var(--badge-border-width) var(--badge-border-style) var(--badge-sold-out-border) !important;
+  background: var(--badge-sold-out-background) !important;
+}
+
+.badge.badge--new {
+  color: var(--badge-new-foreground) !important;
+  border: var(--badge-border-width) var(--badge-border-style) var(--badge-new-border) !important;
+  background: var(--badge-new-background) !important;
+}
+
+.badge.badge--preorder {
+  color: var(--badge-preorder-foreground) !important;
+  border: var(--badge-border-width) var(--badge-border-style) var(--badge-preorder-border) !important;
+  background: var(--badge-preorder-background) !important;
+}
+
+.badge.badge--bulk {
+  color: var(--badge-bulk-foreground) !important;
+  border: var(--badge-border-width) var(--badge-border-style) var(--badge-bulk-border) !important;
+  background: var(--badge-bulk-background) !important;
+}
+
+/* Badge above the image, never overlaid on product media */
+.vp-card__badge-bar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  line-height: 0;
+}
+
+.vp-card__badge-bar:empty {
+  display: none;
+}
+
+.vp-card__badge-bar .card__badge {
+  position: static;
+  margin: 0;
+  align-self: flex-start;
+  justify-self: flex-start;
+  grid-row: auto;
+}
+
+.card__inner > .card__content--badge {
+  display: none;
+}

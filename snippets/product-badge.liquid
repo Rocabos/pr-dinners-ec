@@ -24,7 +24,7 @@
 
     assign num_badges = 0
     unless max_badges
-      assign max_badges = settings.badge_max
+      assign max_badges = settings.badge_max | default: 3
     endunless
 
     unless badge_alignment
@@ -37,20 +37,37 @@
     endif
   -%}
 
-  {%- if num_badges < max_badges and badge_product.metafields.custom.badge != blank and settings.badge_custom_show -%}
+  {%- liquid
+    assign custom_badge_mf = badge_product.metafields.custom.badge
+    assign custom_badge_text = blank
+    if settings.badge_custom_show and custom_badge_mf != blank and custom_badge_mf.value != blank
+      if custom_badge_mf.type contains 'list'
+        assign custom_badge_text = custom_badge_mf.value | first
+      else
+        assign custom_badge_text = custom_badge_mf.value
+      endif
+    endif
+  -%}
+
+  {%- if num_badges < max_badges and custom_badge_text != blank -%}
     {%- liquid
-      assign custom_badge = badge_product.metafields.custom.badge
-      if custom_badge.list?
-        assign custom_badge = custom_badge.value | first
+      assign custom_badge_bg = badge_product.metafields.custom.badge_background_color.value | default: settings.badge_custom_bg_color
+      assign custom_badge_fg = badge_product.metafields.custom.badge_foreground_color.value | default: settings.badge_custom_text_color
+      assign custom_badge_bd = badge_product.metafields.custom.badge_border_color.value | default: settings.badge_custom_border_color
+      if settings.badge_custom_background_gradient != blank and badge_product.metafields.custom.badge_background_color.value == blank
+        assign custom_badge_bg = settings.badge_custom_background_gradient
       endif
     -%}
 
-    <span class="badge badge--custom badge--bottom-left badge--{{ settings.badge_shape }}"
-      {% if badge_product.metafields.custom.badge_background_color != blank or badge_product.metafields.custom.badge_foreground_color != blank or badge_product.metafields.custom.badge_border_color != blank %}
-        style="{% if badge_product.metafields.custom.badge_background_color != blank %}background: {{ badge_product.metafields.custom.badge_background_color }};{% endif %}{% if badge_product.metafields.custom.badge_foreground_color != blank %}color: {{ badge_product.metafields.custom.badge_foreground_color }};{% endif %}{% if badge_product.metafields.custom.badge_border_color != blank %}border-color: {{ badge_product.metafields.custom.badge_border_color }};{% endif %}"
-      {% endif %}
+    <span
+      class="badge badge--custom badge--{{ settings.badge_shape }}"
+      style="
+        color: {{ custom_badge_fg }};
+        border-color: {{ custom_badge_bd }};
+        background: {{ custom_badge_bg }};
+      "
     >
-      {{- custom_badge -}}
+      {{- custom_badge_text | escape -}}
     </span>
     {%- assign num_badges = num_badges | plus: 1 -%}
   {%- endif -%}

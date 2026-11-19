@@ -11,50 +11,6 @@
   "name": "Header",
   "type": "header",
   "sections": {
-    "announcement-bar": {
-      "type": "announcement-bar",
-      "blocks": {
-        "announcement_7zLFcK": {
-          "type": "announcement",
-          "settings": {
-            "text": "<p>Our mid-season sale is now on.<strong> </strong><a href=\"/\" title=\"/\">Shop Phones</a> / <a href=\"/\" title=\"/\">Shop Watches</a></p>",
-            "mobile_text": "<p>Our mid-season sale is on.<strong> </strong><a href=\"/\" title=\"/\">Shop Phones</a></p>",
-            "announcement_pages": "",
-            "color_scheme": "scheme-5"
-          }
-        },
-        "announcement_kwmC4H": {
-          "type": "announcement",
-          "settings": {
-            "text": "<p>Trade in your old device for up to $100 off. <a href=\"/\" title=\"/\">Trade ins</a></p>",
-            "mobile_text": "<p>Trade in for up to $100 off. <a href=\"/\" title=\"/\">Trade ins</a></p>",
-            "announcement_pages": "",
-            "color_scheme": "scheme-11"
-          }
-        }
-      },
-      "block_order": [
-        "announcement_7zLFcK",
-        "announcement_kwmC4H"
-      ],
-      "disabled": true,
-      "settings": {
-        "text_size": "t5",
-        "change_slides_speed": 7,
-        "enable_accounts": false,
-        "link_1_icon": "alert",
-        "link_1_label": "",
-        "link_1_url": "/",
-        "link_2_icon": "",
-        "link_2_label": "",
-        "link_2_url": "",
-        "enable_country_selector": false,
-        "show_country_filter": false,
-        "enable_language_selector": false,
-        "text_padding": 0.8,
-        "show_line_separator": true
-      }
-    },
     "header": {
       "type": "header",
       "blocks": {
@@ -165,6 +121,14 @@
         "mobile_logo_width": 95,
         "mobile_logo_position": "left",
         "logo_strap": "",
+        "vp_logo_right_link": "",
+        "vp_logo_right_width": 120,
+        "vp_logo_right_mobile_width": 90,
+        "vp_logo_right_show_mobile": true,
+        "vp_show_logo_divider": false,
+        "vp_show_search_divider": false,
+        "vp_divider_height": 22,
+        "vp_divider_gap": 16,
         "logo_strap_text_size": "t7",
         "menu": "main-menu-2",
         "text_size": "t5",
@@ -210,10 +174,151 @@
         "spacing": 0.8,
         "let_it_snow": false
       }
+    },
+    "custom_liquid_EHpyG7": {
+      "type": "custom-liquid",
+      "custom_css": [],
+      "name": "Cintillo",
+      "settings": {
+        "custom_liquid": "<!-- Barra superior animada con iconos en blanco -->\n<div id=\"diners-promo-bar\" style=\"background-color: #196CCC; color: #FFFFFF; text-align: center; padding: 10px 15px; font-size: 14px; font-weight: 500; position: relative; z-index: 1; width: 100%;\">\n  <span id=\"diners-promo-text\" style=\"transition: opacity 0.4s ease; display: inline-block; filter: grayscale(100%) brightness(200%);\">\n    💳 Llévalo a 12 cuotas con 0% de interés pagando Con tu Diners <span style=\"font-size: 9px; font-weight: 400; opacity: 0.85;\">Aplica T&amp;C</span>\n  </span>\n</div>\n\n<script>\n  (function() {\n    // ---------- Rotación de mensajes ----------\n    const tyc = ' <span style=\"font-size: 9px; font-weight: 400; opacity: 0.85;\">Aplica T&amp;C</span>';\n    const mensajes = [\n      \"💳 Llévalo a 12 cuotas con 0% de interés pagando Con tu Diners\" + tyc,\n      \"🚚 Envío gratis a todo el Ecuador\" + tyc\n    ];\n    let indice = 0;\n    const textoEl = document.getElementById(\"diners-promo-text\");\n\n    if (textoEl) {\n      setInterval(() => {\n        textoEl.style.opacity = 0;\n        setTimeout(() => {\n          indice = (indice + 1) % mensajes.length;\n          textoEl.innerHTML = mensajes[indice];\n          textoEl.style.opacity = 1;\n        }, 400);\n      }, 4000);\n    }\n\n    // ---------- Barra + cabezote fijos ----------\n    // Para desactivar lo fijo, cambia a false\n    const FIJAR_CABEZOTE = true;\n\n    function fijarCabezote() {\n      if (!FIJAR_CABEZOTE) return;\n      const bar = document.getElementById(\"diners-promo-bar\");\n      const header = document.querySelector(\"header\");\n      if (!bar || !header) return;\n\n      const bloqueBar = bar.closest(\".shopify-section\") || bar;\n      const bloqueHeader = header.closest(\".shopify-section\") || header;\n\n      const bloques = bloqueBar === bloqueHeader ? [bloqueBar] : [bloqueBar, bloqueHeader];\n      // Se apilan en el orden en que aparecen en la página\n      bloques.sort((a, b) =>\n        a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1\n      );\n\n      let top = 0;\n      bloques.forEach((el, i) => {\n        el.style.position = \"sticky\";\n        el.style.top = top + \"px\";\n        el.style.zIndex = String(1000 - i);\n        top += el.offsetHeight;\n      });\n    }\n\n    fijarCabezote();\n    window.addEventListener(\"load\", fijarCabezote);\n    window.addEventListener(\"resize\", fijarCabezote);\n  })();\n</script>",
+        "full_width": true,
+        "color_scheme": "scheme-5",
+        "line_separator": "",
+        "top_padding": "pt-0",
+        "bottom_padding": "pb-0",
+        "visibility": "",
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true
+      }
+    },
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_7zLFcK": {
+          "type": "announcement",
+          "settings": {
+            "text": "<p>Llévalo a 12 cuotas con 0% de interés pagando con tu Diners</p>",
+            "text_before_size": 14,
+            "mobile_text": "<p>Llévalo a 12 cuotas con 0% de interés pagando con tu Diners</p>",
+            "text_before_size_mobile": 13,
+            "image_alt": "",
+            "image_height": 18,
+            "image_height_mobile": 18,
+            "text_after": "",
+            "text_after_size": 12,
+            "mobile_text_after": "",
+            "text_after_size_mobile": 11,
+            "announcement_pages": "",
+            "color_scheme": "scheme-5"
+          }
+        },
+        "announcement_k7cE8n": {
+          "type": "announcement",
+          "settings": {
+            "text": "<p>Envío gratis a todo el Ecuador</p>",
+            "text_before_size": 14,
+            "mobile_text": "<p>Envío gratis a todo el Ecuador</p>",
+            "text_before_size_mobile": 13,
+            "image_alt": "",
+            "image_height": 18,
+            "image_height_mobile": 18,
+            "text_after": "",
+            "text_after_size": 12,
+            "mobile_text_after": "",
+            "text_after_size_mobile": 11,
+            "announcement_pages": "",
+            "color_scheme": "scheme-5"
+          }
+        },
+        "announcement_MxWXNX": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "text": "<p>Our mid-season sale is now on.<strong> </strong><a href=\"/\" title=\"/\">Shop Phones</a> / <a href=\"/\" title=\"/\">Shop Watches</a></p>",
+            "text_before_size": 14,
+            "mobile_text": "<p>Our mid-season sale is on.<strong> </strong><a href=\"/\" title=\"/\">Shop Phones</a></p>",
+            "text_before_size_mobile": 13,
+            "image_alt": "",
+            "image_height": 18,
+            "image_height_mobile": 18,
+            "text_after": "",
+            "text_after_size": 12,
+            "mobile_text_after": "",
+            "text_after_size_mobile": 11,
+            "announcement_pages": "",
+            "color_scheme": "scheme-5"
+          }
+        },
+        "announcement_kwmC4H": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "text": "<p>Trade in your old device for up to $100 off. <a href=\"/\" title=\"/\">Trade ins</a></p>",
+            "text_before_size": 14,
+            "mobile_text": "<p>Trade in for up to $100 off. <a href=\"/\" title=\"/\">Trade ins</a></p>",
+            "text_before_size_mobile": 13,
+            "image_alt": "",
+            "image_height": 18,
+            "image_height_mobile": 18,
+            "text_after": "",
+            "text_after_size": 12,
+            "mobile_text_after": "",
+            "text_after_size_mobile": 11,
+            "announcement_pages": "",
+            "color_scheme": "scheme-11"
+          }
+        },
+        "announcement_4cm7UU": {
+          "type": "announcement",
+          "settings": {
+            "text": "<p>Welcome to our store</p>",
+            "text_before_size": 14,
+            "mobile_text": "",
+            "text_before_size_mobile": 13,
+            "image_alt": "",
+            "image_height": 18,
+            "image_height_mobile": 18,
+            "text_after": "",
+            "text_after_size": 12,
+            "mobile_text_after": "",
+            "text_after_size_mobile": 11,
+            "announcement_pages": "",
+            "color_scheme": "scheme-4"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_7zLFcK",
+        "announcement_k7cE8n",
+        "announcement_MxWXNX",
+        "announcement_kwmC4H",
+        "announcement_4cm7UU"
+      ],
+      "disabled": true,
+      "settings": {
+        "text_size": "t5",
+        "change_slides_speed": 5,
+        "enable_accounts": false,
+        "link_1_icon": "alert",
+        "link_1_label": "",
+        "link_1_url": "/",
+        "link_2_icon": "",
+        "link_2_label": "",
+        "link_2_url": "",
+        "enable_country_selector": false,
+        "show_country_filter": false,
+        "enable_language_selector": false,
+        "text_padding": 0.8,
+        "show_line_separator": true
+      }
     }
   },
   "order": [
-    "announcement-bar",
-    "header"
+    "header",
+    "custom_liquid_EHpyG7",
+    "announcement-bar"
   ]
 }

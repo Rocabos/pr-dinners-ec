@@ -61,6 +61,17 @@
     "logo_list_9n4AeP": {
       "type": "logo-list",
       "blocks": {
+        "column_standard_3dU9bK": {
+          "type": "column_standard",
+          "settings": {
+            "image": "shopify://shop_images/1500_x_1500_copia_6.png",
+            "image_scale": 100,
+            "text": "<p>iPhone 18 Pro</p>",
+            "text_size": "t3",
+            "card_link": "shopify://collections/iphone-18",
+            "custom_background": ""
+          }
+        },
         "column_standard_gpqc7t": {
           "type": "column_standard",
           "settings": {
@@ -69,18 +80,6 @@
             "text": "<p>iPhone 17 Pro</p>",
             "text_size": "t3",
             "card_link": "shopify://products/iphone-17-pro",
-            "custom_background": ""
-          }
-        },
-        "column_standard_3dU9bK": {
-          "type": "column_standard",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/iphone-air-image.png",
-            "image_scale": 100,
-            "text": "<p>iPhone  Air</p>",
-            "text_size": "t3",
-            "card_link": "shopify://products/iphone-15",
             "custom_background": ""
           }
         },
@@ -98,7 +97,6 @@
         },
         "column_standard_tCdUHX": {
           "type": "column_standard",
-          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/iPhone_15.png",
             "image_scale": 100,
@@ -122,7 +120,6 @@
         },
         "column_standard_Rpp6Aq": {
           "type": "column_standard",
-          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/iphone-16-image.png",
             "image_scale": 100,
@@ -139,7 +136,7 @@
             "image_scale": 100,
             "text": "<p>Comprar</p>",
             "text_size": "t3",
-            "card_link": "/search?options%5Bprefix%5D=last&q=iPhone",
+            "card_link": "shopify://collections/iphone",
             "custom_background": ""
           }
         },
@@ -156,8 +153,8 @@
         }
       },
       "block_order": [
-        "column_standard_gpqc7t",
         "column_standard_3dU9bK",
+        "column_standard_gpqc7t",
         "column_standard_q9k3tX",
         "column_standard_tCdUHX",
         "column_standard_NfVKrY",
@@ -173,7 +170,7 @@
         "content_padding": 0,
         "desktop_layout": "grid",
         "mobile_layout": "carousel",
-        "columns_desktop": "3",
+        "columns_desktop": "6",
         "columns_mobile": "2",
         "carousel_width_desktop": "normal",
         "always_show_arrows": true,
@@ -402,8 +399,8 @@
             "column_alignment": "center",
             "text_vertical_alignment": "justify-start",
             "content_max_width": "s",
-            "image": "shopify://shop_images/banner_686x606_bda9c287-cd84-443e-8257-28a818ece139.jpg",
-            "mobile_image": "shopify://shop_images/banner_600x600_909aa474-45ca-4688-8713-55aec0bef43f.jpg",
+            "image": "shopify://shop_images/AirPods_4_-_Imagen_escritorio_686x606_-_v4.png",
+            "mobile_image": "shopify://shop_images/AirPods_4_-_Imagen_mobile_600x600_-_v4.png",
             "image_overlay_opacity": 0,
             "icon": "",
             "icon_container": "rounded",

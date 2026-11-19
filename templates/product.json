@@ -73,12 +73,38 @@
             "text_size": "h5-size"
           }
         },
+        "custom_liquid_7TyzfF": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{%- assign variante = product.selected_or_first_available_variant -%}\n{%- assign sticker = '' -%}\n\n{%- if variante.compare_at_price > variante.price -%}\n  {%- assign porcentaje = variante.compare_at_price | minus: variante.price | times: 100.0 | divided_by: variante.compare_at_price | floor -%}\n  {%- if porcentaje > 0 -%}\n    {%- assign sticker = porcentaje | append: '% OFF' -%}\n  {%- endif -%}\n{%- endif -%}\n\n{% if sticker != blank %}\n  <span id=\"badge-descuento\" style=\"align-self:center; margin-left:10px; background-color:#000000; color:#FFFFFF; padding:4px 8px; border-radius:6px; font-size:11px; font-weight:bold; line-height:1.2; display:inline-block; white-space:nowrap; vertical-align:middle;\">\n    {{ sticker }}\n  </span>\n\n  <script>\n    (function () {\n      var badge = document.getElementById('badge-descuento');\n      if (!badge) return;\n      var origen = badge.parentElement;\n\n      function buscarPrecio() {\n        var zona = origen.closest('product-info, .product__info-container, .product, section') || document;\n        return zona.querySelector('.price');\n      }\n\n      function colocar() {\n        var precio = buscarPrecio();\n        if (!precio) return;\n        var destino = precio.querySelector('.price__container') || precio;\n        if (!destino.contains(badge)) {\n          if (destino === precio) { precio.style.display = 'flex'; precio.style.alignItems = 'center'; }\n          destino.appendChild(badge);\n        }\n      }\n\n      colocar();\n      window.addEventListener('load', colocar);\n\n      var precio = buscarPrecio();\n      if (precio && precio.parentElement) {\n        new MutationObserver(colocar).observe(precio.parentElement, { childList: true, subtree: true });\n      }\n    })();\n  </script>\n{% endif %}",
+            "stock_visibility": "either"
+          }
+        },
         "product_installment_info_rdGxyX": {
           "type": "product_installment_info",
+          "disabled": true,
           "settings": {}
         },
-        "vp_pdp_benefits_RDJ7eX": {
-          "type": "vp_pdp_benefits",
+        "custom_liquid_tLCEL9": {
+          "type": "custom_liquid",
+          "name": "Envío gratis",
+          "settings": {
+            "custom_liquid": "{%- capture info_cuotas -%}\n  {%- render 'product-installment-info', product: product -%}\n{%- endcapture -%}\n\n{%- liquid\n  assign limpio = info_cuotas | strip_html | strip_newlines | strip\n  assign palabras = limpio | split: ' '\n  assign num_cuotas = ''\n  assign valor_cuota = ''\n\n  for palabra in palabras\n    assign i = forloop.index0 | minus: 1\n    if palabra == 'cuotas' and num_cuotas == '' and i >= 0\n      assign num_cuotas = palabras[i]\n    endif\n    if palabra contains '$' and valor_cuota == '' and i >= 0\n      if palabras[i] == 'US'\n        assign valor_cuota = 'US ' | append: palabra\n      else\n        assign valor_cuota = palabra\n      endif\n    endif\n  endfor\n-%}\n\n<div style=\"margin: 8px 0; width:100%; box-sizing:border-box;\">\n\n  <!-- Caja de cuotas (solo si el producto tiene cuotas) -->\n  {%- if num_cuotas != '' and valor_cuota != '' -%}\n    <div style=\"box-sizing:border-box; width:100%; min-height:46px; display:flex; align-items:center; gap:10px; background:#f3f3f5; border-radius:10px; padding:9px 14px; font-size:12px; line-height:1.4; color:#222;\">\n      <img src=\"https://cdn.shopify.com/s/files/1/0745/3045/5726/files/DinersClub_NACIONAL_Logo_fd1a3269-88e0-4817-9270-b72636d19311.png?v=1794614387\" alt=\"Diners Club\" width=\"34\" height=\"28\" style=\"flex-shrink:0;\">\n      <span>Hasta <strong>{{ num_cuotas }} cuotas de {{ valor_cuota }}</strong> a <strong>0% de interés</strong> Con tu Diners</span>\n    </div>\n  {%- endif -%}\n  <!-- Pastillas -->\n  <div style=\"display:grid; grid-template-columns:1.6fr 1fr; gap:8px; margin-top:8px; width:100%; box-sizing:border-box;\">\n    <span style=\"box-sizing:border-box; min-height:30px; display:flex; align-items:center; justify-content:center; gap:5px; background:#000; color:#fff; border-radius:8px; padding:3px 8px; font-size:11px; font-weight:500; line-height:1.2; white-space:nowrap;\">\n      <svg width=\"14\" height=\"10\" viewBox=\"0 0 24 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" style=\"flex-shrink:0;\"><path d=\"M1 1h13v10H1zM14 5h4l4 3v3h-8\"/><circle cx=\"6\" cy=\"13\" r=\"2\"/><circle cx=\"18\" cy=\"13\" r=\"2\"/></svg>\n      Envío gratis a todo el Ecuador\n    </span>\n    <span style=\"box-sizing:border-box; min-height:30px; display:flex; align-items:center; justify-content:center; gap:5px; background:#e6edf8; color:#111; border-radius:8px; padding:3px 8px; font-size:11px; font-weight:500; line-height:1.2; white-space:nowrap;\">\n      <svg width=\"11\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" style=\"flex-shrink:0;\"><path d=\"M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z\"/><path d=\"M8.5 12l2.5 2.5 4.5-5\"/></svg>\n      1 año de garantía\n    </span>\n  </div>\n</div>",
+            "stock_visibility": "either"
+          }
+        },
+        "custom_liquid_gMPzMd": {
+          "type": "custom_liquid",
+          "name": "Descubre todos los beneficios",
+          "disabled": true,
+          "settings": {
+            "custom_liquid": "<!-- Enlace -->\n  <a href=\"URL_DE_BENEFICIOS\" style=\"display:inline-block; margin-top:8px; color:#1a5fd0; font-size:12px; text-decoration:none; border-bottom:1px solid #1a5fd0;\">\n    Descubre todos los beneficios ›\n  </a>",
+            "stock_visibility": "either"
+          }
+        },
+        "text_RDJ7eX": {
+          "type": "text",
+          "disabled": true,
           "settings": {
             "hide_if_no_installments": true,
             "trigger_text": "Distribuye el costo en 3-12 meses",
@@ -364,8 +390,11 @@
         "product_availability_info_RayMqa",
         "spacer_yabJcX",
         "price",
+        "custom_liquid_7TyzfF",
         "product_installment_info_rdGxyX",
-        "vp_pdp_benefits_RDJ7eX",
+        "custom_liquid_tLCEL9",
+        "custom_liquid_gMPzMd",
+        "text_RDJ7eX",
         "spacer_KEzDVU",
         "variant_picker",
         "spacer_UYdQbz",
