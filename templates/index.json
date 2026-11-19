@@ -486,7 +486,6 @@
       "name": "Video",
       "settings": {
         "video_url": "https://www.youtube.com/watch?v=DDnNc60onT4",
-        "cover_image": "shopify://shop_images/Portada_Video_iPhone_17.jpg",
         "enable_video_autoplay": true,
         "controls_position": "bottom_right",
         "playback_controls": "standard",
