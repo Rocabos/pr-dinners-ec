@@ -15,10 +15,10 @@
         "slide_rxd8KQ": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/general_-_iPhone_18_Pro_Max_-_1920x800_-_v5.png",
-            "mobile_image": "shopify://shop_images/general_-_iPhone_18_Pro_Max_-_1080x1400_-_v5.png",
+            "image": "shopify://shop_images/desk_iPHONE_18_PRO.jpg",
+            "mobile_image": "shopify://shop_images/MOB_iphone_18_pro.jpg",
             "image_overlay_opacity": 0,
-            "image_link": "shopify://collections/iphone-18",
+            "image_link": "shopify://products/iphone-18-pro",
             "horizontal_offset": 0.4,
             "vertical_offset": 5.8,
             "desktop_content_position": "md:justify-start md:items-center",
@@ -57,10 +57,10 @@
         "slide_yLYyRi": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Escritorio-_1920_x_800px_13.jpg",
-            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px_12.jpg",
+            "image": "shopify://shop_images/iPad_11_A16_-_Desktop_1920x800_A_iPad_plata.png",
+            "mobile_image": "shopify://shop_images/iPad_11_A16_-_Mobile_1080x1400_36d0fe7d-ae36-4ca6-af73-044b4b574853.png",
             "image_overlay_opacity": 0,
-            "image_link": "shopify://products/iphone-17-pro-max-a",
+            "image_link": "shopify://products/ipad",
             "horizontal_offset": -6,
             "vertical_offset": -4.8,
             "desktop_content_position": "md:justify-start md:items-center",
@@ -99,8 +99,8 @@
         "slide_BJep7n": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Escritorio-_1920_x_800px_16.jpg",
-            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px_16.jpg",
+            "image": "shopify://shop_images/desk_airpods_5.jpg",
+            "mobile_image": "shopify://shop_images/mob_airposd_5.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://products/ipad",
             "horizontal_offset": 0.4,
@@ -141,10 +141,10 @@
         "slide_9WgPPM": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Escritorio-_1920_x_800px_10.jpg",
-            "mobile_image": "shopify://shop_images/Mobile-_1080_x_1400px_8.jpg",
+            "image": "shopify://shop_images/iPhone_17_-_Desktop_1920x800_0c2bc091-7726-4d24-b749-8ebcaeba83d6.png",
+            "mobile_image": "shopify://shop_images/iPhone_17_-_Mobile_1080x1400_a4d91955-5151-4d98-b6cb-c1313cd36073.png",
             "image_overlay_opacity": 0,
-            "image_link": "shopify://collections/ofertas",
+            "image_link": "shopify://products/iphone-17-a",
             "horizontal_offset": 0.4,
             "vertical_offset": 5.8,
             "desktop_content_position": "md:justify-start md:items-center",
