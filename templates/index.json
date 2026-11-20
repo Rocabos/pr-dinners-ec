@@ -297,18 +297,6 @@
     "logo_list_y8Df3Y": {
       "type": "logo-list",
       "blocks": {
-        "column_standard_VN9gcr": {
-          "type": "column_standard",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/mac-collection.png",
-            "image_scale": 100,
-            "text": "<p>Mac</p>",
-            "text_size": "t3",
-            "card_link": "shopify://collections/mac-1",
-            "custom_background": ""
-          }
-        },
         "column_standard_nR6tKJ": {
           "type": "column_standard",
           "settings": {
@@ -328,6 +316,17 @@
             "text": "<p>iPhone</p>",
             "text_size": "t3",
             "card_link": "shopify://collections/iphone",
+            "custom_background": ""
+          }
+        },
+        "column_standard_VN9gcr": {
+          "type": "column_standard",
+          "settings": {
+            "image": "shopify://shop_images/mac-collection.png",
+            "image_scale": 100,
+            "text": "<p>Mac</p>",
+            "text_size": "t3",
+            "card_link": "shopify://collections/mac-1",
             "custom_background": ""
           }
         },
@@ -391,9 +390,9 @@
         }
       },
       "block_order": [
-        "column_standard_VN9gcr",
         "column_standard_nR6tKJ",
         "column_standard_kc38hM",
+        "column_standard_VN9gcr",
         "column_standard_kmHPPX",
         "column_standard_QTEnGF",
         "column_standard_Q6tjaz",
