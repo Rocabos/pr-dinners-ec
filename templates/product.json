@@ -96,6 +96,7 @@
         "vp_pdp_benefits_diiFfc": {
           "type": "vp_pdp_benefits",
           "name": "Beneficios PDP",
+          "disabled": true,
           "settings": {
             "hide_if_no_installments": true,
             "trigger_text": "Distribuye el costo en 3-12 meses",
