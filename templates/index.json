@@ -98,11 +98,12 @@
         },
         "slide_BJep7n": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/desk_airpods_5.jpg",
             "mobile_image": "shopify://shop_images/mob_airposd_5.jpg",
             "image_overlay_opacity": 0,
-            "image_link": "shopify://products/ipad",
+            "image_link": "shopify://collections/airpods",
             "horizontal_offset": 0.4,
             "vertical_offset": 5.8,
             "desktop_content_position": "md:justify-start md:items-center",
