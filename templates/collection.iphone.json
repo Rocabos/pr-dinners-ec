@@ -309,12 +309,12 @@
       "name": "Product list",
       "settings": {
         "products": [
+          "iphone-17-pro-max-a",
           "iphone-17-pro",
           "iphone-17-a",
           "iphone-16",
           "iphone-15",
           "iphone-17-pro-max",
-          "iphone-17-pro-max-a",
           "iphone-air"
         ],
         "desktop_layout": "carousel",
