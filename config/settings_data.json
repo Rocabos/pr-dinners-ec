@@ -447,6 +447,60 @@
           "button_background_gradient": "linear-gradient(305deg, rgba(42, 151, 211, 1), rgba(72, 171, 227, 1) 46%, rgba(119, 179, 245, 1) 91%)",
           "secondary_button_label": "#ffffff"
         }
+      },
+      "scheme-14": {
+        "settings": {
+          "background": "#000000",
+          "background_gradient": "",
+          "background_accent": "",
+          "text": "#f5f5f7",
+          "link": "#2997ff",
+          "caption": "#a1a1a6",
+          "accent": "#2997ff",
+          "accent_gradient": "linear-gradient(180deg, rgb(38, 38, 42) 0%, rgb(28, 28, 30) 100%)",
+          "heading": "#ffffff",
+          "heading_background_gradient": "",
+          "button_label": "#2997ff",
+          "button": "rgba(0,0,0,0)",
+          "button_background_gradient": "",
+          "secondary_button_label": "#2997ff"
+        }
+      },
+      "scheme-15": {
+        "settings": {
+          "background": "#f5f5f7",
+          "background_gradient": "",
+          "background_accent": "",
+          "text": "#1d1d1f",
+          "link": "#0071e3",
+          "caption": "#6e6e73",
+          "accent": "#0071e3",
+          "accent_gradient": "linear-gradient(115deg, #2997ff 0%, #5e5ce6 48%, #bf5af2 100%)",
+          "heading": "#1d1d1f",
+          "heading_background_gradient": "",
+          "button_label": "#ffffff",
+          "button": "#0071e3",
+          "button_background_gradient": "",
+          "secondary_button_label": "#0071e3"
+        }
+      },
+      "scheme-16": {
+        "settings": {
+          "background": "#1c1c1e",
+          "background_gradient": "linear-gradient(180deg, rgb(38, 38, 42) 0%, rgb(28, 28, 30) 100%)",
+          "background_accent": "",
+          "text": "#a1a1a6",
+          "link": "#2997ff",
+          "caption": "#a1a1a6",
+          "accent": "#2997ff",
+          "accent_gradient": "",
+          "heading": "#f5f5f7",
+          "heading_background_gradient": "",
+          "button_label": "#2997ff",
+          "button": "rgba(0,0,0,0)",
+          "button_background_gradient": "",
+          "secondary_button_label": "#2997ff"
+        }
       }
     }
   },

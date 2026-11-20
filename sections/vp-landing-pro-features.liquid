@@ -1,0 +1,239 @@
+{{ 'vp-landing-pro-features.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign scheme = section.settings.color_scheme
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+-%}
+
+<section
+  id="vp-landing-pro-{{ section.id }}"
+  class="vp-landing-pro color-{{ scheme }} gradient section-{{ section.id }}-padding"
+>
+  <div class="vp-landing-pro__inner">
+    {%- if section.settings.heading != blank or section.settings.lead != blank -%}
+      <header class="vp-landing-pro__header">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="vp-landing-pro__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>
+        {%- endif -%}
+        {%- if section.settings.lead != blank -%}
+          <p class="vp-landing-pro__lead">{{ section.settings.lead | escape }}</p>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    {%- assign feature_blocks = section.blocks | where: 'type', 'feature' -%}
+    {%- if feature_blocks.size > 0 -%}
+      <ul class="vp-landing-pro__features" role="list">
+        {%- for block in feature_blocks -%}
+          <li class="vp-landing-pro__feature" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              <div class="vp-landing-pro__feature-media">
+                {{
+                  block.settings.image
+                  | image_url: width: 800
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '320, 480, 640, 800',
+                    sizes: '(min-width: 750px) 33vw, 90vw',
+                    alt: block.settings.image.alt | default: block.settings.title | escape
+                }}
+              </div>
+            {%- endif -%}
+            <div class="vp-landing-pro__feature-copy">
+              {%- if block.settings.title != blank -%}
+                <h3 class="vp-landing-pro__feature-title">{{ block.settings.title | escape }}</h3>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <p class="vp-landing-pro__feature-text">{{ block.settings.text | escape }}</p>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- assign highlight_blocks = section.blocks | where: 'type', 'highlight' -%}
+    {%- if highlight_blocks.size > 0 -%}
+      <ul class="vp-landing-pro__highlights" role="list">
+        {%- for block in highlight_blocks -%}
+          <li class="vp-landing-pro__highlight" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              <div class="vp-landing-pro__highlight-media">
+                {{
+                  block.settings.image
+                  | image_url: width: 1200
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '480, 720, 960, 1200',
+                    sizes: '(min-width: 750px) 50vw, 90vw',
+                    alt: block.settings.image.alt | default: block.settings.title | escape
+                }}
+              </div>
+            {%- endif -%}
+            {%- if block.settings.title != blank -%}
+              <h3 class="vp-landing-pro__highlight-title">{{ block.settings.title | escape }}</h3>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% style %}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ padding_top }}px;
+      padding-bottom: {{ padding_bottom }}px;
+    }
+  }
+
+  #vp-landing-pro-{{ section.id }} {
+    --vp-lp-muted: {{ section.settings.muted_color }};
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Landing Pro features",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer", "aside"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Por esto es\nel más Pro."
+    },
+    {
+      "type": "textarea",
+      "id": "lead",
+      "label": "Lead",
+      "default": "Más cámara, más potencia y más batería. Todo en el iPhone más Pro."
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text color",
+      "default": "#A1A1A6"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Cámara Fusion de 48 MP"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Apertura variable para mejores fotos y videos con poca luz y una profundidad de campo increíble."
+        }
+      ]
+    },
+    {
+      "type": "highlight",
+      "name": "Highlight",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Highlight"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing Pro features",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Cámara Fusion de 48 MP",
+            "text": "Apertura variable para mejores fotos y videos con poca luz y una profundidad de campo increíble."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Chip A20 Pro",
+            "text": "Enfriamiento con cámara de vapor: baja la temperatura para subir la potencia en juegos, video y Apple Intelligence."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Hasta 34 horas de video",
+            "text": "La mejor batería en un iPhone. Y hasta 50% de carga en unos 15 minutos."
+          }
+        },
+        {
+          "type": "highlight"
+        },
+        {
+          "type": "highlight"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
