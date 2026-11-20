@@ -309,6 +309,8 @@
       "name": "Product list",
       "settings": {
         "products": [
+          "iphone-18-pro-max",
+          "iphone-18-pro",
           "iphone-17-pro-max-a",
           "iphone-17-pro",
           "iphone-17-a",
