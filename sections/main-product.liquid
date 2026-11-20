@@ -15587,7 +15587,19 @@
           "type": "text",
           "id": "modal_heading",
           "label": "Título del modal",
-          "default": "Más beneficios en cada compra."
+          "default": "Beneficios con tu Diners"
+        },
+        {
+          "type": "text",
+          "id": "modal_subtitle",
+          "label": "Subtítulo del modal",
+          "default": "Todo lo que ganas al comprar tu Apple en esta tienda."
+        },
+        {
+          "type": "text",
+          "id": "modal_footnote",
+          "label": "Pie de modal",
+          "default": "*Beneficios sujetos a términos y condiciones."
         },
         {
           "type": "range",
@@ -15597,7 +15609,7 @@
           "step": 20,
           "unit": "px",
           "label": "Ancho del modal",
-          "default": 920
+          "default": 1160
         },
         {
           "type": "header",
@@ -15672,14 +15684,15 @@
           "type": "text",
           "id": "installment_title",
           "label": "Título",
-          "default": "Hasta [installments_number] cuotas sin intereses.",
+          "default": "Hasta [installments_number] cuotas a 0% de interés.",
           "info": "Usa [installments_number]"
         },
         {
           "type": "textarea",
           "id": "installment_text",
           "label": "Descripción",
-          "default": "Paga tu compra con tu Diners y difiere hasta [installments_number] meses sin intereses. Tú eliges el plazo al momento de pagar."
+          "default": "Paga tu compra con tu <strong>Diners</strong> y difiere hasta <strong>[installments_number] cuotas</strong> a <strong>0%</strong> de interés. Tú eliges el plazo al momento de pagar.",
+          "info": "Permite HTML básico (strong). Usa [installments_number]"
         },
         {
           "type": "text",

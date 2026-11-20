@@ -77,14 +77,16 @@
   assign trigger_text = trigger_text | replace: '[installments_max]', installments_max
   assign trigger_text = trigger_text | replace: '{{installments_max}}', installments_max
 
-  assign installment_title_template = block.settings.installment_title | default: 'Hasta [installments_number] cuotas sin intereses.'
+  assign installment_title_template = block.settings.installment_title | default: 'Hasta [installments_number] cuotas a 0% de interés.'
   assign installment_title = installment_title_template | replace: '[installments_number]', installments_number_markup | replace: '{{installments_number}}', installments_number_markup
 
-  assign installment_text_template = block.settings.installment_text | default: 'Paga tu compra con tu Diners y difiere hasta [installments_number] meses sin intereses. Tú eliges el plazo al momento de pagar.'
+  assign installment_text_template = block.settings.installment_text | default: 'Paga tu compra con tu <strong>Diners</strong> y difiere hasta <strong>[installments_number] cuotas</strong> a <strong>0%</strong> de interés. Tú eliges el plazo al momento de pagar.'
   assign installment_body = installment_text_template | replace: '[installments_number]', installments_number_markup | replace: '{{installments_number}}', installments_number_markup
 
-  assign modal_heading = block.settings.modal_heading
-  assign modal_width = block.settings.modal_width | default: 920
+  assign modal_heading = block.settings.modal_heading | default: 'Beneficios con tu Diners'
+  assign modal_subtitle = block.settings.modal_subtitle | default: 'Todo lo que ganas al comprar tu Apple en esta tienda.'
+  assign modal_footnote = block.settings.modal_footnote | default: '*Beneficios sujetos a términos y condiciones.'
+  assign modal_width = block.settings.modal_width | default: 1160
   assign modal_id = 'VpPdpBenefitsModal-' | append: block.id
 -%}
 
@@ -104,7 +106,6 @@
   >
     <modal-opener
       class="vp-pdp-benefits__opener popup-modal__opener no-js-hidden quick-add-hidden"
-      data-modal-class="popup-modal--pdp"
       data-modal="#{{ modal_id }}"
     >
       <button
@@ -141,22 +142,27 @@
         role="dialog"
         aria-label="{{ modal_heading | default: trigger_template | strip_html | escape }}"
         aria-modal="true"
-        class="popup-modal__content custom-scrollbar"
+        class="popup-modal__content custom-scrollbar vp-pdp-benefits__dialog"
         tabindex="-1"
         style="--vp-pb-modal-width: {{ modal_width }}px;"
       >
         <button
           id="ModalClose-{{ block.id }}"
           type="button"
-          class="popup-modal__toggle"
+          class="popup-modal__toggle vp-pdp-benefits__close"
           aria-label="{{ 'accessibility.close' | t }}"
         >
           {% render 'icon-close' %}
         </button>
 
-        {%- if modal_heading != blank -%}
-          <h2 class="vp-pdp-benefits__heading">{{ modal_heading | escape }}</h2>
-        {%- endif -%}
+        <div class="vp-pdp-benefits__header">
+          {%- if modal_heading != blank -%}
+            <h2 class="vp-pdp-benefits__heading">{{ modal_heading | escape }}</h2>
+          {%- endif -%}
+          {%- if modal_subtitle != blank -%}
+            <p class="vp-pdp-benefits__subtitle">{{ modal_subtitle | escape }}</p>
+          {%- endif -%}
+        </div>
 
         <div class="vp-pdp-benefits__grid">
           {%- if block.settings.coupon_title != blank or request.design_mode -%}
@@ -170,7 +176,7 @@
                     {{
                       block.settings.coupon_icon
                       | image_url: width: 80
-                      | image_tag: loading: 'lazy', widths: '40, 80', alt: ''
+                      | image_tag: loading: 'lazy', widths: '40, 80', alt: '', width: 40, height: 40
                     }}
                   {%- else -%}
                     <img
@@ -190,11 +196,18 @@
                 {%- if block.settings.coupon_text != blank -%}
                   <p class="vp-pdp-benefits__card-text">{{ block.settings.coupon_text | escape }}</p>
                 {%- endif -%}
-                {%- if block.settings.coupon_link_label != blank and block.settings.coupon_link != blank -%}
-                  <a class="vp-pdp-benefits__card-link" href="{{ block.settings.coupon_link }}">
-                    <span>{{ block.settings.coupon_link_label | escape }}</span>
-                    <span class="vp-pdp-benefits__card-chevron" aria-hidden="true">›</span>
-                  </a>
+                {%- if block.settings.coupon_link_label != blank -%}
+                  {%- if block.settings.coupon_link != blank -%}
+                    <a class="vp-pdp-benefits__card-link" href="{{ block.settings.coupon_link }}">
+                      <span>{{ block.settings.coupon_link_label | escape }}</span>
+                      <span class="vp-pdp-benefits__card-chevron" aria-hidden="true">›</span>
+                    </a>
+                  {%- else -%}
+                    <span class="vp-pdp-benefits__card-link">
+                      <span>{{ block.settings.coupon_link_label | escape }}</span>
+                      <span class="vp-pdp-benefits__card-chevron" aria-hidden="true">›</span>
+                    </span>
+                  {%- endif -%}
                 {%- endif -%}
               </div>
             </article>
@@ -211,7 +224,7 @@
                     {{
                       block.settings.installment_icon
                       | image_url: width: 80
-                      | image_tag: loading: 'lazy', widths: '40, 80', alt: ''
+                      | image_tag: loading: 'lazy', widths: '40, 80', alt: '', width: 40, height: 40
                     }}
                   {%- else -%}
                     <img
@@ -229,11 +242,18 @@
                 {%- if installment_body != blank -%}
                   <p class="vp-pdp-benefits__card-text">{{ installment_body }}</p>
                 {%- endif -%}
-                {%- if block.settings.installment_link_label != blank and block.settings.installment_link != blank -%}
-                  <a class="vp-pdp-benefits__card-link" href="{{ block.settings.installment_link }}">
-                    <span>{{ block.settings.installment_link_label | escape }}</span>
-                    <span class="vp-pdp-benefits__card-chevron" aria-hidden="true">›</span>
-                  </a>
+                {%- if block.settings.installment_link_label != blank -%}
+                  {%- if block.settings.installment_link != blank -%}
+                    <a class="vp-pdp-benefits__card-link" href="{{ block.settings.installment_link }}">
+                      <span>{{ block.settings.installment_link_label | escape }}</span>
+                      <span class="vp-pdp-benefits__card-chevron" aria-hidden="true">›</span>
+                    </a>
+                  {%- else -%}
+                    <span class="vp-pdp-benefits__card-link">
+                      <span>{{ block.settings.installment_link_label | escape }}</span>
+                      <span class="vp-pdp-benefits__card-chevron" aria-hidden="true">›</span>
+                    </span>
+                  {%- endif -%}
                 {%- endif -%}
               </div>
             </article>
@@ -250,7 +270,7 @@
                     {{
                       block.settings.shipping_icon
                       | image_url: width: 80
-                      | image_tag: loading: 'lazy', widths: '40, 80', alt: ''
+                      | image_tag: loading: 'lazy', widths: '40, 80', alt: '', width: 40, height: 40
                     }}
                   {%- else -%}
                     <img
@@ -270,11 +290,18 @@
                 {%- if block.settings.shipping_text != blank -%}
                   <p class="vp-pdp-benefits__card-text">{{ block.settings.shipping_text | escape }}</p>
                 {%- endif -%}
-                {%- if block.settings.shipping_link_label != blank and block.settings.shipping_link != blank -%}
-                  <a class="vp-pdp-benefits__card-link" href="{{ block.settings.shipping_link }}">
-                    <span>{{ block.settings.shipping_link_label | escape }}</span>
-                    <span class="vp-pdp-benefits__card-chevron" aria-hidden="true">›</span>
-                  </a>
+                {%- if block.settings.shipping_link_label != blank -%}
+                  {%- if block.settings.shipping_link != blank -%}
+                    <a class="vp-pdp-benefits__card-link" href="{{ block.settings.shipping_link }}">
+                      <span>{{ block.settings.shipping_link_label | escape }}</span>
+                      <span class="vp-pdp-benefits__card-chevron" aria-hidden="true">›</span>
+                    </a>
+                  {%- else -%}
+                    <span class="vp-pdp-benefits__card-link">
+                      <span>{{ block.settings.shipping_link_label | escape }}</span>
+                      <span class="vp-pdp-benefits__card-chevron" aria-hidden="true">›</span>
+                    </span>
+                  {%- endif -%}
                 {%- endif -%}
               </div>
             </article>
@@ -291,7 +318,7 @@
                     {{
                       block.settings.warranty_icon
                       | image_url: width: 80
-                      | image_tag: loading: 'lazy', widths: '40, 80', alt: ''
+                      | image_tag: loading: 'lazy', widths: '40, 80', alt: '', width: 40, height: 40
                     }}
                   {%- else -%}
                     <img
@@ -311,16 +338,27 @@
                 {%- if block.settings.warranty_text != blank -%}
                   <p class="vp-pdp-benefits__card-text">{{ block.settings.warranty_text | escape }}</p>
                 {%- endif -%}
-                {%- if block.settings.warranty_link_label != blank and block.settings.warranty_link != blank -%}
-                  <a class="vp-pdp-benefits__card-link" href="{{ block.settings.warranty_link }}">
-                    <span>{{ block.settings.warranty_link_label | escape }}</span>
-                    <span class="vp-pdp-benefits__card-chevron" aria-hidden="true">›</span>
-                  </a>
+                {%- if block.settings.warranty_link_label != blank -%}
+                  {%- if block.settings.warranty_link != blank -%}
+                    <a class="vp-pdp-benefits__card-link" href="{{ block.settings.warranty_link }}">
+                      <span>{{ block.settings.warranty_link_label | escape }}</span>
+                      <span class="vp-pdp-benefits__card-chevron" aria-hidden="true">›</span>
+                    </a>
+                  {%- else -%}
+                    <span class="vp-pdp-benefits__card-link">
+                      <span>{{ block.settings.warranty_link_label | escape }}</span>
+                      <span class="vp-pdp-benefits__card-chevron" aria-hidden="true">›</span>
+                    </span>
+                  {%- endif -%}
                 {%- endif -%}
               </div>
             </article>
           {%- endif -%}
         </div>
+
+        {%- if modal_footnote != blank -%}
+          <p class="vp-pdp-benefits__footnote">{{ modal_footnote | escape }}</p>
+        {%- endif -%}
       </div>
     </modal-dialog>
 
