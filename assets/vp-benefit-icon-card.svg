@@ -1,7 +1,7 @@
-<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="29.4737" height="29.4737" viewBox="0 0 29.4737 29.4737" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="&#195;&#141;cono &#194;&#183; card">
-<path id="Vector" d="M8.33538 8.33324H31.6687C33.9699 8.33324 35.8354 10.1987 35.8354 12.4999V27.4999C35.8354 29.8011 33.9699 31.6666 31.6687 31.6666H8.33538C6.03419 31.6666 4.16871 29.8011 4.16871 27.4999V12.4999C4.16871 10.1987 6.03419 8.33324 8.33538 8.33324Z" stroke-width="2.83333" stroke="white"/>
-<path id="Vector_2" d="M4.16871 15.833H35.8354" stroke-width="2.83333" stroke="white"/>
-<path id="Vector_3" d="M10.0007 25H16.6674" stroke-width="2.83333" stroke-linecap="round" stroke="white"/>
+<path id="Vector" d="M6.14186 6.14028H23.3348C25.0305 6.14028 26.405 7.51485 26.405 9.21046V20.2631C26.405 21.9587 25.0305 23.3333 23.3348 23.3333H6.14186C4.44625 23.3333 3.07168 21.9587 3.07168 20.2631V9.21046C3.07168 7.51485 4.44625 6.14028 6.14186 6.14028Z" stroke-width="2.08772" stroke="white"/>
+<path id="Vector_2" d="M3.07168 11.6664H26.405" stroke-width="2.08772" stroke="white"/>
+<path id="Vector_3" d="M7.36894 18.421H12.2812" stroke-width="2.08772" stroke-linecap="round" stroke="white"/>
 </g>
 </svg>
