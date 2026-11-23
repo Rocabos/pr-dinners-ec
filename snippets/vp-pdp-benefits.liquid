@@ -80,8 +80,11 @@
   assign installment_title_template = block.settings.installment_title | default: 'Hasta [installments_number] cuotas a 0% de interés.'
   assign installment_title = installment_title_template | replace: '[installments_number]', installments_number_markup | replace: '{{installments_number}}', installments_number_markup
 
-  assign installment_text_template = block.settings.installment_text | default: 'Paga tu compra con tu <strong>Diners</strong> y difiere hasta <strong>[installments_number] cuotas</strong> a <strong>0%</strong> de interés. Tú eliges el plazo al momento de pagar.'
+  assign installment_text_template = block.settings.installment_text | default: 'Paga tu compra con tu Diners y difiere hasta [installments_number] cuotas a 0% de interes. Tu eliges el plazo al momento de pagar.'
   assign installment_body = installment_text_template | replace: '[installments_number]', installments_number_markup | replace: '{{installments_number}}', installments_number_markup
+  assign installment_body = installment_body | replace: 'Diners', '<strong>Diners</strong>'
+  assign installment_body = installment_body | replace: '0%', '<strong>0%</strong>'
+  assign installment_body = installment_body | replace: 'cuotas', '<strong>cuotas</strong>'
 
   assign modal_heading = block.settings.modal_heading | default: 'Beneficios con tu Diners'
   assign modal_subtitle = block.settings.modal_subtitle | default: 'Todo lo que ganas al comprar tu Apple en esta tienda.'

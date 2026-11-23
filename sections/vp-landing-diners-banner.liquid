@@ -1,0 +1,246 @@
+{{ 'vp-landing-diners-banner.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign scheme = section.settings.color_scheme
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+  assign cta_label = section.settings.button_label
+  assign cta_link = section.settings.button_link
+-%}
+
+<section
+  id="vp-landing-diners-{{ section.id }}"
+  class="vp-landing-diners color-{{ scheme }} gradient section-{{ section.id }}-padding"
+>
+  <div class="vp-landing-diners__inner">
+    <div class="vp-landing-diners__banner">
+      {%- if section.settings.background_image != blank -%}
+        {{
+          section.settings.background_image
+          | image_url: width: 2240
+          | image_tag:
+            class: 'vp-landing-diners__bg',
+            loading: 'lazy',
+            widths: '750, 1100, 1500, 2240',
+            sizes: '(min-width: 990px) 1120px, 100vw',
+            alt: ''
+        }}
+      {%- endif -%}
+
+      <div class="vp-landing-diners__content">
+        <div class="vp-landing-diners__copy">
+          {%- if section.settings.heading != blank -%}
+            <h2 class="vp-landing-diners__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>
+          {%- endif -%}
+
+          {%- if section.settings.text != blank -%}
+            <div class="vp-landing-diners__text">{{ section.settings.text }}</div>
+          {%- endif -%}
+
+          {%- if cta_label != blank -%}
+            <a
+              class="vp-landing-diners__cta"
+              {% if cta_link != blank %}
+                href="{{ cta_link }}"
+              {% else %}
+                role="link"
+                aria-disabled="true"
+              {% endif %}
+            >
+              {{ cta_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+
+        <aside class="vp-landing-diners__glass" aria-label="{{ section.settings.panel_aria_label | escape }}">
+          <div class="vp-landing-diners__glass-row">
+            {%- if section.settings.installment_label != blank -%}
+              <p class="vp-landing-diners__label">{{ section.settings.installment_label | escape }}</p>
+            {%- endif -%}
+            {%- if section.settings.installment_price != blank -%}
+              <p class="vp-landing-diners__price">{{ section.settings.installment_price | escape }}</p>
+            {%- endif -%}
+            {%- if section.settings.installment_note != blank -%}
+              <p class="vp-landing-diners__label">{{ section.settings.installment_note | escape }}</p>
+            {%- endif -%}
+          </div>
+
+          <hr class="vp-landing-diners__divider">
+
+          <div class="vp-landing-diners__glass-row">
+            {%- if section.settings.now_label != blank -%}
+              <p class="vp-landing-diners__label">{{ section.settings.now_label | escape }}</p>
+            {%- endif -%}
+            {%- if section.settings.now_price != blank -%}
+              <p class="vp-landing-diners__price">{{ section.settings.now_price | escape }}</p>
+            {%- endif -%}
+            {%- if section.settings.compare_prefix != blank or section.settings.compare_price != blank -%}
+              <p class="vp-landing-diners__compare">
+                {%- if section.settings.compare_prefix != blank -%}
+                  {{ section.settings.compare_prefix | escape }}
+                {%- endif -%}
+                {%- if section.settings.compare_price != blank -%}
+                  <s>{{ section.settings.compare_price | escape }}</s>
+                {%- endif -%}
+              </p>
+            {%- endif -%}
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ padding_top }}px;
+      padding-bottom: {{ padding_bottom }}px;
+    }
+  }
+
+  #vp-landing-diners-{{ section.id }} {
+    --vp-diners-gradient: {% if section.settings.banner_gradient != blank %}{{ section.settings.banner_gradient }}{% else %}linear-gradient(115deg, #2997ff 0%, #5e5ce6 48%, #bf5af2 100%){% endif %};
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Banner 12 meses Diners",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer", "aside"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Banner background image",
+      "info": "Optional. Overrides the CSS gradient if set."
+    },
+    {
+      "type": "text",
+      "id": "banner_gradient",
+      "label": "Banner CSS gradient",
+      "default": "linear-gradient(115deg, #2997ff 0%, #5e5ce6 48%, #bf5af2 100%)",
+      "info": "Paste CSS like: linear-gradient(red 0%, blue 50%, green 100%)"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Con tu Diners difiere hasta\n12 meses sin intereses."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>En tu <strong>iPhone 18 Pro</strong> y en los accesorios que lo complementan.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Comprar con Diners"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Glass price panel"
+    },
+    {
+      "type": "text",
+      "id": "panel_aria_label",
+      "label": "Panel accessibility label",
+      "default": "Precio en cuotas"
+    },
+    {
+      "type": "text",
+      "id": "installment_label",
+      "label": "Installment label",
+      "default": "Llévalo desde"
+    },
+    {
+      "type": "text",
+      "id": "installment_price",
+      "label": "Installment price",
+      "default": "$162,42/mes"
+    },
+    {
+      "type": "text",
+      "id": "installment_note",
+      "label": "Installment note",
+      "default": "hasta 12 meses sin intereses"
+    },
+    {
+      "type": "text",
+      "id": "now_label",
+      "label": "Now label",
+      "default": "Ahora por"
+    },
+    {
+      "type": "text",
+      "id": "now_price",
+      "label": "Now price",
+      "default": "$1,949"
+    },
+    {
+      "type": "text",
+      "id": "compare_prefix",
+      "label": "Compare prefix",
+      "default": "Antes: "
+    },
+    {
+      "type": "text",
+      "id": "compare_price",
+      "label": "Compare price",
+      "default": "$2,049"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 120
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner 12 meses Diners"
+    }
+  ]
+}
+{% endschema %}
