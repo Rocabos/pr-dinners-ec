@@ -80,6 +80,13 @@
       --vp-np-button-text: {{ section.settings.button_text_color }};
       --vp-np-link: {{ section.settings.link_color }};
       --vp-np-close: {{ section.settings.close_color }};
+      --vp-np-step-badge: {{ section.settings.step_badge_color | default: '#0071e3' }};
+      --vp-np-step-badge-text: {{ section.settings.step_badge_text_color | default: '#ffffff' }};
+      --vp-np-step-border: {{ section.settings.step_border_color | default: '#ffffff' }};
+      --vp-np-step-text: {{ section.settings.step_text_color | default: section.settings.text_color | default: '#ffffff' }};
+      --vp-np-success-text: {{ section.settings.success_text_color | default: section.settings.text_color | default: '#ffffff' }};
+      --vp-np-success-button-bg: {{ section.settings.success_button_background | default: section.settings.button_background | default: '#0071e3' }};
+      --vp-np-success-button-text: {{ section.settings.success_button_text_color | default: section.settings.button_text_color | default: '#ffffff' }};
       --vp-np-corner-radius: {{ section.settings.corner_radius }}px;
       --vp-np-input-radius: {{ section.settings.input_radius }}px;
       --vp-np-button-radius: {{ section.settings.button_radius }}px;
@@ -157,25 +164,34 @@
 
       <div class="vp-newsletter-popup__panel text-{{ section.settings.content_alignment }}">
         <div class="vp-newsletter-popup__panel-main">
-        {%- if section.settings.heading != blank -%}
-          <h2 class="vp-newsletter-popup__heading">
-            {{ section.settings.heading }}
-          </h2>
-        {%- endif -%}
-
-        {%- if section.settings.text != blank -%}
-          <div class="vp-newsletter-popup__text rte">
-            {{ section.settings.text }}
-          </div>
-        {%- endif -%}
-
         {%- liquid
-          assign success_message = section.settings.success_message
-          if success_message == blank
-            assign success_message = 'Gracias por escribirte'
+          assign success_heading = section.settings.success_heading
+          if success_heading == blank
+            assign success_heading = section.settings.success_message
           endif
-        -%}
-        {%- liquid
+          if success_heading == blank
+            assign success_heading = 'Te damos la bienvenida a iClub'
+          endif
+
+          assign success_text = section.settings.success_text
+          if success_text == blank
+            assign success_text = '<p>Así usas tu 10% de descuento:</p>'
+          endif
+
+          assign success_button_label = section.settings.success_button_label
+          if success_button_label == blank
+            assign success_button_label = 'Empezar a comprar'
+          endif
+
+          assign success_button_link = section.settings.success_button_link | default: routes.root_url
+
+          assign vp_np_step_count = 0
+          for block in section.blocks
+            if block.type == 'step' and block.settings.text != blank
+              assign vp_np_step_count = vp_np_step_count | plus: 1
+            endif
+          endfor
+
           assign privacy_customer_tag = section.settings.privacy_customer_tag | default: 'Acepto-Politica'
           assign show_privacy_consent = false
           if section.settings.privacy_text != blank or section.settings.privacy_link_label != blank
@@ -184,105 +200,160 @@
         -%}
         <vp-newsletter-form
           class="vp-newsletter-popup__form-host{% if posted_successfully %} is-success{% endif %}"
-          data-success-message="{{ success_message | escape }}"
           data-inline-success="{% if section.settings.show_success_in_popup %}true{% else %}false{% endif %}"
           data-base-tags="{{ section.settings.customer_tags | default: 'newsletter' | escape }}"
           data-privacy-tag="{{ privacy_customer_tag | escape }}"
         >
-          {%- form 'customer', id: form_id, return_to: section.settings.return_to -%}
-            {%- if section.settings.show_success_in_popup -%}
-              <p
-                class="vp-newsletter-popup__message vp-newsletter-popup__message--success"
-                id="Newsletter-success--{{ section.id }}"
-                tabindex="-1"
-              >
-                {{ success_message }}
-              </p>
+          <div class="vp-newsletter-popup__signup">
+            {%- if section.settings.heading != blank -%}
+              <h2 class="vp-newsletter-popup__heading">
+                {{ section.settings.heading }}
+              </h2>
             {%- endif -%}
 
-            <div class="vp-newsletter-popup__form">
-              <input
-                type="hidden"
-                name="contact[tags]"
-                value="{{ section.settings.customer_tags | default: 'newsletter' | escape }}"
-              >
+            {%- if section.settings.text != blank -%}
+              <div class="vp-newsletter-popup__text rte">
+                {{ section.settings.text }}
+              </div>
+            {%- endif -%}
 
-              <label class="visually-hidden" for="NewsletterForm--{{ section.id }}">
-                {{ email_placeholder | escape }}
-              </label>
-              <input
-                id="NewsletterForm--{{ section.id }}"
-                class="vp-newsletter-popup__input"
-                type="email"
-                name="contact[email]"
-                value="{{ form.email }}"
-                placeholder="{{ email_placeholder | escape }}"
-                autocomplete="email"
-                autocorrect="off"
-                autocapitalize="off"
-                aria-required="true"
-                required
-                {% if form.errors %}
-                  autofocus
-                  aria-invalid="true"
-                  aria-describedby="Newsletter-error--{{ section.id }}"
-                {% endif %}
-              >
+            {%- form 'customer', id: form_id, return_to: section.settings.return_to -%}
+              <div class="vp-newsletter-popup__form">
+                <input
+                  type="hidden"
+                  name="contact[tags]"
+                  value="{{ section.settings.customer_tags | default: 'newsletter' | escape }}"
+                >
 
-              {%- if form.errors -%}
-                <small class="vp-newsletter-popup__message" id="Newsletter-error--{{ section.id }}">
-                  {{- form.errors.translated_fields.email | capitalize }}
-                  {{ form.errors.messages.email -}}
-                </small>
+                <label class="visually-hidden" for="NewsletterForm--{{ section.id }}">
+                  {{ email_placeholder | escape }}
+                </label>
+                <input
+                  id="NewsletterForm--{{ section.id }}"
+                  class="vp-newsletter-popup__input"
+                  type="email"
+                  name="contact[email]"
+                  value="{{ form.email }}"
+                  placeholder="{{ email_placeholder | escape }}"
+                  autocomplete="email"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  aria-required="true"
+                  required
+                  {% if form.errors %}
+                    autofocus
+                    aria-invalid="true"
+                    aria-describedby="Newsletter-error--{{ section.id }}"
+                  {% endif %}
+                >
+
+                {%- if form.errors -%}
+                  <small class="vp-newsletter-popup__message" id="Newsletter-error--{{ section.id }}">
+                    {{- form.errors.translated_fields.email | capitalize }}
+                    {{ form.errors.messages.email -}}
+                  </small>
+                {%- endif -%}
+
+                <button
+                  type="submit"
+                  class="vp-newsletter-popup__submit"
+                  name="commit"
+                  id="Subscribe-{{ section.id }}"
+                  {% if show_privacy_consent %}
+                    disabled
+                    aria-disabled="true"
+                  {% endif %}
+                >
+                  {{ button_label | escape }}
+                </button>
+
+                {%- if show_privacy_consent -%}
+                  <div class="vp-newsletter-popup__privacy">
+                    <input
+                      id="Newsletter-privacy--{{ section.id }}"
+                      class="vp-newsletter-popup__privacy-input"
+                      type="checkbox"
+                      value="1"
+                      required
+                      aria-required="true"
+                    >
+                    <span class="vp-newsletter-popup__privacy-text">
+                      <label for="Newsletter-privacy--{{ section.id }}">
+                        {%- if section.settings.privacy_text != blank -%}
+                          {{ section.settings.privacy_text | escape }}
+                        {%- endif -%}
+                      </label>
+                      {%- if section.settings.privacy_link_label != blank -%}
+                        {%- if section.settings.privacy_text != blank %} {% endif -%}
+                        <a
+                          class="vp-newsletter-popup__privacy-link"
+                          href="{{ section.settings.privacy_link_url | default: routes.root_url }}"
+                          {% if section.settings.privacy_link_new_tab %}
+                            target="_blank"
+                            rel="noopener"
+                          {% endif %}
+                        >
+                          {{- section.settings.privacy_link_label | escape -}}
+                        </a>
+                      {%- endif -%}
+                    </span>
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endform -%}
+          </div>
+
+          {%- if section.settings.show_success_in_popup -%}
+            <div
+              class="vp-newsletter-popup__success"
+              id="Newsletter-success--{{ section.id }}"
+              tabindex="-1"
+            >
+              {%- if success_heading != blank -%}
+                <h2 class="vp-newsletter-popup__heading">
+                  {{ success_heading }}
+                </h2>
               {%- endif -%}
 
-              <button
-                type="submit"
-                class="vp-newsletter-popup__submit"
-                name="commit"
-                id="Subscribe-{{ section.id }}"
-                {% if show_privacy_consent %}
-                  disabled
-                  aria-disabled="true"
-                {% endif %}
-              >
-                {{ button_label | escape }}
-              </button>
-
-              {%- if show_privacy_consent -%}
-                <div class="vp-newsletter-popup__privacy">
-                  <input
-                    id="Newsletter-privacy--{{ section.id }}"
-                    class="vp-newsletter-popup__privacy-input"
-                    type="checkbox"
-                    value="1"
-                    required
-                    aria-required="true"
-                  >
-                  <span class="vp-newsletter-popup__privacy-text">
-                    <label for="Newsletter-privacy--{{ section.id }}">
-                      {%- if section.settings.privacy_text != blank -%}
-                        {{ section.settings.privacy_text | escape }}
-                      {%- endif -%}
-                    </label>
-                    {%- if section.settings.privacy_link_label != blank -%}
-                      {%- if section.settings.privacy_text != blank %} {% endif -%}
-                      <a
-                        class="vp-newsletter-popup__privacy-link"
-                        href="{{ section.settings.privacy_link_url | default: routes.root_url }}"
-                        {% if section.settings.privacy_link_new_tab %}
-                          target="_blank"
-                          rel="noopener"
-                        {% endif %}
-                      >
-                        {{- section.settings.privacy_link_label | escape -}}
-                      </a>
-                    {%- endif -%}
-                  </span>
+              {%- if success_text != blank -%}
+                <div class="vp-newsletter-popup__text rte">
+                  {{ success_text }}
                 </div>
               {%- endif -%}
+
+              {%- if vp_np_step_count > 0 -%}
+                <ol class="vp-newsletter-popup__steps">
+                  {%- assign vp_np_step_index = 0 -%}
+                  {%- for block in section.blocks -%}
+                    {%- if block.type == 'step' and block.settings.text != blank -%}
+                      {%- assign vp_np_step_index = vp_np_step_index | plus: 1 -%}
+                      <li class="vp-newsletter-popup__step" {{ block.shopify_attributes }}>
+                        <span class="vp-newsletter-popup__step-badge" aria-hidden="true">
+                          {{- vp_np_step_index -}}
+                        </span>
+                        <div class="vp-newsletter-popup__step-text rte">
+                          {{ block.settings.text }}
+                        </div>
+                      </li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ol>
+              {%- endif -%}
+
+              {%- if success_button_label != blank -%}
+                <a
+                  class="vp-newsletter-popup__submit vp-newsletter-popup__success-cta"
+                  href="{{ success_button_link }}"
+                  {% if section.settings.success_button_new_tab %}
+                    target="_blank"
+                    rel="noopener"
+                  {% endif %}
+                >
+                  {{ success_button_label | escape }}
+                </a>
+              {%- endif -%}
             </div>
-          {%- endform -%}
+          {%- endif -%}
         </vp-newsletter-form>
         </div>
       </div>
@@ -297,8 +368,8 @@ if (!customElements.get('vp-newsletter-form')) {
       this.form = this.querySelector('form');
       if (!this.form) return;
 
-      this.fields = this.querySelector('.vp-newsletter-popup__form');
-      this.success = this.querySelector('.vp-newsletter-popup__message--success');
+      this.signup = this.querySelector('.vp-newsletter-popup__signup');
+      this.success = this.querySelector('.vp-newsletter-popup__success');
       this.submitButton = this.form.querySelector('[type="submit"]');
       this.tagsInput = this.form.querySelector('[name="contact[tags]"]');
       this.privacyInput = this.form.querySelector('.vp-newsletter-popup__privacy-input');
@@ -371,14 +442,7 @@ if (!customElements.get('vp-newsletter-form')) {
 
     showSuccess() {
       this.classList.add('is-success');
-      if (this.fields) this.fields.hidden = true;
-      if (this.success) {
-        if (!this.success.textContent.trim()) {
-          this.success.textContent = this.dataset.successMessage || '';
-        }
-        this.success.hidden = false;
-        this.success.focus();
-      }
+      if (this.success) this.success.focus();
     }
   }
 
@@ -396,9 +460,9 @@ if (!customElements.get('vp-newsletter-form')) {
 @media screen and (min-width: 750px) {
   .popup-modal.vp-newsletter-popup .vp-newsletter-popup__content {
     width: min(var(--vp-np-d-width, 880px), calc(100vw - 80px));
-    height: var(--vp-np-d-height, 440px);
+    height: auto;
     min-height: var(--vp-np-d-height, 440px);
-    max-height: min(var(--vp-np-d-height, 440px), calc(100dvh - 80px));
+    max-height: calc(100dvh - 80px);
     margin-top: 0;
   }
 }
@@ -658,7 +722,8 @@ if (!customElements.get('vp-newsletter-form')) {
       "type": "richtext",
       "id": "text",
       "label": "Texto",
-      "default": "<p>Únete a la comunidad de iClub y recibe novedades y beneficios exclusivos directo en tu correo.</p>"
+      "default": "<p>Únete a la comunidad de iClub y recibe novedades y beneficios exclusivos directo en tu correo.</p>",
+      "info": "Texto del estado inicial (antes de suscribirse)."
     },
     {
       "type": "select",
@@ -712,23 +777,130 @@ if (!customElements.get('vp-newsletter-form')) {
     {
       "type": "checkbox",
       "id": "show_success_in_popup",
-      "label": "Mostrar mensaje de éxito en el popup",
+      "label": "Mostrar pantalla de éxito en el popup",
       "default": true,
-      "info": "Si está desactivado, el formulario se envía como antes (recarga o redirección)."
+      "info": "Tras suscribirse: título, pasos y CTA. Si está desactivado, recarga o redirección."
+    },
+    {
+      "type": "header",
+      "content": "Éxito — textos",
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
+    },
+    {
+      "type": "paragraph",
+      "content": "Se muestra al completar la suscripción. Los pasos 1–3 se agregan como bloques “Paso”.",
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "success_heading",
+      "label": "Título",
+      "default": "Te damos la bienvenida a iClub",
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
+    },
+    {
+      "type": "richtext",
+      "id": "success_text",
+      "label": "Subtítulo / texto",
+      "default": "<p>Así usas tu 10% de descuento:</p>",
+      "info": "Va encima de la lista de pasos.",
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
     },
     {
       "type": "inline_richtext",
       "id": "success_message",
-      "label": "Mensaje de éxito",
-      "default": "Gracias por escribirte",
-      "info": "Se muestra dentro del popup al completar el formulario.",
+      "label": "Título (respaldo)",
+      "default": "Te damos la bienvenida a iClub",
+      "info": "Solo se usa si el Título de éxito está vacío.",
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
+    },
+    {
+      "type": "header",
+      "content": "Éxito — botón",
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
+    },
+    {
+      "type": "text",
+      "id": "success_button_label",
+      "label": "Texto del botón",
+      "default": "Empezar a comprar",
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
+    },
+    {
+      "type": "url",
+      "id": "success_button_link",
+      "label": "Enlace del botón",
+      "info": "Vacío = inicio de la tienda.",
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "success_button_new_tab",
+      "label": "Abrir enlace en nueva pestaña",
+      "default": false,
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
+    },
+    {
+      "type": "header",
+      "content": "Éxito — colores",
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
+    },
+    {
+      "type": "color",
+      "id": "success_text_color",
+      "label": "Color del texto",
+      "default": "#ffffff",
+      "info": "Título y subtítulo de la pantalla de éxito.",
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
+    },
+    {
+      "type": "color",
+      "id": "success_button_background",
+      "label": "Fondo del botón",
+      "default": "#0071e3",
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
+    },
+    {
+      "type": "color",
+      "id": "success_button_text_color",
+      "label": "Texto del botón",
+      "default": "#ffffff",
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
+    },
+    {
+      "type": "color",
+      "id": "step_badge_color",
+      "label": "Fondo del número",
+      "default": "#0071e3",
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
+    },
+    {
+      "type": "color",
+      "id": "step_badge_text_color",
+      "label": "Color del número",
+      "default": "#ffffff",
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
+    },
+    {
+      "type": "color",
+      "id": "step_text_color",
+      "label": "Color del texto del paso",
+      "default": "#ffffff",
+      "visible_if": "{{ section.settings.show_success_in_popup }}"
+    },
+    {
+      "type": "color",
+      "id": "step_border_color",
+      "label": "Color de la línea",
+      "default": "#ffffff",
+      "info": "Línea bajo cada paso excepto el último.",
       "visible_if": "{{ section.settings.show_success_in_popup }}"
     },
     {
       "type": "url",
       "id": "return_to",
       "label": "Página tras suscribirse",
-      "info": "Opcional. Solo aplica si el mensaje de éxito en el popup está desactivado.",
+      "info": "Opcional. Solo aplica si la pantalla de éxito en el popup está desactivada.",
       "visible_if": "{{ section.settings.show_success_in_popup == false }}"
     },
     {
@@ -957,9 +1129,45 @@ if (!customElements.get('vp-newsletter-form')) {
       "visible_if": "{{ section.settings.show_at_specific_time_of_day }}"
     }
   ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Paso",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "Texto del paso",
+          "default": "Agrega tus productos al carrito"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
   "presets": [
     {
-      "name": "VP Newsletter popup"
+      "name": "VP Newsletter popup",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "text": "Agrega tus productos al carrito"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "text": "En el checkout, escribe el código <strong>BIENVENIDA</strong>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "text": "Listo, el 10% se descuenta de tu compra"
+          }
+        }
+      ]
     }
   ]
 }

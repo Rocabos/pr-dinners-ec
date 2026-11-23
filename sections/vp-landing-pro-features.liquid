@@ -28,6 +28,12 @@
         {%- for block in feature_blocks -%}
           <li class="vp-landing-pro__feature" {{ block.shopify_attributes }}>
             {%- if block.settings.image != blank -%}
+              {%- liquid
+                assign feature_alt = block.settings.title | escape
+                if block.settings.image.alt != blank
+                  assign feature_alt = block.settings.image.alt | escape
+                endif
+              -%}
               <div class="vp-landing-pro__feature-media">
                 {{
                   block.settings.image
@@ -36,7 +42,7 @@
                     loading: 'lazy',
                     widths: '320, 480, 640, 800',
                     sizes: '(min-width: 750px) 33vw, 90vw',
-                    alt: block.settings.image.alt | default: block.settings.title | escape
+                    alt: feature_alt
                 }}
               </div>
             {%- endif -%}
@@ -59,6 +65,12 @@
         {%- for block in highlight_blocks -%}
           <li class="vp-landing-pro__highlight" {{ block.shopify_attributes }}>
             {%- if block.settings.image != blank -%}
+              {%- liquid
+                assign highlight_alt = block.settings.title | escape
+                if block.settings.image.alt != blank
+                  assign highlight_alt = block.settings.image.alt | escape
+                endif
+              -%}
               <div class="vp-landing-pro__highlight-media">
                 {{
                   block.settings.image
@@ -67,7 +79,7 @@
                     loading: 'lazy',
                     widths: '480, 720, 960, 1200',
                     sizes: '(min-width: 750px) 50vw, 90vw',
-                    alt: block.settings.image.alt | default: block.settings.title | escape
+                    alt: highlight_alt
                 }}
               </div>
             {%- endif -%}
