@@ -57,23 +57,43 @@
   endif
 -%}
 
+{%- liquid
+  assign installment_layout = installment_layout | default: 'box'
+  if template.name != 'product'
+    assign installment_layout = 'inline'
+  endif
+-%}
 {%- if settings.installments_enabled and settings.installment_rules != blank and current_installment_price > 0 -%}
   <product-installment-info
     data-section-id="{{ section.id }}"
-    class="product-installment-info"
+    class="product-installment-info{% if installment_layout == 'box' %} vp-installment-box{% endif %}"
     {% if current_installments_number <= 0 %}
       hidden
     {% endif %}
     {{ block.shopify_attributes }}
   >
-    <span class="installment-text-before">{{ installment_text_before }}</span
-    ><strong
-      data-installment-price
-      class="installment-price vp-installment-emphasis"
-    >{{- current_installment_price | money -}}</strong
-    ><span class="installment-text-after">
-      {{- installment_text_after -}}
-    </span>
+    {%- if installment_layout == 'box' -%}
+      <img
+        class="vp-installment-box__logo"
+        src="https://cdn.shopify.com/s/files/1/0745/3045/5726/files/DinersClub_NACIONAL_Logo_fd1a3269-88e0-4817-9270-b72636d19311.png?v=1794614387"
+        alt="Diners Club"
+        width="34"
+        height="28"
+        loading="lazy"
+      >
+      <span class="vp-installment-box__text">
+    {%- endif -%}
+      <span class="installment-text-before">{{ installment_text_before }}</span
+      ><strong
+        data-installment-price
+        class="installment-price vp-installment-emphasis"
+      >{{- current_installment_price | money -}}</strong
+      ><span class="installment-text-after">
+        {{- installment_text_after -}}
+      </span>
+    {%- if installment_layout == 'box' -%}
+      </span>
+    {%- endif -%}
 
     <script
       type="application/json"
@@ -137,8 +157,6 @@
           try {
             this.productData = JSON.parse(dataElement.textContent);
           } catch (error) {
-            console.error('Invalid installment variants JSON:', error);
-
             return;
           }
 
@@ -155,6 +173,8 @@
 
           this.handleVariantEvent = this.handleVariantEvent.bind(this);
 
+          this.handlePubSubVariant = this.handlePubSubVariant.bind(this);
+
           this.sectionRoot.addEventListener('change', this.handleChange, true);
 
           document.addEventListener('variant:change', this.handleVariantEvent);
@@ -163,11 +183,21 @@
 
           document.addEventListener('product:variant-change', this.handleVariantEvent);
 
+          if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+            this.unsubscribeVariantChange = subscribe(
+              PUB_SUB_EVENTS.variantChange,
+              this.handlePubSubVariant
+            );
+          }
+
           this.scheduleUpdate();
 
-          this.variantWatcher = window.setInterval(() => {
-            this.updateFromProductForm();
-          }, 300);
+          // Poll only on PDP box layout; collection cards can mount dozens of instances.
+          if (this.classList.contains('vp-installment-box')) {
+            this.variantWatcher = window.setInterval(() => {
+              this.updateFromProductForm();
+            }, 300);
+          }
         }
 
         disconnectedCallback() {
@@ -181,12 +211,27 @@
 
           document.removeEventListener('product:variant-change', this.handleVariantEvent);
 
+          if (typeof this.unsubscribeVariantChange === 'function') {
+            this.unsubscribeVariantChange();
+          }
+
           window.clearInterval(this.variantWatcher);
           window.clearTimeout(this.updateTimer);
           window.clearTimeout(this.delayedUpdateTimer);
         }
 
         handleChange() {
+          this.scheduleUpdate();
+        }
+
+        handlePubSubVariant(event) {
+          const variant = event?.variant || event?.data?.variant;
+
+          if (variant?.id && this.variantIds.has(String(variant.id))) {
+            this.update(variant.id);
+            return;
+          }
+
           this.scheduleUpdate();
         }
 
@@ -223,30 +268,37 @@
         }
 
         getSelectedVariantId() {
-          const forms = Array.from(this.sectionRoot.querySelectorAll('form[action*="/cart/add"]'));
+          const sectionId = this.dataset.sectionId || '';
+          const candidates = [];
 
-          const preferredForm = forms.find((form) => {
-            if (!form?.id?.includes) return false;
+          const preferredSelectors = [
+            `#product-form-${sectionId} [name="id"]`,
+            `#product-form-installment-${sectionId} [name="id"]`,
+            `product-info[data-section="${sectionId}"] [name="id"]`,
+            `form[id*="${sectionId}"] [name="id"]`
+          ];
 
-            return form.id.includes(this.dataset.sectionId);
+          preferredSelectors.forEach((selector) => {
+            if (!sectionId) return;
+            this.sectionRoot.querySelectorAll(selector).forEach((field) => candidates.push(field));
           });
 
-          const orderedForms = preferredForm
-            ? [preferredForm, ...forms.filter((form) => form !== preferredForm)]
-            : forms;
+          this.sectionRoot.querySelectorAll('form[action*="/cart/add"] [name="id"]').forEach((field) => {
+            candidates.push(field);
+          });
 
-          for (const form of orderedForms) {
-            const variantField = form.querySelector('[name="id"]');
+          for (const field of candidates) {
+            const value = field?.value;
 
-            if (variantField?.value && this.variantIds.has(String(variantField.value))) {
-              return variantField.value;
+            if (value && this.variantIds.has(String(value))) {
+              return String(value);
             }
           }
 
           const urlVariantId = new URL(window.location.href).searchParams.get('variant');
 
           if (urlVariantId && this.variantIds.has(String(urlVariantId))) {
-            return urlVariantId;
+            return String(urlVariantId);
           }
 
           return null;
@@ -254,29 +306,34 @@
 
         update(variantId) {
           const normalizedVariantId = String(variantId);
-
-          if (normalizedVariantId === this.currentVariantId) {
-            return;
-          }
-
           const selectedVariant = this.productData.variants.find(
             (variant) => String(variant.id) === normalizedVariantId
           );
 
           if (!selectedVariant) return;
 
-          this.currentVariantId = normalizedVariantId;
-
           const hasInstallments = selectedVariant.hasInstallments && Number(selectedVariant.installmentsNumber) > 0;
+          const nextPrice = selectedVariant.installmentPrice || '';
+          const nextNumber = String(selectedVariant.installmentsNumber || '');
+          const currentPrice = this.priceElement?.innerHTML || '';
+          const currentNumber = this.numberElements?.[0]?.textContent || '';
+          const alreadyCurrent =
+            normalizedVariantId === this.currentVariantId &&
+            currentPrice === nextPrice &&
+            currentNumber === nextNumber &&
+            this.hidden === !hasInstallments;
 
+          if (alreadyCurrent) return;
+
+          this.currentVariantId = normalizedVariantId;
           this.hidden = !hasInstallments;
 
           if (!hasInstallments) return;
 
-          this.priceElement.innerHTML = selectedVariant.installmentPrice;
+          this.priceElement.innerHTML = nextPrice;
 
           this.numberElements.forEach((element) => {
-            element.textContent = selectedVariant.installmentsNumber;
+            element.textContent = nextNumber;
           });
         }
       }
