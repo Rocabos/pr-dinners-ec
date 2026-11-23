@@ -95,6 +95,17 @@
             "custom_background": ""
           }
         },
+        "column_standard_Rpp6Aq": {
+          "type": "column_standard",
+          "settings": {
+            "image": "shopify://shop_images/iphone-16-image.png",
+            "image_scale": 100,
+            "text": "<p>iPhone 16</p>",
+            "text_size": "t3",
+            "card_link": "shopify://products/iphone-16",
+            "custom_background": ""
+          }
+        },
         "column_standard_tCdUHX": {
           "type": "column_standard",
           "settings": {
@@ -115,17 +126,6 @@
             "text": "<p>iPhone  17e</p>",
             "text_size": "t3",
             "card_link": "#",
-            "custom_background": ""
-          }
-        },
-        "column_standard_Rpp6Aq": {
-          "type": "column_standard",
-          "settings": {
-            "image": "shopify://shop_images/iphone-16-image.png",
-            "image_scale": 100,
-            "text": "<p>iPhone 16</p>",
-            "text_size": "t3",
-            "card_link": "shopify://products/iphone-16",
             "custom_background": ""
           }
         },
@@ -156,9 +156,9 @@
         "column_standard_3dU9bK",
         "column_standard_gpqc7t",
         "column_standard_q9k3tX",
+        "column_standard_Rpp6Aq",
         "column_standard_tCdUHX",
         "column_standard_NfVKrY",
-        "column_standard_Rpp6Aq",
         "column_standard_xtgaQP",
         "column_standard_Kx88pw"
       ],
