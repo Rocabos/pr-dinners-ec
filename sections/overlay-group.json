@@ -248,22 +248,24 @@
     },
     "vp_newsletter_popup_g3RqLf": {
       "type": "vp-newsletter-popup",
-      "name": "Newsletter popup",
       "blocks": {
         "step_1": {
           "type": "step",
+          "disabled": true,
           "settings": {
             "text": "Agrega tus productos al carrito"
           }
         },
         "step_2": {
           "type": "step",
+          "disabled": true,
           "settings": {
             "text": "En el checkout, escribe el código <strong>BIENVENIDA</strong>"
           }
         },
         "step_3": {
           "type": "step",
+          "disabled": true,
           "settings": {
             "text": "Listo, el 10% se descuenta de tu compra"
           }
@@ -274,6 +276,7 @@
         "step_2",
         "step_3"
       ],
+      "name": "Newsletter popup",
       "settings": {
         "mode": "enabled",
         "show_trigger": "delay",
@@ -297,11 +300,11 @@
         "button_label": "Suscribirme",
         "customer_tags": "Newsletter, Newsletter Home, Popup Home",
         "show_success_in_popup": true,
-        "success_heading": "Te damos la bienvenida a iClub",
-        "success_message": "Te damos la bienvenida a iClub",
-        "success_text": "<p>Así usas tu 10% de descuento:</p>",
-        "success_button_label": "Empezar a comprar",
-        "success_button_link": "/",
+        "success_heading": "Obtén 10% de descuento en tu primera compra&nbsp;",
+        "success_text": "<p>únete a la comunidad de IClub y recibe en tu correo un <strong>cupón del 10%</strong> y beneficios exclusivos.</p>",
+        "success_message": "",
+        "success_button_label": "",
+        "success_button_link": "",
         "success_button_new_tab": false,
         "success_text_color": "#ffffff",
         "success_button_background": "#0071e3",
