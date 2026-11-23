@@ -30,30 +30,6 @@
     "hero_video": {
       "type": "video-banner",
       "name": "Hero video",
-      "blocks": {
-        "heading_hero": {
-          "type": "heading",
-          "settings": {
-            "heading": "Pro por dentro.\nBrillante por fuera.",
-            "heading_italic_convert": "",
-            "heading_size": "h1",
-            "heading_size_custom": 4,
-            "heading_line_height_custom": 1.05,
-            "heading_tag": "h1"
-          }
-        },
-        "text_hero": {
-          "type": "text",
-          "settings": {
-            "text": "<p>El iPhone 18 Pro en Plata.</p>",
-            "text_size": "t2"
-          }
-        }
-      },
-      "block_order": [
-        "heading_hero",
-        "text_hero"
-      ],
       "settings": {
         "video": "shopify://files/videos/iphone-collection-banner-video-1.mp4",
         "video_url": "",
@@ -82,6 +58,11 @@
         "bottom_padding": "pb-0",
         "visibility": "",
         "hide_when_empty": false,
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true,
         "lazy_load": false,
         "heading_tag": "h1",
         "description": "iPhone 18 Pro",
@@ -91,37 +72,14 @@
     "scene_plata": {
       "type": "image-banner",
       "name": "Escena Plata",
-      "blocks": {
-        "heading_plata": {
-          "type": "heading",
-          "settings": {
-            "heading": "Pro por dentro.\nBrillante por fuera.",
-            "heading_italic_convert": "",
-            "heading_size": "h2",
-            "heading_size_custom": 2.4,
-            "heading_line_height_custom": 1.05,
-            "heading_tag": "h2"
-          }
-        },
-        "text_plata": {
-          "type": "text",
-          "settings": {
-            "text": "<p>El iPhone 18 Pro en Plata.</p>",
-            "text_size": "t3"
-          }
-        }
-      },
-      "block_order": [
-        "heading_plata",
-        "text_plata"
-      ],
       "settings": {
+        "image": "shopify://shop_images/Plata_escena_animada.png",
         "image_overlay_opacity": 0,
         "image_link": "",
         "fix_image": false,
         "skew_images": false,
         "stack_images_on_mobile": true,
-        "image_ratio": "custom",
+        "image_ratio": "adapt",
         "desktop_section_height": 780,
         "mobile_section_height": 520,
         "full_width": true,
@@ -139,16 +97,21 @@
         "top_padding": "pt-0",
         "bottom_padding": "pb-0",
         "visibility": "",
-        "hide_when_empty": false
+        "hide_when_empty": false,
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true
       }
     },
     "features_pro": {
       "type": "vp-landing-pro-features",
-      "name": "Por esto es el más Pro",
       "blocks": {
         "feature_camera": {
           "type": "feature",
           "settings": {
+            "image": "shopify://shop_images/1Imagen.png",
             "title": "Cámara Fusion de 48 MP",
             "text": "Apertura variable para mejores fotos y videos con poca luz y una profundidad de campo increíble."
           }
@@ -156,6 +119,7 @@
         "feature_chip": {
           "type": "feature",
           "settings": {
+            "image": "shopify://shop_images/2Imagen.png",
             "title": "Chip A20 Pro",
             "text": "Enfriamiento con cámara de vapor: baja la temperatura para subir la potencia en juegos, video y Apple Intelligence."
           }
@@ -163,6 +127,7 @@
         "feature_battery": {
           "type": "feature",
           "settings": {
+            "image": "shopify://shop_images/3Imagen.png",
             "title": "Hasta 34 horas de video",
             "text": "La mejor batería en un iPhone. Y hasta 50% de carga en unos 15 minutos."
           }
@@ -170,12 +135,14 @@
         "highlight_cameras": {
           "type": "highlight",
           "settings": {
+            "image": "shopify://shop_images/sistema-camaras-pro.png",
             "title": ""
           }
         },
         "highlight_ceramic": {
           "type": "highlight",
           "settings": {
+            "image": "shopify://shop_images/ceramic-shield.png",
             "title": ""
           }
         }
@@ -187,11 +154,12 @@
         "highlight_cameras",
         "highlight_ceramic"
       ],
+      "name": "Por esto es el más Pro",
       "settings": {
         "color_scheme": "scheme-14",
         "heading": "Por esto es\nel más Pro.",
         "lead": "Más cámara, más potencia y más batería. Todo en el iPhone más Pro.",
-        "muted_color": "#A1A1A6",
+        "muted_color": "#a1a1a6",
         "padding_top": 140,
         "padding_bottom": 120
       }
@@ -200,9 +168,9 @@
       "type": "vp-landing-diners-banner",
       "name": "Banner 12 meses Diners",
       "settings": {
-        "color_scheme": "scheme-15",
+        "color_scheme": "scheme-6",
         "banner_gradient": "linear-gradient(115deg, #2997ff 0%, #5e5ce6 48%, #bf5af2 100%)",
-        "heading": "Con tu Diners difiere hasta\n12 meses sin intereses.",
+        "heading": "Con tu Diners difiere hasta 12 meses sin intereses.",
         "text": "<p>En tu <strong>iPhone 18 Pro</strong> y en los accesorios que lo complementan.</p>",
         "button_label": "Comprar con Diners",
         "button_link": "shopify://collections/iphone-18",
@@ -212,7 +180,7 @@
         "installment_note": "hasta 12 meses sin intereses",
         "now_label": "Ahora por",
         "now_price": "$1,949",
-        "compare_prefix": "Antes: ",
+        "compare_prefix": "Antes:",
         "compare_price": "$2,049",
         "padding_top": 120,
         "padding_bottom": 120
@@ -220,7 +188,6 @@
     },
     "whats_in_box": {
       "type": "image-with-text",
-      "name": "Qué hay en la caja",
       "blocks": {
         "heading_box": {
           "type": "heading",
@@ -245,7 +212,9 @@
         "heading_box",
         "text_box"
       ],
+      "name": "Qué hay en la caja",
       "settings": {
+        "image": "shopify://shop_images/Imagen_caja.png",
         "desktop_section_height": 530,
         "mobile_section_height": 400,
         "desktop_media_width": 50,
@@ -263,12 +232,16 @@
         "top_padding": "pt-s15",
         "bottom_padding": "pb-s15",
         "visibility": "",
-        "hide_when_empty": false
+        "hide_when_empty": false,
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true
       }
     },
     "complementa": {
       "type": "multicolumn",
-      "name": "Complementa tu iPhone",
       "blocks": {
         "acc_magsafe": {
           "type": "column_standard",
@@ -286,17 +259,23 @@
             "icon_background_color": "#ededed",
             "background_gradient": "linear-gradient(180deg, rgb(38, 38, 42) 0%, rgb(28, 28, 30) 100%)",
             "title": "Cargador MagSafe",
+            "heading_tag": "h3",
             "heading_size": "h4",
             "heading_size_custom": 2.4,
+            "heading_grow": false,
             "text": "<p>Se engancha con imanes y carga sin cables.</p><p><strong>US $59.00</strong></p>",
             "text_size": "t4",
+            "text_grow": false,
             "button_text_size": "t3",
             "button_label": "Comprar ahora",
             "button_link": "shopify://collections/all",
             "button_style": "secondary",
             "button_style_show_arrow": false,
+            "button_style_show_gradient_border": false,
+            "button_border_gradient": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
             "card_link": "",
             "card_color_scheme": "scheme-16",
+            "custom_background": "",
             "color_scheme_bg_fix": false
           }
         },
@@ -316,17 +295,23 @@
             "icon_background_color": "#ededed",
             "background_gradient": "linear-gradient(180deg, rgb(38, 38, 42) 0%, rgb(28, 28, 30) 100%)",
             "title": "AirPods 4",
+            "heading_tag": "h3",
             "heading_size": "h4",
             "heading_size_custom": 2.4,
+            "heading_grow": false,
             "text": "<p>Con Cancelación Activa de Ruido. Se conectan al instante con tu iPhone.</p><p><strong>US $289.00</strong></p>",
             "text_size": "t4",
+            "text_grow": false,
             "button_text_size": "t3",
             "button_label": "Comprar ahora",
             "button_link": "shopify://collections/all",
             "button_style": "secondary",
             "button_style_show_arrow": false,
+            "button_style_show_gradient_border": false,
+            "button_border_gradient": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
             "card_link": "",
             "card_color_scheme": "scheme-16",
+            "custom_background": "",
             "color_scheme_bg_fix": false
           }
         },
@@ -346,17 +331,23 @@
             "icon_background_color": "#ededed",
             "background_gradient": "linear-gradient(180deg, rgb(38, 38, 42) 0%, rgb(28, 28, 30) 100%)",
             "title": "Adaptador USB-C de 20 W",
+            "heading_tag": "h3",
             "heading_size": "h4",
             "heading_size_custom": 2.4,
+            "heading_grow": false,
             "text": "<p>Carga rápida para tu iPhone. En la caja viene solo el cable.</p><p><strong>US $29.00</strong></p>",
             "text_size": "t4",
+            "text_grow": false,
             "button_text_size": "t3",
             "button_label": "Comprar ahora",
             "button_link": "shopify://collections/all",
             "button_style": "secondary",
             "button_style_show_arrow": false,
+            "button_style_show_gradient_border": false,
+            "button_border_gradient": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
             "card_link": "",
             "card_color_scheme": "scheme-16",
+            "custom_background": "",
             "color_scheme_bg_fix": false
           }
         }
@@ -366,6 +357,7 @@
         "acc_airpods",
         "acc_adapter"
       ],
+      "name": "Complementa tu iPhone",
       "settings": {
         "icon_bottom": false,
         "desktop_section_height": 520,
@@ -375,6 +367,8 @@
         "columns_desktop": "3",
         "columns_desktop_scale": false,
         "columns_mobile": "1",
+        "carousel_width_desktop": "normal",
+        "always_show_arrows": true,
         "image_overlay_opacity": 0,
         "content_max_width": "xl",
         "desktop_heading_alignment": "center",
@@ -394,12 +388,16 @@
         "bottom_padding": "pb-s15",
         "visibility": "",
         "hide_when_empty": false,
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true,
         "heading_tag": "h2"
       }
     },
     "beneficios": {
       "type": "icons-with-text",
-      "name": "Beneficios",
       "blocks": {
         "benefit_coupons": {
           "type": "icon_with_text",
@@ -464,6 +462,7 @@
         "benefit_shipping",
         "benefit_warranty"
       ],
+      "name": "Beneficios",
       "settings": {
         "placement": "above",
         "content_vertical_alignment": "items-start",
@@ -477,7 +476,12 @@
         "color_scheme": "scheme-1",
         "line_separator": "",
         "visibility": "",
-        "hide_when_empty": false
+        "hide_when_empty": false,
+        "show_at_specific_time_of_day": false,
+        "show_time_morning": true,
+        "show_time_afternoon": true,
+        "show_time_evening": true,
+        "show_time_night": true
       }
     }
   },
