@@ -249,6 +249,31 @@
     "vp_newsletter_popup_g3RqLf": {
       "type": "vp-newsletter-popup",
       "name": "Newsletter popup",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "text": "Agrega tus productos al carrito"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "text": "En el checkout, escribe el código <strong>BIENVENIDA</strong>"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "text": "Listo, el 10% se descuenta de tu compra"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
       "settings": {
         "mode": "enabled",
         "show_trigger": "delay",
@@ -263,16 +288,28 @@
         "mobile_image": "shopify://shop_images/iClub_popup_foto_movil_780x520_6ab330fd-f723-4391-86de-dab70133f17b.jpg",
         "image_position": "left",
         "hide_image_mobile": false,
-        "heading": "&nbsp;Obtén 10% de descuento en tu primera compra&nbsp;",
+        "heading": "Obtén 10% de descuento en tu primera compra",
         "heading_size": "h2",
         "text": "<p>Únete a la comunidad de iClub y recibe en tu correo un <strong>cupón del 10%</strong> y beneficios exclusivos.</p>",
         "text_size": "text-body",
-        "content_alignment": "left",
+        "content_alignment": "center",
         "email_placeholder": "Ingresa tu correo electrónico",
         "button_label": "Suscribirme",
         "customer_tags": "Newsletter, Newsletter Home, Popup Home",
         "show_success_in_popup": true,
-        "success_message": "<strong>¡Gracias por suscribirte!</strong>",
+        "success_heading": "Te damos la bienvenida a iClub",
+        "success_message": "Te damos la bienvenida a iClub",
+        "success_text": "<p>Así usas tu 10% de descuento:</p>",
+        "success_button_label": "Empezar a comprar",
+        "success_button_link": "/",
+        "success_button_new_tab": false,
+        "success_text_color": "#ffffff",
+        "success_button_background": "#0071e3",
+        "success_button_text_color": "#ffffff",
+        "step_badge_color": "#0071e3",
+        "step_badge_text_color": "#ffffff",
+        "step_text_color": "#ffffff",
+        "step_border_color": "#ffffff",
         "return_to": "",
         "privacy_text": "Acepta nuestra",
         "privacy_link_label": "política de privacidad",
