@@ -200,16 +200,23 @@
             "heading_tag": "h2"
           }
         },
+        "checklist_box": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"vp-box-checklist\"><div class=\"vp-box-checklist__item\"><span class=\"vp-box-checklist__check\" aria-hidden=\"true\">✓</span><span class=\"vp-box-checklist__label\">iPhone 18 Pro</span></div><div class=\"vp-box-checklist__item\"><span class=\"vp-box-checklist__check\" aria-hidden=\"true\">✓</span><span class=\"vp-box-checklist__label\">Cable de carga USB-C</span></div></div><style>.vp-box-checklist{display:flex;flex-direction:column;gap:0;margin:0.6rem 0 1rem}.vp-box-checklist__item{display:flex;align-items:center;gap:1.2rem;padding-bottom:1.4rem}.vp-box-checklist__check{display:inline-flex;align-items:center;justify-content:center;flex:0 0 28px;width:28px;height:28px;border-radius:999px;background:#F5F5F7;color:#0071E3;font-size:14px;font-weight:700;line-height:1}.vp-box-checklist__label{color:#1d1d1f;font-size:1.9rem;line-height:1.2}</style>"
+          }
+        },
         "text_box": {
           "type": "text",
           "settings": {
-            "text": "<p>✓ iPhone 18 Pro</p><p>✓ Cable de carga USB-C</p><p>Complétalo con un cargador MagSafe y un adaptador de corriente USB-C.</p>",
+            "text": "<p>Complétalo con un cargador MagSafe y un adaptador de corriente USB-C.</p>",
             "text_size": "t3"
           }
         }
       },
       "block_order": [
         "heading_box",
+        "checklist_box",
         "text_box"
       ],
       "name": "Qué hay en la caja",
@@ -406,13 +413,15 @@
           "type": "icon_with_text",
           "settings": {
             "icon": "ticket",
-            "icon_container": "rounded",
+            "icon_container": "none",
             "icon_color": "#0071e3",
             "icon_background_color": "#f5f5f7",
             "background_gradient": "",
+            "background_fill_block": true,
             "image_width": 44,
             "title": "<strong>Cupones disponibles</strong>",
             "text": "Ahorra con tus descuentos",
+            "footnote": "<p>*Aplican TyC</p>",
             "card_link": ""
           }
         },
@@ -420,13 +429,15 @@
           "type": "icon_with_text",
           "settings": {
             "icon": "card",
-            "icon_container": "rounded",
+            "icon_container": "none",
             "icon_color": "#0071e3",
             "icon_background_color": "#f5f5f7",
             "background_gradient": "",
+            "background_fill_block": true,
             "image_width": 44,
             "title": "<strong>Hasta 12 cuotas sin interés</strong>",
             "text": "Con tu Diners",
+            "footnote": "<p>*Aplican TyC</p>",
             "card_link": ""
           }
         },
@@ -434,13 +445,15 @@
           "type": "icon_with_text",
           "settings": {
             "icon": "car",
-            "icon_container": "rounded",
+            "icon_container": "none",
             "icon_color": "#0071e3",
             "icon_background_color": "#f5f5f7",
             "background_gradient": "",
+            "background_fill_block": true,
             "image_width": 44,
             "title": "<strong>Envío gratis</strong>",
             "text": "a todo el Ecuador",
+            "footnote": "<p>*Aplican TyC</p>",
             "card_link": ""
           }
         },
@@ -448,13 +461,15 @@
           "type": "icon_with_text",
           "settings": {
             "icon": "shield_checkmark",
-            "icon_container": "rounded",
+            "icon_container": "none",
             "icon_color": "#0071e3",
             "icon_background_color": "#f5f5f7",
             "background_gradient": "",
+            "background_fill_block": true,
             "image_width": 44,
             "title": "<strong>Disfruta de 1 año de garantía</strong>",
             "text": "desde la fecha de tu compra",
+            "footnote": "<p>*Aplican TyC</p>",
             "card_link": ""
           }
         }

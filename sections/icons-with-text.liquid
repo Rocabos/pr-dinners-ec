@@ -68,6 +68,14 @@
                 assign content_has_link = false
               endif
             -%}
+            {%- liquid
+              assign block_has_surface = false
+              if block.settings.background_fill_block
+                if block.settings.background_gradient != blank or block.settings.icon_background_color != blank
+                  assign block_has_surface = true
+                endif
+              endif
+            -%}
             <li
                 id="Slide-{{ section.id }}-{{ forloop.index }}"
                 class="icons-with-text__item grid__item pt-0 pb-0
@@ -79,6 +87,18 @@
                   style="--animation-order: {{ forloop.index }};"
                 {% endif %}
             >
+              <div
+                class="icons-with-text__card{% if block_has_surface %} icons-with-text__card--surface{% endif %}"
+                {% if block_has_surface %}
+                  style="
+                    {%- if block.settings.background_gradient != blank -%}
+                      background: {{ block.settings.background_gradient }};
+                    {%- elsif block.settings.icon_background_color != blank -%}
+                      background-color: {{ block.settings.icon_background_color }};
+                    {%- endif -%}
+                  "
+                {% endif %}
+              >
               <{% if content_has_link == false and block.settings.card_link != blank %}a href="{{ block.settings.card_link }}"{% else %}div{% endif %}
                 class="full-unstyled-link
                   {% if section.settings.placement == 'beside' %}
@@ -136,6 +156,13 @@
                   </div>
                 {%- endif -%}
               </{% if content_has_link == false and block.settings.card_link != blank %}a{% else %}div{% endif %}>
+
+              {%- if block.settings.footnote != blank -%}
+                <div class="icons-with-text__footnote rte text-{{ section.settings.column_alignment }}">
+                  {{ block.settings.footnote }}
+                </div>
+              {%- endif -%}
+              </div>
             </li>
           {%- endfor -%}
         </ul>
@@ -143,6 +170,55 @@
     </div>
   </div>
 {%- endif -%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .icons-with-text__item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .icons-with-text__card {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .icons-with-text__card--surface {
+    justify-content: flex-start;
+    padding: 3.4rem 2.4rem 2rem;
+    border-radius: 2.4rem;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .icons-with-text__card--surface .icon-container--circle,
+  #shopify-section-{{ section.id }} .icons-with-text__card--surface .icon-container--rounded,
+  #shopify-section-{{ section.id }} .icons-with-text__card--surface .icon-container--square {
+    background-color: transparent;
+    background-image: none;
+  }
+
+  #shopify-section-{{ section.id }} .icons-with-text__footnote {
+    margin-top: auto;
+    padding-top: 1.6rem;
+    color: #86868b;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .icons-with-text__footnote p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .icons-with-text__footnote a {
+    color: inherit;
+    text-decoration: underline;
+  }
+{% endstyle %}
 
 {% schema %}
 {
@@ -1358,6 +1434,13 @@
           "info": "Background gradient replaces background where possible."
         },
         {
+          "type": "checkbox",
+          "id": "background_fill_block",
+          "label": "Apply background to whole block",
+          "default": false,
+          "info": "Fills the entire block square. Use Icon background = None so the color is not limited to the icon."
+        },
+        {
           "type": "header",
           "content": "Image"
         },
@@ -1390,6 +1473,13 @@
           "type": "inline_richtext",
           "id": "text",
           "label": "Description"
+        },
+        {
+          "type": "richtext",
+          "id": "footnote",
+          "label": "Footnote",
+          "default": "<p>*Aplican TyC</p>",
+          "info": "Small text under the block, e.g. *Aplican TyC"
         },
         {
           "type": "header",
