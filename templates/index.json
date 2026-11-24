@@ -56,6 +56,7 @@
         },
         "slide_yLYyRi": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/iPad_11_A16_-_Desktop_1920x800_A_iPad_plata.png",
             "mobile_image": "shopify://shop_images/iPad_11_A16_-_Mobile_1080x1400_36d0fe7d-ae36-4ca6-af73-044b4b574853.png",
@@ -98,10 +99,9 @@
         },
         "slide_BJep7n": {
           "type": "slide",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/desk_airpods_5.jpg",
-            "mobile_image": "shopify://shop_images/mob_airposd_5.jpg",
+            "image": "shopify://shop_images/desk_airpods_5_2.jpg",
+            "mobile_image": "shopify://shop_images/mob_airposd_5_4.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://collections/airpods",
             "horizontal_offset": 0.4,
