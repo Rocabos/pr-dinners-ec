@@ -43,7 +43,7 @@
       "type": "video-banner",
       "name": "Hero video",
       "settings": {
-        "video": "shopify://files/videos/iphone-collection-banner-video-1.mp4",
+        "video": "shopify://files/videos/hero-iphone18pro.mp4.mp4",
         "video_url": "",
         "show_play_pause": false,
         "reveal_content_timer": 0,
