@@ -5,57 +5,6 @@
   overflow-y: hidden;
 }
 
-/*
-  Connectif injects abandoned-cart web content (cn_content_type_inline)
-  inside .utility-bar > .page-width.flex. Left in normal flow it inflates
-  the announcement section and the sticky header cuts through it.
-  Also: Connectif sets inline style z-index:0 and float:left on products,
-  so the product row collapses to height 0 and badges stack over the bar.
-*/
-.utility-bar .cn_content.cn_content_type_inline {
-  /* !important: Connectif sets inline style="z-index: 0" */
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 2147483000 !important;
-  width: 100vw !important;
-  height: 100dvh !important;
-  max-height: 100dvh !important;
-  margin: 0 !important;
-  overflow: auto !important;
-}
-
-.utility-bar .cn_content.cn_content_type_inline .cn_section,
-.utility-bar .cn_content.cn_content_type_inline .cn_block,
-.utility-bar .cn_content.cn_content_type_inline .cn_cell {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-}
-
-/* !important: Connectif products use float:left and collapse the row height */
-.utility-bar .cn_element.cn_products,
-.utility-bar .cn_products.cn-mobile-track {
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  align-items: stretch !important;
-  gap: 1.6rem;
-  width: 100%;
-  height: auto !important;
-  min-height: 28rem;
-  overflow-x: auto !important;
-  overflow-y: visible !important;
-}
-
-.utility-bar .cn_product {
-  float: none !important;
-  display: block !important;
-  position: relative !important;
-  flex: 0 0 24rem;
-  width: 24rem !important;
-  max-width: 80vw;
-  height: auto !important;
-}
-
 .utility-bar .vp-announcement-bar__image-slot {
   overflow: visible;
 }
