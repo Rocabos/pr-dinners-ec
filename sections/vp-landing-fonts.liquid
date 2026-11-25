@@ -45,7 +45,7 @@
     @font-face {
       font-family: {{ custom_family }};
       src: url({{ custom_url | json }}) format('woff2');
-      font-weight: 100 900;
+      font-weight: 700;
       font-style: normal;
       font-display: swap;
     }
@@ -83,6 +83,9 @@
       --font-body-family: var(--vp-landing-font-body);
       --font-heading-family: var(--vp-landing-font-heading);
       font-family: var(--vp-landing-font-body);
+      {%- if use_custom -%}
+        font-weight: 700;
+      {%- endif -%}
     {%- else -%}
       --font-heading-family: var(--vp-landing-font-heading);
     {%- endif -%}
@@ -158,7 +161,7 @@
           "label": "Archivo custom en assets (.woff2)"
         }
       ],
-      "default": "shopify"
+      "default": "custom"
     },
     {
       "type": "font_picker",
@@ -179,6 +182,7 @@
       "type": "text",
       "id": "custom_font_family",
       "label": "Nombre CSS de la fuente",
+      "default": "SF Pro Display",
       "info": "Ejemplo: SF Pro Display",
       "visible_if": "{{ section.settings.font_source == 'custom' }}"
     },
@@ -186,13 +190,20 @@
       "type": "text",
       "id": "custom_font_file",
       "label": "Archivo en assets",
-      "info": "Nombre exacto del .woff2 subido a assets/. Ejemplo: vp-landing-font.woff2",
+      "default": "SFPRODISPLAYBOLD.woff2",
+      "info": "Nombre exacto del .woff2 en assets/. Ejemplo: SFPRODISPLAYBOLD.woff2",
       "visible_if": "{{ section.settings.font_source == 'custom' }}"
     }
   ],
   "presets": [
     {
-      "name": "Landing fonts"
+      "name": "Landing fonts",
+      "settings": {
+        "apply_to": "all",
+        "font_source": "custom",
+        "custom_font_family": "SF Pro Display",
+        "custom_font_file": "SFPRODISPLAYBOLD.woff2"
+      }
     }
   ]
 }
