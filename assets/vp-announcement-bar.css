@@ -5,6 +5,23 @@
   overflow-y: hidden;
 }
 
+/*
+  Connectif injects abandoned-cart web content (cn_content_type_inline)
+  inside .utility-bar > .page-width.flex. Left in normal flow it inflates
+  the announcement section (~500px) and the sticky header cuts through it.
+  Pull it out as a viewport overlay instead.
+*/
+.utility-bar .cn_content.cn_content_type_inline {
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  overflow: auto;
+}
+
 .utility-bar .vp-announcement-bar__image-slot {
   overflow: visible;
 }
