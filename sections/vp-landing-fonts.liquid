@@ -1,0 +1,199 @@
+{%- liquid
+  assign apply_to = section.settings.apply_to | default: 'all'
+  assign font_source = section.settings.font_source | default: 'shopify'
+  assign use_custom = false
+
+  if font_source == 'custom' and section.settings.custom_font_file != blank and section.settings.custom_font_family != blank
+    assign use_custom = true
+    assign custom_family = section.settings.custom_font_family | strip | escape
+    assign custom_file = section.settings.custom_font_file | strip
+    assign custom_url = custom_file | asset_url
+  endif
+
+  assign font_heading = section.settings.font_heading
+  assign font_body = section.settings.font_body
+
+  unless use_custom
+    assign heading_bold = font_heading | font_modify: 'weight', 'bold'
+    if heading_bold == blank
+      assign heading_bold = font_heading | font_modify: 'weight', '700'
+    endif
+
+    assign body_medium = font_body | font_modify: 'weight', '500'
+    assign body_bold = font_body | font_modify: 'weight', 'bold'
+    if body_bold == blank
+      assign body_bold = font_body | font_modify: 'weight', '700'
+    endif
+  endunless
+-%}
+
+{%- if use_custom -%}
+  {{ custom_url | preload_tag: as: 'font', type: 'font/woff2' }}
+{%- else -%}
+  {%- unless font_heading.system? -%}
+    {{ font_heading | font_url | preload_tag: as: 'font', type: 'font/woff2' }}
+  {%- endunless -%}
+  {%- if apply_to == 'all' -%}
+    {%- unless font_body.system? or font_body == font_heading -%}
+      {{ font_body | font_url | preload_tag: as: 'font', type: 'font/woff2' }}
+    {%- endunless -%}
+  {%- endif -%}
+{%- endif -%}
+
+{% style %}
+  {%- if use_custom -%}
+    @font-face {
+      font-family: {{ custom_family }};
+      src: url({{ custom_url | json }}) format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  {%- else -%}
+    {%- unless font_heading.system? -%}
+      {{ font_heading | font_face: font_display: 'swap' }}
+      {%- if heading_bold -%}
+        {{ heading_bold | font_face: font_display: 'swap' }}
+      {%- endif -%}
+    {%- endunless -%}
+
+    {%- if apply_to == 'all' -%}
+      {%- unless font_body.system? or font_body == font_heading -%}
+        {{ font_body | font_face: font_display: 'swap' }}
+        {%- if body_medium -%}
+          {{ body_medium | font_face: font_display: 'swap' }}
+        {%- endif -%}
+        {%- if body_bold -%}
+          {{ body_bold | font_face: font_display: 'swap' }}
+        {%- endif -%}
+      {%- endunless -%}
+    {%- endif -%}
+  {%- endif -%}
+
+  #MainContent {
+    {%- if use_custom -%}
+      --vp-landing-font-heading: {{ custom_family }}, sans-serif;
+      --vp-landing-font-body: {{ custom_family }}, sans-serif;
+    {%- else -%}
+      --vp-landing-font-heading: {{ font_heading.family }}, {{ font_heading.fallback_families }};
+      --vp-landing-font-body: {{ font_body.family }}, {{ font_body.fallback_families }};
+    {%- endif -%}
+
+    {%- if apply_to == 'all' -%}
+      --font-body-family: var(--vp-landing-font-body);
+      --font-heading-family: var(--vp-landing-font-heading);
+      font-family: var(--vp-landing-font-body);
+    {%- else -%}
+      --font-heading-family: var(--vp-landing-font-heading);
+    {%- endif -%}
+  }
+
+  {%- if apply_to == 'headings' -%}
+    #MainContent h1,
+    #MainContent h2,
+    #MainContent h3,
+    #MainContent h4,
+    #MainContent h5,
+    #MainContent h6,
+    #MainContent .h0,
+    #MainContent .h1,
+    #MainContent .h2,
+    #MainContent .h3,
+    #MainContent .h4,
+    #MainContent .h5 {
+      font-family: var(--vp-landing-font-heading);
+    }
+  {%- endif -%}
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Landing fonts",
+  "tag": "section",
+  "class": "section section-vp-landing-fonts",
+  "limit": 1,
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Solo afecta #MainContent de esta landing. Header y footer mantienen la tipografia global."
+    },
+    {
+      "type": "header",
+      "content": "Alcance"
+    },
+    {
+      "type": "select",
+      "id": "apply_to",
+      "label": "Aplicar a",
+      "options": [
+        {
+          "value": "all",
+          "label": "Titulos y texto"
+        },
+        {
+          "value": "headings",
+          "label": "Solo titulos"
+        }
+      ],
+      "default": "all"
+    },
+    {
+      "type": "header",
+      "content": "Fuente"
+    },
+    {
+      "type": "select",
+      "id": "font_source",
+      "label": "Origen de la fuente",
+      "options": [
+        {
+          "value": "shopify",
+          "label": "Catalogo Shopify (font picker)"
+        },
+        {
+          "value": "custom",
+          "label": "Archivo custom en assets (.woff2)"
+        }
+      ],
+      "default": "shopify"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_heading",
+      "label": "Fuente de titulos",
+      "default": "assistant_n4",
+      "visible_if": "{{ section.settings.font_source == 'shopify' }}"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_body",
+      "label": "Fuente de texto",
+      "default": "assistant_n4",
+      "info": "Si es igual a titulos, se carga una sola vez.",
+      "visible_if": "{{ section.settings.font_source == 'shopify' and section.settings.apply_to == 'all' }}"
+    },
+    {
+      "type": "text",
+      "id": "custom_font_family",
+      "label": "Nombre CSS de la fuente",
+      "info": "Ejemplo: SF Pro Display",
+      "visible_if": "{{ section.settings.font_source == 'custom' }}"
+    },
+    {
+      "type": "text",
+      "id": "custom_font_file",
+      "label": "Archivo en assets",
+      "info": "Nombre exacto del .woff2 subido a assets/. Ejemplo: vp-landing-font.woff2",
+      "visible_if": "{{ section.settings.font_source == 'custom' }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing fonts"
+    }
+  ]
+}
+{% endschema %}
