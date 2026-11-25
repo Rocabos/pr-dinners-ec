@@ -40,81 +40,69 @@
       }
     },
     "hero_video": {
-      "type": "video-banner",
+      "type": "vp-landing-hero",
       "name": "Hero video",
       "settings": {
         "video": "shopify://files/videos/hero-iphone18pro.mp4.mp4",
-        "video_url": "",
-        "show_play_pause": false,
-        "reveal_content_timer": 0,
-        "playback_end": "loop",
-        "section_ratio": "custom",
-        "desktop_section_height": 780,
-        "mobile_section_height": 560,
-        "full_width": true,
-        "full_width_animate": false,
-        "desktop_content_position": "md:justify-center md:items-end",
-        "mobile_content_position": "justify-center items-end",
-        "content_max_width": "l",
-        "desktop_content_alignment": "center",
-        "mobile_content_alignment": "center",
-        "show_text_box": "off",
-        "show_text_below": false,
-        "color_scheme": "scheme-1",
-        "container_color_scheme": "scheme-1",
-        "color_overlay": "#000000",
-        "video_overlay_opacity": 10,
-        "line_separator": "",
-        "horizontal_padding": 0,
-        "top_padding": "pt-0",
-        "bottom_padding": "pb-0",
-        "visibility": "",
-        "hide_when_empty": false,
-        "show_at_specific_time_of_day": false,
-        "show_time_morning": true,
-        "show_time_afternoon": true,
-        "show_time_evening": true,
-        "show_time_night": true,
-        "lazy_load": false,
-        "heading_tag": "h1",
-        "description": "iPhone 18 Pro",
-        "video_aspect_ratio": "1.77"
+        "video_description": "iPhone 18 Pro",
+        "heading": "Ya está aquí.",
+        "lead": "<p><strong>El iPhone 18 Pro va por más.</strong> Cámara Fusion de 48 MP, chip A20 Pro y la mejor batería en un iPhone.</p>",
+        "diners_text": "<p>Con tu Diners <strong>difiere hasta 12 meses sin intereses</strong></p>",
+        "button_label": "Comprar ahora",
+        "button_link": "shopify://collections/iphone-18",
+        "link_label": "Descubre lo nuevo ›",
+        "link_url": "#lo-mas-pro",
+        "min_height_desktop": 780,
+        "min_height_mobile": 560
       }
     },
     "scene_plata": {
-      "type": "image-banner",
+      "type": "vp-landing-scene-plata",
       "name": "Escena Plata",
+      "blocks": {
+        "chip_camera": {
+          "type": "chip",
+          "settings": {
+            "icon_asset": "vp-landing-chip-camera.svg",
+            "title": "Cámara Fusion de 48 MP",
+            "text": "Con apertura variable"
+          }
+        },
+        "chip_shield": {
+          "type": "chip",
+          "settings": {
+            "icon_asset": "vp-landing-chip-shield.svg",
+            "title": "Ceramic Shield",
+            "text": "Delante y atrás"
+          }
+        },
+        "chip_island": {
+          "type": "chip",
+          "settings": {
+            "icon_asset": "vp-landing-chip-island.svg",
+            "title": "Dynamic Island",
+            "text": "Más pequeña, más pantalla"
+          }
+        },
+        "chip_plata": {
+          "type": "chip",
+          "settings": {
+            "icon_asset": "vp-landing-chip-plata.svg",
+            "title": "Acabado en Plata",
+            "text": "Diseñado para durar"
+          }
+        }
+      },
+      "block_order": [
+        "chip_camera",
+        "chip_shield",
+        "chip_island",
+        "chip_plata"
+      ],
       "settings": {
         "image": "shopify://shop_images/Plata_escena_animada.png",
-        "image_overlay_opacity": 0,
-        "image_link": "",
-        "fix_image": false,
-        "skew_images": false,
-        "stack_images_on_mobile": true,
-        "image_ratio": "adapt",
-        "desktop_section_height": 780,
-        "mobile_section_height": 520,
-        "full_width": true,
-        "full_width_animate": false,
-        "desktop_content_position": "md:justify-center md:items-start",
-        "mobile_content_position": "justify-center items-start",
-        "content_max_width": "m",
-        "desktop_content_alignment": "center",
-        "mobile_content_alignment": "center",
-        "show_text_box": "off",
-        "show_text_below": false,
-        "color_scheme": "scheme-15",
-        "container_color_scheme": "scheme-15",
-        "line_separator": "",
-        "top_padding": "pt-0",
-        "bottom_padding": "pb-0",
-        "visibility": "",
-        "hide_when_empty": false,
-        "show_at_specific_time_of_day": false,
-        "show_time_morning": true,
-        "show_time_afternoon": true,
-        "show_time_evening": true,
-        "show_time_night": true
+        "image_alt": "El iPhone 18 Pro en Plata",
+        "heading": "Pro por dentro. Brillante por fuera."
       }
     },
     "features_pro": {

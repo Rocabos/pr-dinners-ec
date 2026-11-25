@@ -1,0 +1,196 @@
+{{ 'vp-landing-hero.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign heading = section.settings.heading
+  assign lead = section.settings.lead
+  assign diners = section.settings.diners_text
+  assign btn_label = section.settings.button_label
+  assign btn_link = section.settings.button_link
+  assign link_label = section.settings.link_label
+  assign link_url = section.settings.link_url
+  assign min_h_desktop = section.settings.min_height_desktop | default: 780
+  assign min_h_mobile = section.settings.min_height_mobile | default: 560
+  assign has_video = false
+  if section.settings.video != blank
+    assign has_video = true
+  endif
+  assign media_alt = heading | default: section.settings.video_description | escape
+-%}
+
+<section
+  id="vp-landing-hero-{{ section.id }}"
+  class="vp-landing-hero"
+  style="
+    --vp-hero-min-height-desktop: {{ min_h_desktop }}px;
+    --vp-hero-min-height-mobile: {{ min_h_mobile }}px;
+  "
+>
+  <div class="vp-landing-hero__media" aria-hidden="{% if has_video %}false{% else %}true{% endif %}">
+    {%- if has_video -%}
+      {{
+        section.settings.video
+        | video_tag:
+          class: 'js-video',
+          image_size: '1100x',
+          autoplay: true,
+          loop: true,
+          controls: false,
+          muted: true
+      }}
+    {%- elsif section.settings.poster != blank -%}
+      {{
+        section.settings.poster
+        | image_url: width: 2400
+        | image_tag:
+          class: 'vp-landing-hero__poster',
+          widths: '750, 1100, 1500, 2000, 2400',
+          sizes: '100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          alt: media_alt
+      }}
+    {%- endif -%}
+  </div>
+
+  <div class="vp-landing-hero__shade" aria-hidden="true"></div>
+
+  <div class="vp-landing-hero__inner">
+    <div class="vp-landing-hero__copy">
+      {%- if heading != blank -%}
+        <h1 class="vp-landing-hero__heading">{{ heading | escape }}</h1>
+      {%- endif -%}
+
+      {%- if lead != blank -%}
+        <div class="vp-landing-hero__lead">{{ lead }}</div>
+      {%- endif -%}
+
+      {%- if diners != blank -%}
+        <div class="vp-landing-hero__diners">{{ diners }}</div>
+      {%- endif -%}
+
+      {%- if btn_label != blank or link_label != blank -%}
+        <div class="vp-landing-hero__actions">
+          {%- if btn_label != blank -%}
+            <a
+              class="vp-landing-hero__btn"
+              {% if btn_link != blank %}
+                href="{{ btn_link }}"
+              {% else %}
+                role="link"
+                aria-disabled="true"
+              {% endif %}
+            >
+              {{ btn_label | escape }}
+            </a>
+          {%- endif -%}
+
+          {%- if link_label != blank -%}
+            <a
+              class="vp-landing-hero__link"
+              {% if link_url != blank %}
+                href="{{ link_url }}"
+              {% else %}
+                role="link"
+                aria-disabled="true"
+              {% endif %}
+            >
+              {{ link_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "VP Landing hero",
+  "tag": "section",
+  "class": "section-vp-landing-hero",
+  "settings": [
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster",
+      "label": "Imagen de respaldo",
+      "info": "Se usa si no hay video."
+    },
+    {
+      "type": "text",
+      "id": "video_description",
+      "label": "Descripcion del video",
+      "default": "iPhone 18 Pro"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titulo",
+      "default": "Ya está aquí."
+    },
+    {
+      "type": "richtext",
+      "id": "lead",
+      "label": "Lead",
+      "default": "<p><strong>El iPhone 18 Pro va por más.</strong> Cámara Fusion de 48 MP, chip A20 Pro y la mejor batería en un iPhone.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "diners_text",
+      "label": "Texto Diners",
+      "default": "<p>Con tu Diners <strong>difiere hasta 12 meses sin intereses</strong></p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Boton primario",
+      "default": "Comprar ahora"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Enlace boton primario"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Enlace secundario",
+      "default": "Descubre lo nuevo ›"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "URL enlace secundario"
+    },
+    {
+      "type": "range",
+      "id": "min_height_desktop",
+      "min": 480,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "label": "Altura minima (escritorio)",
+      "default": 780
+    },
+    {
+      "type": "range",
+      "id": "min_height_mobile",
+      "min": 360,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "label": "Altura minima (movil)",
+      "default": 560
+    }
+  ],
+  "presets": [
+    {
+      "name": "VP Landing hero"
+    }
+  ]
+}
+{% endschema %}
