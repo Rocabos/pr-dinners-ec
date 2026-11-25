@@ -14,7 +14,7 @@
       "name": "Landing fonts",
       "settings": {
         "apply_to": "all",
-        "font_source": "shopify",
+        "font_source": "custom",
         "font_heading": "assistant_n4",
         "font_body": "assistant_n4",
         "custom_font_family": "",
