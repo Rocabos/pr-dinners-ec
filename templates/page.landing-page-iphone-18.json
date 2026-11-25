@@ -13,7 +13,7 @@
       "type": "vp-landing-fonts",
       "name": "Landing fonts",
       "settings": {
-        "apply_to": "all",
+        "apply_to": "headings",
         "font_source": "custom",
         "font_heading": "assistant_n4",
         "font_body": "assistant_n4",
