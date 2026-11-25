@@ -299,7 +299,6 @@
   },
   "order": [
     "header",
-    "announcement-bar",
-    "custom_liquid_EHpyG7"
+    "announcement-bar"
   ]
 }
