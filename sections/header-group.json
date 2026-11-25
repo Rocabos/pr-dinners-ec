@@ -177,6 +177,7 @@
     },
     "custom_liquid_EHpyG7": {
       "type": "custom-liquid",
+      "disabled": true,
       "custom_css": [],
       "name": "Cintillo",
       "settings": {
@@ -297,7 +298,6 @@
         "announcement_kwmC4H",
         "announcement_4cm7UU"
       ],
-      "disabled": true,
       "settings": {
         "text_size": "t5",
         "change_slides_speed": 5,
