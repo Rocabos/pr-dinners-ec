@@ -9,17 +9,6 @@
   overflow: visible;
 }
 
-/* Theme header section uses z-index: 5 and covers overflowing announcement images */
-.shopify-section-group-header-group .shopify-section:has(.utility-bar) {
-  position: relative;
-  z-index: 6;
-}
-
-.shopify-section-group-header-group .shopify-section:has(.header-wrapper) {
-  position: relative;
-  z-index: 5;
-}
-
 .utility-bar,
 .utility-bar .vp-announcement-bar__message,
 .utility-bar .vp-announcement-bar__text {
