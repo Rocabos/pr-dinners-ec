@@ -17,8 +17,8 @@
         "font_source": "custom",
         "font_heading": "assistant_n4",
         "font_body": "assistant_n4",
-        "custom_font_family": "",
-        "custom_font_file": ""
+        "custom_font_family": "SF Pro Display",
+        "custom_font_file": "SFPRODISPLAYBOLD.woff2"
       }
     },
     "main": {
