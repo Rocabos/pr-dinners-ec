@@ -235,7 +235,7 @@
       "settings": {
         "image": "shopify://shop_images/Imagen_caja.png",
         "desktop_section_height": 600,
-        "mobile_section_height": 600,
+        "mobile_section_height": 400,
         "desktop_media_width": 50,
         "desktop_media_scale": 100,
         "layout": "media_first",
