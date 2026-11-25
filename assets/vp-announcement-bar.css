@@ -1,14 +1,12 @@
-/* Theme slider/slideshow clips overflow-y; allow tall announcement images to show fully */
-.utility-bar,
-.utility-bar .page-width,
-.utility-bar .announcement-bar,
-.utility-bar .announcement-bar-slider,
-.utility-bar .announcement-bar-slider .slider,
-.utility-bar .slider.slider--everywhere,
-.utility-bar .slideshow__slide,
-.utility-bar .announcement-bar__announcement,
-.utility-bar .announcement-bar__message {
-  overflow: visible !important;
+/* Keep slider scroll/autoplay intact; only let the image slot overflow the bar */
+.utility-bar .slider.slider--everywhere {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.utility-bar .vp-announcement-bar__image-slot {
+  overflow: visible;
 }
 
 /* Theme header section uses z-index: 5 and covers overflowing announcement images */
