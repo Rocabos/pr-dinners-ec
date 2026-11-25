@@ -17,7 +17,7 @@
           <h2 class="vp-landing-pro__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>
         {%- endif -%}
         {%- if section.settings.lead != blank -%}
-          <p class="vp-landing-pro__lead">{{ section.settings.lead | escape }}</p>
+          <p class="vp-landing-pro__lead">{{ section.settings.lead | escape | newline_to_br }}</p>
         {%- endif -%}
       </header>
     {%- endif -%}
@@ -136,7 +136,8 @@
       "type": "textarea",
       "id": "lead",
       "label": "Lead",
-      "default": "Más cámara, más potencia y más batería. Todo en el iPhone más Pro."
+      "default": "Más cámara, más potencia y más batería.\nTodo en el iPhone más Pro.",
+      "info": "Pulsa Enter para saltar de linea. No uses HTML ni <br>."
     },
     {
       "type": "color",

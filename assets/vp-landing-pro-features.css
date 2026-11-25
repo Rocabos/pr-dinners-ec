@@ -26,11 +26,12 @@
 }
 
 .vp-landing-pro__lead {
-  margin: 1.6rem 0 0;
+  margin: 1.6rem auto 0;
   color: var(--vp-lp-muted);
-  font-size: clamp(1.6rem, 2vw, 2.4rem);
+  font-size: clamp(1.4rem, 1.8vw, 2.4rem);
   font-weight: 500;
   line-height: 1.4;
+  max-width: min(100%, 90rem);
 }
 
 .vp-landing-pro__features {
