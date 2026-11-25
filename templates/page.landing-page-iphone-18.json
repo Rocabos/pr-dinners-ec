@@ -234,8 +234,8 @@
       "name": "Qué hay en la caja",
       "settings": {
         "image": "shopify://shop_images/Imagen_caja.png",
-        "desktop_section_height": 530,
-        "mobile_section_height": 400,
+        "desktop_section_height": 600,
+        "mobile_section_height": 600,
         "desktop_media_width": 50,
         "desktop_media_scale": 100,
         "layout": "media_first",
@@ -261,12 +261,11 @@
     },
     "complementa": {
       "type": "vp-landing-complementa",
-      "name": "Complementa tu iPhone",
       "blocks": {
         "acc_magsafe": {
           "type": "product_card",
           "settings": {
-            "product": "",
+            "product": "cargador-magsafe-1-m",
             "image": "shopify://shop_images/Imagen_188b4ab9-9751-441f-bfe2-c4a220cc5e92.png",
             "description": "<p>Se engancha con imanes y carga sin cables.</p>"
           }
@@ -274,7 +273,7 @@
         "acc_airpods": {
           "type": "product_card",
           "settings": {
-            "product": "",
+            "product": "airpods-5-con-cancelacion-de-ruido",
             "image": "shopify://shop_images/Imagen2_45f42af9-cfd7-41e3-a919-73db903733e0.png",
             "description": "<p>Con Cancelación Activa de Ruido. Se conectan al instante con tu iPhone.</p>"
           }
@@ -282,7 +281,7 @@
         "acc_adapter": {
           "type": "product_card",
           "settings": {
-            "product": "",
+            "product": "40w-dynamic-power-adapter-with-60w-max",
             "image": "shopify://shop_images/Visual.png",
             "description": "<p>Carga rápida para tu iPhone. En la caja viene solo el cable.</p>"
           }
@@ -293,6 +292,7 @@
         "acc_airpods",
         "acc_adapter"
       ],
+      "name": "Complementa tu iPhone",
       "settings": {
         "heading": "Complementa tu nuevo iPhone.",
         "show_title": true,
@@ -316,6 +316,7 @@
             "icon_background_color": "#f5f5f7",
             "background_gradient": "",
             "background_fill_block": true,
+            "image": "shopify://shop_images/Icono_ticket.png",
             "image_width": 44,
             "title": "<strong>Cupones disponibles</strong>",
             "text": "Ahorra con tus descuentos",
@@ -332,6 +333,7 @@
             "icon_background_color": "#f5f5f7",
             "background_gradient": "",
             "background_fill_block": true,
+            "image": "shopify://shop_images/Icono_a4288eea-eb9d-44b1-9729-33b9f81fa5c1.png",
             "image_width": 44,
             "title": "<strong>Hasta 12 cuotas sin interés</strong>",
             "text": "Con tu Diners",
@@ -348,6 +350,7 @@
             "icon_background_color": "#f5f5f7",
             "background_gradient": "",
             "background_fill_block": true,
+            "image": "shopify://shop_images/Icono.png",
             "image_width": 44,
             "title": "<strong>Envío gratis</strong>",
             "text": "a todo el Ecuador",
@@ -364,6 +367,7 @@
             "icon_background_color": "#f5f5f7",
             "background_gradient": "",
             "background_fill_block": true,
+            "image": "shopify://shop_images/Icono_garantia.png",
             "image_width": 44,
             "title": "<strong>Disfruta de 1 año de garantía</strong>",
             "text": "desde la fecha de tu compra",
