@@ -30,7 +30,18 @@
       <div class="vp-landing-diners__content">
         <div class="vp-landing-diners__copy">
           {%- if section.settings.heading != blank -%}
-            <h2 class="vp-landing-diners__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>
+            <h2 class="vp-landing-diners__heading">
+              {%- assign vp_diners_heading_lines = section.settings.heading | newline_to_br | split: '<br />' -%}
+              {%- if vp_diners_heading_lines.size == 1 -%}
+                {%- assign vp_diners_heading_lines = section.settings.heading | newline_to_br | split: '<br>' -%}
+              {%- endif -%}
+              {%- for vp_diners_line in vp_diners_heading_lines -%}
+                {%- assign vp_diners_line_text = vp_diners_line | strip_html | strip -%}
+                {%- if vp_diners_line_text != blank -%}
+                  <span class="vp-landing-diners__heading-line">{{ vp_diners_line_text | escape }}</span>
+                {%- endif -%}
+              {%- endfor -%}
+            </h2>
           {%- endif -%}
 
           {%- if section.settings.text != blank -%}
@@ -105,7 +116,7 @@
   }
 
   #vp-landing-diners-{{ section.id }} {
-    --vp-diners-gradient: {% if section.settings.banner_gradient != blank %}{{ section.settings.banner_gradient }}{% else %}linear-gradient(115deg, #2997ff 0%, #5e5ce6 48%, #bf5af2 100%){% endif %};
+    --vp-diners-gradient: {% if section.settings.banner_gradient != blank %}{{ section.settings.banner_gradient }}{% else %}linear-gradient(180deg, #0071e3 0%, #5e5ce6 55%, #bf5af2 100%){% endif %};
   }
 {% endstyle %}
 
@@ -134,7 +145,7 @@
       "type": "text",
       "id": "banner_gradient",
       "label": "Banner CSS gradient",
-      "default": "linear-gradient(115deg, #2997ff 0%, #5e5ce6 48%, #bf5af2 100%)",
+      "default": "linear-gradient(180deg, #0071e3 0%, #5e5ce6 55%, #bf5af2 100%)",
       "info": "Paste CSS like: linear-gradient(red 0%, blue 50%, green 100%)"
     },
     {

@@ -46,8 +46,8 @@
         "video": "shopify://files/videos/hero-iphone18pro.mp4.mp4",
         "video_description": "iPhone 18 Pro",
         "heading": "Ya está aquí.",
-        "lead": "<p><strong>El iPhone 18 Pro va por más.</strong> Cámara Fusion de 48 MP, chip A20 Pro y la mejor batería en un iPhone.</p>",
-        "diners_text": "<p>Con tu Diners <strong>difiere hasta 12 meses sin intereses</strong></p>",
+        "lead": "<p>El iPhone 18 Pro va por más.</p><p>Cámara Fusion de 48 MP, chip A20 Pro y la mejor batería en un iPhone.</p>",
+        "diners_text": "<p>Con tu Diners difiere hasta 12 meses sin intereses</p>",
         "button_label": "Comprar ahora",
         "button_link": "shopify://collections/iphone-18",
         "link_label": "Descubre lo nuevo ›",
@@ -169,8 +169,8 @@
       "name": "Banner 12 meses Diners",
       "settings": {
         "color_scheme": "scheme-6",
-        "banner_gradient": "linear-gradient(115deg, #2997ff 0%, #5e5ce6 48%, #bf5af2 100%)",
-        "heading": "Con tu Diners difiere hasta 12 meses sin intereses.",
+        "banner_gradient": "linear-gradient(180deg, #0071e3 0%, #5e5ce6 55%, #bf5af2 100%)",
+        "heading": "Con tu Diners difiere hasta\n12 meses sin intereses.",
         "text": "<p>En tu <strong>iPhone 18 Pro</strong> y en los accesorios que lo complementan.</p>",
         "button_label": "Comprar con Diners",
         "button_link": "shopify://collections/iphone-18",
@@ -194,16 +194,16 @@
           "settings": {
             "heading": "¿Qué hay en la caja?",
             "heading_italic_convert": "",
-            "heading_size": "h2",
-            "heading_size_custom": 2.4,
-            "heading_line_height_custom": 1.1,
+            "heading_size": "custom",
+            "heading_size_custom": 3.6,
+            "heading_line_height_custom": 1.05,
             "heading_tag": "h2"
           }
         },
         "checklist_box": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<div class=\"vp-box-checklist\"><div class=\"vp-box-checklist__item\"><span class=\"vp-box-checklist__check\" aria-hidden=\"true\">✓</span><span class=\"vp-box-checklist__label\">iPhone 18 Pro</span></div><div class=\"vp-box-checklist__item\"><span class=\"vp-box-checklist__check\" aria-hidden=\"true\">✓</span><span class=\"vp-box-checklist__label\">Cable de carga USB-C</span></div></div><style>.vp-box-checklist{display:flex;flex-direction:column;gap:0;margin:0.6rem 0 1rem}.vp-box-checklist__item{display:flex;align-items:center;gap:1.2rem;padding-bottom:1.4rem}.vp-box-checklist__check{display:inline-flex;align-items:center;justify-content:center;flex:0 0 28px;width:28px;height:28px;border-radius:999px;background:#F5F5F7;color:#0071E3;font-size:14px;font-weight:700;line-height:1}.vp-box-checklist__label{color:#1d1d1f;font-size:1.9rem;line-height:1.2}</style>"
+            "custom_liquid": "<div class=\"vp-box-checklist\"><div class=\"vp-box-checklist__item\"><span class=\"vp-box-checklist__check\" aria-hidden=\"true\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M2.5 7.2L5.4 10.1L11.5 3.9\" stroke=\"#0071E3\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span><span class=\"vp-box-checklist__label\">iPhone 18 Pro</span></div><div class=\"vp-box-checklist__item\"><span class=\"vp-box-checklist__check\" aria-hidden=\"true\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M2.5 7.2L5.4 10.1L11.5 3.9\" stroke=\"#0071E3\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span><span class=\"vp-box-checklist__label\">Cable de carga USB-C</span></div></div><style>.image-with-text .section-content__heading.text-size-custom{max-width:220px;font-size:48px;line-height:1.05}.vp-box-checklist{display:flex;flex-direction:column;gap:0;margin:8px 0 12px}.vp-box-checklist__item{display:flex;align-items:center;gap:12px;padding-bottom:16px}.vp-box-checklist__check{display:inline-flex;align-items:center;justify-content:center;flex:0 0 28px;width:28px;height:28px;border-radius:999px;background:#F5F5F7;line-height:0}.vp-box-checklist__label{color:#1d1d1f;font-family:var(--vp-landing-font-body,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif);font-size:20px;font-weight:400;line-height:1.2}.image-with-text .section-content__text{font-family:var(--vp-landing-font-body,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif);font-size:17px;font-weight:400;line-height:1.4}</style>"
           }
         },
         "text_box": {
@@ -254,6 +254,7 @@
           "type": "product_card",
           "settings": {
             "product": "cargador-magsafe-1-m",
+            "title": "Cargador MagSafe",
             "image": "shopify://shop_images/Imagen_188b4ab9-9751-441f-bfe2-c4a220cc5e92.png",
             "description": "<p>Se engancha con imanes y carga sin cables.</p>"
           }
@@ -262,6 +263,7 @@
           "type": "product_card",
           "settings": {
             "product": "airpods-5-con-cancelacion-de-ruido",
+            "title": "AirPods 4",
             "image": "shopify://shop_images/Imagen2_45f42af9-cfd7-41e3-a919-73db903733e0.png",
             "description": "<p>Con Cancelación Activa de Ruido. Se conectan al instante con tu iPhone.</p>"
           }
@@ -270,6 +272,7 @@
           "type": "product_card",
           "settings": {
             "product": "40w-dynamic-power-adapter-with-60w-max",
+            "title": "Adaptador USB-C de 20 W",
             "image": "shopify://shop_images/Visual.png",
             "description": "<p>Carga rápida para tu iPhone. En la caja viene solo el cable.</p>"
           }
@@ -306,7 +309,7 @@
             "background_fill_block": true,
             "image": "shopify://shop_images/Icono_ticket.png",
             "image_width": 44,
-            "title": "<strong>Cupones disponibles</strong>",
+            "title": "Cupones disponibles",
             "text": "Ahorra con tus descuentos",
             "footnote": "<p>*Aplican TyC</p>",
             "card_link": ""
@@ -323,7 +326,7 @@
             "background_fill_block": true,
             "image": "shopify://shop_images/Icono_a4288eea-eb9d-44b1-9729-33b9f81fa5c1.png",
             "image_width": 44,
-            "title": "<strong>Hasta 12 cuotas sin interés</strong>",
+            "title": "Hasta 12 cuotas sin interés",
             "text": "Con tu Diners",
             "footnote": "<p>*Aplican TyC</p>",
             "card_link": ""
@@ -340,7 +343,7 @@
             "background_fill_block": true,
             "image": "shopify://shop_images/Icono.png",
             "image_width": 44,
-            "title": "<strong>Envío gratis</strong>",
+            "title": "Envío gratis",
             "text": "a todo el Ecuador",
             "footnote": "<p>*Aplican TyC</p>",
             "card_link": ""
@@ -357,7 +360,7 @@
             "background_fill_block": true,
             "image": "shopify://shop_images/Icono_garantia.png",
             "image_width": 44,
-            "title": "<strong>Disfruta de 1 año de garantía</strong>",
+            "title": "Disfruta de 1 año de garantía",
             "text": "desde la fecha de tu compra",
             "footnote": "<p>*Aplican TyC</p>",
             "card_link": ""
@@ -377,8 +380,8 @@
         "column_alignment": "center",
         "vertical_padding": 2.4,
         "icon_size": 2.8,
-        "heading_size": "t4",
-        "text_size": "t5",
+        "heading_size": "t5",
+        "text_size": "t6",
         "mobile_layout": "carousel",
         "columns_mobile": "2",
         "color_scheme": "scheme-1",

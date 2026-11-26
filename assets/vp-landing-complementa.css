@@ -19,7 +19,7 @@
 .vp-landing-complementa__heading {
   margin: 0;
   color: rgb(var(--color-heading, var(--color-foreground)));
-  font-size: clamp(2.8rem, 4.5vw, 4.8rem);
+  font-size: clamp(3.2rem, 5vw, 5.6rem);
   font-weight: var(--font-body-weight-bold, 700);
   letter-spacing: -0.02em;
   line-height: 1.1;
@@ -50,7 +50,7 @@
   overflow: hidden;
   background: rgb(var(--color-background));
   color: rgb(var(--color-foreground));
-  transition: none;
+  transition: transform 0.25s ease;
 }
 
 .vp-landing-complementa__card:hover,
@@ -58,8 +58,15 @@
   background: rgb(var(--color-background));
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .vp-landing-complementa__card:hover,
+  .vp-landing-complementa__card:focus-within {
+    transform: scale(1.03);
+  }
+}
+
 .vp-landing-complementa__media {
-  aspect-ratio: 1;
+  aspect-ratio: 1.05 / 1;
   width: 100%;
   overflow: hidden;
   background: #000;
@@ -77,8 +84,8 @@
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  gap: 1.6rem;
-  padding: 2rem 2rem 2.4rem;
+  gap: 1.4rem;
+  padding: 1.6rem 1.8rem 2.2rem;
   text-align: center;
 }
 
@@ -92,17 +99,17 @@
 .vp-landing-complementa__title {
   margin: 0;
   color: rgb(var(--color-heading, var(--color-foreground)));
-  font-size: 2rem;
+  font-size: clamp(1.8rem, 2vw, 2.4rem);
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 
 .vp-landing-complementa__desc,
 .vp-landing-complementa__desc.rte {
   margin: 0;
   color: rgb(var(--color-foreground));
-  font-size: 1.4rem;
-  line-height: 1.45;
+  font-size: clamp(1.4rem, 1.5vw, 1.7rem);
+  line-height: 1.4;
   opacity: 0.92;
 }
 
