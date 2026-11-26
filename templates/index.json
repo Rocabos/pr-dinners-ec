@@ -15,8 +15,8 @@
         "slide_rxd8KQ": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/desk_iPHONE_18_PRO.jpg",
-            "mobile_image": "shopify://shop_images/MOB_iphone_18_pro.jpg",
+            "image": "shopify://shop_images/desk_iPHONE_18_PRO_1.jpg",
+            "mobile_image": "shopify://shop_images/MOB_iphone_18_pro_1.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://products/iphone-18-pro",
             "horizontal_offset": 0.4,
