@@ -58,7 +58,6 @@
     },
     "scene_plata": {
       "type": "vp-landing-scene-plata",
-      "name": "Escena Plata",
       "blocks": {
         "chip_camera": {
           "type": "chip",
@@ -99,6 +98,7 @@
         "chip_island",
         "chip_plata"
       ],
+      "name": "Escena Plata",
       "settings": {
         "image": "shopify://shop_images/Plata_escena_animada.png",
         "image_alt": "El iPhone 18 Pro en Plata",
@@ -176,12 +176,12 @@
         "button_link": "shopify://collections/iphone-18",
         "panel_aria_label": "Precio en cuotas",
         "installment_label": "Llévalo desde",
-        "installment_price": "$162,42/mes",
+        "installment_price": "$149.92/mes",
         "installment_note": "hasta 12 meses sin intereses",
         "now_label": "Ahora por",
-        "now_price": "$1,949",
+        "now_price": "$1,799",
         "compare_prefix": "Antes:",
-        "compare_price": "$2,049",
+        "compare_price": "$1,849",
         "padding_top": 120,
         "padding_bottom": 120
       }
