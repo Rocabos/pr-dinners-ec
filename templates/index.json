@@ -141,8 +141,8 @@
         "slide_9WgPPM": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/iPhone_17_-_Desktop_1920x800_0c2bc091-7726-4d24-b749-8ebcaeba83d6.png",
-            "mobile_image": "shopify://shop_images/iPhone_17_-_Mobile_1080x1400_a4d91955-5151-4d98-b6cb-c1313cd36073.png",
+            "image": "shopify://shop_images/desk_iPHONE_18_PRO_2.jpg",
+            "mobile_image": "shopify://shop_images/MOB_iphone_18_pro_2.jpg",
             "image_overlay_opacity": 0,
             "image_link": "shopify://products/iphone-17-a",
             "horizontal_offset": 0.4,
