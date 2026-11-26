@@ -73,7 +73,8 @@
   #MainContent {
     {%- if use_custom -%}
       --vp-landing-font-heading: {{ custom_family }}, sans-serif;
-      --vp-landing-font-body: {{ custom_family }}, sans-serif;
+      /* Bold file is for titles only; body uses system so weight 400 stays regular */
+      --vp-landing-font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
     {%- else -%}
       --vp-landing-font-heading: {{ font_heading.family }}, {{ font_heading.fallback_families }};
       --vp-landing-font-body: {{ font_body.family }}, {{ font_body.fallback_families }};
@@ -83,15 +84,13 @@
       --font-body-family: var(--vp-landing-font-body);
       --font-heading-family: var(--vp-landing-font-heading);
       font-family: var(--vp-landing-font-body);
-      {%- if use_custom -%}
-        font-weight: 700;
-      {%- endif -%}
+      font-weight: 400;
     {%- else -%}
       --font-heading-family: var(--vp-landing-font-heading);
     {%- endif -%}
   }
 
-  {%- if apply_to == 'headings' -%}
+  {%- if apply_to == 'headings' or apply_to == 'all' -%}
     #MainContent h1,
     #MainContent h2,
     #MainContent h3,
@@ -105,8 +104,37 @@
     #MainContent .h4,
     #MainContent .h5 {
       font-family: var(--vp-landing-font-heading);
+      {%- if use_custom -%}
+        font-weight: 700;
+      {%- endif -%}
     }
   {%- endif -%}
+
+  /* Beneficios (obs. N.7): lighter type + tighter card spacing vs Figma */
+  #MainContent .icons-with-text__heading,
+  #MainContent .icons-with-text__heading * {
+    font-family: var(--vp-landing-font-body);
+    font-weight: 600;
+  }
+
+  #MainContent .icons-with-text__text-wrapper .section-content__text,
+  #MainContent .icons-with-text__footnote {
+    font-family: var(--vp-landing-font-body);
+    font-weight: 400;
+  }
+
+  #MainContent .icons-with-text__card--surface {
+    padding: 28px 20px 16px;
+    gap: 12px;
+  }
+
+  #MainContent .icons-with-text__text-wrapper {
+    gap: 4px;
+  }
+
+  #MainContent .icons-with-text__footnote {
+    padding-top: 12px;
+  }
 {% endstyle %}
 
 {% schema %}

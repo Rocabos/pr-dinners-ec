@@ -32,7 +32,7 @@
           {%- if block.type == 'product_card' -%}
             {%- liquid
               assign card_product = block.settings.product
-              assign card_title = ''
+              assign card_title = block.settings.title | strip
               assign card_price = nil
               assign card_url = ''
               assign card_image = block.settings.image
@@ -40,7 +40,9 @@
               assign card_desc_plain = ''
 
               if card_product != blank
-                assign card_title = card_product.title
+                if card_title == blank
+                  assign card_title = card_product.title
+                endif
                 assign card_price = card_product.price
                 assign card_url = card_product.url
                 if card_image == blank and card_product.featured_media != blank
@@ -216,6 +218,12 @@
           "type": "product",
           "id": "product",
           "label": "Producto"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titulo (opcional)",
+          "info": "Si esta vacio, se usa el titulo del producto."
         },
         {
           "type": "image_picker",

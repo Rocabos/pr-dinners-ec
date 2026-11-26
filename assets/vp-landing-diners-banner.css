@@ -1,5 +1,5 @@
 .vp-landing-diners {
-  font-family: var(--font-body-family);
+  font-family: var(--vp-landing-font-body, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
 }
 
 .vp-landing-diners__inner {
@@ -23,7 +23,7 @@
 @media screen and (min-width: 750px) {
   .vp-landing-diners__banner {
     min-height: 44rem;
-    padding: 6rem 8rem;
+    padding: 6rem 4.8rem;
   }
 }
 
@@ -56,29 +56,54 @@
 }
 
 .vp-landing-diners__copy {
-  flex: 1 1 auto;
-  max-width: 52rem;
+  flex: 1 1 58%;
+  min-width: min(100%, 420px);
+  max-width: none;
   color: #fff;
 }
 
 .vp-landing-diners__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   margin: 0;
-  font-size: clamp(2.8rem, 4vw, 5rem);
-  font-weight: var(--font-body-weight-bold, 700);
+  max-width: none;
+  font-family: var(--vp-landing-font-heading, var(--font-heading-family));
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 700;
   letter-spacing: -0.03em;
-  line-height: 1.06;
+  line-height: 1.08;
+}
+
+.vp-landing-diners__heading-line {
+  display: block;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 749.98px) {
+  .vp-landing-diners__heading-line {
+    white-space: normal;
+  }
 }
 
 .vp-landing-diners__text {
-  margin: 1.6rem 0 0;
-  max-width: 34.8rem;
+  margin: 16px 0 0;
+  max-width: 348px;
   color: rgba(255, 255, 255, 0.88);
-  font-size: clamp(1.6rem, 2vw, 2.2rem);
-  font-weight: 500;
+  font-family: var(--vp-landing-font-body, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 400;
   line-height: 1.35;
 }
 
-.vp-landing-diners__text strong {
+.vp-landing-diners__text p,
+.vp-landing-diners__text span {
+  font-weight: 400;
+}
+
+.vp-landing-diners__text strong,
+.vp-landing-diners__text b {
+  font-family: var(--vp-landing-font-heading, var(--font-heading-family));
   font-weight: 700;
 }
 
@@ -86,12 +111,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-top: 3rem;
-  padding: 1.3rem 2.6rem;
+  margin-top: 30px;
+  padding: 13px 26px;
   border-radius: 999px;
   background: #fff;
   color: #0071e3;
-  font-size: 1.7rem;
+  font-family: var(--vp-landing-font-body, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: 17px;
   font-weight: 400;
   line-height: 1;
   text-decoration: none;

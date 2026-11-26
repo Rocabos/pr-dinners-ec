@@ -51,6 +51,16 @@
   }
 }
 
+.vp-landing-pro__feature {
+  transition: transform 0.25s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .vp-landing-pro__feature:hover {
+    transform: scale(1.03);
+  }
+}
+
 .vp-landing-pro__feature-media {
   display: block;
   width: 100%;
@@ -86,14 +96,16 @@
 
 .vp-landing-pro__feature-text {
   margin: 0;
+  max-width: 34rem;
   color: var(--vp-lp-muted);
   font-size: 1.5rem;
-  line-height: 1.45;
+  line-height: 1.4;
+  text-wrap: pretty;
 }
 
 @media screen and (min-width: 750px) {
   .vp-landing-pro__feature-text {
-    font-size: 1.7rem;
+    font-size: 1.65rem;
   }
 }
 
