@@ -68,7 +68,7 @@
             "image_scale": 100,
             "text": "<p>iPhone 18 Pro</p>",
             "text_size": "t3",
-            "card_link": "shopify://collections/iphone-18",
+            "card_link": "shopify://pages/iphone-18-pro",
             "custom_background": ""
           }
         },
