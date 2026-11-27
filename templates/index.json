@@ -60,7 +60,7 @@
             "image": "shopify://shop_images/DESK_iPad_Air_128GB_WiF_1.jpg",
             "mobile_image": "shopify://shop_images/MOB_iPad_Air_1.jpg",
             "image_overlay_opacity": 0,
-            "image_link": "shopify://products/ipad",
+            "image_link": "shopify://products/ipad-air",
             "horizontal_offset": -6,
             "vertical_offset": -4.8,
             "desktop_content_position": "md:justify-start md:items-center",
