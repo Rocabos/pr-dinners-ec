@@ -214,6 +214,13 @@
             "show_pickup_availability": false
           }
         },
+        "sami_flash_sale_discount_app_block_countdown_AniGFp": {
+          "type": "shopify://apps/sami-flash-sale-discount/blocks/app-block-countdown/4a43514a-3558-477f-914e-e834a137453e",
+          "disabled": true,
+          "settings": {
+            "shortcode": "<div class=\"samita-countdown\" data-id=\"14738\" data-type=\"timer\"></div>"
+          }
+        },
         "spacer_gBXtRY": {
           "type": "spacer",
           "settings": {
@@ -413,6 +420,7 @@
         "variant_picker",
         "spacer_UYdQbz",
         "buy_buttons",
+        "sami_flash_sale_discount_app_block_countdown_AniGFp",
         "spacer_gBXtRY",
         "icon_with_text_BHNnm7",
         "panel_8URXGi",

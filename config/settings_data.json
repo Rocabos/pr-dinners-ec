@@ -211,6 +211,11 @@
         "type": "shopify://apps/microsoft-clarity/blocks/clarity_js/31c3d126-8116-4b4a-8ba1-baeda7c4aeea",
         "disabled": false,
         "settings": {}
+      },
+      "12415617228535682091": {
+        "type": "shopify://apps/sami-flash-sale-discount/blocks/app-embed-block/4a43514a-3558-477f-914e-e834a137453e",
+        "disabled": true,
+        "settings": {}
       }
     },
     "color_schemes": {
