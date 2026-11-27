@@ -22,7 +22,6 @@
   - color_scheme: {String} - The color scheme to use. Optioanl, defaults to the standard product card color scheme.
   - columns_desktop: {Number} - The number of desktop columns per row this card shows in (ie the card size). (Optiona, defaults to 4).
   - columns_mobile: {Number} - The number of mobile columns per row this card shows in (ie the card size). (Optiona, defaults to 4).
-
   Usage:
   {% render 'card-product', show_vendor: section.settings.show_vendor %}
 {% endcomment %}
@@ -50,9 +49,42 @@
     assign quick_add_icon_over_image = 'never'
     assign quick_add_out_of_stock = 'disabled'
   endif
+
+  assign vp_show_card_countdown = false
+  assign vp_card_countdown_code = settings.card_countdown_code | default: '<div class="samita-countdown" data-id="14738" data-type="timer"></div>'
+  assign vp_card_countdown_id = ''
+  assign vp_countdown_parts = vp_card_countdown_code | split: 'data-id="'
+  if vp_countdown_parts.size > 1
+    assign vp_card_countdown_id = vp_countdown_parts[1] | split: '"' | first | strip
+  endif
+  if vp_card_countdown_id == blank
+    assign vp_countdown_parts = vp_card_countdown_code | split: "data-id='"
+    if vp_countdown_parts.size > 1
+      assign vp_card_countdown_id = vp_countdown_parts[1] | split: "'" | first | strip
+    endif
+  endif
+  if vp_card_countdown_id != blank
+    assign vp_card_countdown_tag = settings.card_countdown_tag | strip
+    if vp_card_countdown_tag == blank
+      assign vp_show_card_countdown = true
+    elsif card_product.tags contains vp_card_countdown_tag
+      assign vp_show_card_countdown = true
+    endif
+  endif
 -%}
 
+{%- capture vp_card_countdown_html -%}
+  {%- if vp_show_card_countdown -%}
+    <div class="card__countdown">
+      <div class="samita-countdown block-when-empty" data-id="{{ vp_card_countdown_id | escape }}" data-type="timer"></div>
+    </div>
+  {%- endif -%}
+{%- endcapture -%}
+
 {{ 'vp-product-badge.css' | asset_url | stylesheet_tag }}
+{%- if vp_show_card_countdown -%}
+  {% render 'vp-card-countdown-assets' %}
+{%- endif -%}
 
 {%- if card_product.quantity_price_breaks_configured? -%}
   <link
@@ -903,6 +935,7 @@
             </product-form>
           {%- endcapture -%}
 
+          {{ vp_card_countdown_html }}
           <div class="flex flex-col lg:flex-row justify-center {%- if show_see_more %}justify-between{%- endif %} items-center quick-add no-js-hidden{% if horizontal_quick_add and horizontal_mini != true %} pt-15{% endif %}">
             {%- if quick_add_popup == 'standard'
               or card_product.available == false
@@ -1091,6 +1124,8 @@
               {% endif %}
             {%- endif -%}
           </div>
+        {%- elsif vp_show_card_countdown -%}
+          {{ vp_card_countdown_html }}
         {%- endif -%}
       </div>
 

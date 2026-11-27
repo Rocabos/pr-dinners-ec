@@ -1255,6 +1255,22 @@
       },
       {
         "type": "header",
+        "content": "Contador en tarjetas"
+      },
+      {
+        "type": "textarea",
+        "id": "card_countdown_code",
+        "label": "Código del contador (app Samita)",
+        "default": "<div class=\"samita-countdown\" data-id=\"14738\" data-type=\"timer\"></div>",
+        "info": "Pega el div que da la app, ej. <div class=\"samita-countdown\" data-id=\"...\" data-type=\"timer\"></div>"
+      },
+      {
+        "type": "text",
+        "id": "card_countdown_tag",
+        "label": "Mostrar solo en productos con esta etiqueta (vacío = todos)"
+      },
+      {
+        "type": "header",
         "content": "Quick add"
       },
       {
