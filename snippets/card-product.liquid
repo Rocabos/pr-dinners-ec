@@ -51,24 +51,26 @@
   endif
 
   assign vp_show_card_countdown = false
-  assign vp_card_countdown_code = settings.card_countdown_code | default: '<div class="samita-countdown" data-id="14738" data-type="timer"></div>'
+  assign vp_card_countdown_code = settings.card_countdown_code | strip
   assign vp_card_countdown_id = ''
-  assign vp_countdown_parts = vp_card_countdown_code | split: 'data-id="'
-  if vp_countdown_parts.size > 1
-    assign vp_card_countdown_id = vp_countdown_parts[1] | split: '"' | first | strip
-  endif
-  if vp_card_countdown_id == blank
-    assign vp_countdown_parts = vp_card_countdown_code | split: "data-id='"
+  if settings.card_countdown_enable and vp_card_countdown_code != blank
+    assign vp_countdown_parts = vp_card_countdown_code | split: 'data-id="'
     if vp_countdown_parts.size > 1
-      assign vp_card_countdown_id = vp_countdown_parts[1] | split: "'" | first | strip
+      assign vp_card_countdown_id = vp_countdown_parts[1] | split: '"' | first | strip
     endif
-  endif
-  if vp_card_countdown_id != blank
-    assign vp_card_countdown_tag = settings.card_countdown_tag | strip
-    if vp_card_countdown_tag == blank
-      assign vp_show_card_countdown = true
-    elsif card_product.tags contains vp_card_countdown_tag
-      assign vp_show_card_countdown = true
+    if vp_card_countdown_id == blank
+      assign vp_countdown_parts = vp_card_countdown_code | split: "data-id='"
+      if vp_countdown_parts.size > 1
+        assign vp_card_countdown_id = vp_countdown_parts[1] | split: "'" | first | strip
+      endif
+    endif
+    if vp_card_countdown_id != blank
+      assign vp_card_countdown_tag = settings.card_countdown_tag | strip
+      if vp_card_countdown_tag == blank
+        assign vp_show_card_countdown = true
+      elsif card_product.tags contains vp_card_countdown_tag
+        assign vp_show_card_countdown = true
+      endif
     endif
   endif
 -%}
