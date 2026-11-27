@@ -106,7 +106,7 @@
             "coupon_icon_to": "#e3002b",
             "coupon_title": "Cupones disponibles.",
             "coupon_text": "Ahorra en tu compra con los cupones y descuentos que tienes disponibles. Aplicalos al pagar y el descuento se refleja al instante.",
-            "coupon_link_label": "Ver mis cupones",
+            "coupon_link_label": "Ver ofertas",
             "coupon_link": "shopify://collections/ofertas",
             "installment_icon_from": "#2e9bff",
             "installment_icon_to": "#0040dd",
