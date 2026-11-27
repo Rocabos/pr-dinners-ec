@@ -59,6 +59,8 @@
     "swatch_size": 1.2,
     "swatch_limit": 10,
     "swatch_hide_singles": false,
+    "card_countdown_code": "<div class=\"samita-countdown\" data-id=\"14738\" data-type=\"timer\"></div>",
+    "card_countdown_tag": "",
     "card_enable_quick_add": true,
     "quick_add_popup_style": "side",
     "quick_add_out_of_stock": "disabled",
@@ -214,7 +216,7 @@
       },
       "12415617228535682091": {
         "type": "shopify://apps/sami-flash-sale-discount/blocks/app-embed-block/4a43514a-3558-477f-914e-e834a137453e",
-        "disabled": true,
+        "disabled": false,
         "settings": {}
       }
     },

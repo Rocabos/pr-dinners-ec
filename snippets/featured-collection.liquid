@@ -13,7 +13,7 @@
   Usage:
   {% render 'featured-collection', products_to_show: section.settings.products_to_show %}
 {% endcomment %}
-{%- if request.design_mode
+  {%- if request.design_mode
   or section.settings.hide_when_empty == false
   or section.settings.collection.all_products_count > 0
   or product_count > 0
