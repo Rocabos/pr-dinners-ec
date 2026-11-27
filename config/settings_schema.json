@@ -1258,16 +1258,24 @@
         "content": "Contador en tarjetas"
       },
       {
+        "type": "checkbox",
+        "id": "card_countdown_enable",
+        "default": false,
+        "label": "Mostrar contador en tarjetas"
+      },
+      {
         "type": "textarea",
         "id": "card_countdown_code",
         "label": "Código del contador (app Samita)",
         "default": "<div class=\"samita-countdown\" data-id=\"14738\" data-type=\"timer\"></div>",
-        "info": "Pega el div que da la app, ej. <div class=\"samita-countdown\" data-id=\"...\" data-type=\"timer\"></div>"
+        "info": "Pega el div que da la app, ej. <div class=\"samita-countdown\" data-id=\"...\" data-type=\"timer\"></div>",
+        "visible_if": "{{ settings.card_countdown_enable }}"
       },
       {
         "type": "text",
         "id": "card_countdown_tag",
-        "label": "Mostrar solo en productos con esta etiqueta (vacío = todos)"
+        "label": "Mostrar solo en productos con esta etiqueta (vacío = todos)",
+        "visible_if": "{{ settings.card_countdown_enable }}"
       },
       {
         "type": "header",

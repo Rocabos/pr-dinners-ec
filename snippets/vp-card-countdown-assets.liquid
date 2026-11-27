@@ -4,13 +4,18 @@
 {% enddoc %}
 {%- liquid
   assign vp_cd_id = ''
-  assign vp_cd_code = settings.card_countdown_code
-  if vp_cd_code == blank
-    assign vp_cd_code = '<div class="samita-countdown" data-id="14738" data-type="timer"></div>'
-  endif
-  assign vp_cd_parts = vp_cd_code | split: 'data-id="'
-  if vp_cd_parts.size > 1
-    assign vp_cd_id = vp_cd_parts[1] | split: '"' | first | strip
+  assign vp_cd_code = settings.card_countdown_code | strip
+  if settings.card_countdown_enable and vp_cd_code != blank
+    assign vp_cd_parts = vp_cd_code | split: 'data-id="'
+    if vp_cd_parts.size > 1
+      assign vp_cd_id = vp_cd_parts[1] | split: '"' | first | strip
+    endif
+    if vp_cd_id == blank
+      assign vp_cd_parts = vp_cd_code | split: "data-id='"
+      if vp_cd_parts.size > 1
+        assign vp_cd_id = vp_cd_parts[1] | split: "'" | first | strip
+      endif
+    endif
   endif
 -%}
 {%- if vp_cd_id != blank -%}
