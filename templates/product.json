@@ -217,7 +217,7 @@
         "sami_flash_sale_discount_app_block_countdown_AniGFp": {
           "type": "shopify://apps/sami-flash-sale-discount/blocks/app-block-countdown/4a43514a-3558-477f-914e-e834a137453e",
           "settings": {
-            "shortcode": "<div class=\"samita-countdown\" data-id=\"14764\" data-type=\"timer\"></div>"
+            "shortcode": "<div class=\"samita-countdown\" data-id=\"14766\" data-type=\"timer\"></div>"
           }
         },
         "spacer_gBXtRY": {
